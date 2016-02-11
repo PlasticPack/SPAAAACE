@@ -1,3 +1,7 @@
+#ifndef MAIN_PHYSICS_H
+#define MAIN_PHYSICS_H
+
+
 #pragma once
 
 #include "Body.h"
@@ -36,3 +40,5 @@ namespace Physics {
 	int max(int a, int b);
 	int min(int a, int b);
 }
+
+#endif MAIN_PHYSICS_H

@@ -1,3 +1,6 @@
+#ifndef MAIN_GRAPHICS_H
+#define MAIN_GRAPHICS_H
+
 #pragma once
 #include "SpriteSheet.h"
 
@@ -18,3 +21,5 @@ namespace Graphics{
 
 	
 }
+
+#endif MAIN_GRAPHICS_H
