@@ -1,0 +1,21 @@
+﻿La génération a démarré 2016-02-17 10:29:48.
+     1>Projet "C:\Users\Tristan\Documents\GitHub\SPAAAACE\SPAAAACE\SPAAAACE\SPAAAACE.vcxproj" sur le nœud 2 (Build cible(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"..\..\..\SDL2-2.0.4\include" /I"..\..\..\LuaBridge-master\Source\LuaBridge\detail" /I..\..\..\Lua\5.2\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Body.cpp main.cpp main_Graphics.cpp main_Physics.cpp SpriteSheet.cpp Vec2.cpp
+         Vec2.cpp
+         SpriteSheet.cpp
+     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\spritesheet.h(2): fatal error C1083: Impossible d'ouvrir le fichier include : 'SDL.h' : No such file or directory
+         main_Physics.cpp
+     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\main_physics.cpp(105): warning C4018: '<' : incompatibilité signed/unsigned
+     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\main_physics.cpp(106): warning C4018: '<' : incompatibilité signed/unsigned
+     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\main_physics.cpp(135): warning C4018: '<' : incompatibilité signed/unsigned
+         main_Graphics.cpp
+     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\spritesheet.h(2): fatal error C1083: Impossible d'ouvrir le fichier include : 'SDL.h' : No such file or directory
+         main.cpp
+         Body.cpp
+         Génération de code en cours...
+     1>Génération du projet "C:\Users\Tristan\Documents\GitHub\SPAAAACE\SPAAAACE\SPAAAACE\SPAAAACE.vcxproj" terminée (Build cible(s)) -- ÉCHEC.
+
+ÉCHEC de la build.
+
+Temps écoulé 00:00:03.42
