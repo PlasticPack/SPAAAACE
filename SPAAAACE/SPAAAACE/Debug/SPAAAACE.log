@@ -1,0 +1,21 @@
+﻿La génération a démarré 2016-02-21 15:01:38.
+     1>Projet "C:\Users\Tristan\Documents\GitHub\SPAAAACE\SPAAAACE\SPAAAACE\SPAAAACE.vcxproj" sur le nœud 2 (Build cible(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"..\..\SDL2_mixer-2.0.1\include" /I"..\..\SDL2_image-2.0.1\include" /I"..\..\SDL2-2.0.4\include" /I"..\..\LuaBridge-master\Source\LuaBridge\detail" /I..\..\Lua\5.2\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt SpriteSheet.cpp main_Graphics.cpp
+         SpriteSheet.cpp
+         Génération de code en cours...
+         Ignoré... (aucune modification pertinente détectée)
+         main_Graphics.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Tristan\Documents\GitHub\SPAAAACE\SPAAAACE\Debug\SPAAAACE.exe" /INCREMENTAL /NOLOGO /LIBPATH:"..\..\SDL2_mixer-2.0.1\lib\x86" /LIBPATH:"..\..\SDL2_image-2.0.1\lib\x86" /LIBPATH:"..\..\SDL2-2.0.4\lib\x86" /LIBPATH:..\..\Lua\5.2\lib lua5.2.lib SDL2main.lib SDL2.lib SDL2_image.lib SDL2_mixer.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Tristan\Documents\GitHub\SPAAAACE\SPAAAACE\Debug\SPAAAACE.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Tristan\Documents\GitHub\SPAAAACE\SPAAAACE\Debug\SPAAAACE.lib" /MACHINE:X86 Debug\Body.obj
+         Debug\main.obj
+         Debug\main_Graphics.obj
+         Debug\main_Physics.obj
+         Debug\SpriteSheet.obj
+         Debug\Vec2.obj
+         SPAAAACE.vcxproj -> C:\Users\Tristan\Documents\GitHub\SPAAAACE\SPAAAACE\Debug\SPAAAACE.exe
+     1>Génération du projet "C:\Users\Tristan\Documents\GitHub\SPAAAACE\SPAAAACE\SPAAAACE\SPAAAACE.vcxproj" terminée (Build cible(s)).
+
+La génération a réussi.
+
+Temps écoulé 00:00:04.58
