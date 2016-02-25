@@ -1,22 +1,51 @@
 #include "SpriteSheet.h"
 
+SpriteSheet::SpriteSheet(){
+	m_texture = nullptr;
+	m_animationSpeed = 1;
+	m_timer = 0;
+	m_currentRect = SDL_Rect{0,0,0,0};
+	//std::cout << "DEFAULT SPRSHEET " << this << " CREATED\n";
+}
 
-SpriteSheet::SpriteSheet(SDL_Texture *texture, SDL_Rect rectSize, SDL_Rect sheetSize) : m_sheetSize(sheetSize)
+SpriteSheet::SpriteSheet(SDL_Texture* texture, SDL_Rect rectSize, SDL_Rect sheetSize) : m_sheetSize(sheetSize)
 {
 	m_texture = texture;
 	m_animationSpeed = 1;
 	m_timer = 0;
 	m_currentRect = SDL_Rect{ 0, 0, rectSize.w, rectSize.h };
+	//std::cout << "CUSTOM SPRSHEET : " << this << " w/ texture " << texture <<  "\n";
+}
+
+SpriteSheet::SpriteSheet(SpriteSheet const& a){
+	if (this != &a){
+		//std::cout << "Copying " << &a << " to " << this << "\n";
+		m_texture = a.m_texture; // pas besoin de faire de deep copy
+		m_animationSpeed = a.m_animationSpeed;
+		m_timer = a.m_timer;
+		m_currentRect = a.m_currentRect;
+	}
+}
+
+SpriteSheet& SpriteSheet::operator=(SpriteSheet const& a){
+	if (this != &a){
+		//std::cout << "Copying " << &a << " to " << this << "\n";
+		m_texture = a.m_texture;
+		m_animationSpeed = a.m_animationSpeed;
+		m_timer = a.m_timer;
+		m_currentRect = a.m_currentRect;
+	}
+	return *this;
 }
 
 void SpriteSheet::nextRect(double dt){
 	//si on a pris assez de temps pour la frame
 	m_timer += dt;
 
-	if (m_timer > 1.0/m_animationSpeed){
+	if (m_timer > 1.0 / m_animationSpeed){
 		m_timer = 0;
 		m_currentRect.x += m_currentRect.w;
-		
+
 		if (m_currentRect.x + m_currentRect.w > m_sheetSize.w){
 			m_currentRect.x = 0;
 
@@ -42,22 +71,8 @@ SDL_Texture* SpriteSheet::getTexture(){
 	return m_texture;
 }
 
-void SpriteSheet::setColorMod(Uint8 red, Uint8 green, Uint8 blue)
-{
-	SDL_SetTextureColorMod(m_texture, red, green, blue);
-}
-void SpriteSheet::setColorAlpha(Uint8 alpha)
-{
-	SDL_SetTextureAlphaMod(m_texture, alpha);
-}
-
-void SpriteSheet::setBlendMode(SDL_BlendMode blendModeFlag)
-{
-
-	SDL_SetTextureBlendMode(m_texture, blendModeFlag);
-}
-
 SpriteSheet::~SpriteSheet()
 {
+	//std::cout << "Destroying SpriteSheet " << this << " with texture " << m_texture << "\n";
 	SDL_DestroyTexture(m_texture);
 }
