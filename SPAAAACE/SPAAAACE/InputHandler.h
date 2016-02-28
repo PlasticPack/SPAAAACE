@@ -1,47 +1,25 @@
 #pragma once
 #include <SDL.h>
 #include <string>
+#include <map>
+#include "Flags.h"
 
 
-enum 
-{
-	GP_DPAD_UP,
-	GP_DPAD_DOWN,
-	GP_DPAD_LEFT,
-	GP_DPAD_RIGHT,
-	GP_SELECT,
-	GP_START,
-	GP_LEFT_STICK_PUSH,
-	GP_RIGHT_STICK_PUSH,
-	GP_LB,
-	GP_RB,
-	GP_BUTTON_A,
-	GP_BUTTON_B,
-	GP_BUTTON_X,
-	GP_BUTTON_Y
-};
-
-enum
-{
-	AC_START = 0x9000
-};
-
-struct Action
-{
-	int inputFlag;
-	int actionFlag;
-};
 
 class InputsHandler
 {
 private:
 	
+
 	Uint8* m_inputClavier;
 	SDL_Event m_event;
 	SDL_Joystick* m_manette;
-
+	SDL_Haptic* m_haptic;
+	int m_nbAction;
 	
-
+	//fonction privée
+	std::map<int,int> m_action;
+	std::map<int, double> m_trigeredAction;
 	bool openJoystick();
 	void closeJoystick();
 
@@ -61,4 +39,13 @@ public:
 	*
 	*/
 	void update(); 
+
+	double checkTriggeredAction(int const &flags);
+	void setActionTrigger(int const& actionFlag, int const& inputFlag);
+
+
+
+	bool isJoyConnected();
+	void rumbleJoy(unsigned temps, double puissance = 1);
+
 };
