@@ -1,10 +1,13 @@
-﻿La génération a démarré 28/02/2016 02:26:55.
+﻿La génération a démarré 29/02/2016 02:32:21.
      1>Projet "C:\Users\PlasticPack\Documents\GitHub\SPAAAACE\SPAAAACE\SPAAAACE\SPAAAACE.vcxproj" sur le nœud 2 (Build cible(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\MSXML6 /I"..\..\SDL2_mixer-2.0.1\include" /I"..\..\SDL2_image-2.0.1\include" /I"..\..\SDL2-2.0.4\include" /I"..\..\LuaBridge-master\Source\LuaBridge\detail" /I..\..\Lua\5.2\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt InputHandler.cpp main.cpp
          main.cpp
+     1>c:\users\plasticpack\documents\github\spaaaace\spaaaace\spaaaace\main.cpp(38): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+     1>c:\users\plasticpack\documents\github\spaaaace\spaaaace\spaaaace\main.cpp(39): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
          InputHandler.cpp
-     1>c:\users\plasticpack\documents\github\spaaaace\spaaaace\spaaaace\inputhandler.cpp(128): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+     1>c:\users\plasticpack\documents\github\spaaaace\spaaaace\spaaaace\inputhandler.cpp(58): warning C4018: '>' : incompatibilité signed/unsigned
+     1>c:\users\plasticpack\documents\github\spaaaace\spaaaace\spaaaace\inputhandler.cpp(136): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
          Génération de code en cours...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\PlasticPack\Documents\GitHub\SPAAAACE\SPAAAACE\Debug\SPAAAACE.exe" /INCREMENTAL /NOLOGO /LIBPATH:"..\..\SDL2_mixer-2.0.1\lib\x86" /LIBPATH:"..\..\SDL2_image-2.0.1\lib\x86" /LIBPATH:"..\..\SDL2-2.0.4\lib\x86" /LIBPATH:..\..\Lua\5.2\lib lua5.2.lib SDL2main.lib SDL2.lib SDL2_image.lib SDL2_mixer.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\PlasticPack\Documents\GitHub\SPAAAACE\SPAAAACE\Debug\SPAAAACE.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\PlasticPack\Documents\GitHub\SPAAAACE\SPAAAACE\Debug\SPAAAACE.lib" /MACHINE:X86 Debug\Body.obj
@@ -19,4 +22,4 @@
 
 La génération a réussi.
 
-Temps écoulé 00:00:04.42
+Temps écoulé 00:00:02.42

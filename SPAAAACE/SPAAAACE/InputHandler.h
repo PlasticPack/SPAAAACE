@@ -3,7 +3,8 @@
 #include <string>
 #include <map>
 #include "Flags.h"
-
+#include "Vec2.h"
+#include <math.h>
 
 
 class InputsHandler
@@ -13,15 +14,19 @@ private:
 
 	Uint8* m_inputClavier;
 	SDL_Event m_event;
+
+	//variable pour manettes
 	SDL_Joystick* m_manette;
 	SDL_Haptic* m_haptic;
-	int m_nbAction;
+	unsigned m_deadzone;
 	
-	//fonction privée
 	std::map<int,int> m_action;
 	std::map<int, double> m_trigeredAction;
+	
+	//fonction privée
 	bool openJoystick();
 	void closeJoystick();
+	void clearTriggeredAction();
 
 public:
 	//Initialise la manette 0 s'il en a une de connecté
@@ -47,5 +52,6 @@ public:
 
 	bool isJoyConnected();
 	void rumbleJoy(unsigned temps, double puissance = 1);
+
 
 };
