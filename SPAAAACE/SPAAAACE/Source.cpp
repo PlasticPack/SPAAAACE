@@ -1,11 +1,9 @@
-#include <iostream>
+/*#include <iostream>
 #include <SDL.h>
 #include "Scene.h"
 
 const int SCREEN_W = 1600;
 const int SCREEN_H = 900;
-
-#undef main
 
 int main(int argc, char* argv[]){
 
@@ -17,10 +15,10 @@ int main(int argc, char* argv[]){
 
 	bool quit = false;
 	SDL_Event e;
-
+	
 	Scene mainScene;
-
-
+	
+	
 	while (!quit) {
 		while (SDL_PollEvent(&e) != 0){
 			if (e.type == SDL_QUIT){
@@ -49,14 +47,14 @@ int main(int argc, char* argv[]){
 		SDL_RenderDrawPoint(renderer, pos3.x(), pos3.y());
 
 		SDL_SetRenderDrawColor(renderer, 200, 255, 0, 255);
-		SDL_RenderDrawPoint(renderer, pos4.x(), pos4.y());*/
+		SDL_RenderDrawPoint(renderer, pos4.x(), pos4.y());
 
 		//SDL_RenderPresent(renderer);
 	}
 
 	/*SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(win);*/
+	SDL_DestroyWindow(win);
 	SDL_Quit();
 
 	return 0;
-}
+}*/

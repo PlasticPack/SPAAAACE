@@ -4,7 +4,7 @@
 
 /**************************************
 Classe qui représente un vecteur 2D
-manipulable, sur lequel on peut 
+manipulable, sur lequel on peut
 effectuer des opérations de base
 **************************************/
 
@@ -14,7 +14,7 @@ public:
 	Vec2(const Vec2& v);
 	Vec2(double, double);
 
-	Vec2 operator+(const Vec2 &vec); 
+	Vec2 operator+(const Vec2 &vec);
 	Vec2 operator-(const Vec2 &vec); //plus simple que de faire A + (-1 * b)
 
 	Vec2 operator*(const double k); // multiplication par un scalaire
@@ -35,12 +35,12 @@ public:
 
 	void normalize();
 
-	double x() { 
-		return m_x; 
+	double x() {
+		return m_x;
 	}
 
 	double y() {
-		return m_y; 
+		return m_y;
 	}
 
 	void setCoords(const double x, const double y) {
@@ -49,16 +49,16 @@ public:
 	}
 
 	void setX(const double x) {
-		m_x = x; 
+		m_x = x;
 	}
 
-	void setY(const double y) { 
-		m_y = y; 
+	void setY(const double y) {
+		m_y = y;
 	}
 
 	double getLength(){ // retourne la longueur du vecteur
-		return sqrt((m_x*m_x) + (m_y*m_y)); 
-	} 
+		return sqrt((m_x*m_x) + (m_y*m_y));
+	}
 
 	double getDist(Vec2 vec) { // retourne la distance à un point (représenté par un vecteur)
 		return sqrt(((m_x - vec.m_x) * (m_x - vec.m_x)) + ((m_y - vec.m_y) * (m_y - vec.m_y)));

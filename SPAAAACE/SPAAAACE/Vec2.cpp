@@ -20,7 +20,7 @@ double Vec2::crossProduct(const Vec2 &vec){
 	return (m_x * vec.m_y) - (m_y * vec.m_x);
 }
 Vec2 Vec2::getNormalized(){
-	
+
 	Vec2 vec(m_x, m_y);
 	vec.normalize();
 
@@ -45,7 +45,7 @@ void Vec2::normalize(){
 }
 
 bool Vec2::operator==(const Vec2 &vec){
-	
+
 	return (m_x == vec.m_x) && (m_y == vec.m_y);
 }
 
