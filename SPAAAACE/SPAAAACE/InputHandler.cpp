@@ -5,10 +5,6 @@ using namespace std;
 
 InputsHandler::InputsHandler() : m_manette(NULL), m_haptic(NULL), m_inputClavier(NULL), m_deadzone(4000)
 {
-	for (int i = debutActionList; i < AC_NUMBER_OF_ACTION; i++)
-	{
-		m_action[i] = i - debutActionList;
-	}
 
 }
 
@@ -22,10 +18,10 @@ bool InputsHandler::loadConfig(string const& path)
 	return true;
 }
 
-void InputsHandler::update()
+void InputsHandler::update() // MOD
 {
 	clearTriggeredAction();
-	map<int, int>::iterator m_actionIt;
+	multimap < int, std::pair<int, double> >::iterator m_actionIt;
 	while (SDL_PollEvent(&m_event))
 	{
 		if (m_event.type == SDL_QUIT)
@@ -53,10 +49,15 @@ void InputsHandler::update()
 				if (m_event.jaxis.which == 0)
 				{
 					for (m_actionIt = m_action.begin(); m_actionIt != m_action.end(); ++m_actionIt)
-					if (m_event.jaxis.axis == m_actionIt->second - debutGamePadAxisList)
+					if (m_event.jaxis.axis == m_actionIt->second.first - debutGamePadAxisList)
 					{
-						if (abs(m_event.jaxis.value) > m_deadzone || m_event.jaxis.axis > 3 )
-						m_trigeredAction[m_actionIt->first] = m_event.jaxis.value;
+							
+								if (abs(m_event.jaxis.value) > m_deadzone || m_event.jaxis.axis > 3)
+									m_actionIt->second.second = m_event.jaxis.value;
+								else
+									m_actionIt->second.second = 0;
+
+							
 					}
 					
 
@@ -71,9 +72,9 @@ void InputsHandler::update()
 			
 				for (m_actionIt = m_action.begin(); m_actionIt != m_action.end(); ++m_actionIt)
 				{
-					if (m_event.jbutton.button == m_actionIt->second - debutGamePadButtonList)
+					if (m_event.jbutton.button == m_actionIt->second.first - debutGamePadButtonList) // MOD
 					{
-						m_trigeredAction[m_actionIt->first] = 1;
+						m_actionIt->second.second = 1;// MOD
 					}
 				}
 			}
@@ -81,9 +82,9 @@ void InputsHandler::update()
 			{
 				for (m_actionIt = m_action.begin(); m_actionIt != m_action.end(); ++m_actionIt)
 				{
-					if (m_event.jbutton.button == m_actionIt->second - debutGamePadButtonList)
+					if (m_event.jbutton.button == m_actionIt->second.first - debutGamePadButtonList)// MOD
 					{
-						m_trigeredAction.erase(m_actionIt->first);
+						m_actionIt->second.second = 0;
 					}
 				}
 			}
@@ -96,35 +97,60 @@ void InputsHandler::update()
 
 	for (m_actionIt = m_action.begin(); m_actionIt != m_action.end(); ++m_actionIt)
 	{
-		if (inputClavier[m_actionIt->second])
+		if (inputClavier[m_actionIt->second.first])
 		{
-			m_trigeredAction[m_actionIt->first] = 1;
+			m_actionIt->second.second = 1;
 		}
 	}
 }
 //ACTION
-double InputsHandler::checkTriggeredAction(int const &flags)
+double InputsHandler::checkTriggeredAction(int const &actionFlags) 
 {
-	return m_trigeredAction[flags];
+	double value = 0;
+	pair<multimap < int, std::pair<int, double> >::iterator, multimap < int, std::pair<int, double> >::iterator> range = m_action.equal_range(actionFlags);
+	multimap < int, std::pair<int, double> >::iterator it;
+	for (it = range.first; it != range.second; ++it)
+	 {
+		 if (abs(it->second.second) > value)
+			 value = it->second.second;
+	 }
+	return value;
 }
 
-void InputsHandler::setActionTrigger(int const& actionFlag, int const& inputFlag)
+void InputsHandler::setActionTrigger(int const& actionFlag, int const& inputFlag) 
 {
-	m_action[actionFlag] = inputFlag;
+	m_action.insert(make_pair(actionFlag, make_pair(inputFlag,0))); 
 }
 
-void InputsHandler::clearTriggeredAction()
+void InputsHandler::clearTriggeredAction() 
 {
-	map<int, double>::iterator it = m_trigeredAction.begin();
-	while (it != m_trigeredAction.end())
+	multimap<int,std::pair<int,double>>::iterator it = m_action.begin();
+	while (it != m_action.end())
 	{
-		if (m_action[it->first] < debutGamePadButtonList)
-			m_trigeredAction.erase(it++);
-		else
+		if (it->second.first < debutGamePadButtonList)
+			it->second.second = 0; 
 			++it;
 	}
 }
 
+void InputsHandler::eraseInputsInAction(int const& actionFlag)
+{
+	m_action.erase(actionFlag);
+}
+void eraseKeyboardInputsInAction(int const& actionFlag)
+{
+	pair<multimap < int, std::pair<int, double> >::iterator, multimap < int, std::pair<int, double> >::iterator> range = m_action.equal_range(actionFlag);
+	multimap < int, std::pair<int, double> >::iterator it;
+	for (it = range.first; it != range.second; ++it)
+	{
+		if (it->second.first < debutGamePadButtonList)
+			;// lol jfait quoije
+	}
+}
+void eraseJoystickInputsInAction(int const& actionFlag)
+{
+
+}
 //JOYSTICk FUNCTION
 bool InputsHandler::isJoyConnected()
 {
@@ -175,4 +201,13 @@ void InputsHandler::closeJoystick()
 	m_haptic = NULL;
 	SDL_JoystickClose(m_manette);
 	m_manette = NULL;
+}
+
+void InputsHandler::setJoyDeadzone(unsigned const& deadzone)
+{
+	m_deadzone = deadzone;
+}
+unsigned InputsHandler::getJoyDeadzone()
+{
+	return m_deadzone;
 }

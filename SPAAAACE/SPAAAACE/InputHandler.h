@@ -11,7 +11,7 @@ class InputsHandler
 {
 private:
 	
-
+	
 	Uint8* m_inputClavier;
 	SDL_Event m_event;
 
@@ -20,8 +20,7 @@ private:
 	SDL_Haptic* m_haptic;
 	unsigned m_deadzone;
 	
-	std::map<int,int> m_action;
-	std::map<int, double> m_trigeredAction;
+	std::multimap<int,std::pair<int,double> > m_action;
 	
 	//fonction privée
 	bool openJoystick();
@@ -29,7 +28,7 @@ private:
 	void clearTriggeredAction();
 
 public:
-	//Initialise la manette 0 s'il en a une de connecté
+	//Initialise les actions
 	InputsHandler();
 
 	~InputsHandler();
@@ -41,17 +40,41 @@ public:
 	bool loadConfig(std::string const& path);
 	/*
 	*Prends tout les inputs
-	*
+	*!!!S'ASSURER QUE CETTE FONCTION SOIT UPDATÉ TOUS LES FRAMES POUR UN BON FONCITONNEMENT!!!!
+	* |->checkTriggeredAction()<-| pour voir le statut des actions
 	*/
 	void update(); 
 
-	double checkTriggeredAction(int const &flags);
+	/*
+	* Renvoi le statut de l'action demendé
+	*@param actionFlag : l'action que vous voulez regarder
+	* Les actions commencent par *AC_*
+	*ex de actionFlag : AC_EXIT pour voir si l'utilisateur veut quitter
+	* encodage de valeur : 0 = false, reste = true 
+	*si valeur analogique (joystick) renvoie la valeur en tant que tel
+	*/
+	double checkTriggeredAction(int const &actionFlags);
+
+	/*
+	*Permet de connecter une action à un input
+	*Les actions commencent par "AC_"
+	*ex de actionFlag : AC_EXIT
+	*Les inputs au clavier commencent par "SDL_SCANCODE_"
+	*Les inputs à la manette commencent par "GP_"
+	*ex de inputFlag : SDL_SCANCODE_UP pour la flèche en haut
+	*/
 	void setActionTrigger(int const& actionFlag, int const& inputFlag);
 
-
-
+	void eraseInputsInAction(int const& actionFlag);
+	void eraseKeyboardInputsInAction(int const& actionFlag);
+	void eraseJoystickInputsInAction(int const& actionFlag);
+	/*
+	*Retourne si le joystick est connecté
+	*/
 	bool isJoyConnected();
 	void rumbleJoy(unsigned temps, double puissance = 1);
 
+	void setJoyDeadzone(unsigned const& deadzone);
+	unsigned getJoyDeadzone();
 
 };

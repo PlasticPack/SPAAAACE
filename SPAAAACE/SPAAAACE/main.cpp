@@ -44,7 +44,7 @@ int main(int argc, char* args[])
 
 	//Quit SDL
 	SDL_Quit();
-
+	
 	
 
 	return 0;
