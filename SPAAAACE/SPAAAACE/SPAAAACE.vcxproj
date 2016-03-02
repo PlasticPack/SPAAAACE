@@ -68,7 +68,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Body.cpp" />
-    <ClCompile Include="InputHandler.cpp" />
+    <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="main_Graphics.cpp" />
     <ClCompile Include="main_Physics.cpp" />
@@ -78,7 +78,7 @@
   <ItemGroup>
     <ClInclude Include="Body.h" />
     <ClInclude Include="Flags.h" />
-    <ClInclude Include="InputHandler.h" />
+    <ClInclude Include="InputSystem.h" />
     <ClInclude Include="main_Graphics.h" />
     <ClInclude Include="main_Physics.h" />
     <ClInclude Include="SpriteSheet.h" />

@@ -1,7 +1,7 @@
 #include <SDL.h>
 #include <iostream>
 #include <math.h>
-#include "InputHandler.h"
+#include "InputSystem.h"
 #include <map>
 using namespace std;
 #undef main
@@ -18,7 +18,7 @@ int main(int argc, char* args[])
 	SDL_Renderer* rendeur;
 	SDL_CreateWindowAndRenderer(WIDTH, HEIGHT, SDL_WINDOW_RESIZABLE, &fenetre, &rendeur);
 	
-	InputsHandler in;
+	InputsSystem in;
 
 	in.setActionTrigger(AC_UP, SDL_SCANCODE_UP);
 	in.setActionTrigger(AC_PRINCIPAL_KEY, GP_BUTTON_A);
@@ -30,7 +30,7 @@ int main(int argc, char* args[])
 	{
 		in.update();
 		if (in.checkTriggeredAction(AC_UP))
-			cout << "UP!!" << endl;
+			cout << "UP" << endl;
 		if (in.checkTriggeredAction(AC_PRINCIPAL_KEY))
 			cout << "A" << endl;
 		if (in.checkTriggeredAction(AC_SECONDARY_KEY))
