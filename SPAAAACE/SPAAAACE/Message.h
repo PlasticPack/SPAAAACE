@@ -2,16 +2,11 @@
 #include <map>
 #include <queue>
 #include <string>
+#include "Flags.h"
 typedef std::pair<int, double> typeMsPair;
 typedef std::multimap<std::string, typeMsPair> typeMessage;
 
-enum
-{
-	MS_COLLISION = 0x8500, 
-	MS_X_CHANGED, 
-	MS_Y_CHANGED,
-	MS_SOUND_PLAYED
-};
+
 
 class Message
 {

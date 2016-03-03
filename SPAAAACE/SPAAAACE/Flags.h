@@ -1,5 +1,15 @@
 #pragma once
-const int debutGamePadButtonList = 0x9900; // !!!!NE PAS CHANGER!!!!!
+
+enum message
+{
+	MS_COLLISION = 0x8500,
+	MS_X_CHANGED,
+	MS_Y_CHANGED,
+	MS_SOUND_PLAYED,
+	MS_EXIT_REQUEST
+};
+
+const int debutGamePadButtonList = 0x9900; //<-- !!!!NE PAS CHANGER!!!!!
 enum GamePadButton
 {
 	GP_DPAD_UP = debutGamePadButtonList,

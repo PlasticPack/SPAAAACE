@@ -37,6 +37,7 @@ double Message::getMessage(std::string const& sender, std::string const& fromCom
 		if (it->second.first == msFlag)
 			return it->second.second;
 	}
+	return 0;
 
 }
 

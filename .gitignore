@@ -35,10 +35,6 @@ $RECYCLE.BIN/
 *.ilk
 *.log
 *.lib
-*.sbr
-*.sdf
-*.pyc
-*.xml
 
 # =========================
 # Operating System Files

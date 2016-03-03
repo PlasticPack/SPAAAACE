@@ -7,6 +7,8 @@
 #include <math.h>
 
 
+class InputsComponent;
+
 class InputsSystem
 {
 private:
@@ -43,7 +45,9 @@ public:
 	*!!!S'ASSURER QUE CETTE FONCTION SOIT UPDATÉ TOUS LES FRAMES POUR UN BON FONCITONNEMENT!!!!
 	* |->checkTriggeredAction()<-| pour voir le statut des actions
 	*/
-	void update(); 
+	void pollInputs();
+
+	void update(InputsComponent* inComp);
 
 	/*
 	* Renvoi le statut de l'action demendé

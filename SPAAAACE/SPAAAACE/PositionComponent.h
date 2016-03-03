@@ -11,6 +11,7 @@ zIndex 1 : layer standard, par défaut tout est à ce niveau
 zIndex > 1 : plus "proche" de la caméra
 zIndex < 1 && > 0 : plus loin de la caméra
 */
+class Component;
 
 class PositionComponent : public Component {
 public:
