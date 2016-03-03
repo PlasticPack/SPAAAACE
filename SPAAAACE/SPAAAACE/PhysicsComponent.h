@@ -19,13 +19,15 @@ public:
 	std::shared_ptr<PositionComponent> getPositionComponent();
 	double getMass();
 	double getHitboxRadius();
+	double getPushValue(void);
+
 
 	void setPosition(Vec2 pos);
 	void setVelocity(Vec2 vel);
 	void setForces(Vec2 forces);
 	void setMass(double mass);
 	void setHitboxRadius(double hbr);
-
+	void setPushValue(double pushValue);
 
 	/*Vec2 gravity(PhysicsComponent& b); // retourne la gravité que b exerce sur this
 	
@@ -36,6 +38,7 @@ public:
 protected:
 	std::shared_ptr<PositionComponent> m_posComponent;
 
+	double m_pushValue;
 	double m_mass;
 	Vec2 m_velocity;
 	Vec2 m_forces;

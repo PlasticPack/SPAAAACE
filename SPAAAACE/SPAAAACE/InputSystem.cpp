@@ -1,6 +1,6 @@
 #include "InputSystem.h"
 #include <iostream>
-
+#include "InputsComponent.h"
 using namespace std;
 
 InputsSystem::InputsSystem() : m_manette(NULL), m_haptic(NULL), m_inputClavier(NULL), m_deadzone(4000)
@@ -18,7 +18,12 @@ bool InputsSystem::loadConfig(string const& path)
 	return true;
 }
 
-void InputsSystem::update() // MOD
+void InputsSystem::update(InputsComponent* inComp)
+{
+	inComp->update();
+}
+
+void InputsSystem::pollInputs() 
 {
 	clearTriggeredAction();
 	multimap < int, std::pair<int, double> >::iterator m_actionIt;
@@ -26,7 +31,7 @@ void InputsSystem::update() // MOD
 	{
 		if (m_event.type == SDL_QUIT)
 		{
-			// PAr message
+			m_action.insert(make_pair(AC_EXIT, make_pair(-1, 1)));
 		}
 
 		//Gestion de périphérique
@@ -100,6 +105,7 @@ void InputsSystem::update() // MOD
 			m_actionIt->second.second = 1;
 		}
 	}
+
 }
 //ACTION
 double InputsSystem::checkTriggeredAction(int const &actionFlags) 

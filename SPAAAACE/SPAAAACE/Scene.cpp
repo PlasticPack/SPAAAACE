@@ -53,6 +53,8 @@ void Scene::init(){
 	addSkyBody(230, 450, 2);
 	//(340, 640, 8);
 
+	//Inputs init
+	m_inSystem.setActionTrigger(AC_EXIT, SDL_SCANCODE_ESCAPE);
 	std::cout << "END OF INIT\n\n";
 
 }
@@ -60,13 +62,16 @@ void Scene::init(){
 void Scene::addSkyBody(double x, double y, double mass){
 
 	m_posComps.push_back(std::make_shared<PositionComponent>());
+	
 	m_physicsComps.push_back(std::make_shared<PhysicsComponent>(m_posComps.back())); // on ajoute le dernier
 	m_graphicsComps.push_back(std::make_shared<GraphicsComponent>(m_posComps.back(), std::make_shared<Sprite>(std::make_shared<SpriteSheet>(m_graSystem.loadTexture("ressources/test.png"), SDL_Rect{ 0, 0, 30, 30 }, SDL_Rect{ 0, 0, 60, 60 }))));
-
+	//m_inputsComps.push_back(std::make_shared<InputsComponent>(std::make_shared<InputsSystem>(m_inSystem),std::make_shared<PhysicsComponent>(m_physicsComps.back())));
+	//pas capable d'ajouter des components ;(
 	m_gameObjects.push_back(GameObject());
 	m_gameObjects.back().addComponent(std::type_index(typeid(PhysicsComponent)), m_physicsComps.back());
 	m_gameObjects.back().addComponent(std::type_index(typeid(GraphicsComponent)), m_graphicsComps.back());
-	
+	//m_gameObjects.back().addComponent(std::type_index(typeid(InputsComponent)), m_inputsComps.back());
+
 	m_gameObjects.back().get<PhysicsComponent>()->setPosition(Vec2(x, y));
 	m_gameObjects.back().get<PhysicsComponent>()->setMass(mass);
 
@@ -79,8 +84,12 @@ Scene::~Scene()
 
 }
 
-void Scene::update()
+void Scene::update(Message &postman)
 {
+	m_inSystem.pollInputs();
+	if (m_inSystem.checkTriggeredAction(AC_EXIT))
+		postman.addMessage("Scene", "Input", MS_EXIT_REQUEST, 1);
+
 	m_graSystem.initFrame();
 	for (int i = 0; i < m_gameObjects.size(); i++){
 
