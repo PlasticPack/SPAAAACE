@@ -5,10 +5,11 @@
 
 PhysicsComponent::PhysicsComponent(std::shared_ptr<PositionComponent> c)
 {
+	m_activated = true;
 	m_posComponent = c;
 	m_mass = 1.0;
 	//Si j'ai trois jeunes dans une autobus qui va vers l'école combien il a de jambre dans cette autobus ?
-	m_hitboxRadius = 10;
+	m_hitboxRadius = 15;
 }
 
 

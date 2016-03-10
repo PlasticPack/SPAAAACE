@@ -1,12 +1,18 @@
 #include "GameObject.h"
 
 
-GameObject::GameObject()
+GameObject::GameObject(std::string id) : m_ID(id)
+{
+}
+
+GameObject::GameObject() : m_ID("NO_ID")
 {
 }
 
 GameObject::GameObject(GameObject const& g){
 	if (this != &g){
+		//on copie PAS L'ID EXACT
+		m_ID = g.m_ID + "_copy";
 		m_components.clear();
 		for (auto it = g.m_components.begin(); it != g.m_components.end(); it++){
 
