@@ -2,6 +2,9 @@
 #include <SDL.h>
 #include "Scene.h"
 /*
+=======
+#include "Message.h"
+>>>>>>> master
 const int SCREEN_W = 1600;
 const int SCREEN_H = 900;*/
 
@@ -19,16 +22,14 @@ int main(int argc, char* argv[]){
 	SDL_Event e;
 
 	Scene mainScene;
+	Message postman;
 
+	while (!quit)
+	{
 
-	while (!quit) {
-		while (SDL_PollEvent(&e) != 0){
-			if (e.type == SDL_QUIT){
-				quit = true;
-			}
-		}
-
-		mainScene.update();
+		mainScene.update(postman);
+		if (postman.getMessage("Scene", "Input", MS_EXIT_REQUEST))
+			quit = true;
 		/*Vec2 pos1 = mainScene.getObjects()[0].get<PhysicsComponent>()->getPosition();
 		Vec2 pos2 = mainScene.getObjects()[1].get<PhysicsComponent>()->getPosition();
 		Vec2 pos3 = mainScene.getObjects()[2].get<PhysicsComponent>()->getPosition();

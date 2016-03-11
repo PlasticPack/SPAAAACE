@@ -41,6 +41,14 @@ void Scene::init(){
 	m_graSystem.loadBackground("ressources/space_3.png", 2, 200, 220, 255);
 	//m_graSystem.loadBackground("ressources/bg1.png", 3);
 
+	//Inputs init
+	m_inSystem.setActionTrigger(AC_EXIT, SDL_SCANCODE_ESCAPE);
+	
+	//initialise le mouvement du joueur selon le clavier
+	m_inSystem.setActionTrigger(AC_UP, SDL_SCANCODE_UP);
+	m_inSystem.setActionTrigger(AC_DOWN, SDL_SCANCODE_DOWN);
+	m_inSystem.setActionTrigger(AC_LEFT, SDL_SCANCODE_LEFT);
+	m_inSystem.setActionTrigger(AC_RIGHT, SDL_SCANCODE_RIGHT);
 }
 
 void Scene::orderByZIndex(){
@@ -54,7 +62,6 @@ void Scene::orderByZIndex(){
 		}
 		m_gameObjects[j + 1] = x;
 	}
-
 }
 
 void Scene::addSkyBody(double x, double y, double mass, std::string id, Uint8 r, Uint8 g, Uint8 b){
@@ -66,13 +73,19 @@ void Scene::addSkyBody(double x, double y, double mass, std::string id, Uint8 r,
 	Sprite skyBodySprite(std::make_shared<SpriteSheet>(m_graSystem.loadTexture(file, r, g, b), SDL_Rect{ 0, 0, 30, 30 }, SDL_Rect{ 0, 0, 60, 60 }));
 
 	m_posComps.push_back(std::make_shared<PositionComponent>());
+	
 	m_physicsComps.push_back(std::make_shared<PhysicsComponent>(m_posComps.back())); // on ajoute le dernier
 	m_graphicsComps.push_back(std::make_shared<GraphicsComponent>(m_posComps.back(), std::make_shared<Sprite>(skyBodySprite)));
 
 	m_gameObjects.push_back(GameObject(id));
+	/*m_graphicsComps.push_back(std::make_shared<GraphicsComponent>(m_posComps.back(), std::make_shared<Sprite>(std::make_shared<SpriteSheet>(m_graSystem.loadTexture("ressources/test.png"), SDL_Rect{ 0, 0, 30, 30 }, SDL_Rect{ 0, 0, 60, 60 }))));
+	//m_inputsComps.push_back(std::make_shared<InputsComponent>(std::make_shared<InputsSystem>(m_inSystem),std::make_shared<PhysicsComponent>(m_physicsComps.back())));
+	//pas capable d'ajouter des components ;(
+	m_gameObjects.push_back(GameObject());*/
 	m_gameObjects.back().addComponent(std::type_index(typeid(PhysicsComponent)), m_physicsComps.back());
 	m_gameObjects.back().addComponent(std::type_index(typeid(GraphicsComponent)), m_graphicsComps.back());
-	
+	//m_gameObjects.back().addComponent(std::type_index(typeid(InputsComponent)), m_inputsComps.back());
+
 	m_gameObjects.back().get<PhysicsComponent>()->setPosition(Vec2(x, y));
 	m_gameObjects.back().get<PhysicsComponent>()->setMass(mass);
 	//m_gameObjects.back().get<GraphicsComponent>()->setSprite(Sprite(SpriteSheet(m_graSystem.loadTexture("test.png"), SDL_Rect{ 0, 0, 30, 30 }, SDL_Rect{ 0, 0, 60, 60 })));
@@ -84,15 +97,35 @@ Scene::~Scene()
 
 }
 
-void Scene::update()
+void Scene::update(Message &postman)
 {
+	m_inSystem.pollInputs();
+	
+	if (m_inSystem.checkTriggeredAction(AC_EXIT))
+		postman.addMessage("Scene", "Input", MS_EXIT_REQUEST, 1);
+
 	m_graSystem.initFrame();
 	m_graSystem.setCameraZoom(0.7);
+	
 	for (int i = 0; i < m_gameObjects.size(); i++){
 
 		//on update chaque component de l'objet
 		std::shared_ptr<PhysicsComponent> pc = m_gameObjects[i].get<PhysicsComponent>();
 		if (pc != nullptr){
+			
+			//on check la direction du joueur
+			if (m_inSystem.checkTriggeredAction(AC_UP))
+				pc->setForces(Vec2(0, -340));
+
+			if (m_inSystem.checkTriggeredAction(AC_DOWN))
+				pc->setForces(Vec2(0, 340));
+
+			if (m_inSystem.checkTriggeredAction(AC_LEFT))
+				pc->setForces(Vec2(-340, 0));
+
+			if (m_inSystem.checkTriggeredAction(AC_RIGHT))
+				pc->setForces(Vec2(340, 0));
+			
 			m_phySystem.update(*pc, m_physicsComps, 1.0 / m_graSystem.getFPS());
 		}
 

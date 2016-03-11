@@ -58,6 +58,12 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="LTimer.cpp">
+		<Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="InputSystem.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="InputsComponent.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -98,7 +104,17 @@
     <ClInclude Include="Sprite.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="LTimer.h">
+=======
+    <ClInclude Include="Flags.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="InputSystem.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="InputsComponent.h">
+>>>>>>> master
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

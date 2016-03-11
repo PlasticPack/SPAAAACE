@@ -66,6 +66,7 @@ void PhysicsComponent::setMass(double pos){
 void PhysicsComponent::setHitboxRadius(double pos){
 	m_hitboxRadius = pos;
 }
+
 /*
 void PhysicsComponent::update(std::vector<PhysicsComponent> &phyComps, double dt){
 	Derivative a, b, c, d;
