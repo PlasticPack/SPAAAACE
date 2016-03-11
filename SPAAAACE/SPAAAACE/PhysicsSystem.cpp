@@ -60,7 +60,7 @@ bool PhysicsSystem::checkIfCollide(PhysicsComponent &a, PhysicsComponent &b, dou
 		//donc je me suis dit fuck it, on y va pour ca pour tout de suite
 
 		bool detected = false;
-		double accuracy = 5; // la précision ou le nombre de bonds qu'on fait 
+		double accuracy = 3; // la précision ou le nombre de bonds qu'on fait 
 		for (int i = 1; i <= accuracy; i++){
 			if (a.getHitboxRadius() + b.getHitboxRadius() > (a.getPosition() + (a.getVelocity() * (i / accuracy) *dt)).getDist((b.getPosition()) + (b.getVelocity() * (i / accuracy) *dt))){
 				detected = true;
@@ -75,7 +75,7 @@ bool PhysicsSystem::checkIfCollide(PhysicsComponent &a, PhysicsComponent &b, dou
 
 Vec2 PhysicsSystem::gravity(PhysicsComponent &a, PhysicsComponent &b) {
 	if (a.isActive() && b.isActive()){
-		double G = 500;
+		double G = 6.67 * pow(10, 3);
 
 		double r = (a.getPosition().getDist(b.getPosition())); //on obtient la distance entre les 2 points
 

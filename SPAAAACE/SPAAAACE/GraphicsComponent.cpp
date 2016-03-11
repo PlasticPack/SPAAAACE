@@ -28,6 +28,10 @@ GraphicsComponent::~GraphicsComponent()
 {
 }
 
+void GraphicsComponent::setAnimationSpeed(double s){
+	m_sprite->setAnimationSpeed(s);
+}
+
 Vec2 GraphicsComponent::getSize(){
 	return m_size;
 }

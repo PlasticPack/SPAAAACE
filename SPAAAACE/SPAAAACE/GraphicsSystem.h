@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GraphicsComponent.h"
+#include "LTimer.h"
 #include <string>
 
 #define SCREEN_W 1600
@@ -35,6 +36,10 @@ public:
 	void endFrame();
 
 protected:
+
+	double m_avgFPS;
+	LTimer m_fpsTimer;
+	int m_countedFrames;
 
 	SDL_Renderer *m_renderer;
 	SDL_Window *m_window;

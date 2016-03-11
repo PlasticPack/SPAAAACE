@@ -25,6 +25,8 @@ public:
 	std::shared_ptr<Sprite> getSprite() const;
 	void setSprite(std::shared_ptr<Sprite> spr);
 
+	void setAnimationSpeed(double s);
+
 	Vec2 getSize();
 	void setSize(Vec2 s);
 

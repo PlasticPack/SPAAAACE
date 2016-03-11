@@ -5,6 +5,8 @@ GraphicsSystem::GraphicsSystem()
 {
 	m_camera = { 0, 1, Vec2(SCREEN_W / 2, SCREEN_H / 2) , true};
 	m_defaultHalo = NULL;
+	m_countedFrames = 1;
+	m_avgFPS = 60;
 	for (int i = 0; i < 4; i++)
 		m_backgrounds[i] = nullptr;
 	m_frameStarted = false;
@@ -26,8 +28,7 @@ GraphicsSystem::GraphicsSystem()
 }
 
 double GraphicsSystem::getFPS(){
-
-	return 60;
+	return m_avgFPS;
 }
 
 void GraphicsSystem::lockCamera(bool l){
@@ -62,7 +63,7 @@ SDL_Texture* GraphicsSystem::loadTexture(const std::string filename, Uint8 r, Ui
 		SDL_FreeSurface(loadedSurface);
 	}
 
-	std::cout << "ADRESS OF TEXTURE IN LOADIN : " << texture << "\n";
+	//std::cout << "ADRESS OF TEXTURE IN LOADIN : " << texture << "\n";
 
 	return texture;
 }
@@ -124,7 +125,7 @@ void GraphicsSystem::update(GraphicsComponent gComp, double dt){
 			}
 
 			
-			SDL_Rect pos = { newPos.x() - (gComp.getSize().x()/2), newPos.y() - (gComp.getSize().y()/2), gComp.getSize().x() * zIndex * zoom, gComp.getSize().y() * zIndex * zoom };
+			SDL_Rect pos = { newPos.x() - (gComp.getSize().x() * zIndex * m_camera.zoom / 2), newPos.y() - (zIndex * m_camera.zoom * gComp.getSize().y() / 2), gComp.getSize().x() * zIndex * zoom, gComp.getSize().y() * zIndex * zoom };
 
 			//std::cout << "ADRESS OF TEXTURE IN UPDATE : " << gComp.getSprite()->getCurrentSpriteSheet()->getTexture() << "\n";
 
@@ -150,6 +151,15 @@ void GraphicsSystem::update(GraphicsComponent gComp, double dt){
 void GraphicsSystem::initFrame(){
 	if (!m_frameStarted)
 	{
+		if (!m_fpsTimer.isStarted())
+			m_fpsTimer.start();
+
+		m_avgFPS = m_countedFrames / (1 + m_fpsTimer.getTicks() / 1000.0);
+		//std::cout << m_countedFrames << " / " << m_fpsTimer.getTicks() / 1000.0 <<  " = "  << m_avgFPS << "<- :D\n";
+		if (m_avgFPS > 20000 ){
+			m_avgFPS = 60;
+		}
+
 		//SDL_SetRenderDrawColor(m_renderer, 12, 0, 24, 0);
 		SDL_RenderClear(m_renderer);
 		//repeating background
@@ -184,9 +194,9 @@ void GraphicsSystem::initFrame(){
 				int totalY = m_camera.zoom * SCREEN_H / bgSize.y();
 				totalY += 2;
 
-				for (int x = -totalX / 2; x <= totalX / 2; x++){
+				for (int x = (-totalX / 2 ) - 1; x <= (totalX / 2 )+ 1; x++){
 					tempPos.x = pos.x + (x * bgSize.x());
-					for (int y = -totalY / 2; y <= totalY / 2; y++){
+					for (int y = (-totalY / 2) - 1; y <= (totalY / 2) + 1; y++){
 						tempPos.y = pos.y + (y * bgSize.y());
 						//SDL_RenderCopyEx(m_renderer, m_backgrounds[i], NULL, &tempPos, m_camera.angle, NULL, SDL_FLIP_NONE);
 						SDL_RenderCopy(m_renderer, m_backgrounds[i], NULL, &tempPos);
@@ -237,5 +247,6 @@ void GraphicsSystem::endFrame(){
 		//std::cout << "RENDERING\n";
 		SDL_RenderPresent(m_renderer);
 		m_frameStarted = false;
+		m_countedFrames++;
 	}
 }

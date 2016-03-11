@@ -10,23 +10,26 @@ Scene::Scene()
 void Scene::init(){
 	//ajout des étoiles en background
 	srand(time(NULL));
-	for (int i = 0; i < 5; i++){
+	for (int i = 0; i < 25; i++){
 		addSkyBody(rand() % 10000 - 5000, rand() % 10000 - 5000, rand() % 100 + 150, "shootingStar_" + std::to_string(m_gameObjects.size()), rand() % 100 + 150, rand() % 100 + 150);
 		m_gameObjects.back().get<PhysicsComponent>()->activate(false);
 		m_gameObjects.back().get<PhysicsComponent>()->setVelocity(Vec2(rand() % 1200 - 765, rand() % 400 - 205));
 		m_gameObjects.back().get<PhysicsComponent>()->getPositionComponent()->setZIndex(0.09);
 	}
 
-	addSkyBody(180, 110, 1, "skyBody_" + std::to_string(m_gameObjects.size()), 25, 240, 25);
+	/*addSkyBody(180, 110, 1, "skyBody_" + std::to_string(m_gameObjects.size()));
 
-	m_gameObjects.back().get<PhysicsComponent>()->getPositionComponent()->setZIndex(0.3);
+	m_gameObjects.back().get<PhysicsComponent>()->getPositionComponent()->setZIndex(0.3);*/
 
-	addSkyBody(140, 100, 160, "skyBody_" + std::to_string(m_gameObjects.size()), 255, 100, 100);
-	//m_gameObjects.back().get<PhysicsComponent>()->setHitboxRadius(90);
-	//m_gameObjects.back().get<GraphicsComponent>()->setSize(Vec2(180, 180));
-
-	addSkyBody(230, 450, 8, "player");
-	m_gameObjects.back().get<PhysicsComponent>()->setVelocity(Vec2(15,3));
+	addSkyBody(140, 100, 1860, "skyBody_" + std::to_string(m_gameObjects.size()));
+	m_gameObjects.back().get<PhysicsComponent>()->setHitboxRadius(200);
+	m_gameObjects.back().get<GraphicsComponent>()->setSize(Vec2(390, 390));
+	m_gameObjects.back().get<GraphicsComponent>()->setAnimationSpeed(3);
+	
+	addSkyBody(1640, 100, 0.3, "player");
+	m_gameObjects.back().get<PhysicsComponent>()->setVelocity(Vec2(0, -60));
+	m_gameObjects.back().get<GraphicsComponent>()->setSize(Vec2(100, 100));
+	m_gameObjects.back().get<GraphicsComponent>()->setAnimationSpeed(15);
 
 	std::cout << "END OF INIT\n\n";
 
@@ -56,7 +59,11 @@ void Scene::orderByZIndex(){
 
 void Scene::addSkyBody(double x, double y, double mass, std::string id, Uint8 r, Uint8 g, Uint8 b){
 
-	Sprite skyBodySprite(std::make_shared<SpriteSheet>(m_graSystem.loadTexture("ressources/test.png", r, g, b), SDL_Rect{ 0, 0, 30, 30 }, SDL_Rect{ 0, 0, 60, 60 }));
+	std::string file = "ressources/skyBody.png";
+	if (id == "player"){
+		file = "ressources/test.png";
+	}
+	Sprite skyBodySprite(std::make_shared<SpriteSheet>(m_graSystem.loadTexture(file, r, g, b), SDL_Rect{ 0, 0, 30, 30 }, SDL_Rect{ 0, 0, 60, 60 }));
 
 	m_posComps.push_back(std::make_shared<PositionComponent>());
 	m_physicsComps.push_back(std::make_shared<PhysicsComponent>(m_posComps.back())); // on ajoute le dernier
@@ -80,25 +87,26 @@ Scene::~Scene()
 void Scene::update()
 {
 	m_graSystem.initFrame();
-	m_graSystem.setCameraZoom(1.2);
+	m_graSystem.setCameraZoom(0.7);
 	for (int i = 0; i < m_gameObjects.size(); i++){
 
 		//on update chaque component de l'objet
 		std::shared_ptr<PhysicsComponent> pc = m_gameObjects[i].get<PhysicsComponent>();
 		if (pc != nullptr){
-			m_phySystem.update(*pc, m_physicsComps, 1.0 / 60.0);
+			m_phySystem.update(*pc, m_physicsComps, 1.0 / m_graSystem.getFPS());
 		}
 
 		auto gc = m_gameObjects[i].get<GraphicsComponent>();
 		if (gc != nullptr){
 
 			if (m_gameObjects[i].getID() == "player_copy"){
-				m_graSystem.setCameraTarget(m_gameObjects[i].get<PhysicsComponent>()->getPosition() + (gc->getSize() / 2));
+				m_graSystem.setCameraTarget(m_gameObjects[i].get<PhysicsComponent>()->getPosition());
 			}
 
 			//m_graSystem.lockCamera(false);
-			m_graSystem.update(*gc, 1.0 / 60.0);
+			m_graSystem.update(*gc, 1.0 / m_graSystem.getFPS());
 		}
 	}
+	//std::cout << m_graSystem.getFPS() << "\n";
 	m_graSystem.endFrame();
 }

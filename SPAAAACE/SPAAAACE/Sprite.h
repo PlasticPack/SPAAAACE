@@ -10,6 +10,7 @@ public:
 	Sprite(std::shared_ptr<SpriteSheet> sprS);
 	~Sprite();
 
+	void setAnimationSpeed(double s);
 	void addSpriteSheet(std::string id, std::shared_ptr<SpriteSheet> sheet);
 	std::shared_ptr<SpriteSheet> getCurrentSpriteSheet();
 

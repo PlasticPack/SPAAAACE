@@ -40,9 +40,11 @@ SpriteSheet& SpriteSheet::operator=(SpriteSheet const& a){
 
 void SpriteSheet::nextRect(double dt){
 	//si on a pris assez de temps pour la frame
+	//std::cout << ".";
 	m_timer += dt;
 
 	if (m_timer > 1.0 / m_animationSpeed){
+		//std::cout << "POP!" <<  m_timer << " & "  << m_animationSpeed << "\n\n";
 		m_timer = 0;
 		m_currentRect.x += m_currentRect.w;
 
