@@ -1,0 +1,33 @@
+﻿La génération a démarré 2016-03-10 20:06:50.
+     1>Projet "C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\SPAAAACE\SPAAAACE.vcxproj" sur le nœud 2 (Build cible(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Component.cpp GameObject.cpp GraphicsComponent.cpp GraphicsSystem.cpp main.cpp Message.cpp PhysicsComponent.cpp PhysicsSystem.cpp PositionComponent.cpp Scene.cpp Source.cpp Sprite.cpp SpriteSheet.cpp Vec2.cpp
+         Component.cpp
+         GameObject.cpp
+         GraphicsComponent.cpp
+     1>c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\SpriteSheet.h(2): fatal error C1083: Impossible d'ouvrir le fichier include : 'SDL.h' : No such file or directory
+         GraphicsSystem.cpp
+     1>c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\SpriteSheet.h(2): fatal error C1083: Impossible d'ouvrir le fichier include : 'SDL.h' : No such file or directory
+         main.cpp
+     1>main.cpp(2): fatal error C1083: Impossible d'ouvrir le fichier include : 'SDL.h' : No such file or directory
+         Message.cpp
+         PhysicsComponent.cpp
+         PhysicsSystem.cpp
+     1>PhysicsSystem.cpp(67): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+     1>PhysicsSystem.cpp(121): warning C4018: '<' : incompatibilité signed/unsigned
+     1>PhysicsSystem.cpp(122): warning C4018: '<' : incompatibilité signed/unsigned
+     1>PhysicsSystem.cpp(154): warning C4018: '<' : incompatibilité signed/unsigned
+         PositionComponent.cpp
+         Scene.cpp
+     1>c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\SpriteSheet.h(2): fatal error C1083: Impossible d'ouvrir le fichier include : 'SDL.h' : No such file or directory
+         Source.cpp
+         Sprite.cpp
+     1>c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\SpriteSheet.h(2): fatal error C1083: Impossible d'ouvrir le fichier include : 'SDL.h' : No such file or directory
+         SpriteSheet.cpp
+     1>c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\SpriteSheet.h(2): fatal error C1083: Impossible d'ouvrir le fichier include : 'SDL.h' : No such file or directory
+         Vec2.cpp
+     1>Génération du projet "C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\SPAAAACE\SPAAAACE.vcxproj" terminée (Build cible(s)) -- ÉCHEC.
+
+ÉCHEC de la build.
+
+Temps écoulé 00:00:02.79

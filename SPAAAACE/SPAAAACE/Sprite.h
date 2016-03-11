@@ -10,10 +10,12 @@ public:
 	Sprite(std::shared_ptr<SpriteSheet> sprS);
 	~Sprite();
 
+	void setAnimationSpeed(double s);
 	void addSpriteSheet(std::string id, std::shared_ptr<SpriteSheet> sheet);
 	std::shared_ptr<SpriteSheet> getCurrentSpriteSheet();
 
 protected:
+	double m_animationSpeed; // en fps
 	std::map<std::string, std::shared_ptr<SpriteSheet>> m_spriteSheets;
 	std::string m_currentSpriteSheet;
 };

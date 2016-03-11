@@ -5,11 +5,12 @@
 #include <memory>
 #include <typeindex>
 #include <typeinfo>
-
+#include <string>
 class GameObject
 {
 public:
 	GameObject();
+	GameObject(std::string);
 	GameObject(GameObject const&);
 	~GameObject();
 
@@ -28,7 +29,7 @@ public:
 	}
 
 	unsigned int getNumberOfComponents() { return m_components.size(); }
-
+	std::string getID(){ return m_ID; }
 
 	void addComponent(std::type_index, std::shared_ptr<Component> c);
 	void removeComponent(std::type_index);
@@ -37,5 +38,6 @@ public:
 
 protected:
 	std::map<std::type_index, std::shared_ptr<Component>> m_components;
+	std::string m_ID;
 };
 

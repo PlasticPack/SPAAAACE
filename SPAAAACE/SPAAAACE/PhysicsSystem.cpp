@@ -11,7 +11,7 @@ PhysicsSystem::~PhysicsSystem()
 }
 
 void PhysicsSystem::resolveCollision(std::shared_ptr<PhysicsComponent> a, std::shared_ptr<PhysicsComponent> b, double dt) {
-	if (checkIfCollide(*a, *b, dt) ) { //s'ils se touchent
+	if (checkIfCollide(*a, *b, dt) && a->getPositionComponent()->getZIndex() == b->getPositionComponent()->getZIndex() && a->isActive() && b->isActive()) { //s'ils se touchent
 		//on sort les 2 objets l'un de l'autre
 		Vec2 direction = (a->getPosition() - b->getPosition()).getNormalized();
 
@@ -60,7 +60,7 @@ bool PhysicsSystem::checkIfCollide(PhysicsComponent &a, PhysicsComponent &b, dou
 		//donc je me suis dit fuck it, on y va pour ca pour tout de suite
 
 		bool detected = false;
-		double accuracy = 5; // la précision ou le nombre de bonds qu'on fait 
+		double accuracy = 3; // la précision ou le nombre de bonds qu'on fait 
 		for (int i = 1; i <= accuracy; i++){
 			if (a.getHitboxRadius() + b.getHitboxRadius() > (a.getPosition() + (a.getVelocity() * (i / accuracy) *dt)).getDist((b.getPosition()) + (b.getVelocity() * (i / accuracy) *dt))){
 				detected = true;
@@ -74,20 +74,23 @@ bool PhysicsSystem::checkIfCollide(PhysicsComponent &a, PhysicsComponent &b, dou
 }
 
 Vec2 PhysicsSystem::gravity(PhysicsComponent &a, PhysicsComponent &b) {
-	double G = 500;
+	if (a.isActive() && b.isActive()){
+		double G = 6.67 * pow(10, 3);
 
-	double r = (a.getPosition().getDist(b.getPosition())); //on obtient la distance entre les 2 points
+		double r = (a.getPosition().getDist(b.getPosition())); //on obtient la distance entre les 2 points
 
-	double deltaZ = a.getPositionComponent()->getZIndex() - b.getPositionComponent()->getZIndex();
-	deltaZ *= 100; // pour amplifier la différence de niveau
-	r = sqrt((r * r) + (deltaZ * deltaZ)); // si la différence de hauteur des objets est trop importante, l'attraction est réduite
+		double deltaZ = a.getPositionComponent()->getZIndex() - b.getPositionComponent()->getZIndex();
+		deltaZ *= deltaZ * 1000; // pour amplifier la différence de niveau
+		r = sqrt((r * r) + (deltaZ * deltaZ)); // si la différence de hauteur des objets est trop importante, l'attraction est réduite
 
-	Vec2 vec = (a.getPosition() - b.getPosition()); // le vecteur entre les 2
-	vec.normalize(); // unitaire pcq son module est l'attraction
+		Vec2 vec = (a.getPosition() - b.getPosition()); // le vecteur entre les 2
+		vec.normalize(); // unitaire pcq son module est l'attraction
 
-	double attraction = (-G * a.getMass() * b.getMass() / (r * r)); //le module de l'attraction gravitationnelle
+		double attraction = (-G * a.getMass() * b.getMass() / (r * r)); //le module de l'attraction gravitationnelle
 
-	return vec * attraction;
+		return vec * attraction;
+	}
+	return Vec2(0,0);
 }
 
 Derivative PhysicsSystem::evaluate(PhysicsComponent &initial, std::vector<std::shared_ptr<PhysicsComponent>> &bodies, double dt, Derivative &d){
@@ -114,27 +117,31 @@ void PhysicsSystem::update(PhysicsComponent &body, std::vector<std::shared_ptr<P
 	//comme dans le cas d'une attraction gravitationnelle)
 
 	//std::cout << "VEL OF " <<  &body << " : " << body.getVelocity().getLength() << "\n";
-
-	for (int i(0); i < bodies.size(); i++) {
-		for (int j(i); j < bodies.size(); j++) {
-			if (i != j){ 
-				resolveCollision(bodies[i], bodies[j], dt);
+	if (body.isActive()){
+		for (int i(0); i < bodies.size(); i++) {
+			for (int j(i); j < bodies.size(); j++) {
+				if (i != j){
+					resolveCollision(bodies[i], bodies[j], dt);
+				}
 			}
 		}
+
+		a = evaluate(body, bodies, 0.0, Derivative());
+		b = evaluate(body, bodies, 0.5 * dt, a);
+		c = evaluate(body, bodies, 0.5 * dt, b);
+		d = evaluate(body, bodies, dt, c);
+
+		Vec2 dposdt = (a.dpos + ((b.dpos + c.dpos) * 2) + d.dpos) * (1.0 / 6.0);
+		Vec2 dveldt = (a.dvel + ((b.dvel + c.dvel) * 2) + d.dvel) * (1.0 / 6.0);
+
+		body.setPosition(body.getPosition() + (dposdt * dt));
+		body.setVelocity(body.getVelocity() + (dveldt * dt));
+
+		body.setForces(Vec2(0, 0));
 	}
-
-	a = evaluate(body, bodies, 0.0, Derivative());
-	b = evaluate(body, bodies, 0.5 * dt, a);
-	c = evaluate(body, bodies, 0.5 * dt, b);
-	d = evaluate(body, bodies, dt, c);
-
-	Vec2 dposdt = (a.dpos + ((b.dpos + c.dpos) * 2) + d.dpos) * (1.0 / 6.0);
-	Vec2 dveldt = (a.dvel + ((b.dvel + c.dvel) * 2) + d.dvel) * (1.0 / 6.0);
-
-	body.setPosition(body.getPosition() + (dposdt * dt));
-	body.setVelocity(body.getVelocity() + (dveldt * dt));
-
-	body.setForces(Vec2(0, 0));
+	else {
+		body.setPosition(body.getPosition() + (body.getVelocity() * dt));
+	}
 }
 
 Vec2 PhysicsSystem::accelerate(PhysicsComponent& initial, PhysicsComponent &b, std::vector<std::shared_ptr<PhysicsComponent>> &bodies, double dt){

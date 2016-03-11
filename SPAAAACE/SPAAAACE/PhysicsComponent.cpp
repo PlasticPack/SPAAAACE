@@ -5,19 +5,16 @@
 
 PhysicsComponent::PhysicsComponent(std::shared_ptr<PositionComponent> c)
 {
-	m_pushValue = 10000;
+	m_activated = true;
 	m_posComponent = c;
 	m_mass = 1.0;
 	//Si j'ai trois jeunes dans une autobus qui va vers l'école combien il a de jambre dans cette autobus ?
-	m_hitboxRadius = 10;
+	m_hitboxRadius = 50;
 }
 
 
 PhysicsComponent::~PhysicsComponent()
 {
-	m_hitboxRadius = 10;
-	m_mass = 1.0;
-	m_pushValue = 10000;
 	//Pète pî répète s'en vont en bateau. Pète tombe a l'eau, qui qui reste. 
 	//WHILE LOOP !!!!!!!
 	//while(true);
@@ -48,11 +45,6 @@ double PhysicsComponent::getHitboxRadius(){
 std::shared_ptr<PositionComponent> PhysicsComponent::getPositionComponent(){
 	return m_posComponent;
 }
-double PhysicsComponent::getPushValue()
-{
-	return m_pushValue;
-}
-
 
 void PhysicsComponent::setPosition(Vec2 pos){
 	m_posComponent->setPosition(pos);
@@ -74,10 +66,7 @@ void PhysicsComponent::setMass(double pos){
 void PhysicsComponent::setHitboxRadius(double pos){
 	m_hitboxRadius = pos;
 }
-void  PhysicsComponent::setPushValue(double pushValue)
-{
-	m_pushValue = pushValue;
-}
+
 /*
 void PhysicsComponent::update(std::vector<PhysicsComponent> &phyComps, double dt){
 	Derivative a, b, c, d;

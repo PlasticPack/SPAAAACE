@@ -72,6 +72,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GraphicsComponent.cpp" />
     <ClCompile Include="GraphicsSystem.cpp" />
+    <ClCompile Include="LTimer.cpp" />
     <ClCompile Include="InputsComponent.cpp" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="main.cpp" />
@@ -91,6 +92,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GraphicsComponent.h" />
     <ClInclude Include="GraphicsSystem.h" />
+    <ClInclude Include="LTimer.h" />
     <ClInclude Include="InputsComponent.h" />
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="Message.h" />

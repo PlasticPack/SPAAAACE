@@ -29,6 +29,6 @@ public:
 
 protected:
 	Vec2 m_position;
-	double m_zIndex;
+	double m_zIndex; 
 };
 
