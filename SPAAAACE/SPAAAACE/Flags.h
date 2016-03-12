@@ -55,6 +55,7 @@ enum action // METTRE NOUVELLEs ACTIONS ICI
 	AC_HORIZONTAL_PUSH,
 	AC_VERTICAL_PUSH,
 	AC_EXIT,
-
+	AC_LEFT,
+	AC_RIGHT,
 	AC_NUMBER_OF_ACTION // Mettre tout autre action AVANT celle-ci
 };
