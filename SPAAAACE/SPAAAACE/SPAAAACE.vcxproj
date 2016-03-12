@@ -69,6 +69,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="GameLogicComponent.cpp" />
+    <ClCompile Include="GameLogicSystem.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GraphicsComponent.cpp" />
     <ClCompile Include="GraphicsSystem.cpp" />
@@ -89,6 +91,8 @@
   <ItemGroup>
     <ClInclude Include="Component.h" />
     <ClInclude Include="Flags.h" />
+    <ClInclude Include="GameLogicComponent.h" />
+    <ClInclude Include="GameLogicSystem.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GraphicsComponent.h" />
     <ClInclude Include="GraphicsSystem.h" />

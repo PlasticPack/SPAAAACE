@@ -96,8 +96,13 @@ void GraphicsSystem::loadBackground(const std::string filename, int layer, Uint8
 	}
 }
 
-void GraphicsSystem::update(GraphicsComponent gComp, double dt){
+void GraphicsSystem::update(Message &postman, GraphicsComponent gComp, double dt){
 	if (m_frameStarted){
+		//si on recoit qu'il y a eu collision
+		//std::cout << postman.getMessage("Physics", "Physics", MS_COLLISION) << "sadsdsad\n";
+		if (postman.getMessage("Physics", "Physics", MS_COLLISION) > 1000.0){
+			gComp.getSprite()->setSpriteSheet("collision");
+		}
 
 		if (gComp.getSprite() != nullptr) {
 			gComp.getSprite()->getCurrentSpriteSheet()->nextRect(dt);
@@ -111,9 +116,11 @@ void GraphicsSystem::update(GraphicsComponent gComp, double dt){
 			//zIndex *= zIndex;
 			double zoom(1), angle(0);
 			
+			zoom = m_camera.zoom;
+			angle = m_camera.angle;
+
 			if (m_camera.locked){
-				zoom = m_camera.zoom;
-				angle = m_camera.angle;
+				
 				tempPos = coord - m_camera.target;
 
 				double newX = zIndex * m_camera.zoom * ((cos(m_camera.angle *(3.14159265 / 180)) * tempPos.x()) + (sin(m_camera.angle *(3.14159265 / 180)) * tempPos.y()));
@@ -125,7 +132,7 @@ void GraphicsSystem::update(GraphicsComponent gComp, double dt){
 			}
 
 			
-			SDL_Rect pos = { newPos.x() - (gComp.getSize().x() * zIndex * m_camera.zoom / 2), newPos.y() - (zIndex * m_camera.zoom * gComp.getSize().y() / 2), gComp.getSize().x() * zIndex * zoom, gComp.getSize().y() * zIndex * zoom };
+			SDL_Rect pos = { newPos.x() - (gComp.getSize().x() * zIndex * zoom / 2), newPos.y() - (zIndex * zoom * gComp.getSize().y() / 2), gComp.getSize().x() * zIndex * zoom, gComp.getSize().y() * zIndex * zoom };
 
 			//std::cout << "ADRESS OF TEXTURE IN UPDATE : " << gComp.getSprite()->getCurrentSpriteSheet()->getTexture() << "\n";
 
@@ -178,7 +185,7 @@ void GraphicsSystem::initFrame(){
 					//double newX = (cos(m_camera.angle *(3.14159265 / 180)) * tempPos.x) + (sin(m_camera.angle *(3.14159265 / 180)) * tempPos.y);
 					//double newY = (-sin(m_camera.angle *(3.14159265 / 180)) * tempPos.x) + (cos(m_camera.angle *(3.14159265 / 180)) * tempPos.y);
 
-					t *= ((i + 1) * 0.15) * m_camera.zoom; // *newX;
+					t *= (((i*i) + 1) * 0.0075); // *newX;
 
 					t += screenCoord / 2;
 

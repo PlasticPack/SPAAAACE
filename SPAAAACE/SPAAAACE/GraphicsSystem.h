@@ -23,7 +23,7 @@ public:
 	SDL_Texture* loadTexture(const std::string filename, Uint8 r = 255, Uint8 g = 255, Uint8 b = 255);
 	void loadBackground(const std::string filename, int layer, Uint8 r = 255, Uint8 g = 255, Uint8 b = 255);
 
-	void update(GraphicsComponent gComp, double dt);
+	void update(Message &postman, GraphicsComponent gComp, double dt);
 	void setCameraTarget(Vec2 t);
 	void setCameraZoom(double zoom);
 	void setCameraAngle(double angle);
@@ -31,6 +31,7 @@ public:
 	void lockCamera(bool l = true);
 
 	double getFPS();
+	double getZoom(){ return m_camera.zoom; }
 
 	void initFrame();
 	void endFrame();

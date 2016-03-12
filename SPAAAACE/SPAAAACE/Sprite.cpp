@@ -21,8 +21,8 @@ Sprite::~Sprite()
 
 void Sprite::addSpriteSheet(std::string id, std::shared_ptr<SpriteSheet> sheet){
 	m_spriteSheets[id] = sheet;
-	//std::cout << "ADDING " << id << " SPRITESHEET with texture address " << sheet->getTexture() << " vs here " <<  m_spriteSheets[id]->getTexture() << "\n";
-	std::cout << m_spriteSheets[id]->getCurrentRect().w << " IT'S A TRAP\n";
+	std::cout << "ADDING " << id << " SPRITESHEET\n";
+	//std::cout << m_spriteSheets[id]->getCurrentRect().w << " IT'S A TRAP\n";
 }
 
 std::shared_ptr<SpriteSheet> Sprite::getCurrentSpriteSheet() {
@@ -31,5 +31,17 @@ std::shared_ptr<SpriteSheet> Sprite::getCurrentSpriteSheet() {
 }
 
 void Sprite::setAnimationSpeed(double s){
+	m_animationSpeed = s;
 	m_spriteSheets[m_currentSpriteSheet]->setAnimationSpeed(s);
+}
+
+void Sprite::setSpriteSheet(std::string id){
+	
+	if (m_spriteSheets[id] != nullptr){
+		//std::cout << m_animationSpeed << "\n";
+		m_spriteSheets[id]->setAnimationSpeed(m_animationSpeed);
+		m_currentSpriteSheet = id;
+	}
+	//else
+		//std::cout << "sprsheet " << id << " not found\n";
 }

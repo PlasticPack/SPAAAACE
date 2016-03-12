@@ -17,6 +17,7 @@ public:
 	std::shared_ptr<PositionComponent> getPositionComponent();
 	double getMass();
 	double getHitboxRadius();
+	double getElasticity() { return m_elasticity; };
 
 	void setPosition(Vec2 pos);
 	void setVelocity(Vec2 vel);
@@ -44,5 +45,7 @@ protected:
 	Vec2 m_forces;
 	double m_hitboxRadius;
 	bool m_activated;
+	double m_elasticity;
+	double m_friction;
 };
 

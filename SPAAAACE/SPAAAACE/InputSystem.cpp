@@ -5,7 +5,7 @@ using namespace std;
 
 InputsSystem::InputsSystem() : m_manette(NULL), m_haptic(NULL), m_inputClavier(NULL), m_deadzone(4000)
 {
-
+	openJoystick();
 }
 
 InputsSystem::~InputsSystem()
