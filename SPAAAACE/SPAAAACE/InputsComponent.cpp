@@ -4,7 +4,7 @@
 #include "Vec2.h"
 
 using namespace std;
-
+/*
 
 InputsComponent::InputsComponent(std::shared_ptr<InputsSystem> inputs, std::shared_ptr<PhysicsComponent> physComp) : Component(), m_physComp(physComp), m_inputs(inputs)
 {
@@ -23,3 +23,4 @@ void InputsComponent::update()
 	m_physComp->setForces(pushForce);
 	
 }
+*/

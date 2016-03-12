@@ -7,7 +7,7 @@
 #include <math.h>
 
 
-class InputsComponent;
+//class InputsComponent;
 
 class InputsSystem
 {
@@ -47,7 +47,7 @@ public:
 	*/
 	void pollInputs();
 
-	void update(InputsComponent* inComp);
+	//void update(InputsComponent* inComp);
 
 	/*
 	* Renvoi le statut de l'action demendé

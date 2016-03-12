@@ -4,7 +4,7 @@
 #include "Component.h"
 #include "Flags.h"
 #include <memory>
-
+/*
 class InputsSystem;
 class PhysicsComponent;
 
@@ -26,4 +26,4 @@ protected:
 	std::shared_ptr<PhysicsComponent> m_physComp;
 	//SPECIALFX`: halo, particules etc
 
-};
+};*/
