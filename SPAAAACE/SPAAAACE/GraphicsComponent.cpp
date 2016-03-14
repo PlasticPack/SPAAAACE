@@ -1,4 +1,5 @@
 #include "GraphicsComponent.h"
+#include <LuaBridge.h>
 
 GraphicsComponent::GraphicsComponent()
 {
@@ -8,6 +9,37 @@ GraphicsComponent::GraphicsComponent()
 	m_haloOn = false;
 	m_center = Vec2(0, 0);
 	m_size = Vec2(0, 0);
+}
+
+
+GraphicsComponent::GraphicsComponent(luabridge::LuaRef& componentTable, std::shared_ptr<PositionComponent> comp=nullptr){
+	GraphicsComponent();
+	using namespace luabridge;
+	auto spriteRef = componentTable["filename"];
+	if (spriteRef.isString()){
+		auto heightRef = componentTable["h"];
+		auto wideRef = componentTable["w"];
+		auto texture = IMG_LoadTexture(NULL, spriteRef.cast<std::string>().c_str());
+		if (wideRef.isNumber() && heightRef.isNumber()){
+			
+			auto rect = SDL_Rect();
+			rect.h = heightRef.cast<int>();
+			rect.w = wideRef.cast<int>();
+			auto size = SDL_Rect();
+			setSprite(std::make_shared<Sprite>(std::make_shared<SpriteSheet>(texture, rect,size)));
+			
+		}
+		else{
+			setSprite(std::make_shared<Sprite>(std::make_shared<SpriteSheet>(texture, SDL_Rect(), SDL_Rect())));
+		}
+		
+	}
+	else{
+		setSprite(nullptr);
+	}
+
+
+	this->m_posComponent = comp;
 }
 
 GraphicsComponent::GraphicsComponent(std::shared_ptr<PositionComponent> comp, std::shared_ptr<Sprite> spr)
@@ -70,4 +102,8 @@ C_Color GraphicsComponent::getHaloColor(){
 
 bool GraphicsComponent::isHaloOn(){
 	return m_haloOn;
+}
+
+void GraphicsComponent::setPositionComponent(std::shared_ptr<PositionComponent> pcomp=nullptr){
+	this->m_posComponent = pcomp;
 }

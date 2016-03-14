@@ -9,6 +9,7 @@ class PhysicsComponent : public Component
 {
 public:
 	PhysicsComponent(std::shared_ptr<PositionComponent> comp);
+	PhysicsComponent(luabridge::LuaRef& componentTable, std::shared_ptr<PositionComponent> comp=nullptr);
 	~PhysicsComponent();
 
 	Vec2 getPosition();
@@ -23,6 +24,7 @@ public:
 	void setForces(Vec2 forces);
 	void setMass(double mass);
 	void setHitboxRadius(double hbr);
+	void setPositionComp(std::shared_ptr<PositionComponent> comp = nullptr);
 
 	bool isActive() { return m_activated; }
 
