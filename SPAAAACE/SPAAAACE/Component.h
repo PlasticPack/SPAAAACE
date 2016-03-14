@@ -4,6 +4,10 @@
 #include "Message.h"
 #include <memory>
 
+namespace luabridge {
+	class LuaRef;
+}
+
 class Component
 {
 public:

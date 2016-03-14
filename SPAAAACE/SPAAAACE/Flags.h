@@ -1,4 +1,5 @@
-#pragma once
+#ifndef FLAGS_H
+#define FLAGS_H
 
 enum message
 {
@@ -52,11 +53,12 @@ enum action // METTRE NOUVELLEs ACTIONS ICI
 	AC_SECONDARY_KEY,
 	AC_UP,
 	AC_DOWN,
-	AC_LEFT,
-	AC_RIGHT,
 	AC_HORIZONTAL_PUSH,
 	AC_VERTICAL_PUSH,
 	AC_EXIT,
-
+	AC_LEFT,
+	AC_RIGHT,
 	AC_NUMBER_OF_ACTION // Mettre tout autre action AVANT celle-ci
 };
+
+#endif /*FLAGS_H*/

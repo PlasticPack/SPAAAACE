@@ -14,11 +14,14 @@ class InputsComponent :
 {
 public:
 
-	InputsComponent(std::shared_ptr<InputsSystem> inputs, std::shared_ptr<PhysicsComponent> physComp);
+	InputsComponent(std::shared_ptr<InputsSystem> inputs, std::shared_ptr<PhysicsComponent> physComp=nullptr);
+	InputsComponent(luabridge::LuaRef& componentTable, std::shared_ptr<InputsSystem> inputs=nullptr, std::shared_ptr<PhysicsComponent> physComp=nullptr);
 	
 	~InputsComponent();
 
 	void update();
+
+	void setPhysComp(std::shared_ptr<PhysicsComponent> comp=nullptr){this->m_physComp = comp;}
 protected:
 	//sprite
 	//pointeur sur un renderer/fenetre

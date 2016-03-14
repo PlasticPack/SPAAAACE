@@ -10,6 +10,11 @@ InputsComponent::InputsComponent(std::shared_ptr<InputsSystem> inputs, std::shar
 {
 
 }
+
+InputsComponent::InputsComponent(luabridge::LuaRef& componentTable, std::shared_ptr<InputsSystem> inputs, std::shared_ptr<PhysicsComponent> physComp){
+	//for now nothing specific
+	InputsComponent(inputs, physComp);
+}
 InputsComponent::~InputsComponent()
 {
 
@@ -17,10 +22,10 @@ InputsComponent::~InputsComponent()
 
 void InputsComponent::update()
 {
-	Vec2 pushForce;
-	pushForce.setX(m_inputs->checkTriggeredAction(AC_HORIZONTAL_PUSH) / 32768 * m_physComp->getPushValue());
-	pushForce.setY(m_inputs->checkTriggeredAction(AC_VERTICAL_PUSH) / 32768 * m_physComp->getPushValue());
-	m_physComp->setForces(pushForce);
+	//Vec2 pushForce;
+	//pushForce.setX(m_inputs->checkTriggeredAction(AC_HORIZONTAL_PUSH) / 32768 * m_physComp->getPushValue());
+	//pushForce.setY(m_inputs->checkTriggeredAction(AC_VERTICAL_PUSH) / 32768 * m_physComp->getPushValue());
+	//m_physComp->setForces(pushForce);
 	
 }
 */

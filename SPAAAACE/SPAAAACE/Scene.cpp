@@ -21,7 +21,7 @@ void Scene::init(){
 
 	m_gameObjects.back().get<PhysicsComponent>()->getPositionComponent()->setZIndex(0.3);*/
 
-	addSkyBody(0, 0, 100, "skyBody_" + std::to_string(m_gameObjects.size()));
+	addSkyBody(0, 0, 8000, "skyBody_" + std::to_string(m_gameObjects.size()));
 
 	m_gameObjects.back().get<PhysicsComponent>()->setHitboxRadius(700);
 	m_gameObjects.back().get<GraphicsComponent>()->setSize(Vec2(1400, 1400));
@@ -128,16 +128,16 @@ void Scene::update(Message &postman)
 			//on check la direction du joueur
 				Vec2 forces(0, 0);
 				if (m_inSystem.checkTriggeredAction(AC_UP))
-					forces += Vec2(0, -440);
+					forces += Vec2(0, -340);
 
 				if (m_inSystem.checkTriggeredAction(AC_DOWN))
-					forces += Vec2(0, 440);
+					forces += Vec2(0, 340);
 
 				if (m_inSystem.checkTriggeredAction(AC_LEFT))
-					forces += Vec2(-440, 0);
+					forces += Vec2(-340, 0);
 
 				if (m_inSystem.checkTriggeredAction(AC_RIGHT))
-					forces += Vec2(440, 0);
+					forces += Vec2(340, 0);
 
 				pc->setForces(forces);
 
