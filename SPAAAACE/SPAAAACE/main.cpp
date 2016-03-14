@@ -8,7 +8,7 @@
 const int SCREEN_W = 1600;
 const int SCREEN_H = 900;*/
 
-#undef main
+
 
 int main(int argc, char* argv[]){
 

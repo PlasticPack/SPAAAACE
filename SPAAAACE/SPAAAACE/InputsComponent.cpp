@@ -10,6 +10,11 @@ InputsComponent::InputsComponent(std::shared_ptr<InputsSystem> inputs, std::shar
 {
 
 }
+
+InputsComponent::InputsComponent(luabridge::LuaRef& componentTable, std::shared_ptr<InputsSystem> inputs, std::shared_ptr<PhysicsComponent> physComp){
+	//for now nothing specific
+	InputsComponent(inputs, physComp);
+}
 InputsComponent::~InputsComponent()
 {
 

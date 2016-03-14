@@ -1,4 +1,5 @@
 #include "PhysicsComponent.h"
+#include <LuaBridge.h>
 
 //Les blagues ont une grasieuster de Justin :)
 
@@ -8,16 +9,41 @@ PhysicsComponent::PhysicsComponent(std::shared_ptr<PositionComponent> c)
 	m_activated = true;
 	m_posComponent = c;
 	m_mass = 1.0;
-	//Si j'ai trois jeunes dans une autobus qui va vers l'école combien il a de jambre dans cette autobus ?
-	m_hitboxRadius = 50;
+	setHitboxRadius(50.0);
+}
+
+#include <string>
+
+PhysicsComponent::PhysicsComponent(luabridge::LuaRef& componentTable, std::shared_ptr<PositionComponent> c){
+	using namespace luabridge;
+	m_posComponent = c;
+	auto massRef = componentTable["mass"];
+	if (massRef.isNumber()){
+		setMass(massRef.cast<double>());
+		//std::cout << "Mass is : " << massRef.cast<double>();
+	}
+	else {
+		setMass(1.0);
+		std::cout << "Mass is : " << getMass();
+	}
+	auto activateRef = componentTable["activated"];
+	if (activateRef.isString()){
+		if (strcmp(activateRef.cast<std::string>().c_str(), std::string("False").c_str()) == 0 || 
+			strcmp(activateRef.cast<std::string>().c_str(), std::string("false").c_str()) == 0){
+			m_activated = 0;
+		}
+		else m_activated = 1;
+	}
+	auto hbRef = componentTable["hitbox"];
+	if (hbRef.isNumber()){
+		setHitboxRadius(hbRef.cast<double>());
+	}
+	else setHitboxRadius(50);
 }
 
 
 PhysicsComponent::~PhysicsComponent()
 {
-	//Pète pî répète s'en vont en bateau. Pète tombe a l'eau, qui qui reste. 
-	//WHILE LOOP !!!!!!!
-	//while(true);
 }
 
 
@@ -65,6 +91,10 @@ void PhysicsComponent::setMass(double pos){
 
 void PhysicsComponent::setHitboxRadius(double pos){
 	m_hitboxRadius = pos;
+}
+
+void PhysicsComponent::setPositionComp(std::shared_ptr<PositionComponent> comp){
+	this->m_posComponent = comp;
 }
 
 /*

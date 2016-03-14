@@ -16,6 +16,7 @@ class Component;
 class PositionComponent : public Component {
 public:
 	PositionComponent();
+	PositionComponent(luabridge::LuaRef& componentTable);
 
 	virtual ~PositionComponent();
 	void update();
