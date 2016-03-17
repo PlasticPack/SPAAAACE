@@ -17,6 +17,25 @@ SpriteSheet::SpriteSheet(SDL_Texture* texture, SDL_Rect rectSize, SDL_Rect sheet
 	//std::cout << "CUSTOM SPRSHEET : " << this << " w/ texture " << texture <<  "\n";
 }
 
+SpriteSheet::SpriteSheet(SDL_Texture* texture, int nbcol, int nbrow)
+{
+	int w = 0, h = 0;
+	m_texture = texture;
+
+	SDL_QueryTexture(m_texture, NULL, NULL, &w, &h);
+	std::cout << "c " << nbcol << "  r " << nbrow << "\n";
+	m_sheetSize = {0,0, w, h};
+
+	w /= nbcol;
+	h /= nbrow;
+	std::cout << "w " << w << "  h " << h << "\n";
+
+	m_animationSpeed = 1;
+	m_timer = 0;
+	m_currentRect = SDL_Rect{ 0, 0, w, h };
+	//std::cout << "CUSTOM SPRSHEET : " << this << " w/ texture " << texture <<  "\n";
+}
+
 SpriteSheet::SpriteSheet(SpriteSheet const& a){
 	if (this != &a){
 		//std::cout << "Copying " << &a << " to " << this << "\n";

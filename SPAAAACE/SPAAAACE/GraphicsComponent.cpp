@@ -5,19 +5,28 @@ GraphicsComponent::GraphicsComponent()
 {
 	m_posComponent = nullptr;
 	m_sprite = nullptr;
-	m_halo = { 255, 25, 25, 255};
-	m_haloOn = false;
 	m_center = Vec2(0, 0);
 	m_size = Vec2(0, 0);
 }
 
 
-GraphicsComponent::GraphicsComponent(luabridge::LuaRef& componentTable, std::shared_ptr<PositionComponent> comp=nullptr){
+GraphicsComponent::GraphicsComponent(luabridge::LuaRef& componentTable, std::shared_ptr<PositionComponent> comp){
 	GraphicsComponent();
 	using namespace luabridge;
 	auto spriteRef = componentTable["filename"];
+	auto cols = componentTable["c"];
+	auto rows = componentTable["r"];
 	if (spriteRef.isString()){
-		auto heightRef = componentTable["h"];
+
+		m_sprite = std::make_shared<Sprite>(std::make_shared<SpriteSheet>(GraphicsSystem::loadTexture(spriteRef), cols.cast<int>(), rows.cast<int>()));
+		m_center = Vec2(0, 0);
+		m_size = Vec2(0, 0);
+
+		//SDL_Texture* texture = nullptr;
+
+		//m_sprite = std::make_shared<Sprite>(std::make_shared<SpriteSheet>(texture, cols, rows));
+
+		/*auto heightRef = componentTable["h"];
 		auto wideRef = componentTable["w"];
 		auto texture = IMG_LoadTexture(NULL, spriteRef.cast<std::string>().c_str());
 		if (wideRef.isNumber() && heightRef.isNumber()){
@@ -31,10 +40,11 @@ GraphicsComponent::GraphicsComponent(luabridge::LuaRef& componentTable, std::sha
 		}
 		else{
 			setSprite(std::make_shared<Sprite>(std::make_shared<SpriteSheet>(texture, SDL_Rect(), SDL_Rect())));
-		}
+		}*/
 		
 	}
 	else{
+
 		setSprite(nullptr);
 	}
 
@@ -44,7 +54,6 @@ GraphicsComponent::GraphicsComponent(luabridge::LuaRef& componentTable, std::sha
 
 GraphicsComponent::GraphicsComponent(std::shared_ptr<PositionComponent> comp, std::shared_ptr<Sprite> spr)
 {
-	m_halo = { 255, 25, 25, 255 };
 	m_sprite = spr;
 	m_center = Vec2(spr->getCurrentSpriteSheet()->getCurrentRect().w / 2, spr->getCurrentSpriteSheet()->getCurrentRect().h / 2);
 	//std::cout << m_center.x() << "  TWAS THE CENTER :D \n";
@@ -86,22 +95,6 @@ std::shared_ptr<Sprite> GraphicsComponent::getSprite() const{
 
 Vec2 GraphicsComponent::getPosition(){
 	return m_posComponent->getPosition();
-}
-
-void GraphicsComponent::setHaloColor(C_Color c){
-	m_halo = c;
-}
-
-void GraphicsComponent::activateHalo(bool h){
-	m_haloOn = h;
-}
-
-C_Color GraphicsComponent::getHaloColor(){
-	return m_halo;
-}
-
-bool GraphicsComponent::isHaloOn(){
-	return m_haloOn;
 }
 
 void GraphicsComponent::setPositionComponent(std::shared_ptr<PositionComponent> pcomp=nullptr){

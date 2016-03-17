@@ -25,7 +25,7 @@ public:
 	void setForces(Vec2 forces);
 	void setMass(double mass);
 	void setHitboxRadius(double hbr);
-	void setPositionComp(std::shared_ptr<PositionComponent> comp = nullptr);
+	void setPositionComp(std::shared_ptr<PositionComponent> comp);
 
 	bool isActive() { return m_activated; }
 

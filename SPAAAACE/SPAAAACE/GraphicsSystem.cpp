@@ -1,30 +1,38 @@
 #include "GraphicsSystem.h"
 
+SDL_Window* GraphicsSystem::m_window = NULL;//SDL_CreateWindow("Physics - SPACE SIM", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_W, SCREEN_H, SDL_WINDOW_SHOWN);
+SDL_Renderer* GraphicsSystem::m_renderer = NULL;//SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
+Camera GraphicsSystem::m_camera = { 0, 1, Vec2(SCREEN_W / 2, SCREEN_H / 2), true };
+bool GraphicsSystem::m_frameStarted = false;
+double GraphicsSystem::m_avgFPS = 60;
+LTimer GraphicsSystem::m_fpsTimer = LTimer();
+int GraphicsSystem::m_countedFrames = 1;
+SDL_Texture* GraphicsSystem::m_backgrounds[4];
+Vec2 GraphicsSystem::m_backgroundSize[4];
 
 GraphicsSystem::GraphicsSystem()
 {
-	m_camera = { 0, 1, Vec2(SCREEN_W / 2, SCREEN_H / 2) , true};
-	m_defaultHalo = NULL;
-	m_countedFrames = 1;
-	m_avgFPS = 60;
+	
+}
+
+void GraphicsSystem::init(){
+	std::cout << "Initializing visuals \n";
 	for (int i = 0; i < 4; i++)
 		m_backgrounds[i] = nullptr;
-	m_frameStarted = false;
+
 	IMG_Init(IMG_INIT_PNG);
 	m_window = SDL_CreateWindow("Physics - SPACE SIM", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_W, SCREEN_H, SDL_WINDOW_SHOWN);
-	if (m_window == nullptr){
-		//log("SDL_CreateWindow error : " + string(SDL_GetError()));
+	if (m_window == NULL){
+		std::cout << "SDL_CreateWindow error : " + std::string(SDL_GetError());
 		SDL_Quit();
 	}
 
 	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED );
-	if (m_renderer == nullptr){
+	if (m_renderer == NULL){
 		SDL_DestroyWindow(m_window);
-		//log("SDL_CreateRenderer error : " + string(SDL_GetError()));
+		std::cout << "SDL_CreateRenderer error : " + std::string(SDL_GetError());
 		SDL_Quit();
 	}
-
-	m_defaultHalo = this->loadTexture("ressources/halo.png");
 }
 
 double GraphicsSystem::getFPS(){
@@ -36,16 +44,18 @@ void GraphicsSystem::lockCamera(bool l){
 }
 GraphicsSystem::~GraphicsSystem()
 {
+}
+
+void GraphicsSystem::close(){
+	std::cout << "\n\nDEST";
 	SDL_DestroyTexture(m_backgrounds[0]);
 	SDL_DestroyTexture(m_backgrounds[1]);
 	SDL_DestroyTexture(m_backgrounds[2]);
 	SDL_DestroyTexture(m_backgrounds[3]);
-	SDL_DestroyTexture(m_defaultHalo);
 	SDL_DestroyRenderer(m_renderer);
 	SDL_DestroyWindow(m_window);
 	IMG_Quit();
 }
-
 
 SDL_Texture* GraphicsSystem::loadTexture(const std::string filename, Uint8 r, Uint8 g, Uint8 b){
 
@@ -148,7 +158,6 @@ void GraphicsSystem::update(Message &postman, GraphicsComponent gComp, double dt
 				SDL_SetTextureColorMod(m_defaultHalo, (unsigned int)gComp.getHaloColor().r, (unsigned int)gComp.getHaloColor().g, (unsigned int)gComp.getHaloColor().b);
 				SDL_RenderCopyEx(m_renderer, m_defaultHalo, NULL, &haloRect, angle, NULL, SDL_FLIP_NONE);
 			}*/
-
 			SDL_RenderCopyEx(m_renderer, gComp.getSprite()->getCurrentSpriteSheet()->getTexture(), &sprRect, &pos, angle, NULL,SDL_FLIP_NONE);
 			
 		}

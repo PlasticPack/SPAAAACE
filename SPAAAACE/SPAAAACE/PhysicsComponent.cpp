@@ -10,9 +10,8 @@ PhysicsComponent::PhysicsComponent(std::shared_ptr<PositionComponent> c)
 	m_posComponent = c;
 	m_mass = 1.0;
 	//Si j'ai trois jeunes dans une autobus qui va vers l'école combien il a de jambre dans cette autobus ?
-	m_hitboxRadius = 50;
+	m_hitboxRadius = 15;
 	m_elasticity = 0.9;
-	setHitboxRadius(50.0);
 }
 
 #include <string>
@@ -41,7 +40,10 @@ PhysicsComponent::PhysicsComponent(luabridge::LuaRef& componentTable, std::share
 	if (hbRef.isNumber()){
 		setHitboxRadius(hbRef.cast<double>());
 	}
-	else setHitboxRadius(50);
+	else setHitboxRadius(15);
+
+	m_elasticity = 0.9;
+	m_activated = true;
 }
 
 

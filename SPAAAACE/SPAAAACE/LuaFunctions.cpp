@@ -1,7 +1,5 @@
 #include "LuaInit.hpp"
 #include <LuaBridge.h>
-#include <iostream>
-#include <memory>
 
 bool luain::loadScript(lua_State* L, const std::string& filename);
 
@@ -86,12 +84,14 @@ std::vector<std::string> luain::getTableKeys(lua_State* L, const std::string& na
 }
 
 template <typename T>
-void addComponent(std::shared_ptr<GameObject> e, luabridge::LuaRef& componentTable) {
+void addComponent(Scene *s, std::shared_ptr<GameObject> e, luabridge::LuaRef& componentTable) {
 	//auto n = T(componentTable);
+
 	e->addComponent(std::type_index(typeid(T)), std::make_shared<T>(componentTable));
+	s->addComponent<T>(e->get<T>());
 }
 
-std::shared_ptr<GameObject> luain::loadGameObjects(lua_State* L, const std::string& type){
+std::shared_ptr<GameObject> luain::loadGameObjects(Scene *s, lua_State* L, const std::string& type){
 	using namespace luabridge;
 	std::shared_ptr<GameObject> obj = std::make_shared<GameObject>();
 	obj->setID(type);
@@ -102,23 +102,20 @@ std::shared_ptr<GameObject> luain::loadGameObjects(lua_State* L, const std::stri
 		
 		if (componentName == "Position") {
 			LuaRef poscTable = entityTable[componentName];
-			addComponent<PositionComponent>(obj, poscTable);
+			addComponent<PositionComponent>(s, obj, poscTable);
 		}
 		else if (componentName == "Physics"){
-			LuaRef phycTable = entityTable["Physics"];
-			addComponent<PhysicsComponent>(obj, phycTable);
+			LuaRef phycTable = entityTable[componentName];
+			addComponent<PhysicsComponent>(s, obj, phycTable);
 
 		}
 		else if (componentName == "Graphics"){
 			LuaRef graTable = entityTable[componentName];
-			addComponent<GraphicsComponent>(obj, graTable);
-		}
-		else if (componentName == "Input"){
-			LuaRef inTable = entityTable[componentName];
-			addComponent<GraphicsComponent>(obj, inTable);
+			addComponent<GraphicsComponent>(s, obj, graTable);
 		}
 		else std::cout << "Unknown component: " << componentName;
-		std::cout << "Added " << componentName << " to " << type << std::endl;
+
+		std::cout << "Added " << componentName  << " to " << type << std::endl;
 	}
 	if (obj->hasComponent(typeid(PositionComponent))){
 		if (obj->hasComponent(typeid(GraphicsComponent))){
@@ -128,11 +125,6 @@ std::shared_ptr<GameObject> luain::loadGameObjects(lua_State* L, const std::stri
 			obj->get<PhysicsComponent>()->setPositionComp(obj->get<PositionComponent>());
 		}
 	}
-	/*if (obj->hasComponent(typeid(PhysicsComponent))){
-		if (obj->hasComponent(typeid(InputsComponent))){
-			obj->get<InputsComponent>()->setPhysComp(obj->get<PhysicsComponent>());
-		}
-	}*/
 	
 	
 	return obj;

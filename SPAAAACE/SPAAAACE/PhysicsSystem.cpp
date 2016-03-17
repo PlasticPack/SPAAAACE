@@ -25,11 +25,11 @@ void PhysicsSystem::resolveCollision(Message &postman, std::shared_ptr<PhysicsCo
 		//std::cout << a->getVelocity().getLength() << "\n";
 
 		postman.addMessage("Physics", "Physics", MS_COLLISION, (a->getVelocity().getLength() + b->getVelocity().getLength()));
-		std::cout << (a->getVelocity().getLength() + b->getVelocity().getLength()) << "\n";
+		//std::cout << (a->getVelocity().getLength() + b->getVelocity().getLength()) << "\n";
 		
 		double elasticity = a->getElasticity() * b->getElasticity();
 
-		std::cout << elasticity << "\n";
+	//	std::cout << elasticity << "\n";
 
 		//on calcule la vélocité des 2 après la collision
 		double firstA = (2 * b->getMass() / (a->getMass() + b->getMass()));

@@ -26,7 +26,7 @@ void Sprite::addSpriteSheet(std::string id, std::shared_ptr<SpriteSheet> sheet){
 }
 
 std::shared_ptr<SpriteSheet> Sprite::getCurrentSpriteSheet() {
-	//std::cout << "Current SprSheet " << m_currentSpriteSheet << "\n";
+
 	return m_spriteSheets[m_currentSpriteSheet];
 }
 

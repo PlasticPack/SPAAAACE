@@ -1,13 +1,12 @@
 #pragma once
 
-#include "GameObject.h"
 #include "GraphicsSystem.h"
 #include "PhysicsSystem.h"
 #include "InputSystem.h"
-#include <vector>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "LuaInit.hpp"
 
 /*********************************************
 
@@ -65,16 +64,35 @@ createButton("OPTIONS", ...);
 class Scene
 {
 public:
+
 	Scene();
 	~Scene();
 
-	void addGameObject();
+	//void addGameObject();
 	
 	void update(Message &postman);
 	void init(); // méthode qui prend un script  et initialise le vector de gameObjects
 
-	void addSkyBody(double x, double y, double mass, std::string id, Uint8 r = 255, Uint8 g = 255, Uint8 b = 255);
+	//void addSkyBody(double x, double y, double mass, std::string id, Uint8 r = 255, Uint8 g = 255, Uint8 b = 255);
 	void orderByZIndex();
+
+	//getters des components, utile à luafunctions.cpp
+	template <typename T> void addComponent(std::shared_ptr<Component> c){
+		 
+		//m_components[t].push_back(c);
+		std::cout << "Added a " << std::type_index(typeid(T)).name() << " to Scene\n";
+		if (std::type_index(typeid(T)) == std::type_index(typeid(PositionComponent))){
+			m_posComps.push_back(std::dynamic_pointer_cast<PositionComponent>(c));
+		}
+
+		if (std::type_index(typeid(T)) == std::type_index(typeid(PhysicsComponent))){
+			m_physicsComps.push_back(std::dynamic_pointer_cast<PhysicsComponent>(c));
+		}
+
+		if (std::type_index(typeid(T)) == std::type_index(typeid(GraphicsComponent))){
+			m_graphicsComps.push_back(std::dynamic_pointer_cast<GraphicsComponent>(c));
+		}
+	}
 
 	//std::vector<GameObject> getObjects() { return m_gameObjects; } // temporaire
 	/*
@@ -93,10 +111,13 @@ protected:
 	std::vector<std::shared_ptr<PositionComponent>> m_posComps;
 	std::vector<std::shared_ptr<GraphicsComponent>> m_graphicsComps;
 	std::vector<std::shared_ptr<PhysicsComponent>> m_physicsComps;
+
+
+	std::map<std::type_index, std::vector<std::shared_ptr<Component>>> m_components;
+
 	//std::vector<std::shared_ptr<InputsComponent>> m_inputsComps;
 
 	InputsSystem m_inSystem;
 	PhysicsSystem m_phySystem;
-	GraphicsSystem m_graSystem;
 };
 
