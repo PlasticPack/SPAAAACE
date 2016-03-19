@@ -1,6 +1,11 @@
-﻿La génération a démarré 2016-03-18 22:45:48.
+﻿La génération a démarré 2016-03-18 23:21:41.
      1>Projet "C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\SPAAAACE\SPAAAACE.vcxproj" sur le nœud 2 (Build cible(s)).
-     1>Link:
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\Lua\5.2\include /I"..\..\LuaBridge-master\Source\LuaBridge" /I..\..\SDL2_ttf\include /I..\..\MSXML6 /I"..\..\SDL2_mixer-2.0.1\include" /I"..\..\SDL2_image-2.0.1\include" /I"..\..\SDL2-2.0.4\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /FR"Debug\\" /Gd /TP /analyze- /errorReport:prompt GraphicsComponent.cpp PhysicsComponent.cpp
+         PhysicsComponent.cpp
+         GraphicsComponent.cpp
+         Génération de code en cours...
+       Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Debug\SPAAAACE.exe" /INCREMENTAL /NOLOGO /LIBPATH:..\..\SDL2_ttf\lib\x86 /LIBPATH:"..\..\SDL2_mixer-2.0.1\lib\x86" /LIBPATH:"..\..\SDL2_image-2.0.1\lib\x86" /LIBPATH:"..\..\SDL2-2.0.4\lib\x86" /LIBPATH:..\..\Lua\5.2\lib lua5.2.lib SDL2main.lib SDL2.lib SDL2_image.lib SDL2_mixer.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Debug\SPAAAACE.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Debug\SPAAAACE.lib" /MACHINE:X86 Debug\Component.obj
          Debug\GameLogicComponent.obj
          Debug\GameLogicSystem.obj
@@ -22,6 +27,7 @@
          Debug\Sprite.obj
          Debug\SpriteSheet.obj
          Debug\Vec2.obj
+         LINK : C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Debug\SPAAAACE.exe introuvable ou non généré par la dernière édition de liens incrémentielle ; édition de liens complète en cours
          SPAAAACE.vcxproj -> C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Debug\SPAAAACE.exe
        BscMake:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\bscmake.exe /nologo /o"C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Debug\SPAAAACE.bsc" /n Debug\Component.sbr Debug\GameLogicComponent.sbr Debug\GameLogicSystem.sbr Debug\GameObject.sbr Debug\GraphicsComponent.sbr Debug\GraphicsSystem.sbr Debug\LTimer.sbr Debug\InputsComponent.sbr Debug\InputSystem.sbr Debug\LuaFunctions.sbr Debug\Message.sbr Debug\PhysicsComponent.sbr Debug\PhysicsSystem.sbr Debug\PositionComponent.sbr Debug\main.sbr Debug\Scene.sbr Debug\scriptinit_exemple.sbr Debug\Source1.sbr Debug\Sprite.sbr Debug\SpriteSheet.sbr Debug\Vec2.sbr
@@ -30,4 +36,4 @@
 
 La génération a réussi.
 
-Temps écoulé 00:00:02.05
+Temps écoulé 00:00:02.64

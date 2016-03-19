@@ -57,6 +57,8 @@ GraphicsComponent::GraphicsComponent(luabridge::LuaRef& componentTable, std::sha
 	this->m_posComponent = comp;
 }
 
+
+
 GraphicsComponent::GraphicsComponent(std::shared_ptr<PositionComponent> comp, std::shared_ptr<Sprite> spr)
 {
 	m_camera = true;

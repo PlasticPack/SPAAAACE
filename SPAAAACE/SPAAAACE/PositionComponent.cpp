@@ -23,7 +23,6 @@ PositionComponent::PositionComponent(luabridge::LuaRef& componentTable){
 	if (z.isNumber()){
 		m_zIndex = z;
 	}
-
 }
 
 

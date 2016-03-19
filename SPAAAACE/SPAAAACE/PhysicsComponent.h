@@ -33,12 +33,6 @@ public:
 		m_activated = a;
 	}
 
-	/*Vec2 gravity(PhysicsComponent& b); // retourne la gravité que b exerce sur this
-	
-	void update(std::vector<PhysicsComponent> &phyComps, double dt);
-
-	bool checkIfCollide(PhysicsComponent& b, double dt);*/
-
 protected:
 	std::shared_ptr<PositionComponent> m_posComponent;
 

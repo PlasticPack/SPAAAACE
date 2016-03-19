@@ -107,7 +107,6 @@ std::shared_ptr<GameObject> luain::loadGameObjects(Scene *s, lua_State* L, const
 		else if (componentName == "Physics"){
 			LuaRef phycTable = entityTable[componentName];
 			addComponent<PhysicsComponent>(s, obj, phycTable);
-
 		}
 		else if (componentName == "Graphics"){
 			LuaRef graTable = entityTable[componentName];
@@ -125,8 +124,6 @@ std::shared_ptr<GameObject> luain::loadGameObjects(Scene *s, lua_State* L, const
 			obj->get<PhysicsComponent>()->setPositionComp(obj->get<PositionComponent>());
 		}
 	}
-	
-	
 	return obj;
 }
 
