@@ -117,49 +117,45 @@ void GraphicsSystem::update(Message &postman, GraphicsComponent gComp, double dt
 		if (gComp.getSprite() != nullptr) {
 			gComp.getSprite()->getCurrentSpriteSheet()->nextRect(dt);
 
-			Vec2 coord, tempPos, finalPos, newPos, screenCoord(SCREEN_W, SCREEN_H);
-			coord = gComp.getPosition();
-			newPos = coord;
-
 			SDL_Rect sprRect = gComp.getSprite()->getCurrentSpriteSheet()->getCurrentRect();
-			double zIndex = (gComp.getPositionComponent()->getZIndex());
-			//zIndex *= zIndex;
-			double zoom(1), angle(0);
-			
-			zoom = m_camera.zoom;
-			angle = m_camera.angle;
+			if (gComp.isAffectedByCamera()){
 
-			if (m_camera.locked){
+				Vec2 coord, tempPos, finalPos, newPos, screenCoord(SCREEN_W, SCREEN_H);
+				coord = gComp.getPosition();
+				newPos = coord;
 				
-				tempPos = coord - m_camera.target;
+				double zIndex = (gComp.getPositionComponent()->getZIndex());
+				//zIndex *= zIndex;
+				double zoom(1), angle(0);
 
-				double newX = zIndex * m_camera.zoom * ((cos(m_camera.angle *(3.14159265 / 180)) * tempPos.x()) + (sin(m_camera.angle *(3.14159265 / 180)) * tempPos.y()));
-				double newY = zIndex * m_camera.zoom * ((-sin(m_camera.angle *(3.14159265 / 180)) * tempPos.x()) + (cos(m_camera.angle *(3.14159265 / 180)) * tempPos.y()));
+				zoom = m_camera.zoom;
+				angle = m_camera.angle;
 
-				newPos = Vec2(newX, newY);
+				if (m_camera.locked){
 
-				newPos += (screenCoord / 2);
+					tempPos = coord - m_camera.target;
+
+					double newX = zIndex * m_camera.zoom * ((cos(m_camera.angle *(3.14159265 / 180)) * tempPos.x()) + (sin(m_camera.angle *(3.14159265 / 180)) * tempPos.y()));
+					double newY = zIndex * m_camera.zoom * ((-sin(m_camera.angle *(3.14159265 / 180)) * tempPos.x()) + (cos(m_camera.angle *(3.14159265 / 180)) * tempPos.y()));
+
+					newPos = Vec2(newX, newY);
+
+					newPos += (screenCoord / 2);
+				}
+
+
+				SDL_Rect pos = { newPos.x() - (gComp.getSize().x() * zIndex * zoom / 2), newPos.y() - (zIndex * zoom * gComp.getSize().y() / 2), gComp.getSize().x() * zIndex * zoom, gComp.getSize().y() * zIndex * zoom };
+				
+				//SDL_Rect pos2 = { 10, 10, 100, 100 };
+				//std::cout << "ADRESS OF TEXTURE IN UPDATE : " << gComp.getSprite()->getCurrentSpriteSheet()->getTexture() << "\n";
+
+				SDL_RenderCopyEx(m_renderer, gComp.getSprite()->getCurrentSpriteSheet()->getTexture(), &sprRect, &pos, angle, NULL, SDL_FLIP_NONE);
+
 			}
-
-			
-			SDL_Rect pos = { newPos.x() - (gComp.getSize().x() * zIndex * zoom / 2), newPos.y() - (zIndex * zoom * gComp.getSize().y() / 2), gComp.getSize().x() * zIndex * zoom, gComp.getSize().y() * zIndex * zoom };
-
-			//std::cout << "ADRESS OF TEXTURE IN UPDATE : " << gComp.getSprite()->getCurrentSpriteSheet()->getTexture() << "\n";
-
-			/*if (gComp.isHaloOn()){
-				float sizeX(0), sizeY(0);
-				sizeX = zIndex * zoom * sprRect.w;
-				sizeY = zIndex * zoom * sprRect.h;
-				float deltaX, deltaY;
-				deltaX = (4 * sin(SDL_GetTicks() / 430.0) + 5) * zIndex * zoom;
-				deltaY = (4 * sin(SDL_GetTicks() / 430.0) + 5) * zIndex * zoom;
-				SDL_Rect haloRect = { newPos.x() - ((sizeX/2) + deltaX) , newPos.y() - ((sizeY/2) + deltaX), 2 * (sizeX + deltaX), 2 * (sizeY+deltaY) };
-				//std::cout << gComp.getHaloColor().r << "\n";
-				SDL_SetTextureColorMod(m_defaultHalo, (unsigned int)gComp.getHaloColor().r, (unsigned int)gComp.getHaloColor().g, (unsigned int)gComp.getHaloColor().b);
-				SDL_RenderCopyEx(m_renderer, m_defaultHalo, NULL, &haloRect, angle, NULL, SDL_FLIP_NONE);
-			}*/
-			SDL_RenderCopyEx(m_renderer, gComp.getSprite()->getCurrentSpriteSheet()->getTexture(), &sprRect, &pos, angle, NULL,SDL_FLIP_NONE);
-			
+			else {
+				SDL_Rect pos = { gComp.getPosition().x(), gComp.getPosition().y(), gComp.getSize().x(), gComp.getSize().y()};
+				SDL_RenderCopy(m_renderer, gComp.getSprite()->getCurrentSpriteSheet()->getTexture(), &sprRect, &pos);
+			}
 		}
 	}
 }

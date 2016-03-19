@@ -48,6 +48,6 @@ protected:
 	double m_hitboxRadius;
 	bool m_activated;
 	double m_elasticity;
-	double m_friction;
+	//double m_friction;
 };
 

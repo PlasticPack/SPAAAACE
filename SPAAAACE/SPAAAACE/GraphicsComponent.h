@@ -35,6 +35,9 @@ public:
 	Vec2 getSize();
 	void setSize(Vec2 s);
 
+	void affectedByCamera(bool c) { m_camera = c; };
+	bool isAffectedByCamera(){ return m_camera; }
+
 protected:
 	//sprite
 	//pointeur sur un renderer/fenetre
@@ -42,7 +45,7 @@ protected:
 	std::shared_ptr<PositionComponent> m_posComponent;
 	Vec2 m_size;
 	Vec2 m_center;
-
+	bool m_camera;
 	//SPECIALFX`: halo, particules etc
 };
 

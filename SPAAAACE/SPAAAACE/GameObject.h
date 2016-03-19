@@ -35,7 +35,7 @@ public:
 	void removeComponent(std::type_index);
 	
 	bool hasComponent(std::type_index);
-	void setID(std::string id){ this->m_ID = id; }
+	void setID(std::string id){ m_ID = id; }
 
 protected:
 	std::map<std::type_index, std::shared_ptr<Component>> m_components;

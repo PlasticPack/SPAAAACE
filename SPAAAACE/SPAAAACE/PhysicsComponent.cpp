@@ -19,7 +19,14 @@ PhysicsComponent::PhysicsComponent(std::shared_ptr<PositionComponent> c)
 PhysicsComponent::PhysicsComponent(luabridge::LuaRef& componentTable, std::shared_ptr<PositionComponent> c){
 	using namespace luabridge;
 	m_posComponent = c;
+	m_elasticity = 0.9;
+	m_activated = true;
+
 	auto massRef = componentTable["mass"];
+	auto activateRef = componentTable["activated"];
+	auto hbRef = componentTable["hitbox"];
+	auto ela = componentTable["elasticity"];
+	
 	if (massRef.isNumber()){
 		setMass(massRef.cast<double>());
 		//std::cout << "Mass is : " << massRef.cast<double>();
@@ -28,7 +35,7 @@ PhysicsComponent::PhysicsComponent(luabridge::LuaRef& componentTable, std::share
 		setMass(1.0);
 		std::cout << "Mass is : " << getMass();
 	}
-	auto activateRef = componentTable["activated"];
+	
 	if (activateRef.isString()){
 		if (strcmp(activateRef.cast<std::string>().c_str(), std::string("False").c_str()) == 0 || 
 			strcmp(activateRef.cast<std::string>().c_str(), std::string("false").c_str()) == 0){
@@ -36,14 +43,15 @@ PhysicsComponent::PhysicsComponent(luabridge::LuaRef& componentTable, std::share
 		}
 		else m_activated = 1;
 	}
-	auto hbRef = componentTable["hitbox"];
+	
 	if (hbRef.isNumber()){
 		setHitboxRadius(hbRef.cast<double>());
 	}
 	else setHitboxRadius(15);
 
-	m_elasticity = 0.9;
-	m_activated = true;
+	if (ela.isNumber()){
+		m_elasticity = ela.cast<double>();
+	}
 }
 
 

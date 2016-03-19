@@ -3,12 +3,14 @@
 
 Sprite::Sprite()
 {
+	m_animationSpeed = 1;
 	std::cout << "DEFAULT SPRITE " << this << " CREATED\n";
 	m_currentSpriteSheet = "default";
 }
 
 Sprite::Sprite(std::shared_ptr<SpriteSheet> sprS)
 {
+	m_animationSpeed = 1;
 	m_spriteSheets["default"] = sprS;
 	std::cout << "custom SPRITE " <<  this << " CREATED\n";
 	m_currentSpriteSheet = "default";
