@@ -1,30 +1,38 @@
 #include "GraphicsSystem.h"
 
+SDL_Window* GraphicsSystem::m_window = NULL;//SDL_CreateWindow("Physics - SPACE SIM", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_W, SCREEN_H, SDL_WINDOW_SHOWN);
+SDL_Renderer* GraphicsSystem::m_renderer = NULL;//SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
+Camera GraphicsSystem::m_camera = { 0, 1, Vec2(SCREEN_W / 2, SCREEN_H / 2), true };
+bool GraphicsSystem::m_frameStarted = false;
+double GraphicsSystem::m_avgFPS = 60;
+LTimer GraphicsSystem::m_fpsTimer = LTimer();
+int GraphicsSystem::m_countedFrames = 1;
+SDL_Texture* GraphicsSystem::m_backgrounds[4];
+Vec2 GraphicsSystem::m_backgroundSize[4];
 
 GraphicsSystem::GraphicsSystem()
 {
-	m_camera = { 0, 1, Vec2(SCREEN_W / 2, SCREEN_H / 2) , true};
-	m_defaultHalo = NULL;
-	m_countedFrames = 1;
-	m_avgFPS = 60;
+	
+}
+
+void GraphicsSystem::init(){
+	std::cout << "Initializing visuals \n";
 	for (int i = 0; i < 4; i++)
 		m_backgrounds[i] = nullptr;
-	m_frameStarted = false;
+
 	IMG_Init(IMG_INIT_PNG);
 	m_window = SDL_CreateWindow("Physics - SPACE SIM", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_W, SCREEN_H, SDL_WINDOW_SHOWN);
-	if (m_window == nullptr){
-		//log("SDL_CreateWindow error : " + string(SDL_GetError()));
+	if (m_window == NULL){
+		std::cout << "SDL_CreateWindow error : " + std::string(SDL_GetError());
 		SDL_Quit();
 	}
 
 	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED );
-	if (m_renderer == nullptr){
+	if (m_renderer == NULL){
 		SDL_DestroyWindow(m_window);
-		//log("SDL_CreateRenderer error : " + string(SDL_GetError()));
+		std::cout << "SDL_CreateRenderer error : " + std::string(SDL_GetError());
 		SDL_Quit();
 	}
-
-	m_defaultHalo = this->loadTexture("ressources/halo.png");
 }
 
 double GraphicsSystem::getFPS(){
@@ -36,16 +44,18 @@ void GraphicsSystem::lockCamera(bool l){
 }
 GraphicsSystem::~GraphicsSystem()
 {
+}
+
+void GraphicsSystem::close(){
+	std::cout << "\n\nDEST";
 	SDL_DestroyTexture(m_backgrounds[0]);
 	SDL_DestroyTexture(m_backgrounds[1]);
 	SDL_DestroyTexture(m_backgrounds[2]);
 	SDL_DestroyTexture(m_backgrounds[3]);
-	SDL_DestroyTexture(m_defaultHalo);
 	SDL_DestroyRenderer(m_renderer);
 	SDL_DestroyWindow(m_window);
 	IMG_Quit();
 }
-
 
 SDL_Texture* GraphicsSystem::loadTexture(const std::string filename, Uint8 r, Uint8 g, Uint8 b){
 
@@ -96,54 +106,56 @@ void GraphicsSystem::loadBackground(const std::string filename, int layer, Uint8
 	}
 }
 
-void GraphicsSystem::update(GraphicsComponent gComp, double dt){
+void GraphicsSystem::update(Message &postman, GraphicsComponent gComp, double dt){
 	if (m_frameStarted){
+		//si on recoit qu'il y a eu collision
+		//std::cout << postman.getMessage("Physics", "Physics", MS_COLLISION) << "sadsdsad\n";
+		if (postman.getMessage("Physics", "Physics", MS_COLLISION) > 1000.0){
+			gComp.getSprite()->setSpriteSheet("collision");
+		}
 
 		if (gComp.getSprite() != nullptr) {
 			gComp.getSprite()->getCurrentSpriteSheet()->nextRect(dt);
 
-			Vec2 coord, tempPos, finalPos, newPos, screenCoord(SCREEN_W, SCREEN_H);
-			coord = gComp.getPosition();
-			newPos = coord;
-
 			SDL_Rect sprRect = gComp.getSprite()->getCurrentSpriteSheet()->getCurrentRect();
-			double zIndex = (gComp.getPositionComponent()->getZIndex());
-			//zIndex *= zIndex;
-			double zoom(1), angle(0);
-			
-			if (m_camera.locked){
+			if (gComp.isAffectedByCamera()){
+
+				Vec2 coord, tempPos, finalPos, newPos, screenCoord(SCREEN_W, SCREEN_H);
+				coord = gComp.getPosition();
+				newPos = coord;
+				
+				double zIndex = (gComp.getPositionComponent()->getZIndex());
+				//zIndex *= zIndex;
+				double zoom(1), angle(0);
+
 				zoom = m_camera.zoom;
 				angle = m_camera.angle;
-				tempPos = coord - m_camera.target;
 
-				double newX = zIndex * m_camera.zoom * ((cos(m_camera.angle *(3.14159265 / 180)) * tempPos.x()) + (sin(m_camera.angle *(3.14159265 / 180)) * tempPos.y()));
-				double newY = zIndex * m_camera.zoom * ((-sin(m_camera.angle *(3.14159265 / 180)) * tempPos.x()) + (cos(m_camera.angle *(3.14159265 / 180)) * tempPos.y()));
+				if (m_camera.locked){
 
-				newPos = Vec2(newX, newY);
+					tempPos = coord - m_camera.target;
 
-				newPos += (screenCoord / 2);
+					double newX = zIndex * m_camera.zoom * ((cos(m_camera.angle *(3.14159265 / 180)) * tempPos.x()) + (sin(m_camera.angle *(3.14159265 / 180)) * tempPos.y()));
+					double newY = zIndex * m_camera.zoom * ((-sin(m_camera.angle *(3.14159265 / 180)) * tempPos.x()) + (cos(m_camera.angle *(3.14159265 / 180)) * tempPos.y()));
+
+					newPos = Vec2(newX, newY);
+
+					newPos += (screenCoord / 2);
+				}
+
+
+				SDL_Rect pos = { newPos.x() - (gComp.getSize().x() * zIndex * zoom / 2), newPos.y() - (zIndex * zoom * gComp.getSize().y() / 2), gComp.getSize().x() * zIndex * zoom, gComp.getSize().y() * zIndex * zoom };
+				
+				//SDL_Rect pos2 = { 10, 10, 100, 100 };
+				//std::cout << "ADRESS OF TEXTURE IN UPDATE : " << gComp.getSprite()->getCurrentSpriteSheet()->getTexture() << "\n";
+
+				SDL_RenderCopyEx(m_renderer, gComp.getSprite()->getCurrentSpriteSheet()->getTexture(), &sprRect, &pos, angle, NULL, SDL_FLIP_NONE);
+
 			}
-
-			
-			SDL_Rect pos = { newPos.x() - (gComp.getSize().x() * zIndex * m_camera.zoom / 2), newPos.y() - (zIndex * m_camera.zoom * gComp.getSize().y() / 2), gComp.getSize().x() * zIndex * zoom, gComp.getSize().y() * zIndex * zoom };
-
-			//std::cout << "ADRESS OF TEXTURE IN UPDATE : " << gComp.getSprite()->getCurrentSpriteSheet()->getTexture() << "\n";
-
-			/*if (gComp.isHaloOn()){
-				float sizeX(0), sizeY(0);
-				sizeX = zIndex * zoom * sprRect.w;
-				sizeY = zIndex * zoom * sprRect.h;
-				float deltaX, deltaY;
-				deltaX = (4 * sin(SDL_GetTicks() / 430.0) + 5) * zIndex * zoom;
-				deltaY = (4 * sin(SDL_GetTicks() / 430.0) + 5) * zIndex * zoom;
-				SDL_Rect haloRect = { newPos.x() - ((sizeX/2) + deltaX) , newPos.y() - ((sizeY/2) + deltaX), 2 * (sizeX + deltaX), 2 * (sizeY+deltaY) };
-				//std::cout << gComp.getHaloColor().r << "\n";
-				SDL_SetTextureColorMod(m_defaultHalo, (unsigned int)gComp.getHaloColor().r, (unsigned int)gComp.getHaloColor().g, (unsigned int)gComp.getHaloColor().b);
-				SDL_RenderCopyEx(m_renderer, m_defaultHalo, NULL, &haloRect, angle, NULL, SDL_FLIP_NONE);
-			}*/
-
-			SDL_RenderCopyEx(m_renderer, gComp.getSprite()->getCurrentSpriteSheet()->getTexture(), &sprRect, &pos, angle, NULL,SDL_FLIP_NONE);
-			
+			else {
+				SDL_Rect pos = { gComp.getPosition().x(), gComp.getPosition().y(), gComp.getSize().x(), gComp.getSize().y()};
+				SDL_RenderCopy(m_renderer, gComp.getSprite()->getCurrentSpriteSheet()->getTexture(), &sprRect, &pos);
+			}
 		}
 	}
 }
@@ -178,7 +190,7 @@ void GraphicsSystem::initFrame(){
 					//double newX = (cos(m_camera.angle *(3.14159265 / 180)) * tempPos.x) + (sin(m_camera.angle *(3.14159265 / 180)) * tempPos.y);
 					//double newY = (-sin(m_camera.angle *(3.14159265 / 180)) * tempPos.x) + (cos(m_camera.angle *(3.14159265 / 180)) * tempPos.y);
 
-					t *= ((i + 1) * 0.15) * m_camera.zoom; // *newX;
+					t *= (((i*i) + 1) * 0.0075); // *newX;
 
 					t += screenCoord / 2;
 

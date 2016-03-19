@@ -3,43 +3,43 @@
 
 Scene::Scene()
 {
+	//GraphicsSystem::GraphicsSystem();
+	
 	init();
 }
 
 
 void Scene::init(){
-	//ajout des étoiles en background
-	srand(time(NULL));
-	for (int i = 0; i < 25; i++){
-		addSkyBody(rand() % 10000 - 5000, rand() % 10000 - 5000, rand() % 100 + 150, "shootingStar_" + std::to_string(m_gameObjects.size()), rand() % 100 + 150, rand() % 100 + 150);
-		m_gameObjects.back().get<PhysicsComponent>()->activate(false);
-		m_gameObjects.back().get<PhysicsComponent>()->setVelocity(Vec2(rand() % 1200 - 765, rand() % 400 - 205));
-		m_gameObjects.back().get<PhysicsComponent>()->getPositionComponent()->setZIndex(0.09);
-	}
 
-	/*addSkyBody(180, 110, 1, "skyBody_" + std::to_string(m_gameObjects.size()));
+	GraphicsSystem::init();
 
-	m_gameObjects.back().get<PhysicsComponent>()->getPositionComponent()->setZIndex(0.3);*/
+	//initialisation + ouverture script
+	lua_State* L = luaL_newstate();
+	luaL_openlibs(L);
+	luaL_dofile(L, "nem1.lua");
+	luain::loadGetKeysFunction(L);
 
-	addSkyBody(140, 100, 1860, "skyBody_" + std::to_string(m_gameObjects.size()));
-	m_gameObjects.back().get<PhysicsComponent>()->setHitboxRadius(200);
-	m_gameObjects.back().get<GraphicsComponent>()->setSize(Vec2(390, 390));
-	m_gameObjects.back().get<GraphicsComponent>()->setAnimationSpeed(3);
-	
-	addSkyBody(1640, 100, 0.3, "player");
-	m_gameObjects.back().get<PhysicsComponent>()->setVelocity(Vec2(0, -60));
-	m_gameObjects.back().get<GraphicsComponent>()->setSize(Vec2(100, 100));
-	m_gameObjects.back().get<GraphicsComponent>()->setAnimationSpeed(15);
 
-	std::cout << "END OF INIT\n\n";
+	//AJOUTEZ VOS OBJETS ICI! **********************************************
 
-	m_gameObjects.back().get<GraphicsComponent>()->setHaloColor({ 150, 200, 255, 255 });
+	m_gameObjects.push_back(luain::loadGameObjects(this, L, "rock")); 
+	m_gameObjects.push_back(luain::loadGameObjects(this, L, "rock2")); // bon pour le moment c'est batârd d'ajouter 4 fois le "même" objet
+	m_gameObjects.push_back(luain::loadGameObjects(this, L, "rock3")); // mais juste à des positions différentes
+	m_gameObjects.push_back(luain::loadGameObjects(this, L, "rock4")); // ca sera réglé quand on aura une base de création de niveau
+	m_gameObjects.push_back(luain::loadGameObjects(this, L, "player"));// pour le moment ca se code 
 
-	orderByZIndex();
-	m_graSystem.loadBackground("ressources/space_1.png", 0, 150, 100, 100);
-	m_graSystem.loadBackground("ressources/space_2.png", 1, 150, 100, 150);
-	m_graSystem.loadBackground("ressources/space_3.png", 2, 200, 220, 255);
-	//m_graSystem.loadBackground("ressources/bg1.png", 3);
+
+
+	//À PARTIR DE CE POINT, N'AJOUTEZ PLUS D'OBJETS  ***********************
+
+
+	///AJOUT BACKGROUND ET MACHINs
+
+	orderByZIndex(); 
+	GraphicsSystem::loadBackground("ressources/space_1.png", 0, 150, 100, 100);
+	GraphicsSystem::loadBackground("ressources/space_2.png", 1, 150, 100, 150);
+	GraphicsSystem::loadBackground("ressources/space_3.png", 2, 200, 220, 255);
+	//GraphicsSystem::loadBackground("ressources/bg1.png", 3);
 
 	//Inputs init
 	m_inSystem.setActionTrigger(AC_EXIT, SDL_SCANCODE_ESCAPE);
@@ -49,28 +49,32 @@ void Scene::init(){
 	m_inSystem.setActionTrigger(AC_DOWN, SDL_SCANCODE_DOWN);
 	m_inSystem.setActionTrigger(AC_LEFT, SDL_SCANCODE_LEFT);
 	m_inSystem.setActionTrigger(AC_RIGHT, SDL_SCANCODE_RIGHT);
+
+	std::cout << "END OF INIT\n\n";
 }
 
 void Scene::orderByZIndex(){
 	int j = 0;
 	for (int i(1); i < m_gameObjects.size(); i++){
-		GameObject x = m_gameObjects[i];
 		j = i - 1;
-		while (j >= 0 && m_gameObjects[j].get<PhysicsComponent>()->getPositionComponent()->getZIndex() > x.get<PhysicsComponent>()->getPositionComponent()->getZIndex()){
-			m_gameObjects[j + 1] = m_gameObjects[j];
+		while (j >= 0 && m_gameObjects[j]->get<PhysicsComponent>()->getPositionComponent()->getZIndex() > m_gameObjects[i]->get<PhysicsComponent>()->getPositionComponent()->getZIndex()){
+			std::iter_swap(m_gameObjects.begin() + j + 1, m_gameObjects.begin() + j);
 			j -= 1;
 		}
-		m_gameObjects[j + 1] = x;
 	}
 }
-
+/*
 void Scene::addSkyBody(double x, double y, double mass, std::string id, Uint8 r, Uint8 g, Uint8 b){
 
 	std::string file = "ressources/skyBody.png";
 	if (id == "player"){
 		file = "ressources/test.png";
 	}
-	Sprite skyBodySprite(std::make_shared<SpriteSheet>(m_graSystem.loadTexture(file, r, g, b), SDL_Rect{ 0, 0, 30, 30 }, SDL_Rect{ 0, 0, 60, 60 }));
+	Sprite skyBodySprite(std::make_shared<SpriteSheet>(GraphicsSystem::loadTexture(file, r, g, b), 2, 2));
+
+	if (id == "player"){
+		skyBodySprite.addSpriteSheet("collision", std::make_shared<SpriteSheet>(GraphicsSystem::loadTexture("ressources/test_coll.png"), 2, 2));
+	}
 
 	m_posComps.push_back(std::make_shared<PositionComponent>());
 	
@@ -78,68 +82,90 @@ void Scene::addSkyBody(double x, double y, double mass, std::string id, Uint8 r,
 	m_graphicsComps.push_back(std::make_shared<GraphicsComponent>(m_posComps.back(), std::make_shared<Sprite>(skyBodySprite)));
 
 	m_gameObjects.push_back(GameObject(id));
-	/*m_graphicsComps.push_back(std::make_shared<GraphicsComponent>(m_posComps.back(), std::make_shared<Sprite>(std::make_shared<SpriteSheet>(m_graSystem.loadTexture("ressources/test.png"), SDL_Rect{ 0, 0, 30, 30 }, SDL_Rect{ 0, 0, 60, 60 }))));
-	//m_inputsComps.push_back(std::make_shared<InputsComponent>(std::make_shared<InputsSystem>(m_inSystem),std::make_shared<PhysicsComponent>(m_physicsComps.back())));
-	//pas capable d'ajouter des components ;(
-	m_gameObjects.push_back(GameObject());*/
 	m_gameObjects.back().addComponent(std::type_index(typeid(PhysicsComponent)), m_physicsComps.back());
 	m_gameObjects.back().addComponent(std::type_index(typeid(GraphicsComponent)), m_graphicsComps.back());
 	//m_gameObjects.back().addComponent(std::type_index(typeid(InputsComponent)), m_inputsComps.back());
 
 	m_gameObjects.back().get<PhysicsComponent>()->setPosition(Vec2(x, y));
 	m_gameObjects.back().get<PhysicsComponent>()->setMass(mass);
-	//m_gameObjects.back().get<GraphicsComponent>()->setSprite(Sprite(SpriteSheet(m_graSystem.loadTexture("test.png"), SDL_Rect{ 0, 0, 30, 30 }, SDL_Rect{ 0, 0, 60, 60 })));
+
+	if (id == "player"){
+		m_gameObjects.back().get<PhysicsComponent>()->setHitboxRadius(50);
+	}
+
+	//m_gameObjects.back().get<GraphicsComponent>()->setSprite(Sprite(SpriteSheet(GraphicsSystem::loadTexture("test.png"), SDL_Rect{ 0, 0, 30, 30 }, SDL_Rect{ 0, 0, 60, 60 })));
 	std::cout << "added skyBody\n";
-}
+}*/
 
 Scene::~Scene()
 {
-
+	GraphicsSystem::close();
 }
 
 void Scene::update(Message &postman)
 {
 	m_inSystem.pollInputs();
+	postman.clearAll();
+	//std::cout << m_inSystem.isJoyConnected() << "\n";
 	
 	if (m_inSystem.checkTriggeredAction(AC_EXIT))
 		postman.addMessage("Scene", "Input", MS_EXIT_REQUEST, 1);
 
-	m_graSystem.initFrame();
-	m_graSystem.setCameraZoom(0.7);
+
+	GraphicsSystem::initFrame();
+	GraphicsSystem::setCameraZoom(1);
+	//GraphicsSystem::lockCamera(false);
 	
 	for (int i = 0; i < m_gameObjects.size(); i++){
-
+		//std::cout << "Updating : _" << m_gameObjects[i].getID() << "_\n";
 		//on update chaque component de l'objet
-		std::shared_ptr<PhysicsComponent> pc = m_gameObjects[i].get<PhysicsComponent>();
+		std::shared_ptr<PhysicsComponent> pc = m_gameObjects[i]->get<PhysicsComponent>();
 		if (pc != nullptr){
-			
+		
+			if (m_gameObjects[i]->getID() == "player") {
 			//on check la direction du joueur
-			if (m_inSystem.checkTriggeredAction(AC_UP))
-				pc->setForces(Vec2(0, -340));
+				Vec2 forces(0, 0);
+				if (m_inSystem.checkTriggeredAction(AC_UP))
+					forces += Vec2(0, -5640);
 
-			if (m_inSystem.checkTriggeredAction(AC_DOWN))
-				pc->setForces(Vec2(0, 340));
+				if (m_inSystem.checkTriggeredAction(AC_DOWN))
+					forces += Vec2(0, 5640);
 
-			if (m_inSystem.checkTriggeredAction(AC_LEFT))
-				pc->setForces(Vec2(-340, 0));
+				if (m_inSystem.checkTriggeredAction(AC_LEFT))
+					forces += Vec2(-5640, 0);
 
-			if (m_inSystem.checkTriggeredAction(AC_RIGHT))
-				pc->setForces(Vec2(340, 0));
+				if (m_inSystem.checkTriggeredAction(AC_RIGHT))
+					forces += Vec2(5640, 0);
+
+				pc->setForces(forces);
+
+				double speed = pc->getVelocity().getLength();
+				
+				//std::cout << GraphicsSystem::getZoom()<<  "  /  " << speed << "\n";
+
+				/*if (GraphicsSystem::getZoom() >= 0.05  && GraphicsSystem::getZoom() <= 0.3) {
+					GraphicsSystem::setCameraZoom((25000 / (speed + 1)) / 10);
+					if (GraphicsSystem::getZoom() < 0.05)
+						GraphicsSystem::setCameraZoom(0.15);
+					if (GraphicsSystem::getZoom() > 0.3)
+						GraphicsSystem::setCameraZoom(0.3);
+				}*/
+			}
 			
-			m_phySystem.update(*pc, m_physicsComps, 1.0 / m_graSystem.getFPS());
+			m_phySystem.update(postman, *pc, m_physicsComps, 1.0 / GraphicsSystem::getFPS());
 		}
 
-		auto gc = m_gameObjects[i].get<GraphicsComponent>();
+		auto gc = m_gameObjects[i]->get<GraphicsComponent>();
 		if (gc != nullptr){
 
-			if (m_gameObjects[i].getID() == "player_copy"){
-				m_graSystem.setCameraTarget(m_gameObjects[i].get<PhysicsComponent>()->getPosition());
+			if (m_gameObjects[i]->getID() == "player"){
+				GraphicsSystem::setCameraTarget(gc->getPosition());
 			}
 
-			//m_graSystem.lockCamera(false);
-			m_graSystem.update(*gc, 1.0 / m_graSystem.getFPS());
+			//GraphicsSystem::lockCamera(false);
+			GraphicsSystem::update(postman, *gc, 1.0 / GraphicsSystem::getFPS());
 		}
 	}
-	//std::cout << m_graSystem.getFPS() << "\n";
-	m_graSystem.endFrame();
+	//std::cout << GraphicsSystem::getFPS() << "\n";
+	GraphicsSystem::endFrame();
 }

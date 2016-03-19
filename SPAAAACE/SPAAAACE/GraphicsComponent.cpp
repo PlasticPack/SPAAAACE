@@ -5,36 +5,51 @@ GraphicsComponent::GraphicsComponent()
 {
 	m_posComponent = nullptr;
 	m_sprite = nullptr;
-	m_halo = { 255, 25, 25, 255};
-	m_haloOn = false;
 	m_center = Vec2(0, 0);
 	m_size = Vec2(0, 0);
+	m_camera = true;
 }
 
 
-GraphicsComponent::GraphicsComponent(luabridge::LuaRef& componentTable, std::shared_ptr<PositionComponent> comp=nullptr){
+GraphicsComponent::GraphicsComponent(luabridge::LuaRef& componentTable, std::shared_ptr<PositionComponent> comp){
 	GraphicsComponent();
 	using namespace luabridge;
 	auto spriteRef = componentTable["filename"];
+	auto cols = componentTable["c"];
+	auto rows = componentTable["r"];
+	auto anim_speed = componentTable["anim_speed"];
+	auto cam = componentTable["cam"];
+	auto width = componentTable["width"];
+	auto height = componentTable["height"];
+
+	m_camera = true;
 	if (spriteRef.isString()){
-		auto heightRef = componentTable["h"];
-		auto wideRef = componentTable["w"];
-		auto texture = IMG_LoadTexture(NULL, spriteRef.cast<std::string>().c_str());
-		if (wideRef.isNumber() && heightRef.isNumber()){
-			
-			auto rect = SDL_Rect();
-			rect.h = heightRef.cast<int>();
-			rect.w = wideRef.cast<int>();
-			auto size = SDL_Rect();
-			setSprite(std::make_shared<Sprite>(std::make_shared<SpriteSheet>(texture, rect,size)));
-			
+
+		m_sprite = std::make_shared<Sprite>(std::make_shared<SpriteSheet>(GraphicsSystem::loadTexture(spriteRef), cols.cast<int>(), rows.cast<int>()));
+
+		if (anim_speed.isString()){
+			m_sprite->setAnimationSpeed(anim_speed);
 		}
-		else{
-			setSprite(std::make_shared<Sprite>(std::make_shared<SpriteSheet>(texture, SDL_Rect(), SDL_Rect())));
+
+		if (cam.isString() && (cam == "true" || cam == "false")){
+			if (cam == "true")
+				m_camera = true;
+			else
+				m_camera = false;
 		}
+
+		if (width.isNumber() && height.isNumber()){
+			m_size = Vec2(width, height);
+		}
+		else {
+			m_size = Vec2(m_sprite->getCurrentSpriteSheet()->getCurrentRect().w, m_sprite->getCurrentSpriteSheet()->getCurrentRect().h);
+		}
+
+		m_center = Vec2(m_size.x() / 2, m_size.y() / 2);
 		
 	}
 	else{
+
 		setSprite(nullptr);
 	}
 
@@ -42,9 +57,11 @@ GraphicsComponent::GraphicsComponent(luabridge::LuaRef& componentTable, std::sha
 	this->m_posComponent = comp;
 }
 
+
+
 GraphicsComponent::GraphicsComponent(std::shared_ptr<PositionComponent> comp, std::shared_ptr<Sprite> spr)
 {
-	m_halo = { 255, 25, 25, 255 };
+	m_camera = true;
 	m_sprite = spr;
 	m_center = Vec2(spr->getCurrentSpriteSheet()->getCurrentRect().w / 2, spr->getCurrentSpriteSheet()->getCurrentRect().h / 2);
 	//std::cout << m_center.x() << "  TWAS THE CENTER :D \n";
@@ -86,22 +103,6 @@ std::shared_ptr<Sprite> GraphicsComponent::getSprite() const{
 
 Vec2 GraphicsComponent::getPosition(){
 	return m_posComponent->getPosition();
-}
-
-void GraphicsComponent::setHaloColor(C_Color c){
-	m_halo = c;
-}
-
-void GraphicsComponent::activateHalo(bool h){
-	m_haloOn = h;
-}
-
-C_Color GraphicsComponent::getHaloColor(){
-	return m_halo;
-}
-
-bool GraphicsComponent::isHaloOn(){
-	return m_haloOn;
 }
 
 void GraphicsComponent::setPositionComponent(std::shared_ptr<PositionComponent> pcomp=nullptr){

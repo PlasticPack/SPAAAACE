@@ -12,6 +12,7 @@ public:
 
 	void setAnimationSpeed(double s);
 	void addSpriteSheet(std::string id, std::shared_ptr<SpriteSheet> sheet);
+	void setSpriteSheet(std::string id);
 	std::shared_ptr<SpriteSheet> getCurrentSpriteSheet();
 
 protected:

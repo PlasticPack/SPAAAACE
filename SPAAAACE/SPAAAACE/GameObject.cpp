@@ -12,7 +12,8 @@ GameObject::GameObject() : m_ID("NO_ID")
 GameObject::GameObject(GameObject const& g){
 	if (this != &g){
 		//on copie PAS L'ID EXACT
-		m_ID = g.m_ID + "_copy";
+		//bon, pour le moment on fait ca, question de truc de vector
+		m_ID = g.m_ID;
 		m_components.clear();
 		for (auto it = g.m_components.begin(); it != g.m_components.end(); it++){
 
