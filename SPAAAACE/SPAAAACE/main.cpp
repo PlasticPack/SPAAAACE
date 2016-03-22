@@ -9,7 +9,6 @@ const int SCREEN_W = 1600;
 const int SCREEN_H = 900;*/
 
 
-
 int main(int argc, char* argv[]){
 
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) != 0){

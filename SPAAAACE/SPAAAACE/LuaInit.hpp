@@ -8,6 +8,7 @@
 #include"PositionComponent.h"
 #include"GameObject.h"
 #include "InputsComponent.h"
+#include <boost\filesystem.hpp>
 extern"C"{
 # include"lua.h"
 # include"lauxlib.h"
@@ -22,4 +23,8 @@ namespace luain{
 	void loadGetKeysFunction(lua_State* L);
 	std::vector<std::string> getTableKeys(lua_State* L, const std::string& name);
 	std::shared_ptr<GameObject> loadGameObjects(lua_State* L, const std::string& type);
+	void loadFromRep(std::vector<GameObject> &objects, const std::string& filepath, const std::string& ext=".lua");
+	void loadFromRep(std::map<std::string, GameObject> &objs, const std::string& filepath, const std::string& ext=".lua");
 }
+
+std::vector<std::string> getFiles(const std::string& filepath, const std::string& ext);

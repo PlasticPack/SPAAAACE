@@ -1,10 +1,14 @@
-﻿La génération a démarré 2016-03-13 21:24:14.
-     1>Projet "C:\Users\Tristan\Documents\Script\SPAAAACE\SPAAAACE\SPAAAACE.vcxproj" sur le nœud 2 (Build cible(s)).
+﻿La génération a démarré 2016-03-22 11:19:51.
+     1>Projet "C:\Users\Tristan\Documents\GitHub\SPAAAACE\SPAAAACE\SPAAAACE\SPAAAACE.vcxproj" sur le nœud 2 (Build cible(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(942,5): warning MSB8027: Two or more files with the name of tinystr.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are ..\..\tinyxml\tinystr.cpp, tinystr.cpp.
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\Lua\5.2\include /I"..\..\LuaBridge-master\Source\LuaBridge" /I..\..\SDL2_ttf\include /I..\..\MSXML6 /I"..\..\SDL2_mixer-2.0.1\include" /I"..\..\SDL2_image-2.0.1\include" /I"..\..\SDL2-2.0.4\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt scriptinit_exemple.cpp
-         scriptinit_exemple.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\Boost /I..\..\Lua\5.2\include /I"..\..\LuaBridge-master\Source\LuaBridge" /I..\..\SDL2_ttf\include /I..\..\MSXML6 /I"..\..\SDL2_mixer-2.0.1\include" /I"..\..\SDL2_image-2.0.1\include" /I"..\..\SDL2-2.0.4\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         main.cpp
+     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\main.cpp(21): warning C4101: 'e' : variable locale non référencée
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Tristan\Documents\Script\SPAAAACE\Debug\SPAAAACE.exe" /INCREMENTAL /NOLOGO /LIBPATH:..\..\SDL2_ttf\lib\x86 /LIBPATH:"..\..\SDL2_mixer-2.0.1\lib\x86" /LIBPATH:"..\..\SDL2_image-2.0.1\lib\x86" /LIBPATH:"..\..\SDL2-2.0.4\lib\x86" /LIBPATH:..\..\Lua\5.2\lib lua5.2.lib SDL2main.lib SDL2.lib SDL2_image.lib SDL2_mixer.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Tristan\Documents\Script\SPAAAACE\Debug\SPAAAACE.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Tristan\Documents\Script\SPAAAACE\Debug\SPAAAACE.lib" /MACHINE:X86 Debug\Component.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Tristan\Documents\GitHub\SPAAAACE\SPAAAACE\Debug\SPAAAACE.exe" /INCREMENTAL /NOLOGO /LIBPATH:..\..\Boost\stage\lib /LIBPATH:..\..\SDL2_ttf\lib\x86 /LIBPATH:"..\..\SDL2_mixer-2.0.1\lib\x86" /LIBPATH:"..\..\SDL2_image-2.0.1\lib\x86" /LIBPATH:"..\..\SDL2-2.0.4\lib\x86" /LIBPATH:..\..\Lua\5.2\lib lua5.2.lib SDL2main.lib SDL2.lib SDL2_image.lib SDL2_mixer.lib "libboost_iostreams-vc120-mt-s-1_60.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Tristan\Documents\GitHub\SPAAAACE\SPAAAACE\Debug\SPAAAACE.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Tristan\Documents\GitHub\SPAAAACE\SPAAAACE\Debug\SPAAAACE.lib" /MACHINE:X86 Debug\tinystr.obj
+         Debug\boostExemple.obj
+         Debug\Component.obj
          Debug\GameObject.obj
          Debug\GraphicsComponent.obj
          Debug\GraphicsSystem.obj
@@ -12,20 +16,26 @@
          Debug\InputsComponent.obj
          Debug\InputSystem.obj
          Debug\LuaFunctions.obj
+         Debug\main.obj
          Debug\Message.obj
          Debug\PhysicsComponent.obj
          Debug\PhysicsSystem.obj
          Debug\PositionComponent.obj
-         Debug\main.obj
          Debug\Scene.obj
          Debug\scriptinit_exemple.obj
          Debug\Source1.obj
          Debug\Sprite.obj
          Debug\SpriteSheet.obj
+         Debug\tinystr.obj
+         Debug\tinyxml.obj
+         Debug\tinyxmlerror.obj
+         Debug\tinyxmlparser.obj
          Debug\Vec2.obj
-         SPAAAACE.vcxproj -> C:\Users\Tristan\Documents\Script\SPAAAACE\Debug\SPAAAACE.exe
-     1>Génération du projet "C:\Users\Tristan\Documents\Script\SPAAAACE\SPAAAACE\SPAAAACE.vcxproj" terminée (Build cible(s)).
+         Debug\XML_utilityfunctions.obj
+     1>Debug\tinystr.obj : warning LNK4042: objet spÚcifiÚ plus d'une foisá; dÚfinitions supplÚmentaires ignorÚes
+         SPAAAACE.vcxproj -> C:\Users\Tristan\Documents\GitHub\SPAAAACE\SPAAAACE\Debug\SPAAAACE.exe
+     1>Génération du projet "C:\Users\Tristan\Documents\GitHub\SPAAAACE\SPAAAACE\SPAAAACE\SPAAAACE.vcxproj" terminée (Build cible(s)).
 
 La génération a réussi.
 
-Temps écoulé 00:00:00.76
+Temps écoulé 00:00:01.61

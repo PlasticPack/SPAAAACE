@@ -5,16 +5,11 @@
 
 using namespace std;
 
-
-InputsComponent::InputsComponent(std::shared_ptr<InputsSystem> inputs, std::shared_ptr<PhysicsComponent> physComp) : Component(), m_physComp(physComp), m_inputs(inputs)
-{
-
+InputsComponent::InputsComponent(luabridge::LuaRef& componentTable): Component(){
+	//nothing for now
 }
 
-InputsComponent::InputsComponent(luabridge::LuaRef& componentTable, std::shared_ptr<InputsSystem> inputs, std::shared_ptr<PhysicsComponent> physComp){
-	//for now nothing specific
-	InputsComponent(inputs, physComp);
-}
+
 InputsComponent::~InputsComponent()
 {
 

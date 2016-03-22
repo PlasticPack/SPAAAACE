@@ -13,9 +13,9 @@ class InputsComponent :
 	public Component
 {
 public:
-
-	InputsComponent(std::shared_ptr<InputsSystem> inputs, std::shared_ptr<PhysicsComponent> physComp=nullptr);
-	InputsComponent(luabridge::LuaRef& componentTable, std::shared_ptr<InputsSystem> inputs=nullptr, std::shared_ptr<PhysicsComponent> physComp=nullptr);
+	
+	//InputsComponent(std::shared_ptr<InputsSystem> inputs, std::shared_ptr<PhysicsComponent> physComp=nullptr);
+	InputsComponent(luabridge::LuaRef& componentTable);
 	
 	~InputsComponent();
 

@@ -115,7 +115,7 @@ std::shared_ptr<GameObject> luain::loadGameObjects(lua_State* L, const std::stri
 		}
 		else if (componentName == "Input"){
 			LuaRef inTable = entityTable[componentName];
-			addComponent<GraphicsComponent>(obj, inTable);
+			addComponent<InputsComponent>(obj, inTable);
 		}
 		else std::cout << "Unknown component: " << componentName;
 		std::cout << "Added " << componentName << " to " << type << std::endl;
@@ -138,5 +138,70 @@ std::shared_ptr<GameObject> luain::loadGameObjects(lua_State* L, const std::stri
 	return obj;
 }
 
+void luain::loadFromRep(std::vector<GameObject> &objects, const std::string& filepath, const std::string& ext){
+	std::vector<std::string> files_dir = getFiles(filepath,ext);
+	if (!files_dir.empty()){
+		for (int i = 0; i < files_dir.size(); i++){
+			std::cout << "Loading file :"<<files_dir[i]<<std::endl;
+			lua_State* L = luaL_newstate();
+			luaL_openlibs(L);
+			luaL_dofile(L, std::string(files_dir[i]).c_str());
+			loadGetKeysFunction(L);
+			boost::filesystem::path p(files_dir[i]);
+			std::shared_ptr<GameObject> obj = loadGameObjects(L, p.stem().string());
+			//boost::filesystem::path p(files_dir[i]);
+			obj->setID(p.stem().string());
+			//std::cout << obj->getID() << std::endl;
+			objects.push_back(*obj.get());
+		}
+	}
+	
+}
 
+void luain::loadFromRep(std::map<std::string, GameObject> &objs, const std::string& filepath, const std::string& ext){
+	std::vector<std::string> files_dir = getFiles(filepath, ext);
+	if (!files_dir.empty()){
+		for (int i = 0; i < files_dir.size(); i++){
+			std::cout << "Loading file :" << files_dir[i] << std::endl;
+			lua_State* L = luaL_newstate();
+			luaL_openlibs(L);
+			luaL_dofile(L, std::string(files_dir[i]).c_str());
+			loadGetKeysFunction(L);
+			boost::filesystem::path p(files_dir[i]);
+			std::shared_ptr<GameObject> obj = loadGameObjects(L, p.stem().string());
+			//boost::filesystem::path p(files_dir[i]);
+			if (objs.find(p.stem().string()) == objs.end()){
+				obj->setID(p.stem().string());
+				//std::cout << obj->getID() << std::endl;
+				objs.insert(std::make_pair(obj->getID(), *obj.get()));
+			}
+			else std::cout << "Colision at:" << p.stem().string() << std::endl;
+			
+		}
+	}
+}
 
+std::vector<std::string> getFiles(const std::string& filepath, const std::string& ext){
+	std::vector<std::string> files;
+	//Check if 
+	if (!filepath.empty()){
+		
+		boost::filesystem::path path(filepath);
+		boost::filesystem::recursive_directory_iterator end;
+		for (boost::filesystem::recursive_directory_iterator i(path); i !=end; i++)
+		{
+			//wew, not required at all
+			/*if (boost::filesystem::is_directory(*i)){
+				std::vector<std::string> w = getFiles(boost::filesystem::path(*i).string(), ext);
+				for (int i = 0; i < w.size(); i++)
+				{	
+					files.push_back(w.at(i));
+				}
+			}*/
+			 if (boost::filesystem::is_regular_file(*i) && i->path().extension() == ext){
+				files.push_back(boost::filesystem::path(*i).string());
+			}
+		}
+	}
+	return files;
+}

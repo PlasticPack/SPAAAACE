@@ -16,7 +16,7 @@ class GraphicsComponent :
 public:
 	GraphicsComponent();
 	GraphicsComponent(std::shared_ptr<PositionComponent> comp, std::shared_ptr<Sprite> spr);
-	GraphicsComponent(luabridge::LuaRef& componentTable, std::shared_ptr<PositionComponent> comp);
+	GraphicsComponent(luabridge::LuaRef& componentTable);
 	~GraphicsComponent();
 
 	std::shared_ptr<PositionComponent> getPositionComponent();

@@ -12,7 +12,7 @@ GraphicsComponent::GraphicsComponent()
 }
 
 
-GraphicsComponent::GraphicsComponent(luabridge::LuaRef& componentTable, std::shared_ptr<PositionComponent> comp=nullptr){
+GraphicsComponent::GraphicsComponent(luabridge::LuaRef& componentTable){
 	GraphicsComponent();
 	using namespace luabridge;
 	auto spriteRef = componentTable["filename"];
@@ -39,7 +39,7 @@ GraphicsComponent::GraphicsComponent(luabridge::LuaRef& componentTable, std::sha
 	}
 
 
-	this->m_posComponent = comp;
+	this->m_posComponent = nullptr;
 }
 
 GraphicsComponent::GraphicsComponent(std::shared_ptr<PositionComponent> comp, std::shared_ptr<Sprite> spr)

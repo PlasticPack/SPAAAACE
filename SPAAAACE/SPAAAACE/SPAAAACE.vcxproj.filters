@@ -22,9 +22,6 @@
     <ClCompile Include="SpriteSheet.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="Sprite.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -57,6 +54,30 @@
     </ClCompile>
     <ClCompile Include="LuaFunctions.cpp">
       <Filter>Fichiers sources\load</Filter>
+    </ClCompile>
+    <ClCompile Include="XML_utilityfunctions.cpp">
+      <Filter>Fichiers sources\load</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tinyxml\tinystr.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="tinystr.cpp">
+      <Filter>TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml.cpp">
+      <Filter>TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxmlerror.cpp">
+      <Filter>TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxmlparser.cpp">
+      <Filter>TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="boostExemple.cpp">
+      <Filter>Fichiers sources\load</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -111,6 +132,18 @@
     <ClInclude Include="LuaInit.hpp">
       <Filter>Fichiers d%27en-tête\Load</Filter>
     </ClInclude>
+    <ClInclude Include="XML_utilities.hpp">
+      <Filter>Fichiers d%27en-tête\Load</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\tinyxml\tinystr.h">
+      <Filter>Fichiers sources</Filter>
+    </ClInclude>
+    <ClInclude Include="tinystr.h">
+      <Filter>TinyXML</Filter>
+    </ClInclude>
+    <ClInclude Include="tinyxml.h">
+      <Filter>TinyXML</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Fichiers d%27en-tête">
@@ -133,6 +166,9 @@
     </Filter>
     <Filter Include="Fichiers d%27en-tête\Load">
       <UniqueIdentifier>{ea51add5-b75c-4821-8125-1bb88cf2fe82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TinyXML">
+      <UniqueIdentifier>{ddb4e7c3-3fd7-4094-8b6c-1108242a8a50}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
