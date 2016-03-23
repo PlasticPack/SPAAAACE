@@ -1,6 +1,7 @@
 #pragma once
 
 #include "PositionComponent.h"
+#include "GraphicsSystem.h"
 #include "Sprite.h"
 
 struct C_Color{
@@ -10,13 +11,15 @@ struct C_Color{
 	Uint8 a;
 };
 
+class GraphicsSystem;
+
 class GraphicsComponent :
 	public Component
 {
 public:
 	GraphicsComponent();
 	GraphicsComponent(std::shared_ptr<PositionComponent> comp, std::shared_ptr<Sprite> spr);
-	GraphicsComponent(luabridge::LuaRef& componentTable);
+	GraphicsComponent(luabridge::LuaRef& componentTable, std::shared_ptr<PositionComponent> comp=nullptr);
 	~GraphicsComponent();
 
 	std::shared_ptr<PositionComponent> getPositionComponent();
@@ -32,24 +35,17 @@ public:
 	Vec2 getSize();
 	void setSize(Vec2 s);
 
-	//HALO 
-	//pas utiliser pour le moment
-	void setHaloColor(C_Color c);
-	void activateHalo(bool halo = true);
-
-	C_Color getHaloColor();
-	bool isHaloOn();
+	void affectedByCamera(bool c) { m_camera = c; };
+	bool isAffectedByCamera(){ return m_camera; }
 
 protected:
 	//sprite
 	//pointeur sur un renderer/fenetre
 	std::shared_ptr<Sprite> m_sprite;
 	std::shared_ptr<PositionComponent> m_posComponent;
-	C_Color m_halo;
-	bool m_haloOn;
 	Vec2 m_size;
 	Vec2 m_center;
-
+	bool m_camera;
 	//SPECIALFX`: halo, particules etc
 };
 

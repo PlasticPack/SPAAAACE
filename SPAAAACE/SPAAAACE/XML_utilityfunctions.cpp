@@ -1,6 +1,6 @@
 #include "XML_utilities.hpp"
-#include "tinystr.h"
-#include "tinyxml.h"
+#include"tinystr.h"
+#include"tinyxml.h"
 
 bool XML_u::loadObjects(std::vector<GameObject> &pureObjects, std::map<std::string,GameObject> roughtObjects, const std::string &filepath){
 	//Pure objects are the objects after having been initialised corrrectly, and so

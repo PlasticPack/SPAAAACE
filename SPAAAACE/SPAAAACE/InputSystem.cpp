@@ -5,11 +5,13 @@ using namespace std;
 
 InputsSystem::InputsSystem() : m_manette(NULL), m_haptic(NULL), m_inputClavier(NULL), m_deadzone(4000)
 {
-
+	openJoystick();
 }
 
 InputsSystem::~InputsSystem()
 {
+	m_inputClavier = NULL;
+	//destroy sdl_haptic*
 	closeJoystick();
 }
 //à venir
@@ -17,11 +19,11 @@ bool InputsSystem::loadConfig(string const& path)
 {
 	return true;
 }
-
+/*
 void InputsSystem::update(InputsComponent* inComp)
 {
 	inComp->update();
-}
+}*/
 
 void InputsSystem::pollInputs() 
 {

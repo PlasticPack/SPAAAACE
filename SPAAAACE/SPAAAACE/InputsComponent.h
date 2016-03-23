@@ -4,7 +4,7 @@
 #include "Component.h"
 #include "Flags.h"
 #include <memory>
-
+/*
 class InputsSystem;
 class PhysicsComponent;
 
@@ -13,9 +13,9 @@ class InputsComponent :
 	public Component
 {
 public:
-	
-	//InputsComponent(std::shared_ptr<InputsSystem> inputs, std::shared_ptr<PhysicsComponent> physComp=nullptr);
-	InputsComponent(luabridge::LuaRef& componentTable);
+
+	InputsComponent(std::shared_ptr<InputsSystem> inputs, std::shared_ptr<PhysicsComponent> physComp=nullptr);
+	InputsComponent(luabridge::LuaRef& componentTable, std::shared_ptr<InputsSystem> inputs=nullptr, std::shared_ptr<PhysicsComponent> physComp=nullptr);
 	
 	~InputsComponent();
 
@@ -29,4 +29,4 @@ protected:
 	std::shared_ptr<PhysicsComponent> m_physComp;
 	//SPECIALFX`: halo, particules etc
 
-};
+};*/

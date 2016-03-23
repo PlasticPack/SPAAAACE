@@ -2,8 +2,9 @@
 #include <LuaBridge.h>
 #include <iostream>
 #include <memory>
+#include"Scene.h"
 
-bool luain::loadScript(lua_State* L, const std::string& filename);
+//bool luain::loadScript(lua_State* L, const std::string& filename);
 
 
 void luain::lua_getToStack(lua_State* L, const std::string& variableName){
@@ -73,6 +74,8 @@ std::vector<std::string> luain::getTableKeys(lua_State* L, const std::string& na
 
 	lua_pushnil(L);
 	std::vector<std::string> keys;
+	//Violation of access happeniing right here...
+	//like, just below this line, means the file wa not oppened !
 	while (lua_next(L, -2)) { // get values one by one
 		//std::cout << "*";
 		if (lua_type(L, -1) == LUA_TSTRING) { // check if key is a string
@@ -113,10 +116,6 @@ std::shared_ptr<GameObject> luain::loadGameObjects(lua_State* L, const std::stri
 			LuaRef graTable = entityTable[componentName];
 			addComponent<GraphicsComponent>(obj, graTable);
 		}
-		else if (componentName == "Input"){
-			LuaRef inTable = entityTable[componentName];
-			addComponent<InputsComponent>(obj, inTable);
-		}
 		else std::cout << "Unknown component: " << componentName;
 		std::cout << "Added " << componentName << " to " << type << std::endl;
 	}
@@ -129,9 +128,7 @@ std::shared_ptr<GameObject> luain::loadGameObjects(lua_State* L, const std::stri
 		}
 	}
 	if (obj->hasComponent(typeid(PhysicsComponent))){
-		if (obj->hasComponent(typeid(InputsComponent))){
-			obj->get<InputsComponent>()->setPhysComp(obj->get<PhysicsComponent>());
-		}
+		
 	}
 	
 	
@@ -204,4 +201,48 @@ std::vector<std::string> getFiles(const std::string& filepath, const std::string
 		}
 	}
 	return files;
+}
+
+template <typename T>
+void addComponent(Scene *s, std::shared_ptr<GameObject> e, luabridge::LuaRef& componentTable) {
+	//auto n = T(componentTable);
+
+	e->addComponent(std::type_index(typeid(T)), std::make_shared<T>(componentTable));
+	s->addComponent<T>(e->get<T>());
+}
+
+std::shared_ptr<GameObject> luain::loadGameObjects(Scene *s, lua_State* L, const std::string& type){
+	using namespace luabridge;
+	std::shared_ptr<GameObject> obj = std::make_shared<GameObject>();
+	obj->setID(type);
+
+	auto v = luain::getTableKeys(L, type);
+	LuaRef entityTable = getGlobal(L, type.c_str());
+	for (auto& componentName : v) {
+
+		if (componentName == "Position") {
+			LuaRef poscTable = entityTable[componentName];
+			addComponent<PositionComponent>(s, obj, poscTable);
+		}
+		else if (componentName == "Physics"){
+			LuaRef phycTable = entityTable[componentName];
+			addComponent<PhysicsComponent>(s, obj, phycTable);
+		}
+		else if (componentName == "Graphics"){
+			LuaRef graTable = entityTable[componentName];
+			addComponent<GraphicsComponent>(s, obj, graTable);
+		}
+		else std::cout << "Unknown component: " << componentName;
+
+		std::cout<< "Added " << componentName << " to " << type << std::endl;
+	}
+	if (obj->hasComponent(typeid(PositionComponent))){
+		if (obj->hasComponent(typeid(GraphicsComponent))){
+			obj->get<GraphicsComponent>()->setPositionComponent(obj->get<PositionComponent>());
+		}
+		if (obj->hasComponent(typeid(PhysicsComponent))){
+			obj->get<PhysicsComponent>()->setPositionComp(obj->get<PositionComponent>());
+		}
+	}
+	return obj;
 }

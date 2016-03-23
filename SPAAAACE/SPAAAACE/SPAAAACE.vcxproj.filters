@@ -1,7 +1,57 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--<ItemGroup>
+    <ClCompile Include="Component.cpp" />
+    <ClCompile Include="GameLogicComponent.cpp" />
+    <ClCompile Include="GameLogicSystem.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GraphicsComponent.cpp" />
+    <ClCompile Include="GraphicsSystem.cpp" />
+    <ClCompile Include="LTimer.cpp" />
+    <ClCompile Include="InputsComponent.cpp" />
+    <ClCompile Include="InputSystem.cpp" />
+    <ClCompile Include="LuaFunctions.cpp" />
+    <ClCompile Include="Message.cpp" />
+    <ClCompile Include="PhysicsComponent.cpp" />
+    <ClCompile Include="PhysicsSystem.cpp" />
+    <ClCompile Include="PositionComponent.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="scriptinit_exemple.cpp" />
+    <ClCompile Include="Source1.cpp" />
+    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="SpriteSheet.cpp" />
+    <ClCompile Include="Vec2.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Component.h" />
+    <ClInclude Include="Flags.h" />
+    <ClInclude Include="GameLogicComponent.h" />
+    <ClInclude Include="GameLogicSystem.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GraphicsComponent.h" />
+    <ClInclude Include="GraphicsSystem.h" />
+    <ClInclude Include="LTimer.h" />
+    <ClInclude Include="InputsComponent.h" />
+    <ClInclude Include="InputSystem.h" />
+    <ClInclude Include="LuaInit.hpp" />
+    <ClInclude Include="Message.h" />
+    <ClInclude Include="PhysicsComponent.h" />
+    <ClInclude Include="PhysicsSystem.h" />
+    <ClInclude Include="PositionComponent.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="SpriteSheet.h" />
+    <ClInclude Include="Vec2.h" />
+  </ItemGroup>-->
   <ItemGroup>
     <ClCompile Include="Vec2.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLogicComponent.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLogicSystem.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
@@ -55,25 +105,22 @@
     <ClCompile Include="LuaFunctions.cpp">
       <Filter>Fichiers sources\load</Filter>
     </ClCompile>
+    <ClCompile Include="boostExemple.cpp">
+      <Filter>Fichiers sources\load</Filter>
+    </ClCompile>
     <ClCompile Include="XML_utilityfunctions.cpp">
       <Filter>Fichiers sources\load</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\tinyxml\tinyxml.cpp">
+      <Filter>Fichiers sources\load</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\tinyxml\tinystr.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\load</Filter>
     </ClCompile>
-    <ClCompile Include="tinystr.cpp">
-      <Filter>TinyXML</Filter>
+    <ClCompile Include="..\..\tinyxml\tinyxmlerror.cpp">
+      <Filter>Fichiers sources\load</Filter>
     </ClCompile>
-    <ClCompile Include="tinyxml.cpp">
-      <Filter>TinyXML</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxmlerror.cpp">
-      <Filter>TinyXML</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxmlparser.cpp">
-      <Filter>TinyXML</Filter>
-    </ClCompile>
-    <ClCompile Include="boostExemple.cpp">
+    <ClCompile Include="..\..\tinyxml\tinyxmlparser.cpp">
       <Filter>Fichiers sources\load</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
@@ -88,6 +135,12 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsSystem.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLogicSystem.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLogicComponent.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="InputSystem.h">
@@ -136,13 +189,10 @@
       <Filter>Fichiers d%27en-tête\Load</Filter>
     </ClInclude>
     <ClInclude Include="..\..\tinyxml\tinystr.h">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers d%27en-tête\Load</Filter>
     </ClInclude>
-    <ClInclude Include="tinystr.h">
-      <Filter>TinyXML</Filter>
-    </ClInclude>
-    <ClInclude Include="tinyxml.h">
-      <Filter>TinyXML</Filter>
+    <ClInclude Include="..\..\tinyxml\tinyxml.h">
+      <Filter>Fichiers d%27en-tête\Load</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -167,13 +217,5 @@
     <Filter Include="Fichiers d%27en-tête\Load">
       <UniqueIdentifier>{ea51add5-b75c-4821-8125-1bb88cf2fe82}</UniqueIdentifier>
     </Filter>
-    <Filter Include="TinyXML">
-      <UniqueIdentifier>{ddb4e7c3-3fd7-4094-8b6c-1108242a8a50}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="nem1.lua">
-      <Filter>Externes</Filter>
-    </None>
   </ItemGroup>
 </Project>
