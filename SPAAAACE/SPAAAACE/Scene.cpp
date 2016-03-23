@@ -49,6 +49,10 @@ void Scene::init(){
 	m_inSystem.setActionTrigger(AC_DOWN, SDL_SCANCODE_DOWN);
 	m_inSystem.setActionTrigger(AC_LEFT, SDL_SCANCODE_LEFT);
 	m_inSystem.setActionTrigger(AC_RIGHT, SDL_SCANCODE_RIGHT);
+	m_inSystem.setActionTrigger(AC_HORIZONTAL_PUSH, GP_AXIS_LEFT_JOY_X);
+	m_inSystem.setActionTrigger(AC_VERTICAL_PUSH, GP_AXIS_LEFT_JOY_Y);
+	m_inSystem.setActionTrigger(AC_DEZOOM, GP_AXIS_RT);
+	m_inSystem.setActionTrigger(AC_ZOOM, GP_AXIS_LT);
 
 	std::cout << "END OF INIT\n\n";
 }
@@ -116,26 +120,40 @@ void Scene::update(Message &postman)
 	GraphicsSystem::setCameraZoom(1);
 	//GraphicsSystem::lockCamera(false);
 	
+	//INPUT GÉNÉRAL
+	
+	GraphicsSystem::setCameraZoom(GraphicsSystem::getZoom() + (m_inSystem.checkTriggeredAction(AC_ZOOM) - m_inSystem.checkTriggeredAction(AC_DEZOOM)) / 32768);
 	for (int i = 0; i < m_gameObjects.size(); i++){
 		//std::cout << "Updating : _" << m_gameObjects[i].getID() << "_\n";
 		//on update chaque component de l'objet
+
+		//inputs
+
 		std::shared_ptr<PhysicsComponent> pc = m_gameObjects[i]->get<PhysicsComponent>();
 		if (pc != nullptr){
 		
 			if (m_gameObjects[i]->getID() == "player") {
 			//on check la direction du joueur
 				Vec2 forces(0, 0);
-				if (m_inSystem.checkTriggeredAction(AC_UP))
-					forces += Vec2(0, -5640);
+				if (m_inSystem.checkTriggeredAction(AC_HORIZONTAL_PUSH) || m_inSystem.checkTriggeredAction(AC_VERTICAL_PUSH))
+				{
+					forces = Vec2(m_inSystem.checkTriggeredAction(AC_HORIZONTAL_PUSH), m_inSystem.checkTriggeredAction(AC_VERTICAL_PUSH));
+				}
+				else
+				{
 
-				if (m_inSystem.checkTriggeredAction(AC_DOWN))
-					forces += Vec2(0, 5640);
+					if (m_inSystem.checkTriggeredAction(AC_UP))
+						forces += Vec2(0, -5640);
 
-				if (m_inSystem.checkTriggeredAction(AC_LEFT))
-					forces += Vec2(-5640, 0);
+					if (m_inSystem.checkTriggeredAction(AC_DOWN))
+						forces += Vec2(0, 5640);
 
-				if (m_inSystem.checkTriggeredAction(AC_RIGHT))
-					forces += Vec2(5640, 0);
+					if (m_inSystem.checkTriggeredAction(AC_LEFT))
+						forces += Vec2(-5640, 0);
+
+					if (m_inSystem.checkTriggeredAction(AC_RIGHT))
+						forces += Vec2(5640, 0);
+				}
 
 				pc->setForces(forces);
 
