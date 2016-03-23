@@ -45,13 +45,21 @@
     <ClInclude Include="Vec2.h" />
   </ItemGroup>-->
   <ItemGroup>
+    <None Include="nem1.lua" />
     <ClCompile Include="Vec2.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="GameLogicComponent.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="GameLogicSystem.cpp">
+=======
+	 <ClCompile Include="GameLogicComponent.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+	 <ClCompile Include="GameLogicSystem.cpp">
+>>>>>>> origin
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
@@ -137,10 +145,17 @@
     <ClInclude Include="GraphicsSystem.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="GameLogicSystem.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="GameLogicComponent.h">
+=======
+	<ClInclude Include="GameLogicSystem.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+	<ClInclude Include="GameLogicComponent.h">
+>>>>>>> origin
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="InputSystem.h">
