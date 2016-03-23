@@ -44,13 +44,17 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+<<<<<<< HEAD
+      <AdditionalIncludeDirectories>..\..\Boost;..\..\Lua\5.2\include;..\..\LuaBridge-master\Source\LuaBridge;..\..\SDL2_ttf\include;..\..\tinyxml;..\..\SDL2_mixer-2.0.1\include;..\..\SDL2_image-2.0.1\include;..\..\SDL2-2.0.4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+=======
       <AdditionalIncludeDirectories>..\..\Lua\5.2\include;..\..\LuaBridge-master\Source\LuaBridge;..\..\SDL2_ttf\include;..\..\MSXML6;..\..\SDL2_mixer-2.0.1\include;..\..\SDL2_image-2.0.1\include;..\..\SDL2-2.0.4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+>>>>>>> origin
       <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\..\SDL2_ttf\lib\x86;..\..\SDL2_mixer-2.0.1\lib\x86;..\..\SDL2_image-2.0.1\lib\x86;..\..\SDL2-2.0.4\lib\x86;..\..\Lua\5.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>lua5.2.lib;SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\Boost\stage\lib;..\..\SDL2_ttf\lib\x86;..\..\SDL2_mixer-2.0.1\lib\x86;..\..\SDL2_image-2.0.1\lib\x86;..\..\SDL2-2.0.4\lib\x86;..\..\Lua\5.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>lua5.2.lib;SDL2main.lib;SDL2.lib;SDL2_image.lib;SDL2_mixer.lib;libboost_iostreams-vc120-mt-s-1_60.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
     <Bscmake>
@@ -76,6 +80,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\tinyxml\tinystr.cpp" />
+    <ClCompile Include="..\..\tinyxml\tinyxml.cpp" />
+    <ClCompile Include="..\..\tinyxml\tinyxmlerror.cpp" />
+    <ClCompile Include="..\..\tinyxml\tinyxmlparser.cpp" />
+    <ClCompile Include="boostExemple.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="GameLogicComponent.cpp" />
     <ClCompile Include="GameLogicSystem.cpp" />
@@ -86,19 +95,22 @@
     <ClCompile Include="InputsComponent.cpp" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="LuaFunctions.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PhysicsSystem.cpp" />
     <ClCompile Include="PositionComponent.cpp" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="scriptinit_exemple.cpp" />
     <ClCompile Include="Source1.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteSheet.cpp" />
     <ClCompile Include="Vec2.cpp" />
+    <ClCompile Include="XML_utilityfunctions.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\tinyxml\tinystr.h" />
+    <ClInclude Include="..\..\tinyxml\tinyxml.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Flags.h" />
     <ClInclude Include="GameLogicComponent.h" />
@@ -118,9 +130,7 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteSheet.h" />
     <ClInclude Include="Vec2.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="nem1.lua" />
+    <ClInclude Include="XML_utilities.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
