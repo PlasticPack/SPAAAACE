@@ -1,236 +1,174 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <!--<ItemGroup>
-    <ClCompile Include="Component.cpp" />
-    <ClCompile Include="GameLogicComponent.cpp" />
-    <ClCompile Include="GameLogicSystem.cpp" />
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="GraphicsComponent.cpp" />
-    <ClCompile Include="GraphicsSystem.cpp" />
-    <ClCompile Include="LTimer.cpp" />
-    <ClCompile Include="InputsComponent.cpp" />
-    <ClCompile Include="InputSystem.cpp" />
-    <ClCompile Include="LuaFunctions.cpp" />
-    <ClCompile Include="Message.cpp" />
-    <ClCompile Include="PhysicsComponent.cpp" />
-    <ClCompile Include="PhysicsSystem.cpp" />
-    <ClCompile Include="PositionComponent.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="scriptinit_exemple.cpp" />
-    <ClCompile Include="Source1.cpp" />
-    <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="SpriteSheet.cpp" />
-    <ClCompile Include="Vec2.cpp" />
-  </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Component.h" />
-    <ClInclude Include="Flags.h" />
-    <ClInclude Include="GameLogicComponent.h" />
-    <ClInclude Include="GameLogicSystem.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="GraphicsComponent.h" />
-    <ClInclude Include="GraphicsSystem.h" />
-    <ClInclude Include="LTimer.h" />
-    <ClInclude Include="InputsComponent.h" />
-    <ClInclude Include="InputSystem.h" />
-    <ClInclude Include="LuaInit.hpp" />
-    <ClInclude Include="Message.h" />
-    <ClInclude Include="PhysicsComponent.h" />
-    <ClInclude Include="PhysicsSystem.h" />
-    <ClInclude Include="PositionComponent.h" />
-    <ClInclude Include="Scene.h" />
-    <ClInclude Include="Sprite.h" />
-    <ClInclude Include="SpriteSheet.h" />
-    <ClInclude Include="Vec2.h" />
-  </ItemGroup>-->
-  <ItemGroup>
-    <None Include="nem1.lua" />
-    <ClCompile Include="Vec2.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="Component.cpp">
+      <Filter>Sources</Filter>
     </ClCompile>
-<<<<<<< HEAD
     <ClCompile Include="GameLogicComponent.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="GameLogicSystem.cpp">
-=======
-	 <ClCompile Include="GameLogicComponent.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-	 <ClCompile Include="GameLogicSystem.cpp">
->>>>>>> origin
-      <Filter>Fichiers sources</Filter>
+      <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="InputSystem.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="LTimer.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Message.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicsSystem.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteSheet.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source1.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="GraphicsSystem.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="GraphicsComponent.cpp">
-      <Filter>Fichiers sources\Components</Filter>
+      <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>Fichiers sources\Components</Filter>
+    <ClCompile Include="GraphicsSystem.cpp">
+      <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="InputsComponent.cpp">
-      <Filter>Fichiers sources\Components</Filter>
+      <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="PhysicsComponent.cpp">
-      <Filter>Fichiers sources\Components</Filter>
+    <ClCompile Include="InputSystem.cpp">
+      <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="PositionComponent.cpp">
-      <Filter>Fichiers sources\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="scriptinit_exemple.cpp">
-      <Filter>Fichiers sources\load</Filter>
-    </ClCompile>
-    <ClCompile Include="LuaFunctions.cpp">
-      <Filter>Fichiers sources\load</Filter>
-    </ClCompile>
-    <ClCompile Include="boostExemple.cpp">
-      <Filter>Fichiers sources\load</Filter>
-    </ClCompile>
-    <ClCompile Include="XML_utilityfunctions.cpp">
-      <Filter>Fichiers sources\load</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\tinyxml\tinyxml.cpp">
-      <Filter>Fichiers sources\load</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\tinyxml\tinystr.cpp">
-      <Filter>Fichiers sources\load</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\tinyxml\tinyxmlerror.cpp">
-      <Filter>Fichiers sources\load</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\tinyxml\tinyxmlparser.cpp">
-      <Filter>Fichiers sources\load</Filter>
+    <ClCompile Include="LTimer.cpp">
+      <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Message.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsComponent.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsSystem.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="PositionComponent.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="scriptinit_exemple.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Source1.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteSheet.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Vec2.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="boostExemple.cpp">
+      <Filter>Sources\Load</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaFunctions.cpp">
+      <Filter>Sources\Load</Filter>
+    </ClCompile>
+    <ClCompile Include="XML_utilityfunctions.cpp">
+      <Filter>Sources\Load</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tinyxml\tinystr.cpp">
+      <Filter>Sources\Load\TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tinyxml\tinyxml.cpp">
+      <Filter>Sources\Load\TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tinyxml\tinyxmlerror.cpp">
+      <Filter>Sources\Load\TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tinyxml\tinyxmlparser.cpp">
+      <Filter>Sources\Load\TinyXML</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Component.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
     <ClInclude Include="Flags.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphicsSystem.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="GameLogicSystem.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="GameLogicComponent.h">
-=======
-	<ClInclude Include="GameLogicSystem.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+      <Filter>Headers</Filter>
     </ClInclude>
-	<ClInclude Include="GameLogicComponent.h">
->>>>>>> origin
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="GameLogicSystem.h">
+      <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="InputSystem.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="LTimer.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Message.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicsSystem.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteSheet.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Vec2.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Fichiers d%27en-tête\Components</Filter>
+    <ClInclude Include="GameObject.h">
+      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsComponent.h">
-      <Filter>Fichiers d%27en-tête\Components</Filter>
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsSystem.h">
+      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="InputsComponent.h">
-      <Filter>Fichiers d%27en-tête\Components</Filter>
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="InputSystem.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="LTimer.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Message.h">
+      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsComponent.h">
-      <Filter>Fichiers d%27en-tête\Components</Filter>
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsSystem.h">
+      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="PositionComponent.h">
-      <Filter>Fichiers d%27en-tête\Components</Filter>
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteSheet.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Vec2.h">
+      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="LuaInit.hpp">
-      <Filter>Fichiers d%27en-tête\Load</Filter>
+      <Filter>Headers\Load</Filter>
     </ClInclude>
     <ClInclude Include="XML_utilities.hpp">
-      <Filter>Fichiers d%27en-tête\Load</Filter>
+      <Filter>Headers\Load</Filter>
     </ClInclude>
     <ClInclude Include="..\..\tinyxml\tinystr.h">
-      <Filter>Fichiers d%27en-tête\Load</Filter>
+      <Filter>Headers\Load\TinyXML</Filter>
     </ClInclude>
     <ClInclude Include="..\..\tinyxml\tinyxml.h">
-      <Filter>Fichiers d%27en-tête\Load</Filter>
+      <Filter>Headers\Load\TinyXML</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Fichiers d%27en-tête">
-      <UniqueIdentifier>{bc74fe80-f9e8-4571-9c21-9a4cbaee3a5e}</UniqueIdentifier>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{64049c1a-c77b-401e-95ad-2707248cd671}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources">
-      <UniqueIdentifier>{c78881e9-d096-457a-a423-deda9ba10cf7}</UniqueIdentifier>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{8e4bb42f-400b-4e9b-8f4d-8ec02c943ef1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Externes">
-      <UniqueIdentifier>{af919cfb-76f2-4caf-b81a-e16268707628}</UniqueIdentifier>
+    <Filter Include="Headers\Load">
+      <UniqueIdentifier>{3c17686e-258a-4c35-a9fd-11f8f4bc1f9b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\Components">
-      <UniqueIdentifier>{8f32731b-005c-4be1-b7dc-fed301c1f948}</UniqueIdentifier>
+    <Filter Include="Sources\Load">
+      <UniqueIdentifier>{77cb3717-6980-403e-b0c6-e687f82858c6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\Components">
-      <UniqueIdentifier>{a11aece2-efc7-4555-9908-a801f2ec9aec}</UniqueIdentifier>
+    <Filter Include="Sources\Load\TinyXML">
+      <UniqueIdentifier>{900e7cc7-81ce-49f6-9151-12a486173a18}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\load">
-      <UniqueIdentifier>{877c1f4b-4b69-4afb-a555-cb7f2a4bfcd7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\Load">
-      <UniqueIdentifier>{ea51add5-b75c-4821-8125-1bb88cf2fe82}</UniqueIdentifier>
+    <Filter Include="Headers\Load\TinyXML">
+      <UniqueIdentifier>{acb8639d-40c4-4020-9ab0-943d9159d5a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
