@@ -58,8 +58,6 @@ enum action // METTRE NOUVELLEs ACTIONS ICI
 	AC_EXIT,
 	AC_LEFT,
 	AC_RIGHT,
-	AC_DEZOOM,
-	AC_ZOOM,
 	AC_NUMBER_OF_ACTION // Mettre tout autre action AVANT celle-ci
 };
 

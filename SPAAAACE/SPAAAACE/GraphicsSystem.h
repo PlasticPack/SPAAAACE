@@ -31,8 +31,11 @@ public:
 	static void setCamera(Vec2 t, double z, double a);
 	static void lockCamera(bool l = true);
 
+	static void reset();
+
 	static double getFPS();
-	static double getZoom(){ return m_camera.zoom; }
+	static double getCameraZoom(){ return m_camera.zoom; }
+	static double getCameraAngle(){ return m_camera.angle; }
 
 	static void initFrame();
 	static void endFrame();
@@ -49,5 +52,6 @@ protected:
 	static int m_countedFrames;
 	static SDL_Texture* m_backgrounds[4]; // 4 layers de background
 	static Vec2 m_backgroundSize[4];
+	static bool m_initialized;
 };
 

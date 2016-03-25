@@ -55,13 +55,13 @@ class Scene
 {
 public:
 
-	Scene();
+	Scene(std::string arg);
 	~Scene();
 
 	//void addGameObject();
 	
 	void update(Message &postman);
-	void init(); // méthode qui prend un script  et initialise le vector de gameObjects
+	void init(std::string arg); // méthode qui prend un script  et initialise le vector de gameObjects
 
 	//void addSkyBody(double x, double y, double mass, std::string id, Uint8 r = 255, Uint8 g = 255, Uint8 b = 255);
 	void orderByZIndex();
@@ -101,6 +101,7 @@ protected:
 	std::vector<std::shared_ptr<PositionComponent>> m_posComps;
 	std::vector<std::shared_ptr<GraphicsComponent>> m_graphicsComps;
 	std::vector<std::shared_ptr<PhysicsComponent>> m_physicsComps;
+	//std::vector<std::shared_ptr<AiComponent>> m_aiComps;
 
 
 	std::map<std::type_index, std::vector<std::shared_ptr<Component>>> m_components;

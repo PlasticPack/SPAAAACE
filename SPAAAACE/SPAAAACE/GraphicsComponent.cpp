@@ -27,7 +27,7 @@ GraphicsComponent::GraphicsComponent(luabridge::LuaRef& componentTable, std::sha
 
 		m_sprite = std::make_shared<Sprite>(std::make_shared<SpriteSheet>(GraphicsSystem::loadTexture(spriteRef), cols.cast<int>(), rows.cast<int>()));
 
-		if (anim_speed.isString()){
+		if (anim_speed.isNumber()){
 			m_sprite->setAnimationSpeed(anim_speed);
 		}
 
