@@ -128,6 +128,8 @@ void GraphicsSystem::loadBackground(const std::string filename, int layer, Uint8
 void GraphicsSystem::update(Message &postman, GraphicsComponent gComp, double dt) {
 	if (m_initialized) {
 		if (m_frameStarted){
+
+
 			//si on recoit qu'il y a eu collision
 			//std::cout << postman.getMessage("Physics", "Physics", MS_COLLISION) << "sadsdsad\n";
 			if (postman.getMessage("Physics", "Physics", MS_COLLISION) > 1000.0){

@@ -171,4 +171,9 @@
       <UniqueIdentifier>{acb8639d-40c4-4020-9ab0-943d9159d5a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="nem1.lua">
+      <Filter>Sources</Filter>
+    </None>
+  </ItemGroup>
 </Project>

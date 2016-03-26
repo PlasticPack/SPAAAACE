@@ -99,6 +99,7 @@ Vec2 PhysicsSystem::gravity(PhysicsComponent &a, PhysicsComponent &b) {
 }
 
 Derivative PhysicsSystem::evaluate(PhysicsComponent &initial, std::vector<std::shared_ptr<PhysicsComponent>> &bodies, double dt, Derivative &d){
+	
 
 	std::shared_ptr<PositionComponent> bPos = std::make_shared<PositionComponent>(*initial.getPositionComponent());
 

@@ -21,8 +21,8 @@ int main(int argc, char* argv[]){
 	bool quit = false;
 	SDL_Event e;
 
-	Scene menu("menu");
-	Scene game("game");
+	Scene menu("scripts/scene_menu");
+	Scene game("scripts/scene_game");
 	Message postman;
 
 	std::shared_ptr<Scene> currentScene = std::make_shared<Scene>(game);

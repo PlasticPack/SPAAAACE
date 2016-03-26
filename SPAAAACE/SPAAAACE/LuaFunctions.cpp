@@ -164,7 +164,7 @@ std::vector<std::string> getFiles(const std::string& filepath, const std::string
 	return files;
 }
 
-void luain::loadFromRep(Scene *scene,std::vector<GameObject> &objects, const std::string& filepath, const std::string& ext){
+void luain::loadFromRep(Scene *scene,std::vector<std::shared_ptr<GameObject>> &objects, const std::string& filepath, const std::string& ext){
 	std::vector<std::string> files_dir = getFiles(filepath,ext);
 	if (!files_dir.empty()){
 		for (int i = 0; i < files_dir.size(); i++){
@@ -178,13 +178,13 @@ void luain::loadFromRep(Scene *scene,std::vector<GameObject> &objects, const std
 			//boost::filesystem::path p(files_dir[i]);
 			obj->setID(p.stem().string());
 			//std::cout << obj->getID() << std::endl;
-			objects.push_back(*obj.get());
+			objects.push_back(obj);
 		}
 	}
 	
 }
 
-void luain::loadFromRep(Scene* sc,std::map<std::string, GameObject> &objs, const std::string& filepath, const std::string& ext){
+void luain::loadFromRep(Scene* sc,std::map<std::string, std::shared_ptr<GameObject>> &objs, const std::string& filepath, const std::string& ext){
 	std::vector<std::string> files_dir = getFiles(filepath, ext);
 	if (!files_dir.empty()){
 		for (int i = 0; i < files_dir.size(); i++){
@@ -199,7 +199,7 @@ void luain::loadFromRep(Scene* sc,std::map<std::string, GameObject> &objs, const
 			if (objs.find(p.stem().string()) == objs.end()){
 				obj->setID(p.stem().string());
 				//std::cout << obj->getID() << std::endl;
-				objs.insert(std::make_pair(obj->getID(), *obj.get()));
+				objs.insert(std::make_pair(obj->getID(), obj));
 			}
 			else std::cout << "Colision at:" << p.stem().string() << std::endl;
 			
@@ -240,6 +240,7 @@ std::shared_ptr<GameObject> luain::loadGameObjects(Scene *s, lua_State* L, const
 
 		std::cout<< "Added " << componentName << " to " << type << std::endl;
 	}
+
 	if (obj->hasComponent(typeid(PositionComponent))){
 		if (obj->hasComponent(typeid(GraphicsComponent))){
 			obj->get<GraphicsComponent>()->setPositionComponent(obj->get<PositionComponent>());
@@ -248,5 +249,7 @@ std::shared_ptr<GameObject> luain::loadGameObjects(Scene *s, lua_State* L, const
 			obj->get<PhysicsComponent>()->setPositionComp(obj->get<PositionComponent>());
 		}
 	}
+
+	std::cout << "\n\n\n";
 	return obj;
 }

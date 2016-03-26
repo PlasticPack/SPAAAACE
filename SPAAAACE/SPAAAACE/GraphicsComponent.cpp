@@ -25,17 +25,26 @@ GraphicsComponent::GraphicsComponent(luabridge::LuaRef& componentTable, std::sha
 	m_camera = true;
 	if (spriteRef.isString()){
 
-		m_sprite = std::make_shared<Sprite>(std::make_shared<SpriteSheet>(GraphicsSystem::loadTexture(spriteRef), cols.cast<int>(), rows.cast<int>()));
+		int c = 1, r = 1;
+		if (cols.isNumber())
+			c = cols.cast<int>();
+
+		if (rows.isNumber())
+			r = rows.cast<int>();
+
+		m_sprite = std::make_shared<Sprite>(std::make_shared<SpriteSheet>(GraphicsSystem::loadTexture(spriteRef), c, r));
 
 		if (anim_speed.isNumber()){
 			m_sprite->setAnimationSpeed(anim_speed);
 		}
 
 		if (cam.isString() && (cam == "true" || cam == "false")){
-			if (cam == "true")
+			if (cam == "true"){
 				m_camera = true;
-			else
+			}
+			else {
 				m_camera = false;
+			}
 		}
 
 		if (width.isNumber() && height.isNumber()){

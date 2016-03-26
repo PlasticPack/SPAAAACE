@@ -14,24 +14,21 @@ void Scene::init(std::string arg){
 	GraphicsSystem::init();
 	//GraphicsSystem::reset();
 
-	//initialisation + ouverture script
-	lua_State* L = luaL_newstate();
-	luaL_openlibs(L);
-	luaL_dofile(L, "nem1.lua");
-	luain::loadGetKeysFunction(L);
+	//initialisation Lua
+	/*lua_State* L = luaL_newstate();
+	luaL_openlibs(L);*/
 
 
 	//AJOUTEZ VOS OBJETS ICI! **********************************************
 
-	//m_gameObjects.push_back(luain::loadGameObjects(this, L, "rock")); 
-	//m_gameObjects.push_back(luain::loadGameObjects(this, L, "rock2")); // bon pour le moment c'est batârd d'ajouter 4 fois le "même" objet
-	//m_gameObjects.push_back(luain::loadGameObjects(this, L, "rock3")); // mais juste à des positions différentes
-	//m_gameObjects.push_back(luain::loadGameObjects(this, L, "rock4")); // ca sera réglé quand on aura une base de création de niveau
-	if (arg == "game")
-		m_gameObjects.push_back(luain::loadGameObjects(this, L, "player"));// pour le moment ca se code 
-	else
-		m_gameObjects.push_back(luain::loadGameObjects(this, L, "rock"));
 
+	try {
+		luain::loadFromRep(this, m_gameObjects, arg);
+	}
+	catch (std::exception e){
+		std::cout << e.what() << "\n";
+
+	}
 
 	//À PARTIR DE CE POINT, N'AJOUTEZ PLUS D'OBJETS  ***********************
 
@@ -65,10 +62,10 @@ void Scene::orderByZIndex(){
 	int j = 0;
 	for (int i(1); i < m_gameObjects.size(); i++){
 		j = i - 1;
-		while (j >= 0 && m_gameObjects[j]->get<PhysicsComponent>()->getPositionComponent()->getZIndex() > m_gameObjects[i]->get<PhysicsComponent>()->getPositionComponent()->getZIndex()){
+		/*while (j >= 0 && m_gameObjects[j]->get<PhysicsComponent>()->getPositionComponent()->getZIndex() > m_gameObjects[i]->get<PhysicsComponent>()->getPositionComponent()->getZIndex()){
 			std::iter_swap(m_gameObjects.begin() + j + 1, m_gameObjects.begin() + j);
 			j -= 1;
-		}
+		}*/
 	}
 }
 
@@ -102,6 +99,7 @@ void Scene::update(Message &postman)
 	
 	//INPUT GÉNÉRAL
 	
+	//GraphicsSystem::setCameraZoom(0.5);
 	//GraphicsSystem::setCameraZoom(GraphicsSystem::getZoom() + (m_inSystem.checkTriggeredAction(AC_ZOOM) - m_inSystem.checkTriggeredAction(AC_DEZOOM)) / 32768);
 	for (int i = 0; i < m_gameObjects.size(); i++){
 		//std::cout << "Updating : _" << m_gameObjects[i].getID() << "_\n";
@@ -138,22 +136,24 @@ void Scene::update(Message &postman)
 				pc->setForces(forces);
 
 				double speed = pc->getVelocity().getLength();
-
-				m_phySystem.update(postman, *pc, m_physicsComps, 1.0 / GraphicsSystem::getFPS());
 			}
 
-			auto gc = m_gameObjects[i]->get<GraphicsComponent>();
-			if (gc != nullptr){
 
-				if (m_gameObjects[i]->getID() == "player"){
-					GraphicsSystem::setCameraTarget(gc->getPosition());
-				}
-
-				//GraphicsSystem::lockCamera(false);
-				GraphicsSystem::update(postman, *gc, 1.0 / GraphicsSystem::getFPS());
-			}
+			m_phySystem.update(postman, *pc, m_physicsComps, 1.0 / GraphicsSystem::getFPS());
 		}
+
+		auto gc = m_gameObjects[i]->get<GraphicsComponent>();
+		if (gc != nullptr){
+
+			if (m_gameObjects[i]->getID() == "player"){
+				GraphicsSystem::setCameraTarget(gc->getPosition());
+			}
+
+			//GraphicsSystem::lockCamera(false);
+			GraphicsSystem::update(postman, *gc, 1.0 / GraphicsSystem::getFPS());
+		}
+
 		//std::cout << GraphicsSystem::getFPS() << "\n";
-		GraphicsSystem::endFrame();
 	}
+	GraphicsSystem::endFrame();
 }

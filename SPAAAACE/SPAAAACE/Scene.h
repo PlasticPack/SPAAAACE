@@ -7,6 +7,9 @@
 #include <stdlib.h>
 #include <time.h>
 #include "LuaInit.hpp"
+#include <exception>
+
+#include "XML_utilities.hpp"
 
 /*********************************************
 
