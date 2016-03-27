@@ -236,6 +236,10 @@ std::shared_ptr<GameObject> luain::loadGameObjects(Scene *s, lua_State* L, const
 			LuaRef graTable = entityTable[componentName];
 			addComponent<GraphicsComponent>(s, obj, graTable);
 		}
+		else if (componentName == "GameLogic"){
+			LuaRef GLTable = entityTable[componentName];
+			addComponent<GameLogicComponent>(s, obj, GLTable);
+		}
 		else std::cout << "Unknown component: " << componentName;
 
 		std::cout<< "Added " << componentName << " to " << type << std::endl;

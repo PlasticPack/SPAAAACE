@@ -23,10 +23,10 @@ PhysicsComponent::PhysicsComponent(luabridge::LuaRef& componentTable, std::share
 	m_elasticity = 0.9;
 	m_activated = true;
 
-	auto massRef = componentTable["mass"];
-	auto activateRef = componentTable["activated"];
-	auto hbRef = componentTable["hitbox"];
-	auto ela = componentTable["elasticity"];
+	auto massRef =		componentTable["mass"];
+	auto activateRef =	componentTable["activated"];
+	auto hbRef =		componentTable["hitbox"];
+	auto ela =			componentTable["elasticity"];
 	
 	if (massRef.isNumber()){
 		setMass(massRef.cast<double>());

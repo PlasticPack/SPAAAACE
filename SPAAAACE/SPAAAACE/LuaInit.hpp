@@ -6,11 +6,6 @@
 //Linking it will cause multiple issues
 
 #include<iostream>
-#include"GraphicsComponent.h"
-#include"PhysicsComponent.h"
-#include"PositionComponent.h"
-#include"GameObject.h"
-#include"InputsComponent.h"
 #include <boost\filesystem.hpp>
 #include "InputsComponent.h"
 #include "Scene.h"

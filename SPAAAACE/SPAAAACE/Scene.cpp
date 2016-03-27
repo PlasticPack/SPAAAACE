@@ -1,10 +1,9 @@
 #include "Scene.h"
 
 
-Scene::Scene(std::string arg)
+Scene::Scene(std::string arg, std::string id)
 {
-	//GraphicsSystem::GraphicsSystem();
-	
+	m_id = id;
 	init(arg);
 }
 
@@ -12,12 +11,6 @@ Scene::Scene(std::string arg)
 void Scene::init(std::string arg){
 
 	GraphicsSystem::init();
-	//GraphicsSystem::reset();
-
-	//initialisation Lua
-	/*lua_State* L = luaL_newstate();
-	luaL_openlibs(L);*/
-
 
 	//AJOUTEZ VOS OBJETS ICI! **********************************************
 
@@ -36,15 +29,18 @@ void Scene::init(std::string arg){
 	///AJOUT BACKGROUND ET MACHINs
 
 	orderByZIndex(); 
-	GraphicsSystem::loadBackground("ressources/space_1.png", 0, 250, 200, 255);
-	GraphicsSystem::loadBackground("ressources/space_2.png", 1, 150, 100, 150);
-	GraphicsSystem::loadBackground("ressources/space_3.png", 2, 200, 220, 255);
-	//GraphicsSystem::loadBackground("ressources/bg1.png", 3);
+	if (m_id == "game"){ // pour le moment c'est ca
+		GraphicsSystem::loadBackground("ressources/space_1.png", 0, 250, 200, 255);
+		GraphicsSystem::loadBackground("ressources/space_2.png", 1, 150, 100, 150);
+		GraphicsSystem::loadBackground("ressources/space_3.png", 2, 200, 220, 255);
+		//GraphicsSystem::loadBackground("ressources/bg1.png", 3);
+	}
 
 	//Inputs init
 	m_inSystem.setActionTrigger(AC_EXIT, SDL_SCANCODE_ESCAPE);
 	
 	//initialise le mouvement du joueur selon le clavier
+	m_inSystem.setActionTrigger(AC_SHOOT, SDL_BUTTON_LEFT);
 	m_inSystem.setActionTrigger(AC_UP, SDL_SCANCODE_UP);
 	m_inSystem.setActionTrigger(AC_START, SDL_SCANCODE_C);
 	m_inSystem.setActionTrigger(AC_SELECT, SDL_SCANCODE_D);
@@ -76,37 +72,31 @@ Scene::~Scene()
 
 void Scene::update(Message &postman)
 {
-	m_inSystem.pollInputs();
-	postman.clearAll();
-	//std::cout << m_inSystem.isJoyConnected() << "\n";
 	
-	if (m_inSystem.checkTriggeredAction(AC_EXIT))
-		postman.addMessage("Scene", "Input", MS_EXIT_REQUEST, 1);
+	//INPUT GÉNÉRAL
+	m_inSystem.pollInputs();
 
-	if (m_inSystem.checkTriggeredAction(AC_START))
+	/*if (m_inSystem.checkTriggeredAction(AC_START))
 		postman.addMessage("game", "Input", 0, 1);
 
 	if (m_inSystem.checkTriggeredAction(AC_SELECT))
-		postman.addMessage("menu", "Input", 0, 1);
+		postman.addMessage("menu", "Input", 0, 1);*/
+
+	if (m_inSystem.checkTriggeredAction(AC_SHOOT))
+		postman.addMessage("game", "Input", MS_SHOOT, 1);
+
+
+	//TIR DU VAISSEAU
+
+	//=======================
+
+
 
 
 	GraphicsSystem::initFrame();
-	//GraphicsSystem::setCameraAngle(GraphicsSystem::getCameraAngle() - 0.03);
-	//GraphicsSystem::setCameraAngle(25);
-	//GraphicsSystem::setCameraZoom(GraphicsSystem::getCameraZoom() - 0.00009);
-	//GraphicsSystem::setCameraZoom(0.8 + (0.3 * sin(SDL_GetTicks() / 1000.0)));
-	//GraphicsSystem::lockCamera(false);
 	
-	//INPUT GÉNÉRAL
-	
-	//GraphicsSystem::setCameraZoom(0.5);
-	//GraphicsSystem::setCameraZoom(GraphicsSystem::getZoom() + (m_inSystem.checkTriggeredAction(AC_ZOOM) - m_inSystem.checkTriggeredAction(AC_DEZOOM)) / 32768);
 	for (int i = 0; i < m_gameObjects.size(); i++){
-		//std::cout << "Updating : _" << m_gameObjects[i].getID() << "_\n";
-		//on update chaque component de l'objet
-
-		//inputs
-
+		postman.clearAll();
 		std::shared_ptr<PhysicsComponent> pc = m_gameObjects[i]->get<PhysicsComponent>();
 		if (pc != nullptr){
 
@@ -116,7 +106,6 @@ void Scene::update(Message &postman)
 				Vec2 forces(0, 0);
 				if (m_inSystem.checkTriggeredAction(AC_HORIZONTAL_PUSH) || m_inSystem.checkTriggeredAction(AC_VERTICAL_PUSH))
 				{
-					//std::cout << "HEY";
 					forces = Vec2(m_inSystem.checkTriggeredAction(AC_HORIZONTAL_PUSH) / 20.0, m_inSystem.checkTriggeredAction(AC_VERTICAL_PUSH) / 20.0);
 				}
 				else {
@@ -137,9 +126,13 @@ void Scene::update(Message &postman)
 
 				double speed = pc->getVelocity().getLength();
 			}
-
-
+			
 			m_phySystem.update(postman, *pc, m_physicsComps, 1.0 / GraphicsSystem::getFPS());
+		}
+
+		auto GLC = m_gameObjects[i]->get<GameLogicComponent>();
+		if (GLC != nullptr){
+			GameLogicSystem::update(postman, *GLC);
 		}
 
 		auto gc = m_gameObjects[i]->get<GraphicsComponent>();
@@ -147,13 +140,20 @@ void Scene::update(Message &postman)
 
 			if (m_gameObjects[i]->getID() == "player"){
 				GraphicsSystem::setCameraTarget(gc->getPosition());
+
+				// et on update le hud en fonction du joueur
+
+
 			}
 
-			//GraphicsSystem::lockCamera(false);
 			GraphicsSystem::update(postman, *gc, 1.0 / GraphicsSystem::getFPS());
 		}
 
-		//std::cout << GraphicsSystem::getFPS() << "\n";
 	}
+
+
+	if (m_inSystem.checkTriggeredAction(AC_EXIT))
+		postman.addMessage("Scene", "Input", MS_EXIT_REQUEST, 1);
+
 	GraphicsSystem::endFrame();
 }

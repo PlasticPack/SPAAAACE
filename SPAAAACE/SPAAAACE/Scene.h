@@ -3,6 +3,8 @@
 #include "GraphicsSystem.h"
 #include "PhysicsSystem.h"
 #include "InputSystem.h"
+#include "GameLogicSystem.h"
+#include "GameObject.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -58,15 +60,12 @@ class Scene
 {
 public:
 
-	Scene(std::string arg);
+	Scene(std::string arg, std::string);
 	~Scene();
-
-	//void addGameObject();
 	
 	void update(Message &postman);
 	void init(std::string arg); // méthode qui prend un script  et initialise le vector de gameObjects
 
-	//void addSkyBody(double x, double y, double mass, std::string id, Uint8 r = 255, Uint8 g = 255, Uint8 b = 255);
 	void orderByZIndex();
 
 	//getters des components, utile à luafunctions.cpp
@@ -87,27 +86,20 @@ public:
 		}
 	}
 
-	//std::vector<GameObject> getObjects() { return m_gameObjects; } // temporaire
-	/*
-	template <typename T> std::vector<T> getAll(){ // retourne tous les components d'un type chez les objets
-		std::vector<T> components;
-		for (int i = 0; i < m_gameObjects.size(); i++){
-			auto comp = m_gameObjects[i].get<T>();
-			if (comp != nullptr){
-				components.push_back(*comp);
-			}
-		}
-	}*/
 
 protected:
 	std::vector<std::shared_ptr<GameObject>> m_gameObjects;
-	std::vector<std::shared_ptr<PositionComponent>> m_posComps;
-	std::vector<std::shared_ptr<GraphicsComponent>> m_graphicsComps;
-	std::vector<std::shared_ptr<PhysicsComponent>> m_physicsComps;
+
+	std::vector<std::shared_ptr<PositionComponent>>		m_posComps;
+	std::vector<std::shared_ptr<GraphicsComponent>>		m_graphicsComps;
+	std::vector<std::shared_ptr<PhysicsComponent>>		m_physicsComps;
+	std::vector<std::shared_ptr<GameLogicComponent>>	m_GLComps;
+
+
 	//std::vector<std::shared_ptr<AiComponent>> m_aiComps;
+	//std::map<std::type_index, std::vector<std::shared_ptr<Component>>> m_components;
 
-
-	std::map<std::type_index, std::vector<std::shared_ptr<Component>>> m_components;
+	std::string m_id;
 
 	InputsSystem m_inSystem;
 	PhysicsSystem m_phySystem;

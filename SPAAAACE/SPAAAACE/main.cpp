@@ -21,8 +21,8 @@ int main(int argc, char* argv[]){
 	bool quit = false;
 	SDL_Event e;
 
-	Scene menu("scripts/scene_menu");
-	Scene game("scripts/scene_game");
+	//Scene menu("scripts/scene_menu");
+	Scene game("scripts/scene_game", "game");
 	Message postman;
 
 	std::shared_ptr<Scene> currentScene = std::make_shared<Scene>(game);
@@ -31,16 +31,18 @@ int main(int argc, char* argv[]){
 	{
 
 		currentScene->update(postman);
+
 		if (postman.getMessage("Scene", "Input", MS_EXIT_REQUEST))
 			quit = true;
-		else if (postman.getMessage("menu", "Input", 0)){
+
+		/*else if (postman.getMessage("menu", "Input", 0)){
 			GraphicsSystem::reset();
 			currentScene = std::make_shared<Scene>(menu);
 		}
 		else if (postman.getMessage("game", "Input", 0)) {
 			GraphicsSystem::reset();
 			currentScene = std::make_shared<Scene>(game);
-		}
+		}*/
 
 	}
 
