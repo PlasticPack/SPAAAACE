@@ -23,6 +23,8 @@ void GameLogicSystem::update(Message &postman, GameLogicComponent &comp){
 		//comp.setLife(comp.getCurrentLife() - vel);
 	}
 
-
+	if (postman.getMessage("player", "player", MS_FUEL_DOWN)){
+		postman.addMessage("GameLogic", "GameLogic", MS_FUEL_DOWN, 0);
+	}
 
 }

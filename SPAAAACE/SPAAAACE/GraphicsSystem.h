@@ -3,6 +3,7 @@
 #include "GraphicsComponent.h"
 #include "LTimer.h"
 #include <string>
+#include <SDL_ttf.h>
 
 #define SCREEN_W 1200
 #define SCREEN_H 900
@@ -40,11 +41,16 @@ public:
 	static void initFrame();
 	static void endFrame();
 
+	static void setFont(std::string f, int s, SDL_Color c = {255, 255, 255});
+	static void setTextColor(SDL_Color c);
+	static void print(std::string text);
+
 protected:
 	GraphicsSystem();
 	~GraphicsSystem();
 	static SDL_Window *m_window;
 	static SDL_Renderer *m_renderer;
+	static TTF_Font* m_currentFont;
 	static Camera m_camera;
 	static bool m_frameStarted;
 	static double m_avgFPS;
@@ -53,5 +59,8 @@ protected:
 	static SDL_Texture* m_backgrounds[4]; // 4 layers de background
 	static Vec2 m_backgroundSize[4];
 	static bool m_initialized;
+	static SDL_Texture* m_currentTextTexture;
+	static SDL_Color m_textColor;
+	static std::string m_currentText;
 };
 

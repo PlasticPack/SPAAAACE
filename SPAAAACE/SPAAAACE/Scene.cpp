@@ -50,6 +50,8 @@ void Scene::init(std::string arg){
 	m_inSystem.setActionTrigger(AC_HORIZONTAL_PUSH, GP_AXIS_LEFT_JOY_X);
 	m_inSystem.setActionTrigger(AC_VERTICAL_PUSH, GP_AXIS_LEFT_JOY_Y);
 
+	GraphicsSystem::setFont("ressources/CaviarDreams.ttf", 28, { 225, 220, 255 });
+
 	std::cout << "END OF INIT\n\n";
 	GraphicsSystem::setCameraZoom(1);
 }
@@ -122,6 +124,9 @@ void Scene::update(Message &postman)
 						forces += Vec2(1564, 0);
 				}
 
+				//on baisse le fuel
+				postman.addMessage("player", "player", MS_FUEL_DOWN, 0);
+
 				pc->setForces(forces);
 
 				double speed = pc->getVelocity().getLength();
@@ -143,6 +148,24 @@ void Scene::update(Message &postman)
 
 				// et on update le hud en fonction du joueur
 
+				for (int j = 0; j < m_gameObjects.size(); j++){
+					if (m_gameObjects[j]->getID().find("hud") != std::string::npos) { // si l'objet fait partie du hud
+
+						std::string id = m_gameObjects[j]->getID();
+
+						if (id == "hud_fuel"){
+							if (postman.getMessage("GameLogic", "GameLogic", MS_FUEL_DOWN)){
+
+								//on réduit le fuel
+
+							}
+						}
+						else if (id == "hud_life"){
+
+						}
+
+					}
+				}
 
 			}
 
@@ -150,6 +173,8 @@ void Scene::update(Message &postman)
 		}
 
 	}
+
+	GraphicsSystem::print("Lorem ipsum dsdg le jhyds de dsamuel suce sans souci la saucisse de celui-ci sans se soucier de ses sensuelles sensations subtilement séductrices");
 
 
 	if (m_inSystem.checkTriggeredAction(AC_EXIT))

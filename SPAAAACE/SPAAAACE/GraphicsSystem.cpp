@@ -2,6 +2,7 @@
 
 SDL_Window* GraphicsSystem::m_window = NULL;//SDL_CreateWindow("Physics - SPACE SIM", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_W, SCREEN_H, SDL_WINDOW_SHOWN);
 SDL_Renderer* GraphicsSystem::m_renderer = NULL;//SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
+TTF_Font* GraphicsSystem::m_currentFont = NULL;
 Camera GraphicsSystem::m_camera = { 0, 1, Vec2(SCREEN_W / 2, SCREEN_H / 2), true };
 bool GraphicsSystem::m_frameStarted = false;
 double GraphicsSystem::m_avgFPS = 60;
@@ -10,6 +11,9 @@ int GraphicsSystem::m_countedFrames = 1;
 SDL_Texture* GraphicsSystem::m_backgrounds[4];
 Vec2 GraphicsSystem::m_backgroundSize[4];
 bool GraphicsSystem::m_initialized = false;
+SDL_Texture * GraphicsSystem::m_currentTextTexture = NULL;
+SDL_Color GraphicsSystem::m_textColor = { 255, 255, 255 };
+std::string GraphicsSystem::m_currentText = "";
 
 GraphicsSystem::GraphicsSystem()
 {
@@ -36,6 +40,8 @@ void GraphicsSystem::init(){
 			SDL_Quit();
 		}
 
+		TTF_Init();
+
 		m_initialized = true;
 	}
 }
@@ -47,9 +53,12 @@ double GraphicsSystem::getFPS(){
 void GraphicsSystem::lockCamera(bool l){
 	m_camera.locked = l;
 }
+
 GraphicsSystem::~GraphicsSystem()
 {
 }
+
+
 
 void GraphicsSystem::close(){
 	if (m_initialized){
@@ -60,8 +69,69 @@ void GraphicsSystem::close(){
 		SDL_DestroyTexture(m_backgrounds[3]);
 		SDL_DestroyRenderer(m_renderer);
 		SDL_DestroyWindow(m_window);
+		TTF_CloseFont(m_currentFont);
 		IMG_Quit();
+		TTF_Quit();
 	}
+}
+
+void GraphicsSystem::setFont(std::string f, int s, SDL_Color c){
+	if (m_currentFont != NULL)
+		TTF_CloseFont(m_currentFont);
+	m_currentFont = TTF_OpenFont(f.c_str(), s);
+
+	m_textColor = c;
+}
+
+void GraphicsSystem::setTextColor(SDL_Color c){
+	m_textColor = c;
+}
+
+void GraphicsSystem::print(std::string f){
+
+	if (f != m_currentText){
+
+		m_currentText = f;
+
+		if (m_currentTextTexture != NULL){
+			SDL_DestroyTexture(m_currentTextTexture);
+		}
+
+		SDL_Surface* surf = TTF_RenderText_Blended_Wrapped(m_currentFont, f.c_str(), m_textColor, SCREEN_W - 60);
+		m_currentTextTexture = SDL_CreateTextureFromSurface(m_renderer, surf);
+
+		SDL_FreeSurface(surf);
+	}
+
+	if (m_currentTextTexture != NULL){
+
+		SDL_Rect maxRect = { 15, SCREEN_H - 224 - 45, SCREEN_W - 30, 224+30};
+
+		SDL_Rect msgRect = maxRect;
+
+		int w(0), h(0);
+
+
+		msgRect.x += 15;
+		msgRect.w -= 30;
+		msgRect.h -= 30;
+		msgRect.y += 15;
+
+
+		TTF_SizeText(m_currentFont, m_currentText.c_str(), &w, &h); 
+
+		msgRect.h = h * ceil((double)w / (double)(msgRect.w));
+		if (ceil((double)w / (double)(msgRect.w)) == 1){
+			msgRect.w = w;
+		}
+
+		SDL_SetRenderDrawBlendMode(m_renderer, SDL_BLENDMODE_BLEND);
+		SDL_SetRenderDrawColor(m_renderer, 50, 50, 65, 125);
+		SDL_RenderFillRect(m_renderer, &maxRect);
+		SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
+		SDL_RenderCopy(m_renderer, m_currentTextTexture, NULL, &msgRect);
+	}
+
 }
 
 SDL_Texture* GraphicsSystem::loadTexture(const std::string filename, Uint8 r, Uint8 g, Uint8 b){
