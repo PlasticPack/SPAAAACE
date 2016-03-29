@@ -3,6 +3,7 @@
 #include "GraphicsComponent.h"
 #include "LTimer.h"
 #include <string>
+#include <SDL_ttf.h>
 
 #define SCREEN_W 1200
 #define SCREEN_H 900
@@ -31,17 +32,26 @@ public:
 	static void setCamera(Vec2 t, double z, double a);
 	static void lockCamera(bool l = true);
 
+	static void reset();
+
 	static double getFPS();
-	static double getZoom(){ return m_camera.zoom; }
+	static double getCameraZoom(){ return m_camera.zoom; }
+	static double getCameraAngle(){ return m_camera.angle; }
 
 	static void initFrame();
 	static void endFrame();
+
+	static void setFont(std::string f, int s, SDL_Color c = {255, 255, 255});
+	static void setTextColor(SDL_Color c);
+	static void print(std::string text);
+	static void printAt(std::string text, int x, int y, int d_w = 0, int d_h = 0);
 
 protected:
 	GraphicsSystem();
 	~GraphicsSystem();
 	static SDL_Window *m_window;
 	static SDL_Renderer *m_renderer;
+	static TTF_Font* m_currentFont;
 	static Camera m_camera;
 	static bool m_frameStarted;
 	static double m_avgFPS;
@@ -49,5 +59,10 @@ protected:
 	static int m_countedFrames;
 	static SDL_Texture* m_backgrounds[4]; // 4 layers de background
 	static Vec2 m_backgroundSize[4];
+	static bool m_initialized;
+	static SDL_Texture* m_currentTextTexture;
+	static SDL_Color m_textColor;
+	static std::string m_currentText;
+	static std::map<std::string, SDL_Texture*> m_texts;
 };
 

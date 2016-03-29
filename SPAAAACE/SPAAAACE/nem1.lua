@@ -5,7 +5,7 @@ player = {
 	},
 	Physics = {
 		mass = 7,
-		hitbox = 50,
+		hitbox = 16,
 		elasticity = 0.99
 	},
 	Graphics = {
@@ -13,8 +13,8 @@ player = {
 		c = 2,
 		r = 2,
 		anim_speed = 5,
-		width = 100,
-		height = 100
+		width = 32,
+		height = 32
 	}
 }
 rock = {

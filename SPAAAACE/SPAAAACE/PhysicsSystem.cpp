@@ -25,11 +25,13 @@ void PhysicsSystem::resolveCollision(Message &postman, std::shared_ptr<PhysicsCo
 		//std::cout << a->getVelocity().getLength() << "\n";
 
 		postman.addMessage("Physics", "Physics", MS_COLLISION, (a->getVelocity().getLength() + b->getVelocity().getLength()));
+		if (postman.getMessage("Physics", "Physics", MS_COLLISION) > 0)
+			std::cout << "add a col \n";
+
 		//std::cout << (a->getVelocity().getLength() + b->getVelocity().getLength()) << "\n";
 		
 		double elasticity = a->getElasticity() * b->getElasticity();
 
-	//	std::cout << elasticity << "\n";
 
 		//on calcule la vélocité des 2 après la collision
 		double firstA = (2 * b->getMass() / (a->getMass() + b->getMass()));
@@ -40,15 +42,10 @@ void PhysicsSystem::resolveCollision(Message &postman, std::shared_ptr<PhysicsCo
 
 		Vec2 finalVelA = a->getVelocity() - ((a->getPosition() - b->getPosition())* (firstA * secondA));
 		Vec2 finalVelB = b->getVelocity() - ((b->getPosition() - a->getPosition())* (firstB * secondB));
-
-		//Vec2 finalA = ((a.getVelocity() * (a.getMass() + b.getMass())) + ( b.getVelocity() * b.getMass() * 2)) / (a.getMass() + b.getMass());
-		
-		//std::cout << a.getVelocity().getLength() << "  B : " << finalVelB.getLength() << "\n";
 		
 		a->setVelocity(finalVelA);
 		b->setVelocity(finalVelB);
 
-		
 	}
 }
 
@@ -99,6 +96,7 @@ Vec2 PhysicsSystem::gravity(PhysicsComponent &a, PhysicsComponent &b) {
 }
 
 Derivative PhysicsSystem::evaluate(PhysicsComponent &initial, std::vector<std::shared_ptr<PhysicsComponent>> &bodies, double dt, Derivative &d){
+	
 
 	std::shared_ptr<PositionComponent> bPos = std::make_shared<PositionComponent>(*initial.getPositionComponent());
 
