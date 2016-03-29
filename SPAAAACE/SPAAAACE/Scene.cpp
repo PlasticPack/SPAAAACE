@@ -98,7 +98,11 @@ void Scene::update(Message &postman)
 	GraphicsSystem::initFrame();
 	
 	for (int i = 0; i < m_gameObjects.size(); i++){
-		postman.clearAll();
+
+		//postman.clearAll();
+		//std::cout << ".";
+
+
 		std::shared_ptr<PhysicsComponent> pc = m_gameObjects[i]->get<PhysicsComponent>();
 		if (pc != nullptr){
 
@@ -125,7 +129,10 @@ void Scene::update(Message &postman)
 				}
 
 				//on baisse le fuel
-				postman.addMessage("player", "player", MS_FUEL_DOWN, 0);
+				
+				if(forces.getLength() > 0)
+					postman.addMessage("player", "player", MS_FUEL_DOWN, 1);
+
 
 				pc->setForces(forces);
 
@@ -133,12 +140,19 @@ void Scene::update(Message &postman)
 			}
 			
 			m_phySystem.update(postman, *pc, m_physicsComps, 1.0 / GraphicsSystem::getFPS());
+
 		}
+
+		//if (postman.getMessage("Physics", "Physics", MS_COLLISION) > 0)
+			//std::cout << "Col?\n";
+
 
 		auto GLC = m_gameObjects[i]->get<GameLogicComponent>();
 		if (GLC != nullptr){
 			GameLogicSystem::update(postman, *GLC);
 		}
+
+
 
 		auto gc = m_gameObjects[i]->get<GraphicsComponent>();
 		if (gc != nullptr){
@@ -154,10 +168,14 @@ void Scene::update(Message &postman)
 						std::string id = m_gameObjects[j]->getID();
 
 						if (id == "hud_fuel"){
-							if (postman.getMessage("GameLogic", "GameLogic", MS_FUEL_DOWN)){
+							if (postman.getMessage("GameLogic", "GameLogic", MS_FUEL_DOWN) > 0){
 
 								//on réduit le fuel
+								m_gameObjects[j]->get<GraphicsComponent>()->setSize(m_gameObjects[j]->get<GraphicsComponent>()->getSize() - Vec2(0.01,0));
+								//std::cout << m_gameObjects[j]->get<GraphicsComponent>()->getSize().x() << "\n";
 
+								postman.deleteMessage("GameLogic", "GameLogic");
+								GraphicsSystem::print("vroum vroum vroum");
 							}
 						}
 						else if (id == "hud_life"){
@@ -174,7 +192,7 @@ void Scene::update(Message &postman)
 
 	}
 
-	GraphicsSystem::print("Lorem ipsum dsdg le jhyds de dsamuel suce sans souci la saucisse de celui-ci sans se soucier de ses sensuelles sensations subtilement séductrices");
+	//GraphicsSystem::print("S.O.S");
 
 
 	if (m_inSystem.checkTriggeredAction(AC_EXIT))

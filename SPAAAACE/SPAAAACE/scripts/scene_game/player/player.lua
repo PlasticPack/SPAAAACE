@@ -15,5 +15,8 @@ player = {
 		anim_speed = 5,
 		width = 32,
 		height = 32
+	},
+	GameLogic =  {
+		
 	}
 }

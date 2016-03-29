@@ -1,4 +1,4 @@
-hud = {
+hud_fuel = {
 	Position = {
 		x = 20,
 		y = 20,
