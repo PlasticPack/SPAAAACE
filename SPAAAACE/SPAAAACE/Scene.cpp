@@ -185,8 +185,8 @@ void Scene::update(Message &postman)
 
 			}
 			if (postman.getMessage("GameLogic", "Collision", MS_COLLISION) > 0) {
-				std::cout << "Bang.";
-				//GraphicsSystem::printAt("COLLISION!", 0, 0, 400, 200);
+				//std::cout << "Bang.";
+				GraphicsSystem::printAt("COLLISION!", 0, 0, 400, 200);
 				//SDL_Delay(100);
 				postman.deleteMessage("GameLogic", "Collision");
 			}

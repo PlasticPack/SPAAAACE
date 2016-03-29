@@ -82,6 +82,15 @@
     <ClCompile Include="PhysicsSystem.cpp">
       <Filter>Sources\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="MusicSystem.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Musique.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Son.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Flags.h">
@@ -149,6 +158,15 @@
     </ClInclude>
     <ClInclude Include="InputsComponent.h">
       <Filter>Headers\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MusicSystem.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Musique.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Son.h">
+      <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
