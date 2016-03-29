@@ -1,13 +1,13 @@
 hud_fuel = {
 	Position = {
-		x = 20,
-		y = 20,
+		x = 25,
+		y = 25,
 		z = 1
 	},
 	Graphics = {
-		filename = "ressources/fuel1.png",
+		filename = "ressources/fuel.png",
 		cam = "false",
-		width = 150,
-		height = 30
+		width = 280,
+		height = 40
 	}
 }

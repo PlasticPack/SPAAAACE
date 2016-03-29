@@ -25,9 +25,7 @@ void PhysicsSystem::resolveCollision(Message &postman, std::shared_ptr<PhysicsCo
 		//std::cout << a->getVelocity().getLength() << "\n";
 
 		postman.addMessage("Physics", "Physics", MS_COLLISION, (a->getVelocity().getLength() + b->getVelocity().getLength()));
-		if (postman.getMessage("Physics", "Physics", MS_COLLISION) > 0)
-			std::cout << "add a col \n";
-
+		
 		//std::cout << (a->getVelocity().getLength() + b->getVelocity().getLength()) << "\n";
 		
 		double elasticity = a->getElasticity() * b->getElasticity();
