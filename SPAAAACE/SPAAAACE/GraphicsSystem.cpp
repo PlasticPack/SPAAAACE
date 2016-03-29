@@ -14,6 +14,7 @@ bool GraphicsSystem::m_initialized = false;
 SDL_Texture * GraphicsSystem::m_currentTextTexture = NULL;
 SDL_Color GraphicsSystem::m_textColor = { 255, 255, 255 };
 std::string GraphicsSystem::m_currentText = "";
+std::map<std::string, SDL_Texture*> GraphicsSystem::m_texts;
 
 GraphicsSystem::GraphicsSystem()
 {
@@ -67,6 +68,11 @@ void GraphicsSystem::close(){
 		SDL_DestroyTexture(m_backgrounds[1]);
 		SDL_DestroyTexture(m_backgrounds[2]);
 		SDL_DestroyTexture(m_backgrounds[3]);
+		SDL_DestroyTexture(m_currentTextTexture);
+		typedef std::map<std::string, SDL_Texture*>::iterator it;
+		for (it iterator = m_texts.begin(); iterator != m_texts.end(); iterator++){
+			SDL_DestroyTexture(iterator->second);
+		}
 		SDL_DestroyRenderer(m_renderer);
 		SDL_DestroyWindow(m_window);
 		TTF_CloseFont(m_currentFont);
@@ -130,6 +136,33 @@ void GraphicsSystem::print(std::string f){
 		SDL_RenderFillRect(m_renderer, &maxRect);
 		SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
 		SDL_RenderCopy(m_renderer, m_currentTextTexture, NULL, &msgRect);
+	}
+
+}
+
+void GraphicsSystem::printAt(std::string text, int x, int y, int d_w, int d_h){
+
+	int w = 0, h = 0;
+	TTF_SizeText(m_currentFont, text.c_str(), &w, &h);
+
+	if (d_w != 0 && d_h != 0){
+		w = d_w;
+		h = d_h;
+	}
+
+	if (m_texts[text] == NULL){ // si pas encore de texture chargée pour ce texte
+
+		SDL_Surface* surf = TTF_RenderText_Solid(m_currentFont, text.c_str(), m_textColor);
+		m_texts[text] = SDL_CreateTextureFromSurface(m_renderer, surf);
+
+		SDL_FreeSurface(surf);
+	}
+
+	if (m_texts[text] != NULL){
+
+		SDL_Rect msgRect = { x, y, w, h };
+
+		SDL_RenderCopy(m_renderer, m_texts[text], NULL, &msgRect);
 	}
 
 }

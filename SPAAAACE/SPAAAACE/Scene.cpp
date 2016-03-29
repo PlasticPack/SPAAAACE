@@ -50,7 +50,7 @@ void Scene::init(std::string arg){
 	m_inSystem.setActionTrigger(AC_HORIZONTAL_PUSH, GP_AXIS_LEFT_JOY_X);
 	m_inSystem.setActionTrigger(AC_VERTICAL_PUSH, GP_AXIS_LEFT_JOY_Y);
 
-	GraphicsSystem::setFont("ressources/CaviarDreams.ttf", 28, { 225, 220, 255 });
+	GraphicsSystem::setFont("ressources/CaviarDreams.ttf", 30, { 225, 220, 255 });
 
 	std::cout << "END OF INIT\n\n";
 	GraphicsSystem::setCameraZoom(1);
@@ -60,10 +60,11 @@ void Scene::orderByZIndex(){
 	int j = 0;
 	for (int i(1); i < m_gameObjects.size(); i++){
 		j = i - 1;
-		/*while (j >= 0 && m_gameObjects[j]->get<PhysicsComponent>()->getPositionComponent()->getZIndex() > m_gameObjects[i]->get<PhysicsComponent>()->getPositionComponent()->getZIndex()){
+
+		while (j >= 0 && m_gameObjects[j]->get<PositionComponent>()->getZIndex() > m_gameObjects[i]->get<PositionComponent>()->getZIndex()){
 			std::iter_swap(m_gameObjects.begin() + j + 1, m_gameObjects.begin() + j);
 			j -= 1;
-		}*/
+		}
 	}
 }
 
@@ -74,7 +75,7 @@ Scene::~Scene()
 
 void Scene::update(Message &postman)
 {
-	
+	//postman.clearAll();
 	//INPUT GÉNÉRAL
 	m_inSystem.pollInputs();
 
@@ -143,13 +144,11 @@ void Scene::update(Message &postman)
 
 		}
 
-		//if (postman.getMessage("Physics", "Physics", MS_COLLISION) > 0)
-			//std::cout << "Col?\n";
-
 
 		auto GLC = m_gameObjects[i]->get<GameLogicComponent>();
 		if (GLC != nullptr){
 			GameLogicSystem::update(postman, *GLC);
+
 		}
 
 
@@ -168,25 +167,29 @@ void Scene::update(Message &postman)
 						std::string id = m_gameObjects[j]->getID();
 
 						if (id == "hud_fuel"){
-							if (postman.getMessage("GameLogic", "GameLogic", MS_FUEL_DOWN) > 0){
+							if (postman.getMessage("GameLogic", "Fuel", MS_FUEL_DOWN) > 0){
 
 								//on réduit le fuel
-								m_gameObjects[j]->get<GraphicsComponent>()->setSize(m_gameObjects[j]->get<GraphicsComponent>()->getSize() - Vec2(0.01,0));
+								m_gameObjects[j]->get<GraphicsComponent>()->setSize(m_gameObjects[j]->get<GraphicsComponent>()->getSize() - Vec2(0.1,0));
 								//std::cout << m_gameObjects[j]->get<GraphicsComponent>()->getSize().x() << "\n";
 
-								postman.deleteMessage("GameLogic", "GameLogic");
-								GraphicsSystem::print("vroum vroum vroum");
+								postman.deleteMessage("GameLogic", "Fuel");
+								GraphicsSystem::print("vroum vroum vroum :) ");
 							}
 						}
 						else if (id == "hud_life"){
 
 						}
-
 					}
 				}
 
 			}
-
+			if (postman.getMessage("GameLogic", "Collision", MS_COLLISION) > 0) {
+				std::cout << "Bang.";
+				//GraphicsSystem::printAt("COLLISION!", 0, 0, 400, 200);
+				//SDL_Delay(100);
+				postman.deleteMessage("GameLogic", "Collision");
+			}
 			GraphicsSystem::update(postman, *gc, 1.0 / GraphicsSystem::getFPS());
 		}
 

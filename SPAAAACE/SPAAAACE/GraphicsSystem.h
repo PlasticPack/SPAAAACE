@@ -44,6 +44,7 @@ public:
 	static void setFont(std::string f, int s, SDL_Color c = {255, 255, 255});
 	static void setTextColor(SDL_Color c);
 	static void print(std::string text);
+	static void printAt(std::string text, int x, int y, int d_w = 0, int d_h = 0);
 
 protected:
 	GraphicsSystem();
@@ -62,5 +63,6 @@ protected:
 	static SDL_Texture* m_currentTextTexture;
 	static SDL_Color m_textColor;
 	static std::string m_currentText;
+	static std::map<std::string, SDL_Texture*> m_texts;
 };
 
