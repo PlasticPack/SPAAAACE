@@ -40,12 +40,6 @@ double Message::getMessage(std::string const& sender, std::string const& fromCom
 	return 0;
 
 }
-
-void Message::deleteMessage(std::string const& sender, std::string const& fromComponent){
-
-	m_messages.erase(m_messages.find(sender + fromComponent));
-}
-
 void Message::clearAll(void)
 {
 	m_messages.clear();

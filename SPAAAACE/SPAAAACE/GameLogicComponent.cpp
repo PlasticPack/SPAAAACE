@@ -27,6 +27,7 @@ GameLogicComponent::GameLogicComponent(luabridge::LuaRef& componentTable)
 	m_life = m_maxLife;
 	m_fuel = m_maxFuel;
 
+	std::cout << m_fuel << " is the fuel\n";
 }
 
 

@@ -25,7 +25,7 @@ public:
 	static SDL_Texture* loadTexture(const std::string filename, Uint8 r = 255, Uint8 g = 255, Uint8 b = 255);
 	static void loadBackground(const std::string filename, int layer, Uint8 r = 255, Uint8 g = 255, Uint8 b = 255);
 
-	static void update(Message &postman, GraphicsComponent gComp, double dt);
+	static void update(Message &postman, std::string id, GraphicsComponent gComp, double dt);
 	static void setCameraTarget(Vec2 t);
 	static void setCameraZoom(double zoom);
 	static void setCameraAngle(double angle);

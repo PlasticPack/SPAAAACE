@@ -228,14 +228,14 @@ void GraphicsSystem::loadBackground(const std::string filename, int layer, Uint8
 	}
 }
 
-void GraphicsSystem::update(Message &postman, GraphicsComponent gComp, double dt) {
+void GraphicsSystem::update(Message &postman, std::string id, GraphicsComponent gComp, double dt) {
 	if (m_initialized) {
 		if (m_frameStarted){
 
 
 			//si on recoit qu'il y a eu collision
 			//std::cout << postman.getMessage("Physics", "Physics", MS_COLLISION) << "sadsdsad\n";
-			if (postman.getMessage("GameLogic", "GameLogic", MS_COLLISION) > 1000.0){
+			if (postman.getMessage("GameLogic", id, MS_COLLISION) > 1000.0){
 				gComp.getSprite()->setSpriteSheet("collision");
 			}
 
@@ -321,7 +321,7 @@ void GraphicsSystem::initFrame(){
 						//double newY = (-sin(m_camera.angle *(3.14159265 / 180)) * tempPos.x) + (cos(m_camera.angle *(3.14159265 / 180)) * tempPos.y);
 					}
 
-					t *= (((i*i*i) + 1) * 0.075); // *newX;
+					t *= (((i+1) * (i+1) * (i+1) / 4) + 0.075) * 0.0622; // *newX;
 					t *= m_camera.zoom;
 
 					t += screenCoord / 2;

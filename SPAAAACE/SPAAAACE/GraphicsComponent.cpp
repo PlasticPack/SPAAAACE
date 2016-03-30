@@ -62,7 +62,7 @@ GraphicsComponent::GraphicsComponent(luabridge::LuaRef& componentTable, std::sha
 		setSprite(nullptr);
 	}
 
-
+	m_maxSize = m_size;
 	this->m_posComponent = comp;
 }
 
@@ -76,6 +76,7 @@ GraphicsComponent::GraphicsComponent(std::shared_ptr<PositionComponent> comp, st
 	//std::cout << m_center.x() << "  TWAS THE CENTER :D \n";
 	m_posComponent = comp;
 	m_size = Vec2(spr->getCurrentSpriteSheet()->getCurrentRect().w, spr->getCurrentSpriteSheet()->getCurrentRect().h);
+	m_maxSize = m_size;
 }
 
 void GraphicsComponent::setSprite(std::shared_ptr<Sprite> spr){
@@ -93,6 +94,11 @@ void GraphicsComponent::setAnimationSpeed(double s){
 Vec2 GraphicsComponent::getSize(){
 	return m_size;
 }
+
+Vec2 GraphicsComponent::getMaxSize(){
+	return m_maxSize;
+}
+
 
 void GraphicsComponent::setSize(Vec2 s){
 	m_size = s;

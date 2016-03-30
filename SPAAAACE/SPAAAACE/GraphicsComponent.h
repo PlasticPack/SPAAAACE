@@ -33,6 +33,7 @@ public:
 	void setPositionComponent(std::shared_ptr<PositionComponent>);
 
 	Vec2 getSize();
+	Vec2 getMaxSize();
 	void setSize(Vec2 s);
 
 	void affectedByCamera(bool c) { m_camera = c; };
@@ -44,6 +45,7 @@ protected:
 	std::shared_ptr<Sprite> m_sprite;
 	std::shared_ptr<PositionComponent> m_posComponent;
 	Vec2 m_size;
+	Vec2 m_maxSize;
 	Vec2 m_center;
 	bool m_camera;
 	//SPECIALFX`: halo, particules etc

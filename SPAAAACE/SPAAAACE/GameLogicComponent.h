@@ -11,10 +11,10 @@ public:
 	virtual ~GameLogicComponent();
 
 	unsigned int getCurrentLife() { return m_life; }
-	unsigned int getMaxLife() { return m_maxLife; }
-	unsigned int getMaxFuel() { return m_maxFuel; }
+	unsigned int getMaxLife() const { return m_maxLife; }
+	unsigned int getMaxFuel() const { return m_maxFuel; }
 	unsigned int getCurrentFuel() { return m_fuel; }
-	unsigned int getEnginePower() { return m_enginePower; }
+	unsigned int getEnginePower() const { return m_enginePower; }
 
 	void setLife(unsigned int l) { m_life = l; }
 	void setFuel(unsigned int l) { m_fuel = l; }

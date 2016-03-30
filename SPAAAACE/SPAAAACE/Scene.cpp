@@ -33,7 +33,7 @@ void Scene::init(std::string arg){
 		GraphicsSystem::loadBackground("ressources/space_1.png", 0, 250, 200, 255);
 		GraphicsSystem::loadBackground("ressources/space_2.png", 1, 150, 100, 150);
 		GraphicsSystem::loadBackground("ressources/space_3.png", 2, 200, 220, 255);
-		//GraphicsSystem::loadBackground("ressources/bg1.png", 3);
+		//GraphicsSystem::loadBackground("ressources/space_4.png", 3, 200, 220, 255);
 	}
 
 	//Inputs init
@@ -75,7 +75,7 @@ Scene::~Scene()
 
 void Scene::update(Message &postman)
 {
-	//postman.clearAll();
+	postman.clearAll();
 	//INPUT GÉNÉRAL
 	m_inSystem.pollInputs();
 
@@ -100,58 +100,63 @@ void Scene::update(Message &postman)
 	
 	for (int i = 0; i < m_gameObjects.size(); i++){
 
-		//postman.clearAll();
-		//std::cout << ".";
-
-
 		std::shared_ptr<PhysicsComponent> pc = m_gameObjects[i]->get<PhysicsComponent>();
 		if (pc != nullptr){
 
 			//DÉCISION DE MOUVEMENT : JOUEUR
 			if (m_gameObjects[i]->getID() == "player") {
-				//on check la direction du joueur
-				Vec2 forces(0, 0);
-				if (m_inSystem.checkTriggeredAction(AC_HORIZONTAL_PUSH) || m_inSystem.checkTriggeredAction(AC_VERTICAL_PUSH))
-				{
-					forces = Vec2(m_inSystem.checkTriggeredAction(AC_HORIZONTAL_PUSH) / 20.0, m_inSystem.checkTriggeredAction(AC_VERTICAL_PUSH) / 20.0);
+
+				if (m_gameObjects[i]->get<GameLogicComponent>()->getCurrentFuel() > 0) { // si assez de fuel
+					//on check la direction du joueur
+					Vec2 forces(0, 0);
+					int pwr = m_gameObjects[i]->get<GameLogicComponent>()->getEnginePower();
+
+
+					if (m_inSystem.checkTriggeredAction(AC_HORIZONTAL_PUSH) || m_inSystem.checkTriggeredAction(AC_VERTICAL_PUSH))
+					{
+						forces = Vec2(m_inSystem.checkTriggeredAction(AC_HORIZONTAL_PUSH) / 20.0, m_inSystem.checkTriggeredAction(AC_VERTICAL_PUSH) / 20.0);
+					}
+					else {
+						if (m_inSystem.checkTriggeredAction(AC_UP))
+							forces += Vec2(0, -pwr);
+
+						if (m_inSystem.checkTriggeredAction(AC_DOWN))
+							forces += Vec2(0, pwr);
+
+						if (m_inSystem.checkTriggeredAction(AC_LEFT))
+							forces += Vec2(-pwr, 0);
+
+						if (m_inSystem.checkTriggeredAction(AC_RIGHT))
+							forces += Vec2(pwr, 0);
+					}
+
+					//on baisse le fuel
+
+					if (forces.getLength() > 0)
+						postman.addMessage("Scene", m_gameObjects[i]->getID(), MS_ENGINE_ACTIVE, 1);
+
+
+					pc->setForces(forces);
+
+					double speed = pc->getVelocity().getLength();
 				}
-				else {
-					if (m_inSystem.checkTriggeredAction(AC_UP))
-						forces += Vec2(0, -1564);
-
-					if (m_inSystem.checkTriggeredAction(AC_DOWN))
-						forces += Vec2(0, 1564);
-
-					if (m_inSystem.checkTriggeredAction(AC_LEFT))
-						forces += Vec2(-1564, 0);
-
-					if (m_inSystem.checkTriggeredAction(AC_RIGHT))
-						forces += Vec2(1564, 0);
-				}
-
-				//on baisse le fuel
-				
-				if(forces.getLength() > 0)
-					postman.addMessage("player", "player", MS_FUEL_DOWN, 1);
-
-
-				pc->setForces(forces);
-
-				double speed = pc->getVelocity().getLength();
 			}
 			
-			m_phySystem.update(postman, *pc, m_physicsComps, 1.0 / GraphicsSystem::getFPS());
+			m_phySystem.update(postman, m_gameObjects[i]->getID(), *pc, m_physicsComps, 1.0 / GraphicsSystem::getFPS());
 
 		}
 
 
 		auto GLC = m_gameObjects[i]->get<GameLogicComponent>();
 		if (GLC != nullptr){
-			GameLogicSystem::update(postman, *GLC);
-
+			GameLogicSystem::update(postman, m_gameObjects[i]->getID(), *GLC);
 		}
 
+		if (postman.getMessage("GameLogic", m_gameObjects[i]->getID(), MS_DEAD) > 0){
+			GraphicsSystem::printAt("DEAAAD", 100, 100, 300, 200);
+		}
 
+		
 
 		auto gc = m_gameObjects[i]->get<GraphicsComponent>();
 		if (gc != nullptr){
@@ -167,30 +172,30 @@ void Scene::update(Message &postman)
 						std::string id = m_gameObjects[j]->getID();
 
 						if (id == "hud_fuel"){
-							if (postman.getMessage("GameLogic", "Fuel", MS_FUEL_DOWN) > 0){
+							if (postman.getMessage("GameLogic", m_gameObjects[i]->getID(), MS_ENGINE_ACTIVE) > 0){
 
 								//on réduit le fuel
-								m_gameObjects[j]->get<GraphicsComponent>()->setSize(m_gameObjects[j]->get<GraphicsComponent>()->getSize() - Vec2(0.1,0));
-								//std::cout << m_gameObjects[j]->get<GraphicsComponent>()->getSize().x() << "\n";
+								Vec2 baseSize = m_gameObjects[j]->get<GraphicsComponent>()->getMaxSize();
+								double fuel = (double)(m_gameObjects[i]->get<GameLogicComponent>()->getCurrentFuel()) / (double)m_gameObjects[i]->get<GameLogicComponent>()->getMaxFuel();
+								m_gameObjects[j]->get<GraphicsComponent>()->setSize(Vec2(baseSize.x() * fuel, baseSize.y()));
 
-								postman.deleteMessage("GameLogic", "Fuel");
-								GraphicsSystem::print("vroum vroum vroum :) ");
 							}
 						}
 						else if (id == "hud_life"){
+							if (postman.getMessage("GameLogic", m_gameObjects[i]->getID(), MS_LIFE_DOWN) > 0) {
 
+								Vec2 baseSize = m_gameObjects[j]->get<GraphicsComponent>()->getMaxSize();
+								double life = (double)(m_gameObjects[i]->get<GameLogicComponent>()->getCurrentLife()) / (double)m_gameObjects[i]->get<GameLogicComponent>()->getMaxLife();
+								m_gameObjects[j]->get<GraphicsComponent>()->setSize(Vec2(baseSize.x() * life, baseSize.y()));
+							}
 						}
 					}
 				}
 
 			}
-			if (postman.getMessage("GameLogic", "Collision", MS_COLLISION) > 0) {
-				//std::cout << "Bang.";
-				GraphicsSystem::printAt("COLLISION!", 0, 0, 400, 200);
-				//SDL_Delay(100);
-				postman.deleteMessage("GameLogic", "Collision");
+			if (postman.getMessage("GameLogic", m_gameObjects[i]->getID(), MS_COLLISION) > 0) {
 			}
-			GraphicsSystem::update(postman, *gc, 1.0 / GraphicsSystem::getFPS());
+			GraphicsSystem::update(postman, m_gameObjects[i]->getID(),*gc, 1.0 / GraphicsSystem::getFPS());
 		}
 
 	}

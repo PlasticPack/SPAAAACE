@@ -10,7 +10,7 @@ PhysicsSystem::~PhysicsSystem()
 {
 }
 
-void PhysicsSystem::resolveCollision(Message &postman, std::shared_ptr<PhysicsComponent> a, std::shared_ptr<PhysicsComponent> b, double dt) {
+void PhysicsSystem::resolveCollision(Message &postman, std::string id, std::shared_ptr<PhysicsComponent> a, std::shared_ptr<PhysicsComponent> b, double dt) {
 	if (checkIfCollide(postman, *a, *b, dt) && a->getPositionComponent()->getZIndex() == b->getPositionComponent()->getZIndex() && a->isActive() && b->isActive()) { //s'ils se touchent
 		
 		//on sort les 2 objets l'un de l'autre
@@ -24,7 +24,7 @@ void PhysicsSystem::resolveCollision(Message &postman, std::shared_ptr<PhysicsCo
 
 		//std::cout << a->getVelocity().getLength() << "\n";
 
-		postman.addMessage("Physics", "Physics", MS_COLLISION, (a->getVelocity().getLength() + b->getVelocity().getLength()));
+		postman.addMessage("Physics", "CollisionResolve", MS_COLLISION, (a->getVelocity().getLength() + b->getVelocity().getLength()));
 		
 		//std::cout << (a->getVelocity().getLength() + b->getVelocity().getLength()) << "\n";
 		
@@ -111,7 +111,7 @@ Derivative PhysicsSystem::evaluate(PhysicsComponent &initial, std::vector<std::s
 	return output;
 }
 
-void PhysicsSystem::update(Message &postman,PhysicsComponent &body, std::vector<std::shared_ptr<PhysicsComponent>> &bodies, double dt){
+void PhysicsSystem::update(Message &postman, std::string id, PhysicsComponent &body, std::vector<std::shared_ptr<PhysicsComponent>> &bodies, double dt){
 	Derivative a, b, c, d;
 	//on évalue 4 fois pour avoir une idée de la courbe
 	//de l'accélération (si elle n'est pas constante, 
@@ -122,7 +122,7 @@ void PhysicsSystem::update(Message &postman,PhysicsComponent &body, std::vector<
 		for (int i(0); i < bodies.size(); i++) {
 			for (int j(i); j < bodies.size(); j++) {
 				if (i != j){
-					resolveCollision(postman, bodies[i], bodies[j], dt);
+					resolveCollision(postman, id, bodies[i], bodies[j], dt);
 				}
 			}
 		}

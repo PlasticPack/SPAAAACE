@@ -10,31 +10,35 @@ GameLogicSystem::~GameLogicSystem()
 {
 }
 
-void GameLogicSystem::update(Message &postman, GameLogicComponent &comp){
+void GameLogicSystem::update(Message &postman, std::string id, GameLogicComponent &comp){
 
 	//se base strictement sur l'envoi/réception de messages
 	
-	if (postman.getMessage("Physics", "Physics", MS_COLLISION) > 0) {
+	if (abs(postman.getMessage("Physics", "CollisionResolve", MS_COLLISION)) > 0) {
 
-		double vel = postman.getMessage("Physics", "Physics", MS_COLLISION);
+		//std::cout << "HEY";
+
+		double vel = postman.getMessage("Physics", "CollisionResolve", MS_COLLISION);
 		//std::cout << vel;
-		postman.addMessage("GameLogic", "Collision", MS_COLLISION, vel);
+		postman.addMessage("GameLogic", id, MS_COLLISION, vel);
 
+		int life_lost = floor(vel / 100.f);
+		std::cout << life_lost << "\n";
 
-		int deltaLife = 3;
-		postman.addMessage("GameLogic", "Life", MS_LIFE_DOWN, deltaLife);
+		comp.setLife(comp.getCurrentLife() - life_lost);
 
-		//on baisse la vie
-		//comp.setLife(comp.getCurrentLife() - vel);
-		postman.deleteMessage("Physics", "Physics");
+		postman.addMessage("GameLogic", id, MS_LIFE_DOWN, life_lost);
 	}
 
-	if (postman.getMessage("player", "player", MS_FUEL_DOWN) > 0){
+	if (postman.getMessage("Scene", id, MS_ENGINE_ACTIVE) > 0){
 		//std::cout << "HEY FD\n";
-		postman.addMessage("GameLogic", "Fuel", MS_FUEL_DOWN, 1);
+		postman.addMessage("GameLogic", id, MS_ENGINE_ACTIVE, 1);
+		comp.setFuel(comp.getCurrentFuel());
 		
-		
-		postman.deleteMessage("player", "player");
 	}
 
+	if (comp.getCurrentLife() <= 0){
+		comp.setLife(0);
+		postman.addMessage("GameLogic", id, MS_DEAD, 1);
+	}
 }

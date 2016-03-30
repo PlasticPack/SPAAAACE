@@ -24,11 +24,11 @@ public:
 
 	Vec2 gravity(PhysicsComponent &a, PhysicsComponent& b); // retourne la gravité que b exerce sur this
 
-	void update(Message &postman, PhysicsComponent &a, std::vector<std::shared_ptr<PhysicsComponent>> &phyComps, double dt);
+	void update(Message &postman, std::string id, PhysicsComponent &a, std::vector<std::shared_ptr<PhysicsComponent>> &phyComps, double dt);
 
 	bool checkIfCollide(Message &postman, PhysicsComponent &a, PhysicsComponent& b, double dt);
 
-	void resolveCollision(Message &postman, std::shared_ptr<PhysicsComponent> a, std::shared_ptr<PhysicsComponent> b, double dt);
+	void resolveCollision(Message &postman, std::string id, std::shared_ptr<PhysicsComponent> a, std::shared_ptr<PhysicsComponent> b, double dt);
 
 
 private :
