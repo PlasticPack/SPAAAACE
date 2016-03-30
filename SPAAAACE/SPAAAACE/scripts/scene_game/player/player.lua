@@ -17,6 +17,8 @@ player = {
 		height = 32
 	},
 	GameLogic =  {
-		
+		pwr = 2000,
+		fuel = 2000,
+		life = 30
 	}
 }

@@ -7,7 +7,7 @@ hud_fuel_container = {
 	Graphics = {
 		filename = "ressources/fuel1.png",
 		cam = "false",
-		width = 300,
-		height = 60
+		width = 316,
+		height = 66
 	}
 }

@@ -4,13 +4,16 @@ rock_1 = {
 		y = 300,
 	},
 	Physics = {
-		mass = 1,
-		hitbox = 16,
+		mass = 5,
+		hitbox = 32,
 		elasticity = 0.89
 	},
 	Graphics = {
-		filename = "ressources/bg1.png",
+		filename = "ressources/skyBody.png",
 		width = 64,
-		height = 64
+		height = 64,
+		c = 2,
+		r = 2,
+		anim_speed = 25
 	}
 }
