@@ -58,12 +58,31 @@ void Scene::init(std::string arg){
 
 void Scene::orderByZIndex(){
 	int j = 0;
-	for (int i(1); i < m_gameObjects.size(); i++){
-		j = i - 1;
+	bool swapped = false;
+	do {
+		for (int i(1); i < m_gameObjects.size() - 1; i++){
 
-		while (j >= 0 && m_gameObjects[j]->get<PositionComponent>()->getZIndex() > m_gameObjects[i]->get<PositionComponent>()->getZIndex()){
-			std::iter_swap(m_gameObjects.begin() + j + 1, m_gameObjects.begin() + j);
-			j -= 1;
+			if (m_gameObjects[i]->get<PositionComponent>()->getZIndex() < m_gameObjects[i+1]->get<PositionComponent>()->getZIndex()){
+				std::iter_swap(m_gameObjects.begin() + i, m_gameObjects.begin() + i + 1);
+				swapped = true;
+			}
+		}
+	} while (!swapped);
+
+	std::reverse(m_gameObjects.begin(), m_gameObjects.end());
+
+	//on place le joueur au "dessus" des objets à sa même hauteur
+	for (int i = 0; i < m_gameObjects.size(); i++){
+		if (m_gameObjects[i]->getID() == "player"){
+			if (i != m_gameObjects.size() - 1) {
+				for (int j = i; j < m_gameObjects.size(); j++){
+					if (m_gameObjects[j]->getID() != "player" && m_gameObjects[j]->get<PositionComponent>()->getZIndex() == m_gameObjects[i]->get<PositionComponent>()->getZIndex()) {
+						std::iter_swap(m_gameObjects.begin() + i, m_gameObjects.begin() + j);
+						std::cout << i << j << "\n";
+						break;
+					}
+				}
+			}
 		}
 	}
 }
@@ -142,26 +161,34 @@ void Scene::update(Message &postman)
 				}
 			}
 			
-			m_phySystem.update(postman, m_gameObjects[i]->getID(), *pc, m_physicsComps, 1.0 / GraphicsSystem::getFPS());
+			m_phySystem.update(postman, *pc, m_physicsComps, 1.0 / GraphicsSystem::getFPS());
 
 		}
 
 
 		auto GLC = m_gameObjects[i]->get<GameLogicComponent>();
 		if (GLC != nullptr){
-			GameLogicSystem::update(postman, m_gameObjects[i]->getID(), *GLC);
+			GameLogicSystem::update(postman, m_gameObjects[i], *GLC);
 		}
 
-		if (postman.getMessage("GameLogic", m_gameObjects[i]->getID(), MS_DEAD) > 0){
-			GraphicsSystem::printAt("DEAAAD", 100, 100, 300, 200);
-		}
 
-		
 
 		auto gc = m_gameObjects[i]->get<GraphicsComponent>();
 		if (gc != nullptr){
 
 			if (m_gameObjects[i]->getID() == "player"){
+
+				double vel = m_gameObjects[i]->get<PhysicsComponent>()->getVelocity().getLength();
+				double zoom = 0.625;
+
+				//zoom min: 0.625 (valeur arbitraire)
+
+				if (vel < 2500)
+					zoom = 0.625 + (0.3 - (0.3* vel / 2500));
+
+				//std::cout << vel <<  "vs " << zoom << "\n";
+
+				GraphicsSystem::setCameraZoom(zoom);
 				GraphicsSystem::setCameraTarget(gc->getPosition());
 
 				// et on update le hud en fonction du joueur
@@ -172,22 +199,22 @@ void Scene::update(Message &postman)
 						std::string id = m_gameObjects[j]->getID();
 
 						if (id == "hud_fuel"){
-							if (postman.getMessage("GameLogic", m_gameObjects[i]->getID(), MS_ENGINE_ACTIVE) > 0){
+							//if (postman.getMessage("GameLogic", m_gameObjects[i]->getID(), MS_ENGINE_ACTIVE) > 0){
 
 								//on réduit le fuel
 								Vec2 baseSize = m_gameObjects[j]->get<GraphicsComponent>()->getMaxSize();
 								double fuel = (double)(m_gameObjects[i]->get<GameLogicComponent>()->getCurrentFuel()) / (double)m_gameObjects[i]->get<GameLogicComponent>()->getMaxFuel();
 								m_gameObjects[j]->get<GraphicsComponent>()->setSize(Vec2(baseSize.x() * fuel, baseSize.y()));
 
-							}
+							//}
 						}
 						else if (id == "hud_life"){
-							if (postman.getMessage("GameLogic", m_gameObjects[i]->getID(), MS_LIFE_DOWN) > 0) {
+							//if (postman.getMessage("GameLogic", m_gameObjects[i]->getID(), MS_LIFE_DOWN) > 0) {
 
 								Vec2 baseSize = m_gameObjects[j]->get<GraphicsComponent>()->getMaxSize();
 								double life = (double)(m_gameObjects[i]->get<GameLogicComponent>()->getCurrentLife()) / (double)m_gameObjects[i]->get<GameLogicComponent>()->getMaxLife();
 								m_gameObjects[j]->get<GraphicsComponent>()->setSize(Vec2(baseSize.x() * life, baseSize.y()));
-							}
+							//}
 						}
 					}
 				}
@@ -199,10 +226,6 @@ void Scene::update(Message &postman)
 		}
 
 	}
-
-	//GraphicsSystem::print("S.O.S");
-
-
 	if (m_inSystem.checkTriggeredAction(AC_EXIT))
 		postman.addMessage("Scene", "Input", MS_EXIT_REQUEST, 1);
 

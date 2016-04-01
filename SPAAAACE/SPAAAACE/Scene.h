@@ -72,7 +72,7 @@ public:
 	template <typename T> void addComponent(std::shared_ptr<Component> c){
 		 
 		//m_components[t].push_back(c);
-		std::cout << "Added a " << std::type_index(typeid(T)).name() << " to Scene\n";
+		//std::cout << "Added a " << std::type_index(typeid(T)).name() << " to Scene\n";
 		if (std::type_index(typeid(T)) == std::type_index(typeid(PositionComponent))){
 			m_posComps.push_back(std::dynamic_pointer_cast<PositionComponent>(c));
 		}

@@ -16,9 +16,9 @@ public:
 	unsigned int getCurrentFuel() { return m_fuel; }
 	unsigned int getEnginePower() const { return m_enginePower; }
 
-	void setLife(unsigned int l) { m_life = l; }
-	void setFuel(unsigned int l) { m_fuel = l; }
-	void setEnginePower(unsigned int l) { m_enginePower = l; }
+	void setLife(unsigned int l) { if (l <= m_maxLife )m_life = l; }
+	void setFuel(unsigned int l) { if (l <= m_maxFuel)  m_fuel = l; }
+	void setEnginePower(unsigned int l) { if (l >= 0) m_enginePower = l; }
 
 protected:
 	unsigned int m_life;

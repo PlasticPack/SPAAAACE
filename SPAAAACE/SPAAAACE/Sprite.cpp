@@ -4,7 +4,7 @@
 Sprite::Sprite()
 {
 	m_animationSpeed = 1;
-	std::cout << "DEFAULT SPRITE " << this << " CREATED\n";
+	//std::cout << "DEFAULT SPRITE " << this << " CREATED\n";
 	m_currentSpriteSheet = "default";
 }
 
@@ -12,18 +12,18 @@ Sprite::Sprite(std::shared_ptr<SpriteSheet> sprS)
 {
 	m_animationSpeed = 1;
 	m_spriteSheets["default"] = sprS;
-	std::cout << "custom SPRITE " <<  this << " CREATED\n";
+	//std::cout << "custom SPRITE " <<  this << " CREATED\n";
 	m_currentSpriteSheet = "default";
 }
 
 Sprite::~Sprite()
 {
-	std::cout << "Destroying Sprite " << this << " with SprSheet texture  " <<  m_spriteSheets[m_currentSpriteSheet]->getTexture() << "\n";
+	//std::cout << "Destroying Sprite " << this << " with SprSheet texture  " <<  m_spriteSheets[m_currentSpriteSheet]->getTexture() << "\n";
 }
 
 void Sprite::addSpriteSheet(std::string id, std::shared_ptr<SpriteSheet> sheet){
 	m_spriteSheets[id] = sheet;
-	std::cout << "ADDING " << id << " SPRITESHEET\n";
+	//std::cout << "ADDING " << id << " SPRITESHEET\n";
 	//std::cout << m_spriteSheets[id]->getCurrentRect().w << " IT'S A TRAP\n";
 }
 

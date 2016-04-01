@@ -23,12 +23,12 @@ SpriteSheet::SpriteSheet(SDL_Texture* texture, int nbcol, int nbrow)
 	m_texture = texture;
 
 	SDL_QueryTexture(m_texture, NULL, NULL, &w, &h);
-	std::cout << "c " << nbcol << "  r " << nbrow << "\n";
+	//std::cout << "c " << nbcol << "  r " << nbrow << "\n";
 	m_sheetSize = {0,0, w, h};
 
 	w /= nbcol;
 	h /= nbrow;
-	std::cout << "w " << w << "  h " << h << "\n";
+	//std::cout << "w " << w << "  h " << h << "\n";
 
 	m_animationSpeed = 1;
 	m_timer = 0;

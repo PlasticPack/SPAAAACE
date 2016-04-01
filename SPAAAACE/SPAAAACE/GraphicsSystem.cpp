@@ -242,6 +242,7 @@ void GraphicsSystem::update(Message &postman, std::string id, GraphicsComponent 
 			if (gComp.getSprite() != nullptr) {
 				gComp.getSprite()->getCurrentSpriteSheet()->nextRect(dt);
 
+
 				SDL_Rect sprRect = gComp.getSprite()->getCurrentSpriteSheet()->getCurrentRect();
 				if (gComp.isAffectedByCamera()){
 

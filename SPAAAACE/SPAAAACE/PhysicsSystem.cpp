@@ -10,7 +10,7 @@ PhysicsSystem::~PhysicsSystem()
 {
 }
 
-void PhysicsSystem::resolveCollision(Message &postman, std::string id, std::shared_ptr<PhysicsComponent> a, std::shared_ptr<PhysicsComponent> b, double dt) {
+void PhysicsSystem::resolveCollision(Message &postman, std::shared_ptr<PhysicsComponent> a, std::shared_ptr<PhysicsComponent> b, double dt) {
 	if (checkIfCollide(postman, *a, *b, dt) && a->getPositionComponent()->getZIndex() == b->getPositionComponent()->getZIndex() && a->isActive() && b->isActive()) { //s'ils se touchent
 		
 		//on sort les 2 objets l'un de l'autre
@@ -24,7 +24,11 @@ void PhysicsSystem::resolveCollision(Message &postman, std::string id, std::shar
 
 		//std::cout << a->getVelocity().getLength() << "\n";
 
-		postman.addMessage("Physics", "CollisionResolve", MS_COLLISION, (a->getVelocity().getLength() + b->getVelocity().getLength()));
+		//postman.addMessage("Physics", "CollisionResolve", MS_COLLISION, (a->getVelocity().getLength() + b->getVelocity().getLength()));
+		postman.addMessage("Physics", std::to_string((int)a.get()), MS_COLLISION, (a->getVelocity().getLength() + b->getVelocity().getLength()));
+		postman.addMessage("Physics", std::to_string((int)b.get()), MS_COLLISION, (a->getVelocity().getLength() + b->getVelocity().getLength())); // on envoie l'adresse de l'autre
+
+		//std::cout << "PHY " << std::to_string((int)a.get()) << "  and  " <<  std::to_string((int)b.get()) << "\n";
 		
 		//std::cout << (a->getVelocity().getLength() + b->getVelocity().getLength()) << "\n";
 		
@@ -111,7 +115,7 @@ Derivative PhysicsSystem::evaluate(PhysicsComponent &initial, std::vector<std::s
 	return output;
 }
 
-void PhysicsSystem::update(Message &postman, std::string id, PhysicsComponent &body, std::vector<std::shared_ptr<PhysicsComponent>> &bodies, double dt){
+void PhysicsSystem::update(Message &postman, PhysicsComponent &body, std::vector<std::shared_ptr<PhysicsComponent>> &bodies, double dt){
 	Derivative a, b, c, d;
 	//on évalue 4 fois pour avoir une idée de la courbe
 	//de l'accélération (si elle n'est pas constante, 
@@ -122,7 +126,7 @@ void PhysicsSystem::update(Message &postman, std::string id, PhysicsComponent &b
 		for (int i(0); i < bodies.size(); i++) {
 			for (int j(i); j < bodies.size(); j++) {
 				if (i != j){
-					resolveCollision(postman, id, bodies[i], bodies[j], dt);
+					resolveCollision(postman, bodies[i], bodies[j], dt);
 				}
 			}
 		}
@@ -155,8 +159,9 @@ Vec2 PhysicsSystem::accelerate(PhysicsComponent& initial, PhysicsComponent &b, s
 		for (int i(0); i < bodies.size(); i++){
 			if (bodies[i].get() != &initial){ // si l'objet est différent de lui-même
 				//if (/*b.pos.getDist(bodies[i].getPosition())  <  1500 && */) { // si l'objet est assez proche ET qu'ils sont pas l'un dans l'autre
-					totalGravity += gravity(b, *bodies[i]);
+				totalGravity += gravity(b, *bodies[i]);
 				//}
+				//std::cout << "GRAV";
 			}
 		}
 	//}
