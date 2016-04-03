@@ -234,13 +234,13 @@ void GraphicsSystem::update(Message &postman, std::string id, GraphicsComponent 
 
 
 			//si on recoit qu'il y a eu collision
-			if (postman.getMessage("GameLogic", id, MS_COLLISION) > 2500.0){
+			if (postman.getMessage("GameLogic", id, MS_COLLISION) > 500.0){
 				gComp.getSprite()->setSpriteSheet("collision");
 			}
 
 			if (gComp.getSprite() != nullptr) {
 				gComp.getSprite()->getCurrentSpriteSheet()->nextRect(dt);
-
+				double angleComp = gComp.getPositionComponent()->getAngle();
 
 				SDL_Rect sprRect = gComp.getSprite()->getCurrentSpriteSheet()->getCurrentRect();
 				if (gComp.isAffectedByCamera()){
@@ -275,12 +275,12 @@ void GraphicsSystem::update(Message &postman, std::string id, GraphicsComponent 
 					//SDL_Rect pos2 = { 10, 10, 100, 100 };
 					//std::cout << "ADRESS OF TEXTURE IN UPDATE : " << gComp.getSprite()->getCurrentSpriteSheet()->getTexture() << "\n";
 
-					SDL_RenderCopyEx(m_renderer, gComp.getSprite()->getCurrentSpriteSheet()->getTexture(), &sprRect, &pos, angle, NULL, SDL_FLIP_NONE);
+					SDL_RenderCopyEx(m_renderer, gComp.getSprite()->getCurrentSpriteSheet()->getTexture(), &sprRect, &pos, angle + angleComp, NULL, SDL_FLIP_NONE);
 
 				}
 				else {
 					SDL_Rect pos = { gComp.getPosition().x(), gComp.getPosition().y(), gComp.getSize().x(), gComp.getSize().y() };
-					SDL_RenderCopy(m_renderer, gComp.getSprite()->getCurrentSpriteSheet()->getTexture(), &sprRect, &pos);
+					SDL_RenderCopyEx(m_renderer, gComp.getSprite()->getCurrentSpriteSheet()->getTexture(), &sprRect, &pos, angleComp, NULL, SDL_FLIP_NONE);
 				}
 			}
 		}

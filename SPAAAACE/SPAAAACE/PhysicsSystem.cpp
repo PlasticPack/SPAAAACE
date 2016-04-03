@@ -22,18 +22,11 @@ void PhysicsSystem::resolveCollision(Message &postman, std::shared_ptr<PhysicsCo
 		a->setPosition(a->getPosition() + deplacement);
 		b->setPosition(b->getPosition() + deplacement*-1);
 
-		//std::cout << a->getVelocity().getLength() << "\n";
 
-		//postman.addMessage("Physics", "CollisionResolve", MS_COLLISION, (a->getVelocity().getLength() + b->getVelocity().getLength()));
 		postman.addMessage("Physics", std::to_string((int)a.get()), MS_COLLISION, (a->getVelocity().getLength() + b->getVelocity().getLength()));
 		postman.addMessage("Physics", std::to_string((int)b.get()), MS_COLLISION, (a->getVelocity().getLength() + b->getVelocity().getLength())); // on envoie l'adresse de l'autre
 
-		//std::cout << "PHY " << std::to_string((int)a.get()) << "  and  " <<  std::to_string((int)b.get()) << "\n";
-		
-		//std::cout << (a->getVelocity().getLength() + b->getVelocity().getLength()) << "\n";
-		
 		double elasticity = a->getElasticity() * b->getElasticity();
-
 
 		//on calcule la vélocité des 2 après la collision
 		double firstA = (2 * b->getMass() / (a->getMass() + b->getMass()));
@@ -44,6 +37,14 @@ void PhysicsSystem::resolveCollision(Message &postman, std::shared_ptr<PhysicsCo
 
 		Vec2 finalVelA = a->getVelocity() - ((a->getPosition() - b->getPosition())* (firstA * secondA));
 		Vec2 finalVelB = b->getVelocity() - ((b->getPosition() - a->getPosition())* (firstB * secondB));
+
+		// angular momentum
+
+		if (finalVelA.getAngle(finalVelB) != 0) {
+			//a->setAngularVelocity((finalVelA.getAngle(finalVelB) / abs(finalVelA.getAngle(finalVelB))) * finalVelA.getLength() / a->getHitboxRadius());
+			//b->setAngularVelocity((finalVelB.getAngle(finalVelA) / abs(finalVelB.getAngle(finalVelA))) * finalVelB.getLength() / b->getHitboxRadius());
+		}
+		
 		
 		a->setVelocity(finalVelA);
 		b->setVelocity(finalVelB);
@@ -143,6 +144,9 @@ void PhysicsSystem::update(Message &postman, PhysicsComponent &body, std::vector
 		body.setVelocity(body.getVelocity() + (dveldt * dt));
 
 		body.setForces(Vec2(0, 0));
+
+		body.getPositionComponent()->setAngle(body.getPositionComponent()->getAngle() + body.getAngularVelocity() * dt);
+		//std::cout << body.getAngularVelocity() * dt << "\n";
 	}
 	else {
 		body.setPosition(body.getPosition() + (body.getVelocity() * dt));

@@ -5,14 +5,12 @@ planet_1 = {
 	},
 	Physics = {
 		mass = 7000,
-		hitbox = 2000,
+		hitbox = 1000,
 		elasticity = 0.89
 	},
 	Graphics = {
-		filename = "ressources/skyBody.png",
-		width = 4000,
-		height = 4000,
-		c = 2,
-		r = 2
+		filename = "ressources/planet_1.png",
+		width = 2000,
+		height = 2000
 	}
 }

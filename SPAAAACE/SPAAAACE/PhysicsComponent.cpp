@@ -13,6 +13,7 @@ PhysicsComponent::PhysicsComponent(std::shared_ptr<PositionComponent> c)
 	m_hitboxRadius = 15;
 	m_elasticity = 0.9;
 	setHitboxRadius(50.0);
+	m_angularVelocity = 0;
 }
 
 #include <string>
@@ -21,6 +22,7 @@ PhysicsComponent::PhysicsComponent(luabridge::LuaRef& componentTable, std::share
 	using namespace luabridge;
 	m_posComponent = c;
 	m_elasticity = 0.9;
+	m_angularVelocity = 0;
 	m_activated = true;
 
 	auto massRef =		componentTable["mass"];

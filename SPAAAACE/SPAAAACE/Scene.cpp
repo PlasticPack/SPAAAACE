@@ -169,10 +169,10 @@ void Scene::update(Message &postman)
 				if (m_gameObjects[i]->get<GameLogicComponent>()->getCurrentFuel() > 0) { // si assez de fuel
 					//on check la direction du joueur
 					Vec2 forces(0, 0);
+					Vec2 direction(cos(pc->getPositionComponent()->getAngle() * (3.14159 / 180.0)), sin(pc->getPositionComponent()->getAngle() * (3.14159 / 180.0)));
 					int pwr = m_gameObjects[i]->get<GameLogicComponent>()->getEnginePower();
 
-
-					if (m_inSystem.checkTriggeredAction(AC_HORIZONTAL_PUSH) || m_inSystem.checkTriggeredAction(AC_VERTICAL_PUSH))
+					/*if (m_inSystem.checkTriggeredAction(AC_HORIZONTAL_PUSH) || m_inSystem.checkTriggeredAction(AC_VERTICAL_PUSH))
 					{
 						forces = Vec2(m_inSystem.checkTriggeredAction(AC_HORIZONTAL_PUSH) / 20.0, m_inSystem.checkTriggeredAction(AC_VERTICAL_PUSH) / 20.0);
 					}
@@ -188,7 +188,25 @@ void Scene::update(Message &postman)
 
 						if (m_inSystem.checkTriggeredAction(AC_RIGHT))
 							forces += Vec2(pwr, 0);
-					}
+					}*/
+
+					//gestion avec angle
+					double deltaAngle = 0;
+
+					if (m_inSystem.checkTriggeredAction(AC_UP))
+						forces += direction * pwr;
+					if (m_inSystem.checkTriggeredAction(AC_DOWN))
+						forces += pc->getVelocity().getNormalized() * -pwr;
+					
+					if (m_inSystem.checkTriggeredAction(AC_LEFT))
+						deltaAngle = -0.95;
+					
+					if (m_inSystem.checkTriggeredAction(AC_RIGHT))
+						deltaAngle = 0.95;
+
+
+					if(deltaAngle == 0) //réduction automatique de la rotation
+						deltaAngle = -(pc->getAngularVelocity() / 200.0);
 
 					//on baisse le fuel
 
@@ -197,8 +215,9 @@ void Scene::update(Message &postman)
 
 
 					pc->setForces(forces);
+					pc->setAngularVelocity(pc->getAngularVelocity() + deltaAngle);
 
-					double speed = pc->getVelocity().getLength();
+					
 				}
 			}
 			
