@@ -201,7 +201,7 @@ void luain::loadFromRep(Scene* sc,std::map<std::string, std::shared_ptr<GameObje
 				//std::cout << obj->getID() << std::endl;
 				objs.insert(std::make_pair(obj->getID(), obj));
 			}
-			else std::cout << "Colision at:" << p.stem().string() << std::endl;
+			else std::cout << "Collision at:" << p.stem().string() << std::endl;
 			
 		}
 	}
@@ -223,7 +223,6 @@ std::shared_ptr<GameObject> luain::loadGameObjects(Scene *s, lua_State* L, const
 	auto v = luain::getTableKeys(L, type);
 	LuaRef entityTable = getGlobal(L, type.c_str());
 	for (auto& componentName : v) {
-
 		if (componentName == "Position") {
 			LuaRef poscTable = entityTable[componentName];
 			addComponent<PositionComponent>(s, obj, poscTable);
@@ -239,6 +238,10 @@ std::shared_ptr<GameObject> luain::loadGameObjects(Scene *s, lua_State* L, const
 		else if (componentName == "GameLogic"){
 			LuaRef GLTable = entityTable[componentName];
 			addComponent<GameLogicComponent>(s, obj, GLTable);
+		}
+		else if (componentName == "Action"){
+			LuaRef ACTable = entityTable[componentName];
+			addComponent<ActionComponent>(s, obj, ACTable);
 		}
 		else std::cout << "Unknown component: " << componentName;
 

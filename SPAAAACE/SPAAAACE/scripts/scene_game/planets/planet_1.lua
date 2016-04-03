@@ -1,10 +1,10 @@
 planet_1 = {
 	Position = {
 		x = 8000,
-		y = 2000,
+		y = 0000,
 	},
 	Physics = {
-		mass = 5000,
+		mass = 7000,
 		hitbox = 2000,
 		elasticity = 0.89
 	},

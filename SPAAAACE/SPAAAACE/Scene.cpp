@@ -36,11 +36,15 @@ void Scene::init(std::string arg){
 		//GraphicsSystem::loadBackground("ressources/space_4.png", 3, 200, 220, 255);
 	}
 
+	if (m_id == "menu"){
+		m_focusedID = "button_play";
+	}
+
 	//Inputs init
 	m_inSystem.setActionTrigger(AC_EXIT, SDL_SCANCODE_ESCAPE);
 	
 	//initialise le mouvement du joueur selon le clavier
-	m_inSystem.setActionTrigger(AC_SHOOT, SDL_BUTTON_LEFT);
+	//m_inSystem.setActionTrigger(AC_SHOOT, SDL_BUTTON_LEFT);
 	m_inSystem.setActionTrigger(AC_UP, SDL_SCANCODE_UP);
 	m_inSystem.setActionTrigger(AC_START, SDL_SCANCODE_C);
 	m_inSystem.setActionTrigger(AC_SELECT, SDL_SCANCODE_D);
@@ -49,37 +53,45 @@ void Scene::init(std::string arg){
 	m_inSystem.setActionTrigger(AC_RIGHT, SDL_SCANCODE_RIGHT);
 	m_inSystem.setActionTrigger(AC_HORIZONTAL_PUSH, GP_AXIS_LEFT_JOY_X);
 	m_inSystem.setActionTrigger(AC_VERTICAL_PUSH, GP_AXIS_LEFT_JOY_Y);
+	m_inSystem.setActionTrigger(AC_SELECT, SDL_SCANCODE_RETURN);
 
 	GraphicsSystem::setFont("ressources/CaviarDreams.ttf", 30, { 225, 220, 255 });
 
 	std::cout << "END OF INIT\n\n";
 	GraphicsSystem::setCameraZoom(1);
+	m_navigationTimer.start();
 }
 
 void Scene::orderByZIndex(){
-	int j = 0;
-	bool swapped = false;
-	do {
-		for (int i(1); i < m_gameObjects.size() - 1; i++){
+	if (m_gameObjects.size() > 1){
+		int j = 0;
+		bool swapped = false;
+		do {
+			for (int i(0); i < m_gameObjects.size() - 1; i++){
 
-			if (m_gameObjects[i]->get<PositionComponent>()->getZIndex() < m_gameObjects[i+1]->get<PositionComponent>()->getZIndex()){
-				std::iter_swap(m_gameObjects.begin() + i, m_gameObjects.begin() + i + 1);
-				swapped = true;
+				if (m_gameObjects[i]->get<PositionComponent>()->getZIndex() < m_gameObjects[i + 1]->get<PositionComponent>()->getZIndex()){
+					std::iter_swap(m_gameObjects.begin() + i, m_gameObjects.begin() + i + 1);
+					swapped = true;
+				}
+
+				if (i >= m_gameObjects.size() - 2 && !swapped){
+					swapped = true;
+				}
 			}
-		}
-	} while (!swapped);
+		} while (!swapped);
 
-	std::reverse(m_gameObjects.begin(), m_gameObjects.end());
+		std::reverse(m_gameObjects.begin(), m_gameObjects.end());
 
-	//on place le joueur au "dessus" des objets à sa même hauteur
-	for (int i = 0; i < m_gameObjects.size(); i++){
-		if (m_gameObjects[i]->getID() == "player"){
-			if (i != m_gameObjects.size() - 1) {
-				for (int j = i; j < m_gameObjects.size(); j++){
-					if (m_gameObjects[j]->getID() != "player" && m_gameObjects[j]->get<PositionComponent>()->getZIndex() == m_gameObjects[i]->get<PositionComponent>()->getZIndex()) {
-						std::iter_swap(m_gameObjects.begin() + i, m_gameObjects.begin() + j);
-						std::cout << i << j << "\n";
-						break;
+		//on place le joueur au "dessus" des objets à sa même hauteur
+		for (int i = 0; i < m_gameObjects.size(); i++){
+			if (m_gameObjects[i]->getID() == "player"){
+				if (i != m_gameObjects.size() - 1) {
+					for (int j = i; j < m_gameObjects.size(); j++){
+						if (m_gameObjects[j]->getID() != "player" && m_gameObjects[j]->get<PositionComponent>()->getZIndex() == m_gameObjects[i]->get<PositionComponent>()->getZIndex()) {
+							std::iter_swap(m_gameObjects.begin() + i, m_gameObjects.begin() + j);
+							std::cout << i << j << "\n";
+							break;
+						}
 					}
 				}
 			}
@@ -98,15 +110,44 @@ void Scene::update(Message &postman)
 	//INPUT GÉNÉRAL
 	m_inSystem.pollInputs();
 
-	/*if (m_inSystem.checkTriggeredAction(AC_START))
-		postman.addMessage("game", "Input", 0, 1);
 
-	if (m_inSystem.checkTriggeredAction(AC_SELECT))
-		postman.addMessage("menu", "Input", 0, 1);*/
+	//GESTION DU MENU
 
-	if (m_inSystem.checkTriggeredAction(AC_SHOOT))
-		postman.addMessage("game", "Input", MS_SHOOT, 1);
+	//NAVIGATION AVEC FLÈCHES
+	if (m_id == "menu"){
 
+		//en attendant gestion press/release
+		if (m_navigationTimer.getTicks() > 200){
+
+			//création du "template" de menu
+			std::vector<std::string> menuList;
+			menuList.push_back("button_play");
+			menuList.push_back("button_quit");
+
+			int pos = std::find(menuList.begin(), menuList.end(), m_focusedID) - menuList.begin();
+
+			int newPos = pos;
+			if (m_inSystem.checkTriggeredAction(AC_DOWN)){
+				//on avance vers le bas 
+				newPos = (pos + 1) % menuList.size();
+			}
+			else if (m_inSystem.checkTriggeredAction(AC_UP)){
+				//on recule vers le haut
+				newPos = (pos - 1) % menuList.size();
+			}
+
+			if (m_focusedID != menuList[newPos]){
+				m_navigationTimer.stop();
+				m_navigationTimer.start();
+				m_focusedID = menuList[newPos];
+			}
+		}
+
+	}
+
+	if (m_inSystem.checkTriggeredAction(AC_SELECT)){
+		postman.addMessage("Scene",  m_focusedID, MS_SELECT, 1);
+	}
 
 	//TIR DU VAISSEAU
 
@@ -152,7 +193,7 @@ void Scene::update(Message &postman)
 					//on baisse le fuel
 
 					if (forces.getLength() > 0)
-						postman.addMessage("Scene", m_gameObjects[i]->getID(), MS_ENGINE_ACTIVE, 1);
+						postman.addMessage("Scene-", m_gameObjects[i]->getID(), MS_ENGINE_ACTIVE, 1);
 
 
 					pc->setForces(forces);
@@ -171,10 +212,20 @@ void Scene::update(Message &postman)
 			GameLogicSystem::update(postman, m_gameObjects[i], *GLC);
 		}
 
-
+		auto AC = m_gameObjects[i]->get<ActionComponent>();
+		if (AC != nullptr){
+			ActionSystem::update(postman, *AC);
+		}
 
 		auto gc = m_gameObjects[i]->get<GraphicsComponent>();
 		if (gc != nullptr){
+
+			if (m_gameObjects[i]->getID() == m_focusedID){
+				gc->getSprite()->setSpriteSheet("selected");
+			}
+			else {
+				gc->getSprite()->setSpriteSheet("default");
+			}
 
 			if (m_gameObjects[i]->getID() == "player"){
 
@@ -183,8 +234,8 @@ void Scene::update(Message &postman)
 
 				//zoom min: 0.625 (valeur arbitraire)
 
-				if (vel < 2500)
-					zoom = 0.625 + (0.3 - (0.3* vel / 2500));
+				/*if (vel < 2500)
+					zoom = 0.625 + (0.3 - (0.3* vel / 2500));*/
 
 				//std::cout << vel <<  "vs " << zoom << "\n";
 
@@ -218,7 +269,6 @@ void Scene::update(Message &postman)
 						}
 					}
 				}
-
 			}
 			if (postman.getMessage("GameLogic", m_gameObjects[i]->getID(), MS_COLLISION) > 0) {
 			}
@@ -227,7 +277,7 @@ void Scene::update(Message &postman)
 
 	}
 	if (m_inSystem.checkTriggeredAction(AC_EXIT))
-		postman.addMessage("Scene", "Input", MS_EXIT_REQUEST, 1);
+		postman.addMessage("Action", "Button", MS_EXIT_REQUEST, 1);
 
 	GraphicsSystem::endFrame();
 }

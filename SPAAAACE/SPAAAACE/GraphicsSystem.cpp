@@ -234,8 +234,7 @@ void GraphicsSystem::update(Message &postman, std::string id, GraphicsComponent 
 
 
 			//si on recoit qu'il y a eu collision
-			//std::cout << postman.getMessage("Physics", "Physics", MS_COLLISION) << "sadsdsad\n";
-			if (postman.getMessage("GameLogic", id, MS_COLLISION) > 1000.0){
+			if (postman.getMessage("GameLogic", id, MS_COLLISION) > 2500.0){
 				gComp.getSprite()->setSpriteSheet("collision");
 			}
 

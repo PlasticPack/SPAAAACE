@@ -83,6 +83,8 @@
     <ClCompile Include="..\..\tinyxml\tinyxml.cpp" />
     <ClCompile Include="..\..\tinyxml\tinyxmlerror.cpp" />
     <ClCompile Include="..\..\tinyxml\tinyxmlparser.cpp" />
+    <ClCompile Include="ActionComponent.cpp" />
+    <ClCompile Include="ActionSystem.cpp" />
     <ClCompile Include="boostExemple.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="GameLogicComponent.cpp" />
@@ -113,6 +115,8 @@
   <ItemGroup>
     <ClInclude Include="..\..\tinyxml\tinystr.h" />
     <ClInclude Include="..\..\tinyxml\tinyxml.h" />
+    <ClInclude Include="ActionComponent.h" />
+    <ClInclude Include="ActionSystem.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Flags.h" />
     <ClInclude Include="GameLogicComponent.h" />

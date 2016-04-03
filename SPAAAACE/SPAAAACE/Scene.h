@@ -3,6 +3,7 @@
 #include "GraphicsSystem.h"
 #include "PhysicsSystem.h"
 #include "InputSystem.h"
+#include "ActionSystem.h"
 #include "GameLogicSystem.h"
 #include "GameObject.h"
 #include <stdio.h>
@@ -94,14 +95,20 @@ protected:
 	std::vector<std::shared_ptr<GraphicsComponent>>		m_graphicsComps;
 	std::vector<std::shared_ptr<PhysicsComponent>>		m_physicsComps;
 	std::vector<std::shared_ptr<GameLogicComponent>>	m_GLComps;
+	std::vector<std::shared_ptr<ActionComponent>>		m_ActionComps;
+
+
 
 
 	//std::vector<std::shared_ptr<AiComponent>> m_aiComps;
 	//std::map<std::type_index, std::vector<std::shared_ptr<Component>>> m_components;
 
 	std::string m_id;
+	std::string m_focusedID;
 
 	InputsSystem m_inSystem;
 	PhysicsSystem m_phySystem;
+
+	LTimer m_navigationTimer;
 };
 
