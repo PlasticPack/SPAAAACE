@@ -6,7 +6,7 @@
 #include <SDL_ttf.h>
 
 #define SCREEN_W 1200
-#define SCREEN_H 900
+#define SCREEN_H 700
 
 struct Camera {
 	double angle;
@@ -64,5 +64,7 @@ protected:
 	static SDL_Color m_textColor;
 	static std::string m_currentText;
 	static std::map<std::string, SDL_Texture*> m_texts;
+	static std::vector<std::string> m_textQueue;
+	static LTimer m_textTimer;
 };
 

@@ -15,6 +15,8 @@ SDL_Texture * GraphicsSystem::m_currentTextTexture = NULL;
 SDL_Color GraphicsSystem::m_textColor = { 255, 255, 255 };
 std::string GraphicsSystem::m_currentText = "";
 std::map<std::string, SDL_Texture*> GraphicsSystem::m_texts;
+std::vector<std::string> GraphicsSystem::m_textQueue;
+LTimer GraphicsSystem::m_textTimer;
 
 GraphicsSystem::GraphicsSystem()
 {
@@ -93,8 +95,12 @@ void GraphicsSystem::setTextColor(SDL_Color c){
 	m_textColor = c;
 }
 
-void GraphicsSystem::print(std::string f){
+void GraphicsSystem::print(std::string str){
 
+	m_textQueue.push_back(str);
+	std::string f = m_textQueue.front();
+
+	//création de la texture à partir du texte en premier dans la liste
 	if (f != m_currentText){
 
 		m_currentText = f;
@@ -104,11 +110,11 @@ void GraphicsSystem::print(std::string f){
 		}
 
 		SDL_Surface* surf = TTF_RenderText_Blended_Wrapped(m_currentFont, f.c_str(), m_textColor, SCREEN_W - 60);
-		m_currentTextTexture = SDL_CreateTextureFromSurface(m_renderer, surf);
-
+		//m_currentTextTexture = SDL_CreateTextureFromSurface(m_renderer, surf);
 		SDL_FreeSurface(surf);
 	}
 
+	//on touche pas à ça
 	if (m_currentTextTexture != NULL){
 
 		SDL_Rect maxRect = { 15, SCREEN_H - 224 - 45, SCREEN_W - 30, 224+30};
@@ -117,12 +123,10 @@ void GraphicsSystem::print(std::string f){
 
 		int w(0), h(0);
 
-
 		msgRect.x += 15;
 		msgRect.w -= 30;
 		msgRect.h -= 30;
 		msgRect.y += 15;
-
 
 		TTF_SizeText(m_currentFont, m_currentText.c_str(), &w, &h); 
 
