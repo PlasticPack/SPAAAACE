@@ -244,7 +244,14 @@ void Scene::update(Message &postman)
 				}
 			}
 			
+
 			m_phySystem.update(postman, *pc, m_physicsComps, 1.0 / GraphicsSystem::getFPS());
+			std::cout << pc->getPosition().x() << "\n";
+			if (postman.getMessage("Physics", std::to_string((int)pc.get()), MS_COLLISION)){
+				std::cout << "PLAYER COLLISION        ";
+
+				postman.addMessage("Scene", "Player", MS_COLLISION, pc->getPosition().x());
+			}
 
 		}
 
@@ -272,7 +279,7 @@ void Scene::update(Message &postman)
 			if (m_gameObjects[i]->getID() == "player"){
 
 				double vel = m_gameObjects[i]->get<PhysicsComponent>()->getVelocity().getLength();
-				double zoom = 0.625;
+				double zoom = 0.725;
 
 				//zoom min: 0.625 (valeur arbitraire)
 

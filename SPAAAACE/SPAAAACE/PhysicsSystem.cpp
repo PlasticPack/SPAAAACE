@@ -71,7 +71,12 @@ bool PhysicsSystem::checkIfCollide(Message &postman, PhysicsComponent &a, Physic
 				i = accuracy + 1;
 			}
 		}
+		if (detected){
+			//postman.addMessage("Physics", "Collision", MS_COLLISION, 1);
+		}
+		else {
 
+		}
 		return detected;
 	}
 	else

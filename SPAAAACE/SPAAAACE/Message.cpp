@@ -17,6 +17,7 @@ void Message::addMessage(std::string const& sender, std::string const& fromCompo
 	m_messages.insert(std::make_pair(sender + fromComponent, make_pair(msFlag, message)));
 }
 
+
 std::queue<typeMsPair> Message::getMessageQueue(std::string const& sender, std::string const& fromComponent)
 {
 	pair<typeMessage::iterator, typeMessage::iterator> messagePlage = m_messages.equal_range(sender + fromComponent);
@@ -40,6 +41,7 @@ double Message::getMessage(std::string const& sender, std::string const& fromCom
 	return 0;
 
 }
+
 void Message::clearAll(void)
 {
 	m_messages.clear();
