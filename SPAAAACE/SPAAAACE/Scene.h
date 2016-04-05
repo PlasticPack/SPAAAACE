@@ -10,6 +10,7 @@
 #include <time.h>
 #include "LuaInit.hpp"
 #include <exception>
+#include "MusicSystem.h"
 
 #include "XML_utilities.hpp"
 
@@ -101,6 +102,7 @@ protected:
 
 	std::string m_id;
 
+	MusicSystem m_musSytem;
 	InputsSystem m_inSystem;
 	PhysicsSystem m_phySystem;
 };
