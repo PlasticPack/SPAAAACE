@@ -39,7 +39,7 @@ public:
 	static double getCameraAngle(){ return m_camera.angle; }
 
 	static void initFrame();
-	static void endFrame();
+	static void endFrame(Message &postman);
 
 	static void setFont(std::string f, int s, SDL_Color c = {255, 255, 255});
 	static void setTextColor(SDL_Color c);

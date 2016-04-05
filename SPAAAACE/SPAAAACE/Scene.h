@@ -110,5 +110,6 @@ protected:
 	PhysicsSystem m_phySystem;
 
 	LTimer m_navigationTimer;
+	LTimer m_dialogueTimer;
 };
 

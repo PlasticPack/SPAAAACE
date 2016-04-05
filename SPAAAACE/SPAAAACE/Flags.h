@@ -14,7 +14,8 @@ enum message
 	MS_PLAY,
 	MS_MENU,
 	MS_EXIT_REQUEST,
-	MS_SELECT
+	MS_SELECT,
+	MS_DIALOGUE_NEXT
 };
 
 /*
@@ -83,6 +84,7 @@ enum action // METTRE NOUVELLEs ACTIONS ICI
 	AC_EXIT,
 	AC_LEFT,
 	AC_RIGHT,
+	AC_NEXT,
 	AC_NUMBER_OF_ACTION // Mettre tout autre action AVANT celle-ci
 };
 

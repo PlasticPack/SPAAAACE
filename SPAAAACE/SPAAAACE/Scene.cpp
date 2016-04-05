@@ -54,12 +54,14 @@ void Scene::init(std::string arg){
 	m_inSystem.setActionTrigger(AC_HORIZONTAL_PUSH, GP_AXIS_LEFT_JOY_X);
 	m_inSystem.setActionTrigger(AC_VERTICAL_PUSH, GP_AXIS_LEFT_JOY_Y);
 	m_inSystem.setActionTrigger(AC_SELECT, SDL_SCANCODE_RETURN);
+	m_inSystem.setActionTrigger(AC_NEXT, SDL_SCANCODE_SPACE);
 
 	GraphicsSystem::setFont("ressources/CaviarDreams.ttf", 30, { 225, 220, 255 });
 
 	std::cout << "END OF INIT\n\n";
 	GraphicsSystem::setCameraZoom(1);
 	m_navigationTimer.start();
+	m_dialogueTimer.start();
 }
 
 void Scene::orderByZIndex(){
@@ -149,11 +151,26 @@ void Scene::update(Message &postman)
 		postman.addMessage("Scene",  m_focusedID, MS_SELECT, 1);
 	}
 
+	if (m_inSystem.checkTriggeredAction(AC_NEXT)) {
+		if (m_dialogueTimer.getTicks() > 575) {
+			postman.addMessage("Scene", "Input", MS_DIALOGUE_NEXT, 1); 
+			m_dialogueTimer.stop();
+			m_dialogueTimer.start();
+		}
+	}
+
+	if (m_inSystem.checkTriggeredAction(AC_START)) {
+		
+		GraphicsSystem::print("HEY it's started mate!");
+		GraphicsSystem::print("What are ye doin?");
+		std::cout << "ADD\n";
+	}
+
 	//TIR DU VAISSEAU
 
 	//=======================
 
-
+	//ashdgahds
 
 
 	GraphicsSystem::initFrame();
@@ -192,9 +209,9 @@ void Scene::update(Message &postman)
 							forces += Vec2(pwr, 0);
 					}
 
-					std::cout << forces.getNormalized().y() << " ";
+					//std::cout << forces.getNormalized().y() << " ";
 					angle = forces.getAngle();
-					std::cout << angle << "\n";
+					//std::cout << angle << "\n";
 
 					//gestion avec angle
 					/*	double deltaAngle = 0;
@@ -217,10 +234,10 @@ void Scene::update(Message &postman)
 					//on baisse le fuel
 
 					if (forces.getLength() > 0) {
+
 						postman.addMessage("Scene-", m_gameObjects[i]->getID(), MS_ENGINE_ACTIVE, 1);
 						pc->getPositionComponent()->setAngle(angle);
 					}
-
 
 					pc->setForces(forces);
 					
@@ -304,5 +321,5 @@ void Scene::update(Message &postman)
 	if (m_inSystem.checkTriggeredAction(AC_EXIT))
 		postman.addMessage("Action", "Button", MS_EXIT_REQUEST, 1);
 
-	GraphicsSystem::endFrame();
+	GraphicsSystem::endFrame(postman);
 }

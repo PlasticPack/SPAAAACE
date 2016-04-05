@@ -25,6 +25,7 @@ GraphicsSystem::GraphicsSystem()
 
 void GraphicsSystem::init(){
 	if (!m_initialized){
+		m_textTimer.start();
 		std::cout << "Initializing visuals \n";
 		for (int i = 0; i < 4; i++)
 			m_backgrounds[i] = nullptr;
@@ -97,51 +98,8 @@ void GraphicsSystem::setTextColor(SDL_Color c){
 
 void GraphicsSystem::print(std::string str){
 
+	//on check si on a appuyé sur next
 	m_textQueue.push_back(str);
-	std::string f = m_textQueue.front();
-
-	//création de la texture à partir du texte en premier dans la liste
-	if (f != m_currentText){
-
-		m_currentText = f;
-
-		if (m_currentTextTexture != NULL){
-			SDL_DestroyTexture(m_currentTextTexture);
-		}
-
-		SDL_Surface* surf = TTF_RenderText_Blended_Wrapped(m_currentFont, f.c_str(), m_textColor, SCREEN_W - 60);
-		//m_currentTextTexture = SDL_CreateTextureFromSurface(m_renderer, surf);
-		SDL_FreeSurface(surf);
-	}
-
-	//on touche pas à ça
-	if (m_currentTextTexture != NULL){
-
-		SDL_Rect maxRect = { 15, SCREEN_H - 224 - 45, SCREEN_W - 30, 224+30};
-
-		SDL_Rect msgRect = maxRect;
-
-		int w(0), h(0);
-
-		msgRect.x += 15;
-		msgRect.w -= 30;
-		msgRect.h -= 30;
-		msgRect.y += 15;
-
-		TTF_SizeText(m_currentFont, m_currentText.c_str(), &w, &h); 
-
-		msgRect.h = h * ceil((double)w / (double)(msgRect.w));
-		if (ceil((double)w / (double)(msgRect.w)) == 1){
-			msgRect.w = w;
-		}
-
-		SDL_SetRenderDrawBlendMode(m_renderer, SDL_BLENDMODE_BLEND);
-		SDL_SetRenderDrawColor(m_renderer, 50, 50, 65, 125);
-		SDL_RenderFillRect(m_renderer, &maxRect);
-		SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
-		SDL_RenderCopy(m_renderer, m_currentTextTexture, NULL, &msgRect);
-	}
-
 }
 
 void GraphicsSystem::printAt(std::string text, int x, int y, int d_w, int d_h){
@@ -288,6 +246,7 @@ void GraphicsSystem::update(Message &postman, std::string id, GraphicsComponent 
 				}
 			}
 		}
+
 	}
 }
 
@@ -363,10 +322,65 @@ void GraphicsSystem::initFrame(){
 	}
 }
 
-void GraphicsSystem::endFrame(){
+void GraphicsSystem::endFrame(Message &postman){
 	if (m_initialized) {
 		if (m_frameStarted){
 			//std::cout << "RENDERING\n";
+			//si on appuie sur next
+			if (postman.getMessage("Scene", "Input", MS_DIALOGUE_NEXT) > 0){
+				if (m_textQueue.size() > 0) {
+					m_textQueue.erase(m_textQueue.begin());
+					m_textTimer.stop();
+					m_textTimer.start();
+				}
+				std::cout << m_textQueue.size() << "\n";
+			}
+
+
+			if (m_textQueue.size() > 0){
+				//création de la texture à partir du texte en premier dans la liste
+				if (m_textQueue.front() != m_currentText){
+
+					m_currentText = m_textQueue.front();
+
+					if (m_currentTextTexture != NULL){
+						SDL_DestroyTexture(m_currentTextTexture);
+					}
+
+					SDL_Surface* surf = TTF_RenderText_Blended_Wrapped(m_currentFont, m_textQueue.front().c_str(), m_textColor, SCREEN_W - 60);
+					m_currentTextTexture = SDL_CreateTextureFromSurface(m_renderer, surf);
+					SDL_FreeSurface(surf);
+				}
+
+				//on touche pas à ça
+				if (m_currentTextTexture != NULL){
+
+					SDL_Rect maxRect = { 15, SCREEN_H - 224 - 45, SCREEN_W - 30, 224 + 30 };
+
+					SDL_Rect msgRect = maxRect;
+
+					int w(0), h(0);
+
+					msgRect.x += 15;
+					msgRect.w -= 30;
+					msgRect.h -= 30;
+					msgRect.y += 15;
+
+					TTF_SizeText(m_currentFont, m_currentText.c_str(), &w, &h);
+
+					msgRect.h = h * ceil((double)w / (double)(msgRect.w));
+					if (ceil((double)w / (double)(msgRect.w)) == 1){
+						msgRect.w = w;
+					}
+
+					SDL_SetRenderDrawBlendMode(m_renderer, SDL_BLENDMODE_BLEND);
+					SDL_SetRenderDrawColor(m_renderer, 50, 50, 65, 125);
+					SDL_RenderFillRect(m_renderer, &maxRect);
+					SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
+					SDL_RenderCopy(m_renderer, m_currentTextTexture, NULL, &msgRect);
+				}
+			}
+
 			SDL_RenderPresent(m_renderer);
 			m_frameStarted = false;
 			m_countedFrames++;
