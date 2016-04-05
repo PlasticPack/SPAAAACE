@@ -6,8 +6,9 @@ class Son
 {
 private:
 	Mix_Chunk* m_son;
+	int m_channel;
 public:
-	Son(std::string filepath);
+	Son(std::string filepath, int channel = -1);
 	Son();
 	~Son();
 

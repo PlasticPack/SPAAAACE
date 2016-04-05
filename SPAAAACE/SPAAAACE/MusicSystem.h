@@ -5,6 +5,7 @@
 #include "Musique.h"
 #include <map>
 #include <string>
+#include "Message.h"
 class MusicSystem
 {
 private:
@@ -17,7 +18,5 @@ public:
 	~MusicSystem();
 
 	//Fonctions
-
-	
-	void update(); // Hard-code de music
+	void update(Message &postman); // Hard-code de music
 };
