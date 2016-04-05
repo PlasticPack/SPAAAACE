@@ -172,7 +172,9 @@ void Scene::update(Message &postman)
 					Vec2 direction(cos(pc->getPositionComponent()->getAngle() * (3.14159 / 180.0)), sin(pc->getPositionComponent()->getAngle() * (3.14159 / 180.0)));
 					int pwr = m_gameObjects[i]->get<GameLogicComponent>()->getEnginePower();
 
-					/*if (m_inSystem.checkTriggeredAction(AC_HORIZONTAL_PUSH) || m_inSystem.checkTriggeredAction(AC_VERTICAL_PUSH))
+					double angle = 0;
+
+					if (m_inSystem.checkTriggeredAction(AC_HORIZONTAL_PUSH) || m_inSystem.checkTriggeredAction(AC_VERTICAL_PUSH))
 					{
 						forces = Vec2(m_inSystem.checkTriggeredAction(AC_HORIZONTAL_PUSH) / 20.0, m_inSystem.checkTriggeredAction(AC_VERTICAL_PUSH) / 20.0);
 					}
@@ -188,10 +190,14 @@ void Scene::update(Message &postman)
 
 						if (m_inSystem.checkTriggeredAction(AC_RIGHT))
 							forces += Vec2(pwr, 0);
-					}*/
+					}
+
+					std::cout << forces.getNormalized().y() << " ";
+					angle = forces.getAngle();
+					std::cout << angle << "\n";
 
 					//gestion avec angle
-					double deltaAngle = 0;
+					/*	double deltaAngle = 0;
 
 					if (m_inSystem.checkTriggeredAction(AC_UP))
 						forces += direction * pwr;
@@ -206,17 +212,17 @@ void Scene::update(Message &postman)
 
 
 					if(deltaAngle == 0) //réduction automatique de la rotation
-						deltaAngle = -(pc->getAngularVelocity() / 200.0);
+						deltaAngle = -(pc->getAngularVelocity() / 200.0);*/
 
 					//on baisse le fuel
 
-					if (forces.getLength() > 0)
+					if (forces.getLength() > 0) {
 						postman.addMessage("Scene-", m_gameObjects[i]->getID(), MS_ENGINE_ACTIVE, 1);
+						pc->getPositionComponent()->setAngle(angle);
+					}
 
 
 					pc->setForces(forces);
-					pc->setAngularVelocity(pc->getAngularVelocity() + deltaAngle);
-
 					
 				}
 			}

@@ -32,6 +32,10 @@ double Vec2::getAngle(Vec2 v){
 	return atan2(v.m_y, v.m_x) - atan2(m_y, m_x);
 }
 
+double Vec2::getAngle(){
+
+	return atan2(this->getNormalized().y(), this->getNormalized().x())  * (180.0 / 3.14159);
+}
 
 Vec2 Vec2::operator+(const Vec2 &vec){
 	Vec2 result;

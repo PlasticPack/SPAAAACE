@@ -30,6 +30,7 @@ public:
 	bool operator!=(const Vec2 &vec);
 
 	double getAngle(Vec2 v);
+	double getAngle();
 
 	Vec2 getNormalized();
 	Vec2 getNormal(); // retourne la normale
