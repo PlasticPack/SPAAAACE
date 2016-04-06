@@ -4,11 +4,12 @@ trigger1 = {
 		y = 0
 	},
 	Physics = {
-		hitbox = 100,
+		hitbox = 50,
 		activated = "false"
 	},
 	Action = {
-		trigger = "Scene trigger1 34048 1",
-		answer = "Action Trigger 34061 1"
+		trigger = "player trigger1 34048 1",
+		answer = "Action Trigger 34061 1",
+		timer = -1
 	}
 }
