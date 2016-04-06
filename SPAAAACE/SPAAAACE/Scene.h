@@ -96,7 +96,6 @@ public:
 		for (int i = 0; i < m_gameObjects.size(); i++){
 
 			if (std::to_string((int)c.get()) == std::to_string((int)m_gameObjects[i]->get<C>().get()) ) {
-				//std::cout << i << "\n";
 				j = i;
 				i = m_gameObjects.size();
 			}
@@ -112,7 +111,6 @@ public:
 		for (int i = 0; i < m_gameObjects.size(); i++){
 
 			if (std::to_string(c) == std::to_string((int)m_gameObjects[i]->get<C>().get())) {
-				//std::cout << i << "\n";
 				j = i;
 				i = m_gameObjects.size();
 			}

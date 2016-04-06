@@ -174,15 +174,20 @@ void Scene::update(Message &postman)
 
 
 	GraphicsSystem::initFrame();
+	Vec2 playerPos(0,0), basePos(0,0);
 	
 	for (int i = 0; i < m_gameObjects.size(); i++){
 
 		std::shared_ptr<PhysicsComponent> pc = m_gameObjects[i]->get<PhysicsComponent>();
 		if (pc != nullptr){
 
+			if (m_gameObjects[i]->getID() == "base"){
+				basePos = m_gameObjects[i]->get<PhysicsComponent>()->getPosition();
+			}
+
 			//DÉCISION DE MOUVEMENT : JOUEUR
 			if (m_gameObjects[i]->getID() == "player") {
-
+				playerPos = m_gameObjects[i]->get<PhysicsComponent>()->getPosition();
 				if (m_gameObjects[i]->get<GameLogicComponent>()->getCurrentFuel() > 0) { // si assez de fuel
 					//on check la direction du joueur
 					Vec2 forces(0, 0);
@@ -248,8 +253,8 @@ void Scene::update(Message &postman)
 		}
 
 
-		if (postman.getMessage("Physics", "player", MS_COLLISION) > 1){
-			postman.addMessage("Scene", getFatherID<PhysicsComponent>(postman.getMessage("Physics", "player", MS_COLLISION)), MS_COLLISION, 1);
+		if (postman.getMessage("Physics", m_gameObjects[i]->getID(), MS_COLLISION) > 1){
+			postman.addMessage(m_gameObjects[i]->getID(), getFatherID<PhysicsComponent>(postman.getMessage("Physics", m_gameObjects[i]->getID(), MS_COLLISION)), MS_COLLISION, 1);
 		}
 
 		auto GLC = m_gameObjects[i]->get<GameLogicComponent>();
@@ -307,14 +312,42 @@ void Scene::update(Message &postman)
 								m_gameObjects[j]->get<GraphicsComponent>()->setSize(Vec2(baseSize.x() * life, baseSize.y()));
 							//}
 						}
+						else if (id == "hud_base_pointer"){
+							Vec2 direction = basePos - playerPos;
+							if (direction.getLength() > 0){
+								//std::cout << direction.getAngle() << "\n";
+								m_gameObjects[j]->get<PositionComponent>()->setAngle(direction.getAngle());
+								Vec2 screen = Vec2(SCREEN_W , SCREEN_H );
+								double l = 1;
+
+								double size = 25000.0 / (direction.getLength());
+
+								if (size > 1)
+									size = 1;
+								if (size < 0.5)
+									size = 0.5;
+
+								if (abs(direction.getAngle()) < screen.getAngle() || direction.getAngle() > -180 -screen.getAngle()){
+									l = sqrt(pow(SCREEN_W / 2, 2) + pow(tan(direction.getAngle() * (3.14159/180.0)) * SCREEN_W / 2, 2));
+								}
+
+								if (abs(direction.getAngle()) > screen.getAngle() && abs(direction.getAngle()) < 180 - screen.getAngle()){
+									l = sqrt(pow(SCREEN_H / 2, 2) + pow(tan((90 +direction.getAngle()) * (3.14159 / 180.0)) * SCREEN_H / 2, 2));
+								}
+
+								l -= 42;
+
+								m_gameObjects[j]->get<GraphicsComponent>()->setSize(m_gameObjects[j]->get<GraphicsComponent>()->getMaxSize() *size);
+								//std::cout << m_gameObjects[j]->get<GraphicsComponent>()->getSize().getLength() * 0.2<< "\n";
+								m_gameObjects[j]->get<PositionComponent>()->setPosition((direction.getNormalized() * (l))+ Vec2(SCREEN_W/2 - 32, SCREEN_H/2 - 32) ) ;
+								
+							}
+						}
 					}
 				}
 			}
-			if (postman.getMessage("GameLogic", m_gameObjects[i]->getID(), MS_COLLISION) > 0) {
-			}
 			GraphicsSystem::update(postman, m_gameObjects[i]->getID(),*gc, 1.0 / GraphicsSystem::getFPS());
 		}
-
 	}
 
 
@@ -325,6 +358,10 @@ void Scene::update(Message &postman)
 		}
 	}
 
+	if (postman.getMessage("Action", "Trigger", 34061) > 0) {
+		GraphicsSystem::print("TRRRIIIIGGGERREDDD oh thats rude");
+
+	}
 
 	if (m_inSystem.checkTriggeredAction(AC_EXIT))
 		postman.addMessage("Action", "Button", MS_EXIT_REQUEST, 1);

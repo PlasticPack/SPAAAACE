@@ -4,10 +4,14 @@
 
 ActionComponent::ActionComponent(luabridge::LuaRef& componentTable)
 {
+	m_cooldown = -1;
+	m_on = true;
+	m_timer.start();
 	using namespace luabridge;
 
 	auto trigger = componentTable["trigger"];
 	auto answer = componentTable["answer"];
+	auto timer = componentTable["timer"];
 
 	if (trigger.isString() && answer.isString()){
 
@@ -34,6 +38,10 @@ ActionComponent::ActionComponent(luabridge::LuaRef& componentTable)
 		m_answer.first.second =	answ_strings[1];
 		m_answer.second.first = std::stoi(answ_strings[2]);
 		m_answer.second.second = std::stod(answ_strings[3]);
+	}
+
+	if (timer.isNumber()){
+		m_cooldown = timer;
 	}
 }
 
