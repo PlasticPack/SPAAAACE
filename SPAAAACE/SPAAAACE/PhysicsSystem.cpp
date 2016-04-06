@@ -10,8 +10,8 @@ PhysicsSystem::~PhysicsSystem()
 {
 }
 
-void PhysicsSystem::resolveCollision(Message &postman, std::shared_ptr<PhysicsComponent> a, std::shared_ptr<PhysicsComponent> b, double dt) {
-	if (checkIfCollide(postman, *a, *b, dt) && a->getPositionComponent()->getZIndex() == b->getPositionComponent()->getZIndex() && a->isActive() && b->isActive()) { //s'ils se touchent
+void PhysicsSystem::resolveCollision(Message &postman, Scene *s, std::shared_ptr<PhysicsComponent> a, std::shared_ptr<PhysicsComponent> b, double dt) {
+	if (checkIfCollide(postman, s, a, b, dt) && a->getPositionComponent()->getZIndex() == b->getPositionComponent()->getZIndex() && a->isActive() && b->isActive()) { //s'ils se touchent
 		
 		//on sort les 2 objets l'un de l'autre
 		Vec2 direction = (a->getPosition() - b->getPosition()).getNormalized();
@@ -21,7 +21,6 @@ void PhysicsSystem::resolveCollision(Message &postman, std::shared_ptr<PhysicsCo
 
 		a->setPosition(a->getPosition() + deplacement);
 		b->setPosition(b->getPosition() + deplacement*-1);
-
 
 		postman.addMessage("Physics", std::to_string((int)a.get()), MS_COLLISION, (a->getVelocity().getLength() + b->getVelocity().getLength()));
 		postman.addMessage("Physics", std::to_string((int)b.get()), MS_COLLISION, (a->getVelocity().getLength() + b->getVelocity().getLength())); // on envoie l'adresse de l'autre
@@ -52,7 +51,7 @@ void PhysicsSystem::resolveCollision(Message &postman, std::shared_ptr<PhysicsCo
 	}
 }
 
-bool PhysicsSystem::checkIfCollide(Message &postman, PhysicsComponent &a, PhysicsComponent &b, double dt){ // check seulement s'ils OVERLAP , fuck leur ZINDEX 
+bool PhysicsSystem::checkIfCollide(Message &postman, Scene *s, std::shared_ptr<PhysicsComponent> a, std::shared_ptr<PhysicsComponent> b, double dt){ // check seulement s'ils OVERLAP , fuck leur ZINDEX 
 	if (&a != &b){
 		//si les objets vont très vite, il se peut qu'un objet "passe à travers" l'autre"
 		//pour éviter ca, on regarde la position de l'objet par petits bond jusqu'à la
@@ -66,13 +65,15 @@ bool PhysicsSystem::checkIfCollide(Message &postman, PhysicsComponent &a, Physic
 		bool detected = false;
 		double accuracy = 3; // la précision ou le nombre de bonds qu'on fait 
 		for (int i = 1; i <= accuracy; i++){
-			if (a.getHitboxRadius() + b.getHitboxRadius() > (a.getPosition() + (a.getVelocity() * (i / accuracy) *dt)).getDist((b.getPosition()) + (b.getVelocity() * (i / accuracy) *dt))){
+			if (a->getHitboxRadius() + b->getHitboxRadius() > (a->getPosition() + (a->getVelocity() * (i / accuracy) *dt)).getDist((b->getPosition()) + (b->getVelocity() * (i / accuracy) *dt))){
 				detected = true;
 				i = accuracy + 1;
 			}
 		}
 		if (detected){
-			//postman.addMessage("Physics", "Collision", MS_COLLISION, 1);
+			//std::cout << "DETECTED COLLISION\n";
+			postman.addMessage("Physics", s->getFatherID<PhysicsComponent>(a), MS_COLLISION, (int)b.get());
+			postman.addMessage("Physics", s->getFatherID<PhysicsComponent>(b), MS_COLLISION, (int)a.get());
 		}
 		else {
 
@@ -121,7 +122,7 @@ Derivative PhysicsSystem::evaluate(PhysicsComponent &initial, std::vector<std::s
 	return output;
 }
 
-void PhysicsSystem::update(Message &postman, PhysicsComponent &body, std::vector<std::shared_ptr<PhysicsComponent>> &bodies, double dt){
+void PhysicsSystem::update(Message &postman, Scene *s, PhysicsComponent &body, std::vector<std::shared_ptr<PhysicsComponent>> &bodies, double dt){
 	Derivative a, b, c, d;
 	//on évalue 4 fois pour avoir une idée de la courbe
 	//de l'accélération (si elle n'est pas constante, 
@@ -132,7 +133,7 @@ void PhysicsSystem::update(Message &postman, PhysicsComponent &body, std::vector
 		for (int i(0); i < bodies.size(); i++) {
 			for (int j(i); j < bodies.size(); j++) {
 				if (i != j){
-					resolveCollision(postman, bodies[i], bodies[j], dt);
+					resolveCollision(postman, s, bodies[i], bodies[j], dt);
 				}
 			}
 		}

@@ -8,7 +8,7 @@ trigger1 = {
 		activated = "false"
 	},
 	Action = {
-		trigger = "Scene Player 34048 500.0",
+		trigger = "Scene trigger1 34048 1",
 		answer = "Action Trigger 34061 1"
 	}
 }

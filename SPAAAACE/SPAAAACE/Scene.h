@@ -57,6 +57,8 @@ Et voilà!
 
 #include "Message.h"
 
+class PhysicsSystem;
+
 class Scene
 {
 public:
@@ -88,6 +90,37 @@ public:
 	}
 
 
+	template <typename C> std::string getFatherID(std::shared_ptr<C> c){
+
+		int j = 0;
+		for (int i = 0; i < m_gameObjects.size(); i++){
+
+			if (std::to_string((int)c.get()) == std::to_string((int)m_gameObjects[i]->get<C>().get()) ) {
+				//std::cout << i << "\n";
+				j = i;
+				i = m_gameObjects.size();
+			}
+		}
+
+		return m_gameObjects[j]->getID();
+	}
+
+
+	template <typename C> std::string getFatherID(int c){
+
+		int j = 0;
+		for (int i = 0; i < m_gameObjects.size(); i++){
+
+			if (std::to_string(c) == std::to_string((int)m_gameObjects[i]->get<C>().get())) {
+				//std::cout << i << "\n";
+				j = i;
+				i = m_gameObjects.size();
+			}
+		}
+
+		return m_gameObjects[j]->getID();
+	}
+
 protected:
 	std::vector<std::shared_ptr<GameObject>> m_gameObjects;
 
@@ -107,7 +140,6 @@ protected:
 	std::string m_focusedID;
 
 	InputsSystem m_inSystem;
-	PhysicsSystem m_phySystem;
 
 	LTimer m_navigationTimer;
 	LTimer m_dialogueTimer;

@@ -25,7 +25,7 @@ int main(int argc, char* argv[]){
 	Scene game("scripts/scene_game", "game");
 	Message postman;
 
-	std::shared_ptr<Scene> currentScene = std::make_shared<Scene>(menu);
+	std::shared_ptr<Scene> currentScene = std::make_shared<Scene>(game);
 
 	while (!quit)
 	{

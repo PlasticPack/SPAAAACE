@@ -244,26 +244,17 @@ void Scene::update(Message &postman)
 				}
 			}
 			
-
-			m_phySystem.update(postman, *pc, m_physicsComps, 1.0 / GraphicsSystem::getFPS());
-			std::cout << pc->getPosition().x() << "\n";
-			if (postman.getMessage("Physics", std::to_string((int)pc.get()), MS_COLLISION)){
-				std::cout << "PLAYER COLLISION        ";
-
-				postman.addMessage("Scene", "Player", MS_COLLISION, pc->getPosition().x());
-			}
-
+			PhysicsSystem::update(postman, this, *pc, m_physicsComps, 1.0 / GraphicsSystem::getFPS());
 		}
 
+
+		if (postman.getMessage("Physics", "player", MS_COLLISION) > 1){
+			postman.addMessage("Scene", getFatherID<PhysicsComponent>(postman.getMessage("Physics", "player", MS_COLLISION)), MS_COLLISION, 1);
+		}
 
 		auto GLC = m_gameObjects[i]->get<GameLogicComponent>();
 		if (GLC != nullptr){
 			GameLogicSystem::update(postman, m_gameObjects[i], *GLC);
-		}
-
-		auto AC = m_gameObjects[i]->get<ActionComponent>();
-		if (AC != nullptr){
-			ActionSystem::update(postman, *AC);
 		}
 
 		auto gc = m_gameObjects[i]->get<GraphicsComponent>();
@@ -325,6 +316,16 @@ void Scene::update(Message &postman)
 		}
 
 	}
+
+
+	for (int i = 0; i < m_gameObjects.size(); i++){
+		auto AC = m_gameObjects[i]->get<ActionComponent>();
+		if (AC != nullptr){
+			ActionSystem::update(postman, *AC);
+		}
+	}
+
+
 	if (m_inSystem.checkTriggeredAction(AC_EXIT))
 		postman.addMessage("Action", "Button", MS_EXIT_REQUEST, 1);
 
