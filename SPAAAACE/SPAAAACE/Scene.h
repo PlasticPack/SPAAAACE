@@ -128,9 +128,6 @@ protected:
 	std::vector<std::shared_ptr<GameLogicComponent>>	m_GLComps;
 	std::vector<std::shared_ptr<ActionComponent>>		m_ActionComps;
 
-
-
-
 	//std::vector<std::shared_ptr<AiComponent>> m_aiComps;
 	//std::map<std::type_index, std::vector<std::shared_ptr<Component>>> m_components;
 

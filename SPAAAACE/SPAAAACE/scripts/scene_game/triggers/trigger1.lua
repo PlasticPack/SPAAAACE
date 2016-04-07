@@ -10,6 +10,6 @@ trigger1 = {
 	Action = {
 		trigger = "player trigger1 34048 1",
 		answer = "Action Trigger 34061 1",
-		timer = -1
+		timer = 3000
 	}
 }

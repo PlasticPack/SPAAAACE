@@ -1,16 +1,18 @@
 planet_1 = {
 	Position = {
-		x = 8000,
-		y = 0000,
+		x = 0000,
+		y = 2000,
 	},
 	Physics = {
-		mass = 7000,
-		hitbox = 1000,
-		elasticity = 0.89
+		mass = 700,
+		hitbox = 500,
+		elasticity = 0.89,
+		vel_x = 150,
+		vel_y = 160
 	},
 	Graphics = {
 		filename = "ressources/planet_1.png",
-		width = 2000,
-		height = 2000
+		width = 1000,
+		height = 1000
 	}
 }
