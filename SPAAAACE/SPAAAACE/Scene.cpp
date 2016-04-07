@@ -160,18 +160,12 @@ void Scene::update(Message &postman)
 			m_dialogueTimer.start();
 		}
 	}
-
-	if (m_inSystem.checkTriggeredAction(AC_START)) {
-		
-		GraphicsSystem::print("HEY it's started mate!");
-		GraphicsSystem::print("What are ye doin?");
-		std::cout << "ADD\n";
-	}
 		
 	
 	//TIR DU VAISSEAU
 	if (m_inSystem.checkTriggeredAction(AC_SHOOT))
 	{
+		std::cout << "pew!\n";
 		postman.addMessage("game", "Input", MS_SHOOT, 1);
 	}
 
@@ -224,22 +218,22 @@ void Scene::update(Message &postman)
 					/*	double deltaAngle = 0;
 
 					if (m_inSystem.checkTriggeredAction(AC_UP))
-						forces += direction * pwr;
+					forces += direction * pwr;
 					if (m_inSystem.checkTriggeredAction(AC_DOWN))
-						forces += pc->getVelocity().getNormalized() * -pwr;
-					
+					forces += pc->getVelocity().getNormalized() * -pwr;
+
 					if (m_inSystem.checkTriggeredAction(AC_LEFT))
-						deltaAngle = -0.95;
-					
+					deltaAngle = -0.95;
+
 					if (m_inSystem.checkTriggeredAction(AC_RIGHT))
-						deltaAngle = 0.95;
+					deltaAngle = 0.95;
 
 
 					if(deltaAngle == 0) //réduction automatique de la rotation
-						deltaAngle = -(pc->getAngularVelocity() / 200.0);*/
+					deltaAngle = -(pc->getAngularVelocity() / 200.0);*/
 					//on baisse le fuel
-				
-					if(forces.getLength() > 0)
+
+					if (forces.getLength() > 0) {
 						postman.addMessage("player", "player", MS_ENGINE_ACTIVE, 1);
 
 						//on baisse le fuel
@@ -248,14 +242,15 @@ void Scene::update(Message &postman)
 						pc->getPositionComponent()->setAngle(angle);
 
 						pc->setForces(forces);
-						
 					}
+
 				}
-				
+
+
 			}
-			
 			PhysicsSystem::update(postman, this, *pc, m_physicsComps, 1.0 / GraphicsSystem::getFPS());
 		}
+		
 
 		if (postman.getMessage("Physics", m_gameObjects[i]->getID(), MS_COLLISION) > 1){
 			postman.addMessage(m_gameObjects[i]->getID(), getFatherID<PhysicsComponent>(postman.getMessage("Physics", m_gameObjects[i]->getID(), MS_COLLISION)), MS_COLLISION, 1);
@@ -365,13 +360,15 @@ void Scene::update(Message &postman)
 	if (postman.getMessage("Action", "Trigger", 34061) > 0) {
 		GraphicsSystem::print("TRRRIIIIGGGERREDDD oh thats rude");
 	
+	}
+	
 	//MusSystem
 	m_musSytem.update(postman);
 
-	}
-
 	if (m_inSystem.checkTriggeredAction(AC_EXIT))
 		postman.addMessage("Action", "Button", MS_EXIT_REQUEST, 1);
+
+
 
 	GraphicsSystem::endFrame(postman);
 }
