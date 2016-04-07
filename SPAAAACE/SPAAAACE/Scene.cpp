@@ -44,7 +44,7 @@ void Scene::init(std::string arg){
 	m_inSystem.setActionTrigger(AC_EXIT, SDL_SCANCODE_ESCAPE);
 	
 	//initialise le mouvement du joueur selon le clavier
-	//m_inSystem.setActionTrigger(AC_SHOOT, SDL_BUTTON_LEFT);
+	m_inSystem.setActionTrigger(AC_SHOOT, SDL_SCANCODE_SPACE);
 	m_inSystem.setActionTrigger(AC_UP, SDL_SCANCODE_UP);
 	m_inSystem.setActionTrigger(AC_START, SDL_SCANCODE_C);
 	m_inSystem.setActionTrigger(AC_SELECT, SDL_SCANCODE_D);
@@ -54,7 +54,7 @@ void Scene::init(std::string arg){
 	m_inSystem.setActionTrigger(AC_HORIZONTAL_PUSH, GP_AXIS_LEFT_JOY_X);
 	m_inSystem.setActionTrigger(AC_VERTICAL_PUSH, GP_AXIS_LEFT_JOY_Y);
 	m_inSystem.setActionTrigger(AC_SELECT, SDL_SCANCODE_RETURN);
-	m_inSystem.setActionTrigger(AC_NEXT, SDL_SCANCODE_SPACE);
+	m_inSystem.setActionTrigger(AC_NEXT, SDL_SCANCODE_N);
 
 	GraphicsSystem::setFont("ressources/CaviarDreams.ttf", 30, { 225, 220, 255 });
 
@@ -111,7 +111,9 @@ void Scene::update(Message &postman)
 	postman.clearAll();
 	//INPUT GÉNÉRAL
 	m_inSystem.pollInputs();
-
+	postman.clearAll();
+	if (m_inSystem.checkTriggeredAction(AC_START))
+		postman.addMessage("game", "Input", 0, 1);
 
 	//GESTION DU MENU
 
@@ -165,13 +167,13 @@ void Scene::update(Message &postman)
 		GraphicsSystem::print("What are ye doin?");
 		std::cout << "ADD\n";
 	}
-
+		
+	
 	//TIR DU VAISSEAU
-
-	//=======================
-
-	//ashdgahds
-
+	if (m_inSystem.checkTriggeredAction(AC_SHOOT))
+	{
+		postman.addMessage("game", "Input", MS_SHOOT, 1);
+	}
 
 	GraphicsSystem::initFrame();
 	Vec2 playerPos(0,0), basePos(0,0);
@@ -235,23 +237,25 @@ void Scene::update(Message &postman)
 
 					if(deltaAngle == 0) //réduction automatique de la rotation
 						deltaAngle = -(pc->getAngularVelocity() / 200.0);*/
-
 					//on baisse le fuel
+				
+					if(forces.getLength() > 0)
+						postman.addMessage("player", "player", MS_ENGINE_ACTIVE, 1);
 
-					if (forces.getLength() > 0) {
+						//on baisse le fuel
 
 						postman.addMessage("Scene-", m_gameObjects[i]->getID(), MS_ENGINE_ACTIVE, 1);
 						pc->getPositionComponent()->setAngle(angle);
-					}
 
-					pc->setForces(forces);
-					
+						pc->setForces(forces);
+						
+					}
 				}
+				
 			}
 			
 			PhysicsSystem::update(postman, this, *pc, m_physicsComps, 1.0 / GraphicsSystem::getFPS());
 		}
-
 
 		if (postman.getMessage("Physics", m_gameObjects[i]->getID(), MS_COLLISION) > 1){
 			postman.addMessage(m_gameObjects[i]->getID(), getFatherID<PhysicsComponent>(postman.getMessage("Physics", m_gameObjects[i]->getID(), MS_COLLISION)), MS_COLLISION, 1);
@@ -295,14 +299,14 @@ void Scene::update(Message &postman)
 						std::string id = m_gameObjects[j]->getID();
 
 						if (id == "hud_fuel"){
-							//if (postman.getMessage("GameLogic", m_gameObjects[i]->getID(), MS_ENGINE_ACTIVE) > 0){
+							if (postman.getMessage("GameLogic", m_gameObjects[i]->getID(), MS_ENGINE_ACTIVE) > 0){
 
 								//on réduit le fuel
 								Vec2 baseSize = m_gameObjects[j]->get<GraphicsComponent>()->getMaxSize();
 								double fuel = (double)(m_gameObjects[i]->get<GameLogicComponent>()->getCurrentFuel()) / (double)m_gameObjects[i]->get<GameLogicComponent>()->getMaxFuel();
 								m_gameObjects[j]->get<GraphicsComponent>()->setSize(Vec2(baseSize.x() * fuel, baseSize.y()));
 
-							//}
+							}
 						}
 						else if (id == "hud_life"){
 							//if (postman.getMessage("GameLogic", m_gameObjects[i]->getID(), MS_LIFE_DOWN) > 0) {
@@ -360,6 +364,9 @@ void Scene::update(Message &postman)
 
 	if (postman.getMessage("Action", "Trigger", 34061) > 0) {
 		GraphicsSystem::print("TRRRIIIIGGGERREDDD oh thats rude");
+	
+	//MusSystem
+	m_musSytem.update(postman);
 
 	}
 

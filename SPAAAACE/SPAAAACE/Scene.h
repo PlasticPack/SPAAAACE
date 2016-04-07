@@ -11,6 +11,7 @@
 #include <time.h>
 #include "LuaInit.hpp"
 #include <exception>
+#include "MusicSystem.h"
 
 #include "XML_utilities.hpp"
 
@@ -134,6 +135,7 @@ protected:
 	std::string m_id;
 	std::string m_focusedID;
 
+	MusicSystem m_musSytem;
 	InputsSystem m_inSystem;
 
 	LTimer m_navigationTimer;

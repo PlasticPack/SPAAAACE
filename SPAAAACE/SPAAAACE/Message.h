@@ -17,7 +17,10 @@ public:
 	~Message();
 
 	void addMessage(std::string const& sender, std::string const& fromComponent, int const& msFlag, double const& message);
+	void deleteMessage(std::string const& sender, std::string const& fromComponent, int const &msFlag = 0);
 	
+	//TODO: méthodes pour faire survivre un message à travers une frame
+
 	std::queue<typeMsPair> getMessageQueue(std::string const& sender, std::string const& fromComponent);
 	double getMessage(std::string const& sender, std::string const& fromComponent, int const& msFlag);
 	

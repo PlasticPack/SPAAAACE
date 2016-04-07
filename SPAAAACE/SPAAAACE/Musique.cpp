@@ -5,10 +5,25 @@ Musique::Musique(std::string filepath)
 	m_musique = Mix_LoadMUS(filepath.c_str());
 }
 
-
-Musique::~Musique()
+Musique::Musique(const Musique &musique)
 {
+	*this = musique;
+}
+
+Musique& Musique::operator=(const Musique &musique)
+{
+	m_musique = Mix_LoadMUS(musique.m_filePath.c_str());
+	return *this;
+}
+
+Musique::Musique()
+{
+	m_musique = NULL;
+}
+Musique::~Musique()
+{	
 	Mix_FreeMusic(m_musique);
+	m_musique = NULL;
 }
 
 void Musique::play(unsigned fadeIn)
