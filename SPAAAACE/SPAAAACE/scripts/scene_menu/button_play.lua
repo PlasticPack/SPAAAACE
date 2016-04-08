@@ -1,10 +1,12 @@
 button_play = {
 	Position = {
-		x = 600,
-		y = 400,
+		x = 125,
+		y = 775,
 	},
 	Graphics = {
-		filename = "default__ressources/button_play.png selected__ressources/button_play_selected.png"
+		filename = "default__ressources/button_play.png 33selected__ressources/button_play_selected.png",
+		anim_speed = 12,
+		cam = "false"
 	},
 	Action = {
 		trigger = "Scene button_play 34059 1",

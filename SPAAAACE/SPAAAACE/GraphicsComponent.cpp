@@ -41,13 +41,21 @@ GraphicsComponent::GraphicsComponent(luabridge::LuaRef& componentTable, std::sha
 			m_sprite = std::make_shared<Sprite>();
 			//on récupère les différentes spritesheet
 			std::string filepath = spriteRef.cast < std::string>();
-			
+
 			std::istringstream buf(filepath);
 			std::istream_iterator<std::string> beg(buf), end;
 			std::vector<std::string> sheets(beg, end);
 			
 			for (int s = 0; s < sheets.size(); s++){
 				std::string part = sheets[s];
+
+				if (isdigit(part[0]) && isdigit(part[1])){
+
+					c = part[0] - '0';
+					r = part[1] - '0';
+
+					part.erase(0, 2);
+				}
 
 				std::string name = part.substr(0, part.find("__"));
 

@@ -1,0 +1,138 @@
+﻿'SPAAAACE.exe' (Win32) : Chargé 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Debug\SPAAAACE.exe'. Les symboles ont été chargés.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\ntdll.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\kernel32.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\KernelBase.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Debug\lua5.2.dll'. Le module a été généré sans symboles.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Debug\vcruntime140.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\winsxs\x86_microsoft-windows-u..rsalcrt-apifwd-win7_31bf3856ad364e35_6.1.7601.19105_none_4dd5001a6c86f907\api-ms-win-crt-runtime-l1-1-0.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\ucrtbase.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\winsxs\x86_microsoft-windows-u..rsalcrt-apifwd-win7_31bf3856ad364e35_6.1.7601.19105_none_4dd5001a6c86f907\api-ms-win-core-timezone-l1-1-0.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\winsxs\x86_microsoft-windows-u..rsalcrt-apifwd-win7_31bf3856ad364e35_6.1.7601.19105_none_4dd5001a6c86f907\api-ms-win-core-file-l2-1-0.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\winsxs\x86_microsoft-windows-u..rsalcrt-apifwd-win7_31bf3856ad364e35_6.1.7601.19105_none_4dd5001a6c86f907\api-ms-win-core-localization-l1-2-0.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\api-ms-win-core-synch-l1-2-0.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\winsxs\x86_microsoft-windows-u..rsalcrt-apifwd-win7_31bf3856ad364e35_6.1.7601.19105_none_4dd5001a6c86f907\api-ms-win-core-processthreads-l1-1-1.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\winsxs\x86_microsoft-windows-u..rsalcrt-apifwd-win7_31bf3856ad364e35_6.1.7601.19105_none_4dd5001a6c86f907\api-ms-win-core-file-l1-2-0.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\winsxs\x86_microsoft-windows-u..rsalcrt-apifwd-win7_31bf3856ad364e35_6.1.7601.19105_none_4dd5001a6c86f907\api-ms-win-crt-string-l1-1-0.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\winsxs\x86_microsoft-windows-u..rsalcrt-apifwd-win7_31bf3856ad364e35_6.1.7601.19105_none_4dd5001a6c86f907\api-ms-win-crt-heap-l1-1-0.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\winsxs\x86_microsoft-windows-u..rsalcrt-apifwd-win7_31bf3856ad364e35_6.1.7601.19105_none_4dd5001a6c86f907\api-ms-win-crt-stdio-l1-1-0.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\winsxs\x86_microsoft-windows-u..rsalcrt-apifwd-win7_31bf3856ad364e35_6.1.7601.19105_none_4dd5001a6c86f907\api-ms-win-crt-convert-l1-1-0.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\advapi32.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\msvcrt.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\sechost.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\rpcrt4.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\sspicli.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\cryptbase.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\winsxs\x86_microsoft-windows-u..rsalcrt-apifwd-win7_31bf3856ad364e35_6.1.7601.19105_none_4dd5001a6c86f907\api-ms-win-crt-locale-l1-1-0.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\winsxs\x86_microsoft-windows-u..rsalcrt-apifwd-win7_31bf3856ad364e35_6.1.7601.19105_none_4dd5001a6c86f907\api-ms-win-crt-utility-l1-1-0.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\winsxs\x86_microsoft-windows-u..rsalcrt-apifwd-win7_31bf3856ad364e35_6.1.7601.19105_none_4dd5001a6c86f907\api-ms-win-crt-math-l1-1-0.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\winsxs\x86_microsoft-windows-u..rsalcrt-apifwd-win7_31bf3856ad364e35_6.1.7601.19105_none_4dd5001a6c86f907\api-ms-win-crt-environment-l1-1-0.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\winsxs\x86_microsoft-windows-u..rsalcrt-apifwd-win7_31bf3856ad364e35_6.1.7601.19105_none_4dd5001a6c86f907\api-ms-win-crt-time-l1-1-0.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\winsxs\x86_microsoft-windows-u..rsalcrt-apifwd-win7_31bf3856ad364e35_6.1.7601.19105_none_4dd5001a6c86f907\api-ms-win-crt-filesystem-l1-1-0.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Debug\SDL2.dll'. Le module a été généré sans symboles.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\gdi32.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\user32.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\lpk.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\usp10.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\imm32.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\msctf.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\ole32.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\oleaut32.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\shell32.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\shlwapi.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\version.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\winmm.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Debug\SDL2_image.dll'. Le module a été généré sans symboles.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Debug\SDL2_mixer.dll'. Le module a été généré sans symboles.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Debug\SDL2_ttf.dll'. Le module a été généré sans symboles.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Debug\libfreetype-6.dll'. Le module a été généré sans symboles.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Debug\zlib1.dll'. Le module a été généré sans symboles.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Debug\boost_filesystem-vc120-mt-gd-1_60.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Debug\boost_system-vc120-mt-gd-1_60.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\msvcp120d.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\msvcr120d.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\uxtheme.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Program Files (x86)\Common Files\microsoft shared\ink\tiptsf.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\dwmapi.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\clbcatq.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\XAudio2_7.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\dinput8.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\hid.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\setupapi.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\cfgmgr32.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\devobj.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\wintrust.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\crypt32.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\msasn1.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Debug\xinput1_3.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\MMDevAPI.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\propsys.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\AudioSes.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\avrt.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\wdmaud.drv'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\ksuser.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\msacm32.drv'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\msacm32.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\midimap.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+Le thread 0x96e8 s'est arrêté avec le code 0 (0x0).
+Le thread 0x886c s'est arrêté avec le code 0 (0x0).
+Le thread 0x8c30 s'est arrêté avec le code 0 (0x0).
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Debug\libpng16-16.dll'. Le module a été généré sans symboles.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\msctf.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Déchargé 'C:\Windows\SysWOW64\msctf.dll'
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\ole32.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Déchargé 'C:\Windows\SysWOW64\ole32.dll'
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\msctf.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Déchargé 'C:\Windows\SysWOW64\msctf.dll'
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\msctf.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Déchargé 'C:\Windows\SysWOW64\msctf.dll'
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\msctf.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Déchargé 'C:\Windows\SysWOW64\msctf.dll'
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\oleacc.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\d3d9.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\d3d8thk.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\nvd3dum.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\psapi.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+Le thread 0x9780 s'est arrêté avec le code 0 (0x0).
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\user32.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Déchargé 'C:\Windows\SysWOW64\user32.dll'
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\powrprof.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Program Files (x86)\NVIDIA Corporation\3D Vision\nvSCPAPI.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\shell32.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Déchargé 'C:\Windows\SysWOW64\shell32.dll'
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\nvspcap.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\winhttp.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\webio.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\shell32.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Déchargé 'C:\Windows\SysWOW64\shell32.dll'
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\nvapi.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\profapi.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\gdi32.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Déchargé 'C:\Windows\SysWOW64\gdi32.dll'
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\gdi32.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Déchargé 'C:\Windows\SysWOW64\gdi32.dll'
+'SPAAAACE.exe' (Win32) : Chargé 'C:\Windows\SysWOW64\gdi32.dll'. Impossible de trouver ou d'ouvrir le fichier PDB.
+'SPAAAACE.exe' (Win32) : Déchargé 'C:\Windows\SysWOW64\gdi32.dll'
+Le thread 0x97e8 s'est arrêté avec le code 0 (0x0).
+Le thread 0x94a8 s'est arrêté avec le code 0 (0x0).
+'SPAAAACE.exe' (Win32) : Déchargé 'C:\Windows\SysWOW64\powrprof.dll'
+Le thread 0x9420 s'est arrêté avec le code 0 (0x0).
+Le thread 0x9300 s'est arrêté avec le code 0 (0x0).
+Le thread 0x9720 s'est arrêté avec le code 0 (0x0).
+Le thread 0x8b38 s'est arrêté avec le code 0 (0x0).
+Le thread 0x97c0 s'est arrêté avec le code 0 (0x0).
+'SPAAAACE.exe' (Win32) : Déchargé 'C:\Windows\SysWOW64\nvd3dum.dll'
+'SPAAAACE.exe' (Win32) : Déchargé 'C:\Windows\SysWOW64\d3d9.dll'
+'SPAAAACE.exe' (Win32) : Déchargé 'C:\Windows\SysWOW64\d3d8thk.dll'
+'SPAAAACE.exe' (Win32) : Déchargé 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Debug\libpng16-16.dll'
+Le thread 0x8ea8 s'est arrêté avec le code 0 (0x0).
+'SPAAAACE.exe' (Win32) : Déchargé 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Debug\xinput1_3.dll'
+Le thread 0x97ec s'est arrêté avec le code 0 (0x0).
+Le thread 0x8a2c s'est arrêté avec le code 0 (0x0).
+Le thread 0x7ebc s'est arrêté avec le code 0 (0x0).
+Le thread 0x9540 s'est arrêté avec le code 0 (0x0).
+Le thread 0x9794 s'est arrêté avec le code 0 (0x0).
+Le thread 0x963c s'est arrêté avec le code 0 (0x0).
+Le thread 0x9628 s'est arrêté avec le code 0 (0x0).
+Le thread 0x909c s'est arrêté avec le code 0 (0x0).
+Le thread 0x9678 s'est arrêté avec le code 0 (0x0).
+Le programme '[37172] SPAAAACE.exe' s'est arrêté avec le code 0 (0x0).

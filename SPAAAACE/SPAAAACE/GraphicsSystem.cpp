@@ -259,9 +259,11 @@ void GraphicsSystem::initFrame(){
 
 			m_avgFPS = m_countedFrames / (1 + m_fpsTimer.getTicks() / 1000.0);
 			//std::cout << m_countedFrames << " / " << m_fpsTimer.getTicks() / 1000.0 <<  " = "  << m_avgFPS << "<- :D\n";
-			if (m_avgFPS > 200000){
+			if (m_avgFPS > 20000 || m_avgFPS < 10){
 				m_avgFPS = 60;
 			}
+
+			//std::cout << m_avgFPS << "\n";
 
 			//SDL_SetRenderDrawColor(m_renderer, 12, 0, 24, 0);
 			SDL_RenderClear(m_renderer);

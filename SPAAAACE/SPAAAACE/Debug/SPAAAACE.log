@@ -1,15 +1,6 @@
-﻿  Scene.cpp
+﻿  main.cpp
 c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\luainit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
           c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\physicssystem.h(19) : voir la déclaration de 'Scene'
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(72): warning C4018: '<' : incompatibilité signed/unsigned
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(79): warning C4018: '>=' : incompatibilité signed/unsigned
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(88): warning C4018: '<' : incompatibilité signed/unsigned
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(91): warning C4018: '<' : incompatibilité signed/unsigned
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(175): warning C4018: '<' : incompatibilité signed/unsigned
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(256): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(291): warning C4018: '<' : incompatibilité signed/unsigned
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(353): warning C4018: '<' : incompatibilité signed/unsigned
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.h(112): warning C4018: '<' : incompatibilité signed/unsigned
-          c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(256) : voir la référence à l'instanciation de la fonction modèle 'std::string Scene::getFatherID<PhysicsComponent>(int)' en cours de compilation
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\main.cpp(22): warning C4101: 'e' : variable locale non référencée
   SPAAAACE.vcxproj -> C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Debug\SPAAAACE.exe
 BSCMAKE : warning BK4503: erreur mineure dans le fichier .SBR 'Debug\InputSystem.sbr' ignorÚe
