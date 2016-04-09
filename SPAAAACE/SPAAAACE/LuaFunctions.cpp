@@ -76,7 +76,7 @@ std::vector<std::string> luain::getTableKeys(lua_State* L, const std::string& na
 	lua_pushnil(L);
 	std::vector<std::string> keys;
 	//Violation of access happeniing right here...
-	//like, just below this line, means the file wa not oppened !
+	//like, just below this line, means the file was not oppened !
 	while (lua_next(L, -2)) { // get values one by one
 		//std::cout << "*";
 		if (lua_type(L, -1) == LUA_TSTRING) { // check if key is a string
@@ -260,3 +260,27 @@ std::shared_ptr<GameObject> luain::loadGameObjects(Scene *s, lua_State* L, const
 	std::cout << "\n\n\n";
 	return obj;
 }
+/*
+void luain::loadFromRep(Scene* sc, std::map<std::string, GameObject> &objs, const std::string& filepath, const std::string& ext){
+	std::vector<std::string> files_dir = getFiles(filepath, ext);
+	if (!files_dir.empty()){
+		for (int i = 0; i < files_dir.size(); i++){
+			std::cout << "Loading file :" << files_dir[i] << std::endl;
+			lua_State* L = luaL_newstate();
+			luaL_openlibs(L);
+			luaL_dofile(L, std::string(files_dir[i]).c_str());
+			loadGetKeysFunction(L);
+			boost::filesystem::path p(files_dir[i]);
+			std::shared_ptr<GameObject> obj = loadGameObjects(sc, L, p.stem().string());
+			//boost::filesystem::path p(files_dir[i]);
+			if (objs.find(p.stem().string()) == objs.end()){
+				obj->setID(p.stem().string());
+				//std::cout << obj->getID() << std::endl;
+				objs.insert(std::make_pair(obj->getID(), *obj.get()));
+			}
+			else std::cout << "Colision at:" << p.stem().string() << std::endl;
+
+		}
+	}
+}
+*/

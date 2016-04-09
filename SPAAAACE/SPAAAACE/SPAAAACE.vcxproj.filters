@@ -7,9 +7,6 @@
     <ClCompile Include="LTimer.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="Message.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
@@ -96,6 +93,9 @@
     </ClCompile>
     <ClCompile Include="ActionSystem.cpp">
       <Filter>Sources\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -212,10 +212,5 @@
     <Filter Include="Sources\Components">
       <UniqueIdentifier>{742afcbc-b65d-42b6-a878-83865cdbf4c7}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="nem1.lua">
-      <Filter>Sources</Filter>
-    </None>
   </ItemGroup>
 </Project>
