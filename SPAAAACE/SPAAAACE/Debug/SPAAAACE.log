@@ -1,76 +1,56 @@
-﻿  main.cpp
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\luainit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
-          c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\physicssystem.h(19) : voir la déclaration de 'Scene'
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\main.cpp(22): warning C4101: 'e' : variable locale non référencée
-  XML_utilityfunctions.cpp
-  Vec2.cpp
-  SpriteSheet.cpp
-  Sprite.cpp
-  Scene.cpp
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\luainit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
-          c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\physicssystem.h(19) : voir la déclaration de 'Scene'
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(72): warning C4018: '<' : incompatibilité signed/unsigned
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(79): warning C4018: '>=' : incompatibilité signed/unsigned
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(88): warning C4018: '<' : incompatibilité signed/unsigned
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(91): warning C4018: '<' : incompatibilité signed/unsigned
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(175): warning C4018: '<' : incompatibilité signed/unsigned
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(256): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(291): warning C4018: '<' : incompatibilité signed/unsigned
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(353): warning C4018: '<' : incompatibilité signed/unsigned
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.h(112): warning C4018: '<' : incompatibilité signed/unsigned
-          c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(256) : voir la référence à l'instanciation de la fonction modèle 'std::string Scene::getFatherID<PhysicsComponent>(int)' en cours de compilation
-  PositionComponent.cpp
-  PhysicsSystem.cpp
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\luainit.hpp(22): warning C4099: 'Scene' : nom de type déjà rencontré avec 'struct' et utilisant maintenant 'class'
-          c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\luainit.hpp(20) : voir la déclaration de 'Scene'
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.h(64): warning C4099: 'Scene' : nom de type déjà rencontré avec 'struct' et utilisant maintenant 'class'
-          c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\luainit.hpp(20) : voir la déclaration de 'Scene'
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\physicssystem.cpp(70): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\physicssystem.cpp(133): warning C4018: '<' : incompatibilité signed/unsigned
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\physicssystem.cpp(134): warning C4018: '<' : incompatibilité signed/unsigned
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\physicssystem.cpp(169): warning C4018: '<' : incompatibilité signed/unsigned
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.h(97): warning C4018: '<' : incompatibilité signed/unsigned
-          c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\physicssystem.cpp(75) : voir la référence à l'instanciation de la fonction modèle 'std::string Scene::getFatherID<PhysicsComponent>(std::shared_ptr<PhysicsComponent>)' en cours de compilation
-  PhysicsComponent.cpp
-  MusicSystem.cpp
-  Message.cpp
-  LuaFunctions.cpp
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\luainit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
-          c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.h(64) : voir la déclaration de 'Scene'
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\luafunctions.cpp(170): warning C4018: '<' : incompatibilité signed/unsigned
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\luafunctions.cpp(190): warning C4018: '<' : incompatibilité signed/unsigned
-  LTimer.cpp
-  InputsComponent.cpp
-  InputSystem.cpp
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\inputsystem.cpp(62): warning C4018: '>' : incompatibilité signed/unsigned
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\inputsystem.cpp(155): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
-  GraphicsSystem.cpp
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(235): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(244): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(274): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(292): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(293): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(298): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(299): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(304): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(307): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(311): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(313): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(371): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-  GraphicsComponent.cpp
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicscomponent.cpp(49): warning C4018: '<' : incompatibilité signed/unsigned
-  GameObject.cpp
-  GameLogicSystem.cpp
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\gamelogicsystem.cpp(25): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-  GameLogicComponent.cpp
-  Génération de code en cours...
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(153): warning C4715: 'GraphicsSystem::loadTexture' : les chemins de contrôle ne retournent pas tous une valeur
-  Compilation en cours...
-  Component.cpp
-  ActionSystem.cpp
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\actionsystem.cpp(6): warning C4018: '>' : incompatibilité signed/unsigned
-  ActionComponent.cpp
-  Génération de code en cours...
-  LINK : C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Debug\SPAAAACE.exe introuvable ou non généré par la dernière édition de liens incrémentielle ; édition de liens complète en cours
-  SPAAAACE.vcxproj -> C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Debug\SPAAAACE.exe
-BSCMAKE : warning BK4503: erreur mineure dans le fichier .SBR 'Debug\InputSystem.sbr' ignorÚe
+﻿La génération a démarré 2016-04-09 19:28:38.
+     1>Projet "C:\Users\Tristan\Documents\GitHub\SPAAAACE\SPAAAACE\SPAAAACE\SPAAAACE.vcxproj" sur le nœud 2 (Build cible(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\Boost /I..\..\Lua\5.2\include /I"..\..\LuaBridge-master\Source\LuaBridge" /I..\..\SDL2_ttf\include /I..\..\tinyxml /I"..\..\SDL2_mixer-2.0.1\include" /I"..\..\SDL2_image-2.0.1\include" /I"..\..\SDL2-2.0.4\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /FR"Debug\\" /Gd /TP /analyze- /errorReport:prompt boostExemple.cpp main.cpp XML_utilityfunctions.cpp
+         XML_utilityfunctions.cpp
+     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\xml_utilityfunctions.cpp(120): warning C4018: '<' : incompatibilité signed/unsigned
+     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\xml_utilityfunctions.cpp(141): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\xml_utilityfunctions.cpp(142): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+         main.cpp
+     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\luainit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
+                 c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\physicssystem.h(19) : voir la déclaration de 'Scene'
+     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\main.cpp(22): warning C4101: 'e' : variable locale non référencée
+         boostExemple.cpp
+         Génération de code en cours...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Tristan\Documents\GitHub\SPAAAACE\SPAAAACE\Debug\SPAAAACE.exe" /INCREMENTAL /NOLOGO /LIBPATH:..\..\Boost\stage\lib /LIBPATH:..\..\SDL2_ttf\lib\x86 /LIBPATH:"..\..\SDL2_mixer-2.0.1\lib\x86" /LIBPATH:"..\..\SDL2_image-2.0.1\lib\x86" /LIBPATH:"..\..\SDL2-2.0.4\lib\x86" /LIBPATH:..\..\Lua\5.2\lib lua5.2.lib SDL2main.lib SDL2.lib SDL2_image.lib SDL2_mixer.lib SDL2_ttf.lib "boost_filesystem-vc120-mt-gd-1_60.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Tristan\Documents\GitHub\SPAAAACE\SPAAAACE\Debug\SPAAAACE.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Tristan\Documents\GitHub\SPAAAACE\SPAAAACE\Debug\SPAAAACE.lib" /MACHINE:X86 Debug\tinystr.obj
+         Debug\tinyxml.obj
+         Debug\tinyxmlerror.obj
+         Debug\tinyxmlparser.obj
+         Debug\ActionComponent.obj
+         Debug\ActionSystem.obj
+         Debug\boostExemple.obj
+         Debug\Component.obj
+         Debug\GameLogicComponent.obj
+         Debug\GameLogicSystem.obj
+         Debug\GameObject.obj
+         Debug\GraphicsComponent.obj
+         Debug\GraphicsSystem.obj
+         Debug\LTimer.obj
+         Debug\InputsComponent.obj
+         Debug\InputSystem.obj
+         Debug\LuaFunctions.obj
+         Debug\main.obj
+         Debug\Message.obj
+         Debug\MusicSystem.obj
+         Debug\Musique.obj
+         Debug\PhysicsComponent.obj
+         Debug\PhysicsSystem.obj
+         Debug\PositionComponent.obj
+         Debug\Scene.obj
+         Debug\scriptinit_exemple.obj
+         Debug\Son.obj
+         Debug\Source1.obj
+         Debug\Sprite.obj
+         Debug\SpriteSheet.obj
+         Debug\Vec2.obj
+         Debug\XML_utilityfunctions.obj
+         SPAAAACE.vcxproj -> C:\Users\Tristan\Documents\GitHub\SPAAAACE\SPAAAACE\Debug\SPAAAACE.exe
+       BscMake:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\bscmake.exe /nologo /o"C:\Users\Tristan\Documents\GitHub\SPAAAACE\SPAAAACE\Debug\SPAAAACE.bsc" /n Debug\tinystr.sbr Debug\tinyxml.sbr Debug\tinyxmlerror.sbr Debug\tinyxmlparser.sbr Debug\ActionComponent.sbr Debug\ActionSystem.sbr Debug\boostExemple.sbr Debug\Component.sbr Debug\GameLogicComponent.sbr Debug\GameLogicSystem.sbr Debug\GameObject.sbr Debug\GraphicsComponent.sbr Debug\GraphicsSystem.sbr Debug\LTimer.sbr Debug\InputsComponent.sbr Debug\InputSystem.sbr Debug\LuaFunctions.sbr Debug\main.sbr Debug\Message.sbr Debug\MusicSystem.sbr Debug\Musique.sbr Debug\PhysicsComponent.sbr Debug\PhysicsSystem.sbr Debug\PositionComponent.sbr Debug\Scene.sbr Debug\scriptinit_exemple.sbr Debug\Son.sbr Debug\Source1.sbr Debug\Sprite.sbr Debug\SpriteSheet.sbr Debug\Vec2.sbr Debug\XML_utilityfunctions.sbr
+     1>BSCMAKE : warning BK4503: erreur mineure dans le fichier .SBR 'Debug\InputSystem.sbr' ignorÚe
+     1>Génération du projet "C:\Users\Tristan\Documents\GitHub\SPAAAACE\SPAAAACE\SPAAAACE\SPAAAACE.vcxproj" terminée (Build cible(s)).
+
+La génération a réussi.
+
+Temps écoulé 00:00:07.01
