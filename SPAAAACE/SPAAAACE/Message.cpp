@@ -12,10 +12,11 @@ Message::~Message()
 }
 
 
-void Message::addMessage(std::string const& sender, std::string const& fromComponent,int const& msFlag ,double const& message)
+void Message::addMessage(std::string const& sender, std::string const& fromComponent, int const& msFlag, double const& message)
 {
-	m_messages.insert(std::make_pair(sender + fromComponent,make_pair(msFlag,message)));
+	m_messages.insert(std::make_pair(sender + fromComponent, make_pair(msFlag, message)));
 }
+
 
 std::queue<typeMsPair> Message::getMessageQueue(std::string const& sender, std::string const& fromComponent)
 {
@@ -31,7 +32,7 @@ std::queue<typeMsPair> Message::getMessageQueue(std::string const& sender, std::
 double Message::getMessage(std::string const& sender, std::string const& fromComponent, int const& msFlag)
 {
 	pair<typeMessage::iterator, typeMessage::iterator> messagePlage = m_messages.equal_range(sender + fromComponent);
-	
+
 	for (typeMessage::iterator it = messagePlage.first; it != messagePlage.second; ++it)
 	{
 		if (it->second.first == msFlag)
@@ -40,7 +41,23 @@ double Message::getMessage(std::string const& sender, std::string const& fromCom
 	return 0;
 
 }
+//TODO: à tester
+void Message::deleteMessage(std::string const& sender, std::string const& fromComponent, int const &msFlag){
 
+	if (!msFlag)
+	m_messages.erase(m_messages.find(sender + fromComponent));
+	else
+	{
+		pair<typeMessage::iterator, typeMessage::iterator> messagePlage = m_messages.equal_range(sender + fromComponent);
+		for (; messagePlage.first != messagePlage.second; ++messagePlage.first)
+		{
+			if (messagePlage.first->second.first == msFlag)
+			{
+				messagePlage.first->second.second = 0;
+			}
+		}
+	}
+}
 
 void Message::clearAll(void)
 {

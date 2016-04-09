@@ -3,10 +3,17 @@
 #include "GraphicsSystem.h"
 #include "PhysicsSystem.h"
 #include "InputSystem.h"
+#include "ActionSystem.h"
+#include "GameLogicSystem.h"
+#include "GameObject.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include "LuaInit.hpp"
+#include <exception>
+#include "MusicSystem.h"
+
+#include "XML_utilities.hpp"
 
 /*********************************************
 
@@ -51,26 +58,25 @@ Et voilà!
 
 #include "Message.h"
 
+class PhysicsSystem;
+
 class Scene
 {
 public:
 
-	Scene();
+	Scene(std::string arg, std::string);
 	~Scene();
-
-	//void addGameObject();
 	
 	void update(Message &postman);
-	void init(); // méthode qui prend un script  et initialise le vector de gameObjects
+	void init(std::string arg); // méthode qui prend un script  et initialise le vector de gameObjects
 
-	//void addSkyBody(double x, double y, double mass, std::string id, Uint8 r = 255, Uint8 g = 255, Uint8 b = 255);
 	void orderByZIndex();
 
 	//getters des components, utile à luafunctions.cpp
 	template <typename T> void addComponent(std::shared_ptr<Component> c){
 		 
 		//m_components[t].push_back(c);
-		std::cout << "Added a " << std::type_index(typeid(T)).name() << " to Scene\n";
+		//std::cout << "Added a " << std::type_index(typeid(T)).name() << " to Scene\n";
 		if (std::type_index(typeid(T)) == std::type_index(typeid(PositionComponent))){
 			m_posComps.push_back(std::dynamic_pointer_cast<PositionComponent>(c));
 		}
@@ -84,28 +90,55 @@ public:
 		}
 	}
 
-	//std::vector<GameObject> getObjects() { return m_gameObjects; } // temporaire
-	/*
-	template <typename T> std::vector<T> getAll(){ // retourne tous les components d'un type chez les objets
-		std::vector<T> components;
+
+	template <typename C> std::string getFatherID(std::shared_ptr<C> c){
+
+		int j = 0;
 		for (int i = 0; i < m_gameObjects.size(); i++){
-			auto comp = m_gameObjects[i].get<T>();
-			if (comp != nullptr){
-				components.push_back(*comp);
+
+			if (std::to_string((int)c.get()) == std::to_string((int)m_gameObjects[i]->get<C>().get()) ) {
+				j = i;
+				i = m_gameObjects.size();
 			}
 		}
-	}*/
+
+		return m_gameObjects[j]->getID();
+	}
+
+
+	template <typename C> std::string getFatherID(int c){
+
+		int j = 0;
+		for (int i = 0; i < m_gameObjects.size(); i++){
+
+			if (std::to_string(c) == std::to_string((int)m_gameObjects[i]->get<C>().get())) {
+				j = i;
+				i = m_gameObjects.size();
+			}
+		}
+
+		return m_gameObjects[j]->getID();
+	}
 
 protected:
 	std::vector<std::shared_ptr<GameObject>> m_gameObjects;
-	std::vector<std::shared_ptr<PositionComponent>> m_posComps;
-	std::vector<std::shared_ptr<GraphicsComponent>> m_graphicsComps;
-	std::vector<std::shared_ptr<PhysicsComponent>> m_physicsComps;
 
+	std::vector<std::shared_ptr<PositionComponent>>		m_posComps;
+	std::vector<std::shared_ptr<GraphicsComponent>>		m_graphicsComps;
+	std::vector<std::shared_ptr<PhysicsComponent>>		m_physicsComps;
+	std::vector<std::shared_ptr<GameLogicComponent>>	m_GLComps;
+	std::vector<std::shared_ptr<ActionComponent>>		m_ActionComps;
 
-	std::map<std::type_index, std::vector<std::shared_ptr<Component>>> m_components;
+	//std::vector<std::shared_ptr<AiComponent>> m_aiComps;
+	//std::map<std::type_index, std::vector<std::shared_ptr<Component>>> m_components;
 
+	std::string m_id;
+	std::string m_focusedID;
+
+	MusicSystem m_musSytem;
 	InputsSystem m_inSystem;
-	PhysicsSystem m_phySystem;
+
+	LTimer m_navigationTimer;
+	LTimer m_dialogueTimer;
 };
 

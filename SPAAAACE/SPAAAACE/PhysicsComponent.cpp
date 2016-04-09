@@ -13,6 +13,7 @@ PhysicsComponent::PhysicsComponent(std::shared_ptr<PositionComponent> c)
 	m_hitboxRadius = 15;
 	m_elasticity = 0.9;
 	setHitboxRadius(50.0);
+	m_angularVelocity = 0;
 }
 
 #include <string>
@@ -21,12 +22,17 @@ PhysicsComponent::PhysicsComponent(luabridge::LuaRef& componentTable, std::share
 	using namespace luabridge;
 	m_posComponent = c;
 	m_elasticity = 0.9;
+	m_angularVelocity = 0;
 	m_activated = true;
+	m_velocity = Vec2(0, 0);
 
-	auto massRef = componentTable["mass"];
-	auto activateRef = componentTable["activated"];
-	auto hbRef = componentTable["hitbox"];
-	auto ela = componentTable["elasticity"];
+	auto massRef =		componentTable["mass"];
+	auto activateRef =	componentTable["activated"];
+	auto hbRef =		componentTable["hitbox"];
+	auto ela =			componentTable["elasticity"];
+	auto xVel =			componentTable["vel_x"];
+	auto yVel =			componentTable["vel_y"];
+
 	
 	if (massRef.isNumber()){
 		setMass(massRef.cast<double>());
@@ -43,6 +49,10 @@ PhysicsComponent::PhysicsComponent(luabridge::LuaRef& componentTable, std::share
 			m_activated = 0;
 		}
 		else m_activated = 1;
+	}
+
+	if (xVel.isNumber() && yVel.isNumber()){
+		m_velocity = Vec2(xVel, yVel);
 	}
 	
 	if (hbRef.isNumber()){

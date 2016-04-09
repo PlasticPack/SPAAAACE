@@ -19,14 +19,14 @@ public:
 	double getMass();
 	double getHitboxRadius();
 	double getElasticity() { return m_elasticity; };
-
+	double getAngularVelocity() { return m_angularVelocity; }
 	void setPosition(Vec2 pos);
 	void setVelocity(Vec2 vel);
 	void setForces(Vec2 forces);
 	void setMass(double mass);
 	void setHitboxRadius(double hbr);
 	void setPositionComp(std::shared_ptr<PositionComponent> comp);
-
+	void setAngularVelocity(double v) { m_angularVelocity = v; }
 	bool isActive() { return m_activated; }
 
 	void activate(bool a){
@@ -42,6 +42,7 @@ protected:
 	double m_hitboxRadius;
 	bool m_activated;
 	double m_elasticity;
-	//double m_friction;
+	double m_angle;
+	double m_angularVelocity;
 };
 

@@ -10,8 +10,8 @@ PhysicsSystem::~PhysicsSystem()
 {
 }
 
-void PhysicsSystem::resolveCollision(Message &postman, std::shared_ptr<PhysicsComponent> a, std::shared_ptr<PhysicsComponent> b, double dt) {
-	if (checkIfCollide(postman, *a, *b, dt) && a->getPositionComponent()->getZIndex() == b->getPositionComponent()->getZIndex() && a->isActive() && b->isActive()) { //s'ils se touchent
+void PhysicsSystem::resolveCollision(Message &postman, Scene *s, std::shared_ptr<PhysicsComponent> a, std::shared_ptr<PhysicsComponent> b, double dt) {
+	if (checkIfCollide(postman, s, a, b, dt) && a->getPositionComponent()->getZIndex() == b->getPositionComponent()->getZIndex() && a->isActive() && b->isActive()) { //s'ils se touchent
 		
 		//on sort les 2 objets l'un de l'autre
 		Vec2 direction = (a->getPosition() - b->getPosition()).getNormalized();
@@ -22,14 +22,10 @@ void PhysicsSystem::resolveCollision(Message &postman, std::shared_ptr<PhysicsCo
 		a->setPosition(a->getPosition() + deplacement);
 		b->setPosition(b->getPosition() + deplacement*-1);
 
-		//std::cout << a->getVelocity().getLength() << "\n";
+		postman.addMessage("Physics", std::to_string((int)a.get()), MS_COLLISION, (a->getVelocity().getLength() + b->getVelocity().getLength()));
+		postman.addMessage("Physics", std::to_string((int)b.get()), MS_COLLISION, (a->getVelocity().getLength() + b->getVelocity().getLength())); // on envoie l'adresse de l'autre
 
-		postman.addMessage("Physics", "Physics", MS_COLLISION, (a->getVelocity().getLength() + b->getVelocity().getLength()));
-		//std::cout << (a->getVelocity().getLength() + b->getVelocity().getLength()) << "\n";
-		
 		double elasticity = a->getElasticity() * b->getElasticity();
-
-	//	std::cout << elasticity << "\n";
 
 		//on calcule la vélocité des 2 après la collision
 		double firstA = (2 * b->getMass() / (a->getMass() + b->getMass()));
@@ -41,18 +37,21 @@ void PhysicsSystem::resolveCollision(Message &postman, std::shared_ptr<PhysicsCo
 		Vec2 finalVelA = a->getVelocity() - ((a->getPosition() - b->getPosition())* (firstA * secondA));
 		Vec2 finalVelB = b->getVelocity() - ((b->getPosition() - a->getPosition())* (firstB * secondB));
 
-		//Vec2 finalA = ((a.getVelocity() * (a.getMass() + b.getMass())) + ( b.getVelocity() * b.getMass() * 2)) / (a.getMass() + b.getMass());
+		// angular momentum
+
+		if (finalVelA.getAngle(finalVelB) != 0) {
+			//a->setAngularVelocity((finalVelA.getAngle(finalVelB) / abs(finalVelA.getAngle(finalVelB))) * finalVelA.getLength() / a->getHitboxRadius());
+			//b->setAngularVelocity((finalVelB.getAngle(finalVelA) / abs(finalVelB.getAngle(finalVelA))) * finalVelB.getLength() / b->getHitboxRadius());
+		}
 		
-		//std::cout << a.getVelocity().getLength() << "  B : " << finalVelB.getLength() << "\n";
 		
 		a->setVelocity(finalVelA);
 		b->setVelocity(finalVelB);
 
-		
 	}
 }
 
-bool PhysicsSystem::checkIfCollide(Message &postman, PhysicsComponent &a, PhysicsComponent &b, double dt){ // check seulement s'ils OVERLAP , fuck leur ZINDEX 
+bool PhysicsSystem::checkIfCollide(Message &postman, Scene *s, std::shared_ptr<PhysicsComponent> a, std::shared_ptr<PhysicsComponent> b, double dt){ // check seulement s'ils OVERLAP , fuck leur ZINDEX 
 	if (&a != &b){
 		//si les objets vont très vite, il se peut qu'un objet "passe à travers" l'autre"
 		//pour éviter ca, on regarde la position de l'objet par petits bond jusqu'à la
@@ -66,12 +65,19 @@ bool PhysicsSystem::checkIfCollide(Message &postman, PhysicsComponent &a, Physic
 		bool detected = false;
 		double accuracy = 3; // la précision ou le nombre de bonds qu'on fait 
 		for (int i = 1; i <= accuracy; i++){
-			if (a.getHitboxRadius() + b.getHitboxRadius() > (a.getPosition() + (a.getVelocity() * (i / accuracy) *dt)).getDist((b.getPosition()) + (b.getVelocity() * (i / accuracy) *dt))){
+			if (a->getHitboxRadius() + b->getHitboxRadius() > (a->getPosition() + (a->getVelocity() * (i / accuracy) *dt)).getDist((b->getPosition()) + (b->getVelocity() * (i / accuracy) *dt))){
 				detected = true;
 				i = accuracy + 1;
 			}
 		}
+		if (detected){
+			//std::cout << "DETECTED COLLISION\n";
+			postman.addMessage("Physics", s->getFatherID<PhysicsComponent>(a), MS_COLLISION, (int)b.get());
+			postman.addMessage("Physics", s->getFatherID<PhysicsComponent>(b), MS_COLLISION, (int)a.get());
+		}
+		else {
 
+		}
 		return detected;
 	}
 	else
@@ -99,6 +105,7 @@ Vec2 PhysicsSystem::gravity(PhysicsComponent &a, PhysicsComponent &b) {
 }
 
 Derivative PhysicsSystem::evaluate(PhysicsComponent &initial, std::vector<std::shared_ptr<PhysicsComponent>> &bodies, double dt, Derivative &d){
+	
 
 	std::shared_ptr<PositionComponent> bPos = std::make_shared<PositionComponent>(*initial.getPositionComponent());
 
@@ -115,7 +122,7 @@ Derivative PhysicsSystem::evaluate(PhysicsComponent &initial, std::vector<std::s
 	return output;
 }
 
-void PhysicsSystem::update(Message &postman,PhysicsComponent &body, std::vector<std::shared_ptr<PhysicsComponent>> &bodies, double dt){
+void PhysicsSystem::update(Message &postman, Scene *s, PhysicsComponent &body, std::vector<std::shared_ptr<PhysicsComponent>> &bodies, double dt){
 	Derivative a, b, c, d;
 	//on évalue 4 fois pour avoir une idée de la courbe
 	//de l'accélération (si elle n'est pas constante, 
@@ -126,7 +133,7 @@ void PhysicsSystem::update(Message &postman,PhysicsComponent &body, std::vector<
 		for (int i(0); i < bodies.size(); i++) {
 			for (int j(i); j < bodies.size(); j++) {
 				if (i != j){
-					resolveCollision(postman, bodies[i], bodies[j], dt);
+					resolveCollision(postman, s, bodies[i], bodies[j], dt);
 				}
 			}
 		}
@@ -143,6 +150,9 @@ void PhysicsSystem::update(Message &postman,PhysicsComponent &body, std::vector<
 		body.setVelocity(body.getVelocity() + (dveldt * dt));
 
 		body.setForces(Vec2(0, 0));
+
+		body.getPositionComponent()->setAngle(body.getPositionComponent()->getAngle() + body.getAngularVelocity() * dt);
+		//std::cout << body.getAngularVelocity() * dt << "\n";
 	}
 	else {
 		body.setPosition(body.getPosition() + (body.getVelocity() * dt));
@@ -159,8 +169,9 @@ Vec2 PhysicsSystem::accelerate(PhysicsComponent& initial, PhysicsComponent &b, s
 		for (int i(0); i < bodies.size(); i++){
 			if (bodies[i].get() != &initial){ // si l'objet est différent de lui-même
 				//if (/*b.pos.getDist(bodies[i].getPosition())  <  1500 && */) { // si l'objet est assez proche ET qu'ils sont pas l'un dans l'autre
-					totalGravity += gravity(b, *bodies[i]);
+				totalGravity += gravity(b, *bodies[i]);
 				//}
+				//std::cout << "GRAV";
 			}
 		}
 	//}

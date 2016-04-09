@@ -21,7 +21,6 @@ public:
 	double operator*(const Vec2 &vec); // produit scalaire ou dot product
 
 	Vec2 operator/(const double k); // division par un scalaire, plus simple que d'écrire * 1 / k
-	double crossProduct(const Vec2 &vec);
 
 	Vec2& operator=(const Vec2 &vec);
 	void operator+=(const Vec2 &vec);
@@ -29,6 +28,9 @@ public:
 
 	bool operator==(const Vec2 &vec);
 	bool operator!=(const Vec2 &vec);
+
+	double getAngle(Vec2 v);
+	double getAngle();
 
 	Vec2 getNormalized();
 	Vec2 getNormal(); // retourne la normale

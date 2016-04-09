@@ -20,15 +20,21 @@ public:
 	virtual ~PositionComponent();
 	void update();
 
+	double getAngle() { return m_angle; }
+
+
 	void setPosition(Vec2 pos) { m_position = pos;  }
 	void setZIndex(double z) { if(z >= 0) 
 		m_zIndex = z; }
+
+	void setAngle(double a) { m_angle = a; }
 
 	Vec2 getPosition() { return m_position; }
 	double getZIndex() { return m_zIndex; }
 
 protected:
 	Vec2 m_position;
+	double m_angle;
 	double m_zIndex; 
 };
 
