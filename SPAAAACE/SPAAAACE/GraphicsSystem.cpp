@@ -114,7 +114,7 @@ void GraphicsSystem::printAt(std::string text, int x, int y, int d_w, int d_h){
 
 	if (m_texts[text] == NULL){ // si pas encore de texture chargée pour ce texte
 
-		SDL_Surface* surf = TTF_RenderText_Solid(m_currentFont, text.c_str(), m_textColor);
+		SDL_Surface* surf = TTF_RenderText_Blended(m_currentFont, text.c_str(), m_textColor);
 		m_texts[text] = SDL_CreateTextureFromSurface(m_renderer, surf);
 
 		SDL_FreeSurface(surf);

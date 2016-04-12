@@ -11,7 +11,7 @@ Scene::Scene(std::string arg, std::string id)
 void Scene::init(std::string arg){
 
 	GraphicsSystem::init();
-
+	MissionSystem::init();
 	//AJOUTEZ VOS OBJETS ICI! **********************************************
 
 
@@ -371,6 +371,9 @@ void Scene::update(Message &postman)
 			ActionSystem::update(postman, *AC);
 		}
 	}
+
+	if (m_id == "game")
+		MissionSystem::update(postman);
 
 	if (postman.getMessage("Action", "Trigger", 34061) > 0) {
 		GraphicsSystem::print("TRRRIIIIGGGERREDDD oh thats rude");
