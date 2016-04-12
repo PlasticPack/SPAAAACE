@@ -1,7 +1,7 @@
 planet_menu	= {
 	Position = {
 		x = 1200,
-		y = 375,
+		y = 0,
 	},
 	Graphics = {
 		filename = "default__ressources/planet_menu_.png",
@@ -10,7 +10,7 @@ planet_menu	= {
 		height = 1200
 	},
 	Physics = {
-		vel_x = 15,
-		vel_y = 5,
+		vel_x = 0,
+		vel_y = 150,
 	}
 }
