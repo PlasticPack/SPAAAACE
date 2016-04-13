@@ -1,10 +1,12 @@
 button_quit = {
 	Position = {
-		x = 600,
-		y = 650,
+		x = 150,
+		y = 875,
 	},
 	Graphics = {
-		filename = "default__ressources/button_quit.png selected__ressources/button_quit_selected.png"
+		filename = "default__ressources/button_quit.png 33selected__ressources/button_quit_selected.png",
+		anim_speed = 12,
+		cam = "false"
 	},
 	Action = {
 		trigger = "Scene button_quit 34059 1",

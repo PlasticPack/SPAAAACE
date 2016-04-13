@@ -3,6 +3,7 @@
 #include "PositionComponent.h"
 #include "GraphicsSystem.h"
 #include "Sprite.h"
+#include <ctype.h>
 
 struct C_Color{
 	Uint8 r;

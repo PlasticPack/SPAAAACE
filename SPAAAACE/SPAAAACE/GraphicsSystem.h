@@ -37,6 +37,27 @@ public:
 	static double getFPS();
 	static double getCameraZoom(){ return m_camera.zoom; }
 	static double getCameraAngle(){ return m_camera.angle; }
+	static void clearBackgrounds() { 
+		for (int i = 0; i < 4; i++){
+			if (m_backgrounds[i] != NULL){
+				SDL_DestroyTexture(m_backgrounds[i]);
+				m_backgrounds[i] = NULL;
+				m_backgroundSize[i] = Vec2(0, 0);
+			}
+		}
+	};
+
+	static bool backgroundExists() {
+		bool e = false;
+		for (int i = 0; i < 4; i++){
+			if (m_backgrounds[i] != NULL){
+				e = true;
+				i = 4;
+			}
+		}
+
+		return e;
+	}
 
 	static void initFrame();
 	static void endFrame(Message &postman);

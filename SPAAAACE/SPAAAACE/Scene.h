@@ -1,11 +1,8 @@
 #pragma once
 
-#include "GraphicsSystem.h"
 #include "PhysicsSystem.h"
 #include "InputSystem.h"
-#include "ActionSystem.h"
-#include "GameLogicSystem.h"
-#include "GameObject.h"
+#include "MissionSystem.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>

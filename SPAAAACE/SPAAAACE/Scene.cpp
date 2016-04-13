@@ -11,7 +11,7 @@ Scene::Scene(std::string arg, std::string id)
 void Scene::init(std::string arg){
 
 	GraphicsSystem::init();
-
+	MissionSystem::init();
 	//AJOUTEZ VOS OBJETS ICI! **********************************************
 
 
@@ -29,12 +29,6 @@ void Scene::init(std::string arg){
 	///AJOUT BACKGROUND ET MACHINs
 
 	orderByZIndex(); 
-	if (m_id == "game"){ // pour le moment c'est ca
-		GraphicsSystem::loadBackground("ressources/space_1.png", 0, 250, 200, 255);
-		GraphicsSystem::loadBackground("ressources/space_2.png", 1, 150, 100, 150);
-		GraphicsSystem::loadBackground("ressources/space_3.png", 2, 200, 220, 255);
-		//GraphicsSystem::loadBackground("ressources/space_4.png", 3, 200, 220, 255);
-	}
 
 	if (m_id == "menu"){
 		m_focusedID = "button_play";
@@ -108,6 +102,23 @@ Scene::~Scene()
 
 void Scene::update(Message &postman)
 {
+
+	if (postman.getMessage("main", "main", MS_SWITCHED) == 1) {
+		if (m_id == "game"){ // pour le moment c'est ca
+			GraphicsSystem::clearBackgrounds();
+			GraphicsSystem::loadBackground("ressources/space_1.png", 0);
+			GraphicsSystem::loadBackground("ressources/space_2.png", 1);
+			GraphicsSystem::loadBackground("ressources/space_3.png", 2);
+		}
+
+		if (m_id == "menu"){ // pour le moment c'est ca
+			GraphicsSystem::clearBackgrounds();
+			GraphicsSystem::loadBackground("ressources/space_1.png", 0, 255, 100, 100);
+			GraphicsSystem::loadBackground("ressources/space_2.png", 1, 100, 255, 100);
+			GraphicsSystem::loadBackground("ressources/space_3.png", 2, 100, 100, 255);
+		}
+	}
+
 	postman.clearAll();
 	//INPUT GÉNÉRAL
 	m_inSystem.pollInputs();
@@ -174,6 +185,10 @@ void Scene::update(Message &postman)
 	
 	for (int i = 0; i < m_gameObjects.size(); i++){
 
+		if (m_gameObjects[i]->getID() == "planet_menu"){
+			GraphicsSystem::setCameraTarget(m_gameObjects[i]->get<PositionComponent>()->getPosition() + Vec2(-SCREEN_W/2, 0));
+		}
+
 		std::shared_ptr<PhysicsComponent> pc = m_gameObjects[i]->get<PhysicsComponent>();
 		if (pc != nullptr){
 
@@ -238,7 +253,7 @@ void Scene::update(Message &postman)
 
 						//on baisse le fuel
 
-						postman.addMessage("Scene-", m_gameObjects[i]->getID(), MS_ENGINE_ACTIVE, 1);
+						postman.addMessage("Scene", m_gameObjects[i]->getID(), MS_ENGINE_ACTIVE, 1);
 						pc->getPositionComponent()->setAngle(angle);
 
 						pc->setForces(forces);
@@ -356,6 +371,9 @@ void Scene::update(Message &postman)
 			ActionSystem::update(postman, *AC);
 		}
 	}
+
+	if (m_id == "game")
+		MissionSystem::update(postman);
 
 	if (postman.getMessage("Action", "Trigger", 34061) > 0) {
 		GraphicsSystem::print("TRRRIIIIGGGERREDDD oh thats rude");

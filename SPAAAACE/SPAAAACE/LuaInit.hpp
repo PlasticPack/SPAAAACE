@@ -30,4 +30,5 @@ namespace luain{
 	void loadFromRep(Scene*,std::vector<std::shared_ptr<GameObject>> &objects, const std::string& filepath, const std::string& ext=".lua");
 	void loadFromRep(Scene*,std::map<std::string, std::shared_ptr<GameObject>> &objs, const std::string& filepath, const std::string& ext=".lua");
 	std::shared_ptr<GameObject> loadGameObjects(Scene* s, lua_State* L, const std::string& type);
+	//void loadFromRep(Scene* sc, std::map<std::string, GameObject> &objs, const std::string& filepath, const std::string& ext);
 }

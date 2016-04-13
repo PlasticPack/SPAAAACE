@@ -24,6 +24,10 @@ ActionComponent::ActionComponent(luabridge::LuaRef& componentTable)
 		std::istream_iterator<std::string> t_beg(t_buf), end;
 		std::vector<std::string> trig_strings(t_beg, end);
 
+		for (int i = 0; i < trig_strings.size(); i++){
+			std::replace(trig_strings[i].begin(), trig_strings[i].end(), '\\', ' ');
+		}
+
 		m_trigger.first.first = trig_strings[0];
 		m_trigger.first.second = trig_strings[1];
 		m_trigger.second.first =  std::stoi(trig_strings[2]);
@@ -33,6 +37,10 @@ ActionComponent::ActionComponent(luabridge::LuaRef& componentTable)
 		std::istringstream a_buf(answ);
 		std::istream_iterator<std::string> a_beg(a_buf), aend;
 		std::vector<std::string> answ_strings(a_beg, aend);
+
+		for (int i = 0; i < answ_strings.size(); i++){
+			std::replace(answ_strings[i].begin(), answ_strings[i].end(), '\\', ' ');
+		}
 
 		m_answer.first.first = answ_strings[0];
 		m_answer.first.second =	answ_strings[1];

@@ -114,7 +114,7 @@ void GraphicsSystem::printAt(std::string text, int x, int y, int d_w, int d_h){
 
 	if (m_texts[text] == NULL){ // si pas encore de texture chargée pour ce texte
 
-		SDL_Surface* surf = TTF_RenderText_Solid(m_currentFont, text.c_str(), m_textColor);
+		SDL_Surface* surf = TTF_RenderText_Blended(m_currentFont, text.c_str(), m_textColor);
 		m_texts[text] = SDL_CreateTextureFromSurface(m_renderer, surf);
 
 		SDL_FreeSurface(surf);
@@ -259,9 +259,11 @@ void GraphicsSystem::initFrame(){
 
 			m_avgFPS = m_countedFrames / (1 + m_fpsTimer.getTicks() / 1000.0);
 			//std::cout << m_countedFrames << " / " << m_fpsTimer.getTicks() / 1000.0 <<  " = "  << m_avgFPS << "<- :D\n";
-			if (m_avgFPS > 200000){
+			if (m_avgFPS > 20000 || m_avgFPS < 10){
 				m_avgFPS = 60;
 			}
+
+			//std::cout << m_avgFPS << "\n";
 
 			//SDL_SetRenderDrawColor(m_renderer, 12, 0, 24, 0);
 			SDL_RenderClear(m_renderer);
