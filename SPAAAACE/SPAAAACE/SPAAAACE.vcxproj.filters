@@ -97,6 +97,9 @@
     <ClCompile Include="ActionSystem.cpp">
       <Filter>Sources\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="MissionSystem.cpp">
+      <Filter>Sources\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Flags.h">
@@ -178,6 +181,9 @@
       <Filter>Headers\Components</Filter>
     </ClInclude>
     <ClInclude Include="ActionSystem.h">
+      <Filter>Headers\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="MissionSystem.h">
       <Filter>Headers\Systems</Filter>
     </ClInclude>
   </ItemGroup>

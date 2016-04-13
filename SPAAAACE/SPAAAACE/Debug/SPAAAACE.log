@@ -1,4 +1,74 @@
-﻿  GameLogicSystem.cpp
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\gamelogicsystem.cpp(25): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+﻿  Scene.cpp
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\luainit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
+          c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\physicssystem.h(19) : voir la déclaration de 'Scene'
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(66): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(73): warning C4018: '>=' : incompatibilité signed/unsigned
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(82): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(85): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(186): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(271): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(306): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(368): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.h(109): warning C4018: '<' : incompatibilité signed/unsigned
+          c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(271) : voir la référence à l'instanciation de la fonction modèle 'std::string Scene::getFatherID<PhysicsComponent>(int)' en cours de compilation
+  PositionComponent.cpp
+  PhysicsComponent.cpp
+  MissionSystem.cpp
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\missionsystem.cpp(35): warning C4805: '==' : mélange risqué de type 'double' et de type 'bool' dans l'opération
+  main.cpp
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\luainit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
+          c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\physicssystem.h(19) : voir la déclaration de 'Scene'
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\main.cpp(22): warning C4101: 'e' : variable locale non référencée
+  GraphicsSystem.cpp
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(235): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(244): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(276): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(294): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(295): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(300): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(301): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(306): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(309): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(313): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(315): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(373): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+  GraphicsComponent.cpp
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicscomponent.cpp(49): warning C4018: '<' : incompatibilité signed/unsigned
+  GameLogicComponent.cpp
+  ActionSystem.cpp
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\actionsystem.cpp(6): warning C4018: '>' : incompatibilité signed/unsigned
+  ActionComponent.cpp
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\actioncomponent.cpp(27): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\actioncomponent.cpp(41): warning C4018: '<' : incompatibilité signed/unsigned
+  Génération de code en cours...
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(153): warning C4715: 'GraphicsSystem::loadTexture' : les chemins de contrôle ne retournent pas tous une valeur
+  Compilation en cours...
+  XML_utilityfunctions.cpp
+  PhysicsSystem.cpp
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\luainit.hpp(22): warning C4099: 'Scene' : nom de type déjà rencontré avec 'struct' et utilisant maintenant 'class'
+          c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\luainit.hpp(20) : voir la déclaration de 'Scene'
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.h(61): warning C4099: 'Scene' : nom de type déjà rencontré avec 'struct' et utilisant maintenant 'class'
+          c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\luainit.hpp(20) : voir la déclaration de 'Scene'
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\physicssystem.cpp(70): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\physicssystem.cpp(133): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\physicssystem.cpp(134): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\physicssystem.cpp(169): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.h(94): warning C4018: '<' : incompatibilité signed/unsigned
+          c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\physicssystem.cpp(75) : voir la référence à l'instanciation de la fonction modèle 'std::string Scene::getFatherID<PhysicsComponent>(std::shared_ptr<PhysicsComponent>)' en cours de compilation
+  MusicSystem.cpp
+  Message.cpp
+  LuaFunctions.cpp
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\luainit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
+          c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.h(61) : voir la déclaration de 'Scene'
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\luafunctions.cpp(170): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\luafunctions.cpp(190): warning C4018: '<' : incompatibilité signed/unsigned
+  InputSystem.cpp
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\inputsystem.cpp(62): warning C4018: '>' : incompatibilité signed/unsigned
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\inputsystem.cpp(155): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+  InputsComponent.cpp
+  GameObject.cpp
+  Component.cpp
+  Génération de code en cours...
+  LINK : C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Debug\SPAAAACE.exe introuvable ou non généré par la dernière édition de liens incrémentielle ; édition de liens complète en cours
   SPAAAACE.vcxproj -> C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Debug\SPAAAACE.exe
 BSCMAKE : warning BK4503: erreur mineure dans le fichier .SBR 'Debug\InputSystem.sbr' ignorÚe

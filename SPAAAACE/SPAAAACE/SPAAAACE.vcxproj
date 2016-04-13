@@ -98,6 +98,7 @@
     <ClCompile Include="LuaFunctions.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Message.cpp" />
+    <ClCompile Include="MissionSystem.cpp" />
     <ClCompile Include="MusicSystem.cpp" />
     <ClCompile Include="Musique.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
@@ -129,6 +130,7 @@
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="LuaInit.hpp" />
     <ClInclude Include="Message.h" />
+    <ClInclude Include="MissionSystem.h" />
     <ClInclude Include="MusicSystem.h" />
     <ClInclude Include="Musique.h" />
     <ClInclude Include="PhysicsComponent.h" />
