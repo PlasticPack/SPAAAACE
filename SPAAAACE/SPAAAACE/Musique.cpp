@@ -3,6 +3,7 @@
 Musique::Musique(std::string filepath)
 {
 	m_musique = Mix_LoadMUS(filepath.c_str());
+	m_filePath = filepath;
 }
 
 Musique::Musique(const Musique &musique)
