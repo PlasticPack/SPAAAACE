@@ -103,7 +103,8 @@ std::shared_ptr<PositionComponent> PhysicsComponent::getPositionComponent(){
 }
 
 void PhysicsComponent::setPosition(Vec2 pos){
-	m_posComponent->setPosition(pos);
+	if (!m_posComponent->isFixed())
+		m_posComponent->setPosition(pos);
 }
 
 void PhysicsComponent::setVelocity(Vec2 pos){

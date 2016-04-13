@@ -61,22 +61,38 @@ void Scene::init(std::string arg){
 void Scene::orderByZIndex(){
 	if (m_gameObjects.size() > 1){
 		int j = 0;
-		bool swapped = false;
+
+		for (int i(0); i < m_gameObjects.size(); i++){
+			std::cout << i << m_gameObjects[i]->getID() << "\n";
+		}
+		
+		bool ordered = true;
+		//bool swapped = false;
 		do {
 			for (int i(0); i < m_gameObjects.size() - 1; i++){
-
-				if (m_gameObjects[i]->get<PositionComponent>()->getZIndex() < m_gameObjects[i + 1]->get<PositionComponent>()->getZIndex()){
+				std::cout << i << m_gameObjects[i]->getID() << " & " << m_gameObjects[i+1]->getID();
+				if (m_gameObjects[i]->get<PositionComponent>()->getZIndex() > m_gameObjects[i + 1]->get<PositionComponent>()->getZIndex()){
+					std::cout << " just swapped\n";
 					std::iter_swap(m_gameObjects.begin() + i, m_gameObjects.begin() + i + 1);
-					swapped = true;
+					//swapped = true;
 				}
+				else 
+					std::cout << "\n";
 
-				if (i >= m_gameObjects.size() - 2 && !swapped){
-					swapped = true;
+			}
+
+			ordered = true;
+			for (int i(0); i < m_gameObjects.size() - 1; i++){
+
+				if (m_gameObjects[i]->get<PositionComponent>()->getZIndex() > m_gameObjects[i + 1]->get<PositionComponent>()->getZIndex()){
+					ordered = false;
+					break;
 				}
 			}
-		} while (!swapped);
 
-		std::reverse(m_gameObjects.begin(), m_gameObjects.end());
+		} while (!ordered);
+
+		//std::reverse(m_gameObjects.begin(), m_gameObjects.end());
 
 		//on place le joueur au "dessus" des objets à sa même hauteur
 		for (int i = 0; i < m_gameObjects.size(); i++){
@@ -94,6 +110,71 @@ void Scene::orderByZIndex(){
 		}
 	}
 }
+
+/*
+bool zSort(std::shared_ptr<GameObject> g1, std::shared_ptr<GameObject> g2){
+
+if (&g1 != &g2){
+
+if (g1->hasComponent(std::type_index(typeid(PositionComponent))) && g2->hasComponent(std::type_index(typeid(PositionComponent)))) {
+return (g1->get<PositionComponent>() > g2->get<PositionComponent>());
+}
+
+}
+return false;
+}
+
+void Scene::orderByZIndex(){
+/*if (m_gameObjects.size() > 0){
+int j = 0;
+bool swapped = false;
+do {
+for (int i(1); i < m_gameObjects.size(); i++){
+
+if (m_gameObjects[i-1]->get<PositionComponent>()->getZIndex() < m_gameObjects[i]->get<PositionComponent>()->getZIndex()){
+std::iter_swap(m_gameObjects.begin() + i -1, m_gameObjects.begin() + i);
+swapped = true;
+}
+
+if (i == m_gameObjects.size() - 1 && !swapped){
+swapped = true;
+}
+}
+} while (!swapped);
+
+//on place le joueur au "dessus" des objets à sa même hauteur
+/*for (int i = 0; i < m_gameObjects.size(); i++){
+if (m_gameObjects[i]->getID() == "player"){
+if (i != m_gameObjects.size() - 1) {
+for (int j = i; j < m_gameObjects.size(); j++){
+if (m_gameObjects[j]->getID() != "player" && m_gameObjects[j]->get<PositionComponent>()->getZIndex() == m_gameObjects[i]->get<PositionComponent>()->getZIndex()) {
+//std::iter_swap(m_gameObjects.begin() + i, m_gameObjects.begin() + j);
+std::cout << i << j << "\n";
+break;
+}
+}
+}
+}
+}
+}*
+
+std::sort(m_gameObjects.begin(), m_gameObjects.end(), zSort);
+
+for (int i = 0; i < m_gameObjects.size(); i++){
+	if (m_gameObjects[i]->getID() == "player"){
+		if (i != m_gameObjects.size() - 1) {
+			for (int j = i; j < m_gameObjects.size(); j++){
+				if (m_gameObjects[j]->getID() != "player" && m_gameObjects[j]->get<PositionComponent>()->getZIndex() == m_gameObjects[i]->get<PositionComponent>()->getZIndex()) {
+					std::iter_swap(m_gameObjects.begin() + i, m_gameObjects.begin() + j);
+					std::cout << i << j << "\n";
+					break;
+				}
+			}
+		}
+	}
+}
+//std::reverse(m_gameObjects.begin(), m_gameObjects.end());
+}*/
 
 Scene::~Scene()
 {
@@ -181,16 +262,30 @@ void Scene::update(Message &postman)
 	}
 
 	GraphicsSystem::initFrame();
-	Vec2 playerPos(0,0), basePos(0,0);
+	Vec2 playerPos(0,0), basePos(0,0), objectivePos(0,0);
 	
+	int playerIndex = 0;
+	for (int i = 0; i < m_gameObjects.size(); i++){
+		if (m_gameObjects[i]->getID() == "player")
+			playerIndex = i;
+	}
+
 	for (int i = 0; i < m_gameObjects.size(); i++){
 
 		if (m_gameObjects[i]->getID() == "planet_menu"){
 			GraphicsSystem::setCameraTarget(m_gameObjects[i]->get<PositionComponent>()->getPosition() + Vec2(-SCREEN_W/2, 0));
 		}
 
+		//
+
+		//if (m_gameObjects[i]->get<PositionComponent>() != nullptr)
+			//std::cout << m_gameObjects[i]->get<PositionComponent>()->getZIndex() << "\n";
+
 		std::shared_ptr<PhysicsComponent> pc = m_gameObjects[i]->get<PhysicsComponent>();
 		if (pc != nullptr){
+			if (m_gameObjects[i]->getID() == MissionSystem::getCurrentObjective()){
+				objectivePos = m_gameObjects[i]->get<PositionComponent>()->getPosition();
+			}
 
 			if (m_gameObjects[i]->getID() == "base"){
 				basePos = m_gameObjects[i]->get<PhysicsComponent>()->getPosition();
@@ -198,6 +293,7 @@ void Scene::update(Message &postman)
 
 			//DÉCISION DE MOUVEMENT : JOUEUR
 			if (m_gameObjects[i]->getID() == "player") {
+				playerIndex = i;
 				playerPos = m_gameObjects[i]->get<PhysicsComponent>()->getPosition();
 				if (m_gameObjects[i]->get<GameLogicComponent>()->getCurrentFuel() > 0) { // si assez de fuel
 					//on check la direction du joueur
@@ -303,65 +399,75 @@ void Scene::update(Message &postman)
 
 				// et on update le hud en fonction du joueur
 
-				for (int j = 0; j < m_gameObjects.size(); j++){
-					if (m_gameObjects[j]->getID().find("hud") != std::string::npos) { // si l'objet fait partie du hud
+				
+			}
 
-						std::string id = m_gameObjects[j]->getID();
+			if (m_gameObjects[i]->getID().find("hud") != std::string::npos) { // si l'objet fait partie du hud
 
-						if (id == "hud_fuel"){
-							if (postman.getMessage("GameLogic", m_gameObjects[i]->getID(), MS_ENGINE_ACTIVE) > 0){
+				std::string id = m_gameObjects[i]->getID();
 
-								//on réduit le fuel
-								Vec2 baseSize = m_gameObjects[j]->get<GraphicsComponent>()->getMaxSize();
-								double fuel = (double)(m_gameObjects[i]->get<GameLogicComponent>()->getCurrentFuel()) / (double)m_gameObjects[i]->get<GameLogicComponent>()->getMaxFuel();
-								m_gameObjects[j]->get<GraphicsComponent>()->setSize(Vec2(baseSize.x() * fuel, baseSize.y()));
+				if (id == "hud_fuel"){
+					if (postman.getMessage("GameLogic", m_gameObjects[playerIndex]->getID(), MS_ENGINE_ACTIVE) > 0){
 
-							}
+						//on réduit le fuel
+						Vec2 baseSize = m_gameObjects[i]->get<GraphicsComponent>()->getMaxSize();
+						double fuel = (double)(m_gameObjects[playerIndex]->get<GameLogicComponent>()->getCurrentFuel()) / (double)m_gameObjects[playerIndex]->get<GameLogicComponent>()->getMaxFuel();
+						m_gameObjects[i]->get<GraphicsComponent>()->setSize(Vec2(baseSize.x() * fuel, baseSize.y()));
+
+					}
+				}
+				else if (id == "hud_life"){
+					//if (postman.getMessage("GameLogic", m_gameObjects[i]->getID(), MS_LIFE_DOWN) > 0) {
+
+					Vec2 baseSize = m_gameObjects[i]->get<GraphicsComponent>()->getMaxSize();
+					double life = (double)(m_gameObjects[playerIndex]->get<GameLogicComponent>()->getCurrentLife()) / (double)m_gameObjects[playerIndex]->get<GameLogicComponent>()->getMaxLife();
+					m_gameObjects[i]->get<GraphicsComponent>()->setSize(Vec2(baseSize.x() * life, baseSize.y()));
+					//}
+				}
+				else if (id == "hud_base_pointer"){
+					Vec2 direction = basePos - playerPos;
+					if (direction.getLength() > 0){
+
+						m_gameObjects[i]->get<PositionComponent>()->setAngle(direction.getAngle());
+
+						double size = 25000.0 / (direction.getLength());
+
+						if (size > 1)
+							size = 1;
+						if (size < 0.5)
+							size = 0.5;
+
+						m_gameObjects[i]->get<GraphicsComponent>()->setSize(m_gameObjects[i]->get<GraphicsComponent>()->getMaxSize() *size);
+						m_gameObjects[i]->get<PositionComponent>()->setPosition(getPointerPosition(direction, 32));
+					}
+				}
+				else if (id == "hud_obj_pointer"){
+					if (MissionSystem::getCurrentObjective() != "null"){
+						Vec2 direction = objectivePos - playerPos;
+						if (direction.getLength() > 0){
+
+							m_gameObjects[i]->get<PositionComponent>()->setAngle(direction.getAngle());
+
+							double size = 25000.0 / (direction.getLength());
+
+							if (size > 1)
+								size = 1;
+							if (size < 0.5)
+								size = 0.5;
+
+							m_gameObjects[i]->get<GraphicsComponent>()->setSize(m_gameObjects[i]->get<GraphicsComponent>()->getMaxSize() *size);
+							m_gameObjects[i]->get<PositionComponent>()->setPosition(getPointerPosition(direction, 32));
 						}
-						else if (id == "hud_life"){
-							//if (postman.getMessage("GameLogic", m_gameObjects[i]->getID(), MS_LIFE_DOWN) > 0) {
-
-								Vec2 baseSize = m_gameObjects[j]->get<GraphicsComponent>()->getMaxSize();
-								double life = (double)(m_gameObjects[i]->get<GameLogicComponent>()->getCurrentLife()) / (double)m_gameObjects[i]->get<GameLogicComponent>()->getMaxLife();
-								m_gameObjects[j]->get<GraphicsComponent>()->setSize(Vec2(baseSize.x() * life, baseSize.y()));
-							//}
-						}
-						else if (id == "hud_base_pointer"){
-							Vec2 direction = basePos - playerPos;
-							if (direction.getLength() > 0){
-								//std::cout << direction.getAngle() << "\n";
-								m_gameObjects[j]->get<PositionComponent>()->setAngle(direction.getAngle());
-								Vec2 screen = Vec2(SCREEN_W , SCREEN_H );
-								double l = 1;
-
-								double size = 25000.0 / (direction.getLength());
-
-								if (size > 1)
-									size = 1;
-								if (size < 0.5)
-									size = 0.5;
-
-								if (abs(direction.getAngle()) < screen.getAngle() || direction.getAngle() > -180 -screen.getAngle()){
-									l = sqrt(pow(SCREEN_W / 2, 2) + pow(tan(direction.getAngle() * (3.14159/180.0)) * SCREEN_W / 2, 2));
-								}
-
-								if (abs(direction.getAngle()) > screen.getAngle() && abs(direction.getAngle()) < 180 - screen.getAngle()){
-									l = sqrt(pow(SCREEN_H / 2, 2) + pow(tan((90 +direction.getAngle()) * (3.14159 / 180.0)) * SCREEN_H / 2, 2));
-								}
-
-								l -= 42;
-
-								m_gameObjects[j]->get<GraphicsComponent>()->setSize(m_gameObjects[j]->get<GraphicsComponent>()->getMaxSize() *size);
-								//std::cout << m_gameObjects[j]->get<GraphicsComponent>()->getSize().getLength() * 0.2<< "\n";
-								m_gameObjects[j]->get<PositionComponent>()->setPosition((direction.getNormalized() * (l))+ Vec2(SCREEN_W/2 - 32, SCREEN_H/2 - 32) ) ;
-								
-							}
-						}
+					}
+					else {
+						//on affiche pas le truc
 					}
 				}
 			}
+
 			GraphicsSystem::update(postman, m_gameObjects[i]->getID(),*gc, 1.0 / GraphicsSystem::getFPS());
 		}
+
 	}
 
 
@@ -372,8 +478,13 @@ void Scene::update(Message &postman)
 		}
 	}
 
-	if (m_id == "game")
+	if (m_id == "game"){
 		MissionSystem::update(postman);
+		if (postman.getMessage("MissionSystem", "Mission", MS_MISSION_OVER) == 1){
+			std::cout << "OVER!!!";
+			GraphicsSystem::print("Mission terminée.");
+		}
+	}
 
 	if (postman.getMessage("Action", "Trigger", 34061) > 0) {
 		GraphicsSystem::print("TRRRIIIIGGGERREDDD oh thats rude");

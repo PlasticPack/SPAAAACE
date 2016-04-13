@@ -29,12 +29,14 @@ public:
 	static void update(Message &postman, Scene *s, PhysicsComponent &a, std::vector<std::shared_ptr<PhysicsComponent>> &phyComps, double dt);
 
 	static bool checkIfCollide(Message &postman, Scene* s, std::shared_ptr<PhysicsComponent> a, std::shared_ptr<PhysicsComponent> b, double dt);
-
+	static bool checkIfCollide(PhysicsComponent &a, PhysicsComponent &b, double dt);
 	static void resolveCollision(Message &postman, Scene *s, std::shared_ptr<PhysicsComponent> a, std::shared_ptr<PhysicsComponent> b, double dt);
 
+	static void setGravity(double g){ m_gravity = g; }
 
 private :
 	static Vec2 accelerate(PhysicsComponent &initial, PhysicsComponent &bState, std::vector<std::shared_ptr<PhysicsComponent>>&, double dt);
 	static Derivative evaluate(PhysicsComponent &a, std::vector<std::shared_ptr<PhysicsComponent>> &phyComps, double dt, Derivative &d);
+	static double m_gravity;
 };
 

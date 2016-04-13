@@ -139,3 +139,4 @@ protected:
 	LTimer m_dialogueTimer;
 };
 
+bool zSort(std::shared_ptr<GameObject> g1, std::shared_ptr<GameObject> g2);

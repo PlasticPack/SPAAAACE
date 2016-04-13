@@ -96,7 +96,7 @@
     </ClCompile>
     <ClCompile Include="MissionSystem.cpp">
       <Filter>Sources\Systems</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
@@ -150,9 +150,6 @@
     <ClInclude Include="Component.h">
       <Filter>Headers\Components</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Headers\Components</Filter>
-    </ClInclude>
     <ClInclude Include="GraphicsComponent.h">
       <Filter>Headers\Components</Filter>
     </ClInclude>
@@ -185,6 +182,9 @@
     </ClInclude>
     <ClInclude Include="MissionSystem.h">
       <Filter>Headers\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

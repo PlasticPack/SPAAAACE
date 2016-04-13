@@ -242,6 +242,10 @@ std::shared_ptr<GameObject> luain::loadGameObjects(Scene *s, lua_State* L, const
 		else if (componentName == "Action"){
 			LuaRef ACTable = entityTable[componentName];
 			addComponent<ActionComponent>(s, obj, ACTable);
+		} 
+		else if (componentName == "Objective"){
+			LuaRef ObjTable = entityTable[componentName];
+			MissionSystem::addObjective(ObjTable);
 		}
 		else std::cout << "Unknown component: " << componentName;
 
