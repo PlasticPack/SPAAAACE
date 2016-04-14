@@ -14,6 +14,7 @@ Musique::Musique(const Musique &musique)
 Musique& Musique::operator=(const Musique &musique)
 {
 	m_musique = Mix_LoadMUS(musique.m_filePath.c_str());
+	m_filePath = musique.m_filePath;
 	return *this;
 }
 
