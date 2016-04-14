@@ -10,7 +10,7 @@ GameLogicSystem::~GameLogicSystem()
 {
 }
 
-void GameLogicSystem::update(Message &postman, std::shared_ptr<GameObject> go, GameLogicComponent &comp){
+void GameLogicSystem::update(Message &postman, std::shared_ptr<GameObject> go, GameLogicComponent &comp, double dt){
 
 	//se base strictement sur l'envoi/réception de messages
 	//std::cout << "GameLogic :" << std::to_string((int)go->get<PhysicsComponent>().get()) << " \n";
@@ -30,11 +30,17 @@ void GameLogicSystem::update(Message &postman, std::shared_ptr<GameObject> go, G
 		postman.addMessage("GameLogic", go->getID(), MS_LIFE_DOWN, life_lost);
 	}
 
+	std::cout << dt << "\n";
+
 	if (postman.getMessage("Scene", go->getID(), MS_ENGINE_ACTIVE) > 0){
 		//std::cout << "HEY FD\n";
 		if (comp.getCurrentFuel() > 0){
 			postman.addMessage("GameLogic", go->getID(), MS_ENGINE_ACTIVE, 1);
-			comp.setFuel(comp.getCurrentFuel() - 1);
+			double deltaFuel = dt * 800;
+			if (comp.getCurrentFuel() - ceil(deltaFuel) < 0){
+				deltaFuel = comp.getCurrentFuel();
+			}
+			comp.setFuel(comp.getCurrentFuel() - ceil(deltaFuel));
 		}
 		
 	}

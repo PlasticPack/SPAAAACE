@@ -369,7 +369,7 @@ void Scene::update(Message &postman)
 
 		auto GLC = m_gameObjects[i]->get<GameLogicComponent>();
 		if (GLC != nullptr){
-			GameLogicSystem::update(postman, m_gameObjects[i], *GLC);
+			GameLogicSystem::update(postman, m_gameObjects[i], *GLC, 1.0 / GraphicsSystem::getFPS());
 		}
 
 		auto gc = m_gameObjects[i]->get<GraphicsComponent>();

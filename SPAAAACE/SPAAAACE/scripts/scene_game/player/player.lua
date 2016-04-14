@@ -14,7 +14,7 @@ player = {
 	},
 	GameLogic =  {
 		pwr = 2000,
-		fuel = 20000,
+		fuel = 200000,
 		life = 30
 	}
 }
