@@ -30,8 +30,7 @@ void GameLogicSystem::update(Message &postman, std::shared_ptr<GameObject> go, G
 		postman.addMessage("GameLogic", go->getID(), MS_LIFE_DOWN, life_lost);
 	}
 
-	std::cout << dt << "\n";
-
+	
 	if (postman.getMessage("Scene", go->getID(), MS_ENGINE_ACTIVE) > 0){
 		//std::cout << "HEY FD\n";
 		if (comp.getCurrentFuel() > 0){

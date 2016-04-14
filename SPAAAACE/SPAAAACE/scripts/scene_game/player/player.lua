@@ -13,7 +13,7 @@ player = {
 		filename = "default__ressources/single_ship.png",
 	},
 	GameLogic =  {
-		pwr = 2000,
+		pwr = 4500,
 		fuel = 200000,
 		life = 30
 	}

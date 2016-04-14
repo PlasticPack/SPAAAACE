@@ -40,6 +40,8 @@ void Scene::init(std::string arg){
 	//initialise le mouvement du joueur selon le clavier
 	m_inSystem.setActionTrigger(AC_SHOOT, SDL_SCANCODE_SPACE);
 	m_inSystem.setActionTrigger(AC_UP, SDL_SCANCODE_UP);
+	m_inSystem.setActionTrigger(AC_UP, GP_DPAD_UP);
+	m_inSystem.setActionTrigger(AC_DOWN, GP_DPAD_DOWN);
 	m_inSystem.setActionTrigger(AC_START, SDL_SCANCODE_C);
 	m_inSystem.setActionTrigger(AC_SELECT, SDL_SCANCODE_D);
 	m_inSystem.setActionTrigger(AC_DOWN, SDL_SCANCODE_DOWN);
@@ -49,6 +51,7 @@ void Scene::init(std::string arg){
 	m_inSystem.setActionTrigger(AC_VERTICAL_PUSH, GP_AXIS_LEFT_JOY_Y);
 	m_inSystem.setActionTrigger(AC_SELECT, SDL_SCANCODE_RETURN);
 	m_inSystem.setActionTrigger(AC_SELECT, GP_BUTTON_A);
+
 	m_inSystem.setActionTrigger(AC_NEXT, SDL_SCANCODE_N);
 
 	GraphicsSystem::setFont("ressources/CaviarDreams.ttf", 30, { 225, 220, 255 });
@@ -64,7 +67,7 @@ void Scene::orderByZIndex(){
 		int j = 0;
 
 		for (int i(0); i < m_gameObjects.size(); i++){
-			std::cout << i << m_gameObjects[i]->getID() << "\n";
+			//std::cout << i << m_gameObjects[i]->getID() << "\n";
 		}
 		
 		bool ordered = true;
@@ -258,7 +261,7 @@ void Scene::update(Message &postman)
 	//TIR DU VAISSEAU
 	if (m_inSystem.checkTriggeredAction(AC_SHOOT))
 	{
-		std::cout << "pew!\n";
+		//std::cout << "pew!\n";
 		postman.addMessage("game", "Input", MS_SHOOT, 1);
 	}
 
@@ -482,7 +485,7 @@ void Scene::update(Message &postman)
 	if (m_id == "game"){
 		MissionSystem::update(postman);
 		if (postman.getMessage("MissionSystem", "Mission", MS_MISSION_OVER) == 1){
-			std::cout << "OVER!!!";
+			//std::cout << "OVER!!!";
 			GraphicsSystem::print("Mission terminée.");
 		}
 	}

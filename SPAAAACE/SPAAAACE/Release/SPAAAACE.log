@@ -1,6 +1,17 @@
-﻿  GameLogicSystem.cpp
-GameLogicSystem.cpp(25): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-GameLogicSystem.cpp(43): warning C4244: 'argument' : conversion de 'double' en 'unsigned int', perte possible de données
+﻿  Scene.cpp
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\LuaInit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
+          c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\PhysicsSystem.h(19) : voir la déclaration de 'Scene'
+Scene.cpp(69): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(76): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(89): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(102): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(105): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(272): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(277): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(371): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+Scene.cpp(478): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\Scene.h(109): warning C4018: '<' : incompatibilité signed/unsigned
+          Scene.cpp(371) : voir la référence à l'instanciation de la fonction modèle 'std::string Scene::getFatherID<PhysicsComponent>(int)' en cours de compilation
   Génération de code en cours
 c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(153): warning C4715: 'GraphicsSystem::loadTexture' : les chemins de contrôle ne retournent pas tous une valeur
   Fin de la génération du code
