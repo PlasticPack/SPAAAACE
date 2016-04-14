@@ -32,7 +32,7 @@ PhysicsComponent::PhysicsComponent(luabridge::LuaRef& componentTable, std::share
 	auto ela =			componentTable["elasticity"];
 	auto xVel =			componentTable["vel_x"];
 	auto yVel =			componentTable["vel_y"];
-
+	auto aVel =			componentTable["vel_a"];
 	
 	if (massRef.isNumber()){
 		setMass(massRef.cast<double>());
@@ -55,6 +55,10 @@ PhysicsComponent::PhysicsComponent(luabridge::LuaRef& componentTable, std::share
 		m_velocity = Vec2(xVel, yVel);
 	}
 	
+	if (aVel.isNumber()){
+		m_angularVelocity = aVel;
+	}
+
 	if (hbRef.isNumber()){
 		setHitboxRadius(hbRef.cast<double>());
 	}

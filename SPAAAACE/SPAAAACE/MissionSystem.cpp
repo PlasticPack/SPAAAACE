@@ -1,8 +1,9 @@
 #include "MissionSystem.h"
 #include <LuaBridge.h>
 
-std::map<std::string, std::pair<std::string, bool>> MissionSystem::m_objectives;
+std::map<std::string, s_objective> MissionSystem::m_objectives;
 std::string MissionSystem::m_currentObjective = "objective_1";
+Vec2 MissionSystem::m_objPosition = Vec2(0, 0);
 
 MissionSystem::MissionSystem()
 {
@@ -17,9 +18,13 @@ void MissionSystem::addObjective(luabridge::LuaRef& componentTable){
 
 	using namespace luabridge;
 	auto name = componentTable["name"];
+	auto target = componentTable["target"];
 	
 	if (name.isString()){
-		m_objectives["objective_" + std::to_string(m_objectives.size() + 1)] = std::pair<std::string, bool>(name, false);
+		m_objectives["objective_" + std::to_string(m_objectives.size() + 1)] = { name, "none", false };
+		if (target.isString()){
+			m_objectives["objective_" + std::to_string(m_objectives.size())].targetID = target.cast<std::string>();
+		}
 		m_currentObjective = m_objectives.begin()->first;
 	}
 }
@@ -31,7 +36,7 @@ void MissionSystem::init(){
 	//m_currentObjective = m_objectives.begin()->second.first;
 }
 
-void MissionSystem::update(Message &postman){
+void MissionSystem::update(Message &postman, std::map<std::string, std::shared_ptr<GameObject>> &objs){
 	//check si message correspond à objectif updaté
 	//et update objectif selon msg
 
@@ -41,10 +46,20 @@ void MissionSystem::update(Message &postman){
 		}
 	}*/
 
+	if (m_currentObjective != "null") {
+		if (m_objectives[m_currentObjective].targetID != "none"){
+			m_objPosition = objs[m_objectives[m_currentObjective].targetID]->get<PositionComponent>()->getPosition();
+			objs[m_currentObjective]->get<PositionComponent>()->setPosition(m_objPosition);
+		}
+		else {
+			m_objPosition = objs[m_currentObjective]->get<PositionComponent>()->getPosition();
+		}
+	}
+
 	if (postman.getMessage("Action", m_currentObjective, MS_OBJECTIVE) == true){
-		m_objectives[m_currentObjective].second = true;
+		m_objectives[m_currentObjective].done = true;
 		//std::cout << m_currentObjective << "\n";
-		std::map < std::string, std::pair<std::string, bool> >::iterator it = m_objectives.find(m_currentObjective);
+		std::map < std::string, s_objective >::iterator it = m_objectives.find(m_currentObjective);
 		it++;
 		//std::cout << it->first << "\n";
 		if (it != m_objectives.end()){
@@ -60,7 +75,7 @@ void MissionSystem::update(Message &postman){
 
 	GraphicsSystem::printAt("OBJECTIF", 25, 170);
 	GraphicsSystem::printAt("_____________", 25, 180);
-	GraphicsSystem::printAt(m_objectives[m_currentObjective].first, 25, 215);
+	GraphicsSystem::printAt(m_objectives[m_currentObjective].name, 25, 215);
 }
 
 Vec2 getPointerPosition(Vec2 direction, int half_size){
