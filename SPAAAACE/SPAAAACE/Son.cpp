@@ -4,12 +4,19 @@ using namespace std;
 
 Son::Son()
 {
+	m_filePath = "";
 	m_son = NULL;
 	m_channel = -1;
 }
 
+Son::Son(const Son &son)
+{
+	*this = son;
+}
+
 Son::Son(string filepath, int channel)
 {
+	m_filePath = filepath;
 	m_son = Mix_LoadWAV(filepath.c_str());
 	if (m_son == NULL)
 	{
@@ -33,4 +40,18 @@ void Son::play(int distance, int angle, int loop)
 		Mix_PlayChannel(m_channel, m_son, loop);
 	}
 
+}
+
+void Son::stop()
+{
+	if (Mix_Playing(m_channel))
+		Mix_HaltChannel(m_channel);
+}
+
+Son& Son::operator=(const Son &son)
+{
+	m_filePath = son.m_filePath;
+	m_son = Mix_LoadWAV(son.m_filePath.c_str());
+	m_channel = son.m_channel;
+	return *this;
 }
