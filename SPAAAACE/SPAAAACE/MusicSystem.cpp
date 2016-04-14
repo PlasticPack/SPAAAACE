@@ -11,7 +11,7 @@ MusicSystem::MusicSystem()
 	}
 	
 	init();
-	m_musique["zone1"].play(10000); //TODO: le gérer dans update()!!
+	m_musique["menu"].play(10000); //TODO: le gérer dans update()!!
 }
 
 MusicSystem::~MusicSystem()
@@ -21,11 +21,14 @@ MusicSystem::~MusicSystem()
 
 void MusicSystem::update(Message &postman)
 {
-	
+	if (postman.getMessage("main", "main", MS_SWITCHED))
+		m_musique["menu"].play(10000);
 	if (postman.getMessage("player", "player", MS_ENGINE_ACTIVE))
 	{
-		m_son["thrust"].play();
+		m_son["thrust"].play(150, 0, -1);
 	}
+	else 
+		m_son["thrust"].stop();
 	if (postman.getMessage("game", "Input", MS_SHOOT))
 	{
 		m_son["shoot"].play();
@@ -35,8 +38,10 @@ void MusicSystem::update(Message &postman)
 
 void MusicSystem::init()
 {
-	
+	//SON
 	m_son["shoot"] = *(new Son("ressources/Son/shoot.wav",0));
 	m_son["thrust"] = *(new Son("ressources/Son/thrust.wav",1));
+	//MUSIQUE
 	m_musique["zone1"] = *(new Musique("ressources/Musique/zone1.wav"));
+	m_musique["menu"] = *(new Musique("ressources/Musique/menu.wav"));
 }

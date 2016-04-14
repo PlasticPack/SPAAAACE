@@ -48,6 +48,7 @@ void Scene::init(std::string arg){
 	m_inSystem.setActionTrigger(AC_HORIZONTAL_PUSH, GP_AXIS_LEFT_JOY_X);
 	m_inSystem.setActionTrigger(AC_VERTICAL_PUSH, GP_AXIS_LEFT_JOY_Y);
 	m_inSystem.setActionTrigger(AC_SELECT, SDL_SCANCODE_RETURN);
+	m_inSystem.setActionTrigger(AC_SELECT, GP_BUTTON_A);
 	m_inSystem.setActionTrigger(AC_NEXT, SDL_SCANCODE_N);
 
 	GraphicsSystem::setFont("ressources/CaviarDreams.ttf", 30, { 225, 220, 255 });
