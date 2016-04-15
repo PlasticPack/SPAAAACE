@@ -118,6 +118,7 @@ public:
 
 protected:
 	std::map<std::string, std::shared_ptr<GameObject>> m_gameObjects;
+	std::vector<std::string> m_orderedGO;
 
 	std::vector<std::shared_ptr<PositionComponent>>		m_posComps;
 	std::vector<std::shared_ptr<GraphicsComponent>>		m_graphicsComps;

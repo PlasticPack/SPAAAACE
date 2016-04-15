@@ -65,6 +65,59 @@ void Scene::init(std::string arg){
 void Scene::orderByZIndex(){
 	if (m_gameObjects.size() > 1){
 
+		std::vector < std::pair<std::string, double> > vec;
+		for (auto const& it : m_gameObjects){
+			if (it.second->get<PositionComponent>() != nullptr){
+				vec.push_back(std::pair < std::string, double>(it.second->getID(), it.second->get<PositionComponent>()->getZIndex()));
+			}
+			else {
+				vec.push_back(std::pair < std::string, double>(it.second->getID(), 0));
+			}
+		}
+
+		bool ordered = true;
+		do {
+
+			for (int i = 0; i < vec.size() - 1; i++){
+				if (vec[i].second > vec[i + 1].second){
+					std::iter_swap(vec.begin() + i, vec.begin() + i +1);
+				}
+				else
+					std::cout << "\n";
+			}
+
+			ordered = true;
+			for (int i = 0; i < vec.size() - 1; i++){
+
+				if (vec[i].second > vec[i +1].second){
+					ordered = false;
+					break;
+				}
+			}
+
+		} while (!ordered);
+
+		//on place le joueur au "dessus" des objets à sa même hauteur
+		for (int i = 0; i < vec.size(); i++){
+			if (vec[i].first == "player"){
+				if (i != vec.size() - 1) {
+					for (int j = i; j < vec.size(); j++){
+						if (vec[j].first != "player" && vec[j].second == vec[i].second) {
+							std::iter_swap(vec.begin() + i, vec.begin() + j);
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		for (int i = 0; i < vec.size();i++){
+			m_orderedGO.push_back(vec[i].first);
+			std::cout << vec[i].first << " " << vec[i].second << "\n";
+		}
+
+		
+
 		/*std::vector< std::pair<std::string, std::shared_ptr<GameObject>>> vecGO(m_gameObjects.begin(), m_gameObjects.end());
 
 		int j = 0;
@@ -275,10 +328,13 @@ void Scene::update(Message &postman)
 	GraphicsSystem::initFrame();
 
 
-	for (auto& it : m_gameObjects){
+	for (int i = 0; i < m_orderedGO.size(); i++){
 
-		if (it.first == "planet_menu"){
-			GraphicsSystem::setCameraTarget(it.second->get<PositionComponent>()->getPosition() + Vec2(-SCREEN_W/2, 0));
+		std::string currentID = m_orderedGO[i];
+		auto currentObj = m_gameObjects[m_orderedGO[i]];
+
+		if (m_orderedGO[i] == "planet_menu"){
+			GraphicsSystem::setCameraTarget(currentObj->get<PositionComponent>()->getPosition() + Vec2(-SCREEN_W/2, 0));
 		}
 
 		//
@@ -286,23 +342,23 @@ void Scene::update(Message &postman)
 		//if (m_gameObjects[i]->get<PositionComponent>() != nullptr)
 			//std::cout << m_gameObjects[i]->get<PositionComponent>()->getZIndex() << "\n";
 
-		std::shared_ptr<PhysicsComponent> pc = it.second->get<PhysicsComponent>();
+		std::shared_ptr<PhysicsComponent> pc = currentObj->get<PhysicsComponent>();
 		if (pc != nullptr){
-			/*if (it.first == MissionSystem::getCurrentObjective()){
-				objectivePos = it.second->get<PositionComponent>()->getPosition();
+			/*if (currentID == MissionSystem::getCurrentObjective()){
+				objectivePos = currentObj->get<PositionComponent>()->getPosition();
 			}
 
-			if (it.first == "base"){
-				basePos = it.second->get<PhysicsComponent>()->getPosition();
+			if (currentID == "base"){
+				basePos = currentObj->get<PhysicsComponent>()->getPosition();
 			}*/
 
 			//DÉCISION DE MOUVEMENT : JOUEUR
-			if (it.first == "player") {
-				if (it.second->get<GameLogicComponent>()->getCurrentFuel() > 0) { // si assez de fuel
+			if (currentID == "player") {
+				if (currentObj->get<GameLogicComponent>()->getCurrentFuel() > 0) { // si assez de fuel
 					//on check la direction du joueur
 					Vec2 forces(0, 0);
 					Vec2 direction(cos(pc->getPositionComponent()->getAngle() * (3.14159 / 180.0)), sin(pc->getPositionComponent()->getAngle() * (3.14159 / 180.0)));
-					int pwr = it.second->get<GameLogicComponent>()->getEnginePower();
+					int pwr = currentObj->get<GameLogicComponent>()->getEnginePower();
 
 					double angle = 0;
 
@@ -352,7 +408,7 @@ void Scene::update(Message &postman)
 
 						//on baisse le fuel
 
-						postman.addMessage("Scene", it.first, MS_ENGINE_ACTIVE, 1);
+						postman.addMessage("Scene", currentID, MS_ENGINE_ACTIVE, 1);
 						pc->getPositionComponent()->setAngle(angle);
 
 						pc->setForces(forces);
@@ -366,16 +422,16 @@ void Scene::update(Message &postman)
 		}
 		
 
-		if (postman.getMessage("Physics", it.first, MS_COLLISION) > 1){
-			postman.addMessage(it.first, getFatherID<PhysicsComponent>(postman.getMessage("Physics", it.first, MS_COLLISION)), MS_COLLISION, 1);
+		if (postman.getMessage("Physics", currentID, MS_COLLISION) > 1){
+			postman.addMessage(currentID, getFatherID<PhysicsComponent>(postman.getMessage("Physics", currentID, MS_COLLISION)), MS_COLLISION, 1);
 		}
 
-		auto GLC = it.second->get<GameLogicComponent>();
+		auto GLC = currentObj->get<GameLogicComponent>();
 		if (GLC != nullptr){
-			GameLogicSystem::update(postman, it.second, *GLC, 1.0 / GraphicsSystem::getFPS());
+			GameLogicSystem::update(postman, currentObj, *GLC, 1.0 / GraphicsSystem::getFPS());
 		}
 
-		auto gc = it.second->get<GraphicsComponent>();
+		auto gc = currentObj->get<GraphicsComponent>();
 		if (gc != nullptr){
 
 			Vec2 playerPos;
@@ -387,16 +443,16 @@ void Scene::update(Message &postman)
 				objPos = MissionSystem::getObjPosition();
 			}
 
-			if (it.first == m_focusedID){
+			if (currentID == m_focusedID){
 				gc->getSprite()->setSpriteSheet("selected");
 			}
 			else {
 				gc->getSprite()->setSpriteSheet("default");
 			}
 
-			if (it.first == "player"){
+			if (currentID == "player"){
 
-				double vel = it.second->get<PhysicsComponent>()->getVelocity().getLength();
+				double vel = currentObj->get<PhysicsComponent>()->getVelocity().getLength();
 				double zoom = 0.685;
 
 				GraphicsSystem::setCameraZoom(zoom);
@@ -405,32 +461,32 @@ void Scene::update(Message &postman)
 			}
 
 			if (m_id == "game"){
-				if (it.first.find("hud") != std::string::npos) { // si l'objet fait partie du hud
+				if (currentID.find("hud") != std::string::npos) { // si l'objet fait partie du hud
 
-					std::string id = it.first;
+					std::string id = currentID;
 
 					if (id == "hud_fuel"){
 						if (postman.getMessage("GameLogic", m_gameObjects["player"]->getID(), MS_ENGINE_ACTIVE) > 0){
 
 							//on réduit le fuel
-							Vec2 baseSize = it.second->get<GraphicsComponent>()->getMaxSize();
+							Vec2 baseSize = currentObj->get<GraphicsComponent>()->getMaxSize();
 							double fuel = (double)(m_gameObjects["player"]->get<GameLogicComponent>()->getCurrentFuel()) / (double)m_gameObjects["player"]->get<GameLogicComponent>()->getMaxFuel();
-							it.second->get<GraphicsComponent>()->setSize(Vec2(baseSize.x() * fuel, baseSize.y()));
+							currentObj->get<GraphicsComponent>()->setSize(Vec2(baseSize.x() * fuel, baseSize.y()));
 
 						}
 					}
 					else if (id == "hud_life"){
-						//if (postman.getMessage("GameLogic", it.first, MS_LIFE_DOWN) > 0) {
+						//if (postman.getMessage("GameLogic", currentID, MS_LIFE_DOWN) > 0) {
 
-						Vec2 baseSize = it.second->get<GraphicsComponent>()->getMaxSize();
+						Vec2 baseSize = currentObj->get<GraphicsComponent>()->getMaxSize();
 						double life = (double)(m_gameObjects["player"]->get<GameLogicComponent>()->getCurrentLife()) / (double)m_gameObjects["player"]->get<GameLogicComponent>()->getMaxLife();
-						it.second->get<GraphicsComponent>()->setSize(Vec2(baseSize.x() * life, baseSize.y()));
+						currentObj->get<GraphicsComponent>()->setSize(Vec2(baseSize.x() * life, baseSize.y()));
 						//}
 					}
 					else if (id == "hud_base_pointer"){
 						Vec2 direction = basePos - playerPos;
 						if (direction.getLength() > 0){
-							it.second->get<PositionComponent>()->setAngle(direction.getAngle());
+							currentObj->get<PositionComponent>()->setAngle(direction.getAngle());
 							double size = 25000.0 / (direction.getLength());
 
 							if (size > 1)
@@ -438,8 +494,8 @@ void Scene::update(Message &postman)
 							if (size < 0.5)
 								size = 0.5;
 
-							it.second->get<GraphicsComponent>()->setSize(it.second->get<GraphicsComponent>()->getMaxSize() *size);
-							it.second->get<PositionComponent>()->setPosition(getPointerPosition(direction, 32));
+							currentObj->get<GraphicsComponent>()->setSize(currentObj->get<GraphicsComponent>()->getMaxSize() *size);
+							currentObj->get<PositionComponent>()->setPosition(getPointerPosition(direction, 32));
 						}
 					}
 					else if (id == "hud_obj_pointer"){
@@ -447,7 +503,7 @@ void Scene::update(Message &postman)
 							Vec2 direction = objPos - playerPos;
 							if (direction.getLength() > 0){
 
-								it.second->get<PositionComponent>()->setAngle(direction.getAngle());
+								currentObj->get<PositionComponent>()->setAngle(direction.getAngle());
 
 								double size = 25000.0 / (direction.getLength());
 
@@ -456,8 +512,8 @@ void Scene::update(Message &postman)
 								if (size < 0.5)
 									size = 0.5;
 
-								it.second->get<GraphicsComponent>()->setSize(it.second->get<GraphicsComponent>()->getMaxSize() *size);
-								it.second->get<PositionComponent>()->setPosition(getPointerPosition(direction, 32));
+								currentObj->get<GraphicsComponent>()->setSize(currentObj->get<GraphicsComponent>()->getMaxSize() *size);
+								currentObj->get<PositionComponent>()->setPosition(getPointerPosition(direction, 32));
 							}
 						}
 						else {
@@ -467,7 +523,7 @@ void Scene::update(Message &postman)
 				}
 			}
 
-			GraphicsSystem::update(postman, it.first,*gc, 1.0 / GraphicsSystem::getFPS());
+			GraphicsSystem::update(postman, currentID,*gc, 1.0 / GraphicsSystem::getFPS());
 		}
 
 	}

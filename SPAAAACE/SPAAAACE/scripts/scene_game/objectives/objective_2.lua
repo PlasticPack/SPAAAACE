@@ -1,11 +1,10 @@
 objective_2 = {
 	Position = {
 		x = 5000,
-		y = 2000,
-		fixed = "true"
+		y = 2000
 	},
 	Physics = {
-		hitbox = 300,
+		hitbox = 800,
 		activated = "false"
 	},
 	Action = {
@@ -14,6 +13,7 @@ objective_2 = {
 		timer = -1
 	},
 	Objective = {
-		name = "Trouver l'etoile Omega"
+		name = "Trouver la planete Omega",
+		target = "planet_1"
 	}
 }

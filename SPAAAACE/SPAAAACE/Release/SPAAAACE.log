@@ -1,71 +1,8 @@
-﻿  Scene.cpp
+﻿  main.cpp
 c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\LuaInit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
           c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\PhysicsSystem.h(19) : voir la déclaration de 'Scene'
-Scene.cpp(375): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
-C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\utility(53): error C2678: '=' binaire : aucun opérateur trouvé qui accepte un opérande de partie gauche de type 'const std::string' (ou il n'existe pas de conversion acceptable)
-          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\xstring(1017): peut être 'std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(_Elem)'
-          with
-          [
-              _Elem=char
-          ]
-          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\xstring(1012): ou       'std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(const _Elem *)'
-          with
-          [
-              _Elem=char
-          ]
-          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\xstring(996): ou       'std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(const std::basic_string<char,std::char_traits<char>,std::allocator<char>> &)'
-          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\xstring(957): ou       'std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(std::initializer_list<_Elem>)'
-          with
-          [
-              _Elem=char
-          ]
-          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\xstring(901): ou       'std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&) throw()'
-          lors de la tentative de mise en correspondance de la liste des arguments '(const std::string, const std::basic_string<char,std::char_traits<char>,std::allocator<char>>)'
-          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\utility(61) : voir la référence à l'instanciation de la fonction modèle 'void std::swap<_Ty>(_Ty &,_Ty &)' en cours de compilation
-          with
-          [
-              _Ty=std::string
-          ]
-          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\utility(186) : voir la référence à l'instanciation de la fonction modèle 'void std::_Swap_adl<_Ty1>(_Ty &,_Ty &)' en cours de compilation
-          with
-          [
-              _Ty1=std::string
-  ,            _Ty=std::string
-          ]
-          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\utility(183) : lors de la compilation de la fonction membre 'void std::pair<const _Kty,_Ty>::swap(std::pair<const _Kty,_Ty> &)' de la classe modèle
-          with
-          [
-              _Kty=std::string
-  ,            _Ty=std::shared_ptr<GameObject>
-          ]
-          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\utility(209) : voir la référence à l'instanciation de la fonction modèle 'void std::pair<const _Kty,_Ty>::swap(std::pair<const _Kty,_Ty> &)' en cours de compilation
-          with
-          [
-              _Kty=std::string
-  ,            _Ty=std::shared_ptr<GameObject>
-          ]
-          Scene.cpp(79) : voir la référence à l'instanciation de la classe modèle 'std::pair<const _Kty,_Ty>' en cours de compilation
-          with
-          [
-              _Kty=std::string
-  ,            _Ty=std::shared_ptr<GameObject>
-          ]
-C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\utility(54): error C2678: '=' binaire : aucun opérateur trouvé qui accepte un opérande de partie gauche de type 'const std::string' (ou il n'existe pas de conversion acceptable)
-          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\xstring(1017): peut être 'std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(_Elem)'
-          with
-          [
-              _Elem=char
-          ]
-          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\xstring(1012): ou       'std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(const _Elem *)'
-          with
-          [
-              _Elem=char
-          ]
-          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\xstring(996): ou       'std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(const std::basic_string<char,std::char_traits<char>,std::allocator<char>> &)'
-          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\xstring(957): ou       'std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(std::initializer_list<_Elem>)'
-          with
-          [
-              _Elem=char
-          ]
-          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\xstring(901): ou       'std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&) throw()'
-          lors de la tentative de mise en correspondance de la liste des arguments '(const std::string, const std::basic_string<char,std::char_traits<char>,std::allocator<char>>)'
+main.cpp(22): warning C4101: 'e' : variable locale non référencée
+  Génération de code en cours
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(153): warning C4715: 'GraphicsSystem::loadTexture' : les chemins de contrôle ne retournent pas tous une valeur
+  Fin de la génération du code
+  SPAAAACE.vcxproj -> C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\SPAAAACE.exe

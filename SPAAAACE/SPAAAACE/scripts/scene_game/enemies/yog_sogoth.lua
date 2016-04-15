@@ -6,15 +6,15 @@ yog_sogoth = {
 	},
 	Physics = {
 		mass = 5000,
-		hitbox = 1160,
+		hitbox = 2000,
 		elasticity = 0.5,
 		vel_a = 8,
-		vel_x = 700,
-		vel_y = -700
+		vel_x = 200,
+		vel_y = -200
 	},
 	Graphics = {
 		filename = "ressources/yog_sogoth.png",
-		width = 3200,
-		height = 3200
+		width = 5000,
+		height = 5000
 	}
 }

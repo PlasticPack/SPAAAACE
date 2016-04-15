@@ -5,7 +5,7 @@ objective_1 = {
 		fixed = "true"
 	},
 	Physics = {
-		hitbox = 1100,
+		hitbox = 1200,
 		activated = "false"
 	},
 	Action = {
@@ -14,6 +14,6 @@ objective_1 = {
 		timer = -1
 	},
 	Objective = {
-		name = "Exploser le machin"
+		name = "Trouver la base"
 	}
 }

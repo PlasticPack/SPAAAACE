@@ -5,7 +5,7 @@ player = {
 		a = 0
 	},
 	Physics = {
-		mass = 5.7,
+		mass = 2.7,
 		hitbox = 16,
 		elasticity = 0.8
 	},
