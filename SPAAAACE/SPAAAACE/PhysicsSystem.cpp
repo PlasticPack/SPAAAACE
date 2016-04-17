@@ -1,10 +1,10 @@
 #include "PhysicsSystem.h"
 
+double PhysicsSystem::m_gravity = 6.67 * pow(10, 4);
 
 PhysicsSystem::PhysicsSystem()
 {
 }
-
 
 PhysicsSystem::~PhysicsSystem()
 {
@@ -84,9 +84,34 @@ bool PhysicsSystem::checkIfCollide(Message &postman, Scene *s, std::shared_ptr<P
 		return false;
 }
 
+bool PhysicsSystem::checkIfCollide(PhysicsComponent &a, PhysicsComponent &b, double dt){ // check seulement s'ils OVERLAP , fuck leur ZINDEX 
+	if (&a != &b){
+		//si les objets vont très vite, il se peut qu'un objet "passe à travers" l'autre"
+		//pour éviter ca, on regarde la position de l'objet par petits bond jusqu'à la
+		//prochaine frame
+
+		//option #2, plus optimisée : faire 2 segments avec le déplacement des objets et checker s'ils intersectent
+		//plus optimisé pcq pas besoin de faire une boucle 
+		//mais plus long à trouver la bonne implémentation (et plus compliqué)
+		//donc je me suis dit fuck it, on y va pour ca pour tout de suite
+
+		bool detected = false;
+		double accuracy = 3; // la précision ou le nombre de bonds qu'on fait 
+		for (int i = 1; i <= accuracy; i++){
+			if (a.getHitboxRadius() + b.getHitboxRadius() > (a.getPosition() + (a.getVelocity() * (i / accuracy) *dt)).getDist((b.getPosition()) + (b.getVelocity() * (i / accuracy) *dt))){
+				detected = true;
+				i = accuracy + 1;
+			}
+		}
+		return detected;
+	}
+	else
+		return false;
+}
+
 Vec2 PhysicsSystem::gravity(PhysicsComponent &a, PhysicsComponent &b) {
 	if (a.isActive() && b.isActive()){
-		double G = 6.67 * pow(10, 4);
+		double G = m_gravity;
 
 		double r = (a.getPosition().getDist(b.getPosition())); //on obtient la distance entre les 2 points
 
@@ -168,9 +193,9 @@ Vec2 PhysicsSystem::accelerate(PhysicsComponent& initial, PhysicsComponent &b, s
 	//if (!initial.isFixed() && initial.isSolid()){ // si l'objet est affecté par la gravité
 		for (int i(0); i < bodies.size(); i++){
 			if (bodies[i].get() != &initial){ // si l'objet est différent de lui-même
-				//if (/*b.pos.getDist(bodies[i].getPosition())  <  1500 && */) { // si l'objet est assez proche ET qu'ils sont pas l'un dans l'autre
-				totalGravity += gravity(b, *bodies[i]);
-				//}
+				if (!checkIfCollide(initial, *bodies[i], dt)) { // si l'objet est assez proche ET qu'ils sont pas l'un dans l'autre
+					totalGravity += gravity(b, *bodies[i]);
+				}
 				//std::cout << "GRAV";
 			}
 		}

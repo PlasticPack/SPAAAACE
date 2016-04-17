@@ -5,16 +5,16 @@ player = {
 		a = 0
 	},
 	Physics = {
-		mass = 2.7,
+		mass = 4,
 		hitbox = 16,
-		elasticity = 0.999
+		elasticity = 0.8
 	},
 	Graphics = {
 		filename = "default__ressources/single_ship.png",
 	},
 	GameLogic =  {
-		pwr = 2000,
-		fuel = 20000,
+		pwr = 3000,
+		fuel = 40000,
 		life = 30
 	}
 }

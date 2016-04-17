@@ -42,7 +42,6 @@ protected:
 	double m_hitboxRadius;
 	bool m_activated;
 	double m_elasticity;
-	double m_angle;
 	double m_angularVelocity;
 };
 
