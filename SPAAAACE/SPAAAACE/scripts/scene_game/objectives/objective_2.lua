@@ -1,7 +1,7 @@
 objective_2 = {
 	Position = {
-		x = 5000,
-		y = 2000
+		x = 0000,
+		y = 2000,
 	},
 	Physics = {
 		hitbox = 800,

@@ -89,6 +89,8 @@
     <ClCompile Include="..\..\tinyxml\tinyxmlparser.cpp" />
     <ClCompile Include="ActionComponent.cpp" />
     <ClCompile Include="ActionSystem.cpp" />
+    <ClCompile Include="AiComponent.cpp" />
+    <ClCompile Include="AiSystem.cpp" />
     <ClCompile Include="boostExemple.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="GameLogicComponent.cpp" />
@@ -122,6 +124,8 @@
     <ClInclude Include="..\..\tinyxml\tinyxml.h" />
     <ClInclude Include="ActionComponent.h" />
     <ClInclude Include="ActionSystem.h" />
+    <ClInclude Include="AiComponent.h" />
+    <ClInclude Include="AiSystem.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Flags.h" />
     <ClInclude Include="GameLogicComponent.h" />

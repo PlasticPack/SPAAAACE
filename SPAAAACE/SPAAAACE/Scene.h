@@ -1,6 +1,7 @@
 #pragma once
 
 #include "PhysicsSystem.h"
+#include "AiSystem.h"
 #include "InputSystem.h"
 #include "MissionSystem.h"
 #include <stdio.h>
@@ -125,8 +126,7 @@ protected:
 	std::vector<std::shared_ptr<PhysicsComponent>>		m_physicsComps;
 	std::vector<std::shared_ptr<GameLogicComponent>>	m_GLComps;
 	std::vector<std::shared_ptr<ActionComponent>>		m_ActionComps;
-
-	//std::vector<std::shared_ptr<AiComponent>> m_aiComps;
+	std::vector<std::shared_ptr<AiComponent>>			m_AiComps;
 	//std::map<std::type_index, std::vector<std::shared_ptr<Component>>> m_components;
 
 	std::string m_id;

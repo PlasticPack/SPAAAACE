@@ -1,7 +1,35 @@
-﻿  main.cpp
+﻿  AiComponent.cpp
+  AiSystem.cpp
+AiSystem.cpp(11): warning C4018: '<' : incompatibilité signed/unsigned
+  LuaFunctions.cpp
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\LuaInit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
+          c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\Scene.h(63) : voir la déclaration de 'Scene'
+LuaFunctions.cpp(170): warning C4018: '<' : incompatibilité signed/unsigned
+LuaFunctions.cpp(190): warning C4018: '<' : incompatibilité signed/unsigned
+  main.cpp
 c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\LuaInit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
           c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\PhysicsSystem.h(19) : voir la déclaration de 'Scene'
 main.cpp(22): warning C4101: 'e' : variable locale non référencée
+  PhysicsSystem.cpp
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\LuaInit.hpp(22): warning C4099: 'Scene' : nom de type déjà rencontré avec 'struct' et utilisant maintenant 'class'
+          c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\LuaInit.hpp(20) : voir la déclaration de 'Scene'
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\Scene.h(63): warning C4099: 'Scene' : nom de type déjà rencontré avec 'struct' et utilisant maintenant 'class'
+          c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\LuaInit.hpp(20) : voir la déclaration de 'Scene'
+PhysicsSystem.cpp(70): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+PhysicsSystem.cpp(103): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+PhysicsSystem.cpp(158): warning C4018: '<' : incompatibilité signed/unsigned
+PhysicsSystem.cpp(159): warning C4018: '<' : incompatibilité signed/unsigned
+PhysicsSystem.cpp(194): warning C4018: '<' : incompatibilité signed/unsigned
+  Scene.cpp
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\LuaInit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
+          c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\PhysicsSystem.h(19) : voir la déclaration de 'Scene'
+Scene.cpp(81): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(90): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(101): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(104): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(114): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(330): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(425): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
   Génération de code en cours
 c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(153): warning C4715: 'GraphicsSystem::loadTexture' : les chemins de contrôle ne retournent pas tous une valeur
   Fin de la génération du code

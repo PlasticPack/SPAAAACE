@@ -117,7 +117,6 @@ void Scene::orderByZIndex(){
 		}
 
 		
-
 		/*std::vector< std::pair<std::string, std::shared_ptr<GameObject>>> vecGO(m_gameObjects.begin(), m_gameObjects.end());
 
 		int j = 0;
@@ -429,6 +428,12 @@ void Scene::update(Message &postman)
 		auto GLC = currentObj->get<GameLogicComponent>();
 		if (GLC != nullptr){
 			GameLogicSystem::update(postman, currentObj, *GLC, 1.0 / GraphicsSystem::getFPS());
+		}
+
+		auto AiC = currentObj->get<AiComponent>();
+
+		if (AiC != nullptr){
+			AiSystem::update(AiC, m_physicsComps, m_gameObjects["player"]->get<PhysicsComponent>());
 		}
 
 		auto gc = currentObj->get<GraphicsComponent>();
