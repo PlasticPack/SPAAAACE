@@ -37,8 +37,8 @@ ai =
 	},
 	GameLogic =  {
 		pwr = 2000,
-		fuel = 20000,
-		life = 30
+		fuel = 2000,
+		life = 10
 	},
 	AI = {
 	}

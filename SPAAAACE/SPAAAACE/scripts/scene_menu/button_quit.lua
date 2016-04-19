@@ -1,7 +1,7 @@
 button_quit = {
 	Position = {
 		x = 150,
-		y = 875,
+		y = 575,
 	},
 	Graphics = {
 		filename = "default__ressources/button_quit.png 33selected__ressources/button_quit_selected.png",
