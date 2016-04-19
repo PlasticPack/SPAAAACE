@@ -52,7 +52,8 @@ void MissionSystem::update(Message &postman, std::map<std::string, std::shared_p
 			objs[m_currentObjective]->get<PositionComponent>()->setPosition(m_objPosition);
 		}
 		else {
-			m_objPosition = objs[m_currentObjective]->get<PositionComponent>()->getPosition();
+			if (objs[m_currentObjective] != nullptr)
+				m_objPosition = objs[m_currentObjective]->get<PositionComponent>()->getPosition();
 		}
 	}
 
