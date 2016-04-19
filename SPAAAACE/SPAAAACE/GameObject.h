@@ -41,6 +41,8 @@ public:
 	bool isActive(){ return m_active; }
 	void activate(bool a = true) { m_active = a;}
 
+	std::map<std::type_index, std::shared_ptr<Component>> getComponents(){ return m_components; }
+
 protected:
 	std::map<std::type_index, std::shared_ptr<Component>> m_components;
 	std::string m_ID;

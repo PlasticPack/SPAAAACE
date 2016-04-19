@@ -6,6 +6,7 @@
 #include "Vec2.h"
 #include <iostream>
 #include <memory>
+#include "Message.h"
 
 /***********************************
 Classe qui gère un ensemble d'images
@@ -28,11 +29,13 @@ public:
 	void nextRect(double dt);
 	
 	int getCurrentRectIndex(){
-		return (m_currentRect.x / m_currentRect.w) + ((m_currentRect.y / m_currentRect.h) * m_sheetSize.w / m_currentRect.x);
+		std::cout << m_currentRectIndex << "\n";
+		return m_currentRectIndex;
 	}
 	
 	int getTotalRectNumber(){
-		return ((m_sheetSize.w) / (m_currentRect.x)) * ((m_sheetSize.h) / (m_currentRect.y));
+		//std::cout << "   \n"<< ((m_sheetSize.w) / (m_currentRect.w)) * ((m_sheetSize.h) / (m_currentRect.h)) - 1;
+		return ((m_sheetSize.w) / (m_currentRect.w)) * ((m_sheetSize.h) / (m_currentRect.h));
 	}
 
 protected:
@@ -41,5 +44,5 @@ protected:
 	SDL_Texture* m_texture;
 	SDL_Rect m_sheetSize;
 	SDL_Rect m_currentRect;
-
+	int m_currentRectIndex;
 };

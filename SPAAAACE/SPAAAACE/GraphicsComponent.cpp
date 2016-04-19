@@ -61,7 +61,7 @@ GraphicsComponent::GraphicsComponent(luabridge::LuaRef& componentTable, std::sha
 
 				std::string file = part.substr(part.find("__") + 2, part.find("__") + 2 + part.length());
 
-				std::cout << name << "__" << file << "\n";
+				std::cout << name << "__" << file << c << r << "\n";
 				m_sprite->addSpriteSheet(name, std::make_shared<SpriteSheet>(GraphicsSystem::loadTexture(file), c, r));
 			}
 		}

@@ -63,15 +63,14 @@ class Scene
 {
 public:
 
-	Scene(std::string arg, std::string);
+	Scene(std::string scripts, std::string xml,std::string id);
 	~Scene();
 	
 	void update(Message &postman);
-	void init(std::string arg); // méthode qui prend un script  et initialise le vector de gameObjects
+	void init(); // méthode qui prend un script  et initialise la map de gameObjects
 
 	void orderByZIndex();
 
-	//getters des components, utile à luafunctions.cpp
 	template <typename T> void addComponent(std::shared_ptr<Component> c){
 		 
 		//m_components[t].push_back(c);
@@ -87,6 +86,19 @@ public:
 		if (std::type_index(typeid(T)) == std::type_index(typeid(GraphicsComponent))){
 			m_graphicsComps.push_back(std::dynamic_pointer_cast<GraphicsComponent>(c));
 		}
+
+		if (std::type_index(typeid(T)) == std::type_index(typeid(GameLogicComponent))){
+			m_GLComps.push_back(std::dynamic_pointer_cast<GameLogicComponent>(c));
+		}
+
+		if (std::type_index(typeid(T)) == std::type_index(typeid(ActionComponent))){
+			m_ActionComps.push_back(std::dynamic_pointer_cast<ActionComponent>(c));
+		}
+
+		if (std::type_index(typeid(T)) == std::type_index(typeid(AiComponent))){
+			m_AiComps.push_back(std::dynamic_pointer_cast<AiComponent>(c));
+		}
+
 	}
 
 

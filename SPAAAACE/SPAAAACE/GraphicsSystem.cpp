@@ -199,7 +199,7 @@ void GraphicsSystem::update(Message &postman, std::string id, GraphicsComponent 
 				gComp.getSprite()->setSpriteSheet("collision");
 			}
 			
-			if(postman.getMessage("GameLogic", currentID, MS_DEAD) == 1){
+			if(postman.getMessage("GameLogic", id, MS_DEAD) == 1){
 				isLastPlay = true;
 				gComp.getSprite()->setSpriteSheet("death");
 			}
@@ -207,7 +207,7 @@ void GraphicsSystem::update(Message &postman, std::string id, GraphicsComponent 
 			if (gComp.getSprite() != nullptr) {
 				
 				//si animation est bouclée
-				if(gComp.getSprite()->getCurrentSpriteSheet()->getCurrentRectIndex() >= gComp.getSprite()->getCurrentSpriteSheet()->getTotalRectNumber() - 1){
+				if(isLastPlay && gComp.getSprite()->getCurrentSpriteSheet()->getCurrentRectIndex() >= gComp.getSprite()->getCurrentSpriteSheet()->getTotalRectNumber() - 1){
 					postman.addMessage("GraphicsSystem", id, MS_OBJ_DONE, 1);
 				}
 				

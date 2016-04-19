@@ -34,7 +34,9 @@ std::shared_ptr<SpriteSheet> Sprite::getCurrentSpriteSheet() {
 
 void Sprite::setAnimationSpeed(double s){
 	m_animationSpeed = s;
-	m_spriteSheets[m_currentSpriteSheet]->setAnimationSpeed(s);
+	for (auto& it : m_spriteSheets){
+		it.second->setAnimationSpeed(s);
+	}
 }
 
 void Sprite::setSpriteSheet(std::string id){

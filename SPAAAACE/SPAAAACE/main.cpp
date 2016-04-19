@@ -21,15 +21,21 @@ int main(int argc, char* argv[]){
 	bool quit = false;
 	SDL_Event e;
 
-	Scene menu("scripts/scene_menu", "menu");
-	Scene game("scripts/scene_game", "game");
+	/*std::map<std::string, std::shared_ptr<GameObject>> source_objs;
+	std::vector<std::shared_ptr<GameObject>> final_objs_vec;
+	std::map<std::string, std::shared_ptr<GameObject>> final_objs_map;*/
+
+
+	//Scene menu("scripts/scene_menu", "menu");
+
+	Scene game("scripts/scene_game", "saves/save.xml", "game");
+
 	Message postman;
 
 	postman.addMessage("main", "main", MS_SWITCHED, 1);
-	std::shared_ptr<Scene> currentScene = std::make_shared<Scene>(menu);
+	std::shared_ptr<Scene> currentScene = std::make_shared<Scene>(game);
 
-	while (!quit)
-	{
+	while (!quit){
 
 		currentScene->update(postman);
 

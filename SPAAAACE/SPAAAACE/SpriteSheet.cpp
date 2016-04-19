@@ -5,6 +5,7 @@ SpriteSheet::SpriteSheet(){
 	m_animationSpeed = 1;
 	m_timer = 0;
 	m_currentRect = SDL_Rect{0,0,0,0};
+	m_currentRectIndex = 0;
 	//std::cout << "DEFAULT SPRSHEET " << this << " CREATED\n";
 }
 
@@ -13,13 +14,14 @@ SpriteSheet::SpriteSheet(SDL_Texture* texture, SDL_Rect rectSize, SDL_Rect sheet
 	m_texture = texture;
 	m_animationSpeed = 1;
 	m_timer = 0;
+	m_currentRectIndex = 0;
 	m_currentRect = SDL_Rect{ 0, 0, rectSize.w, rectSize.h };
 	//std::cout << "CUSTOM SPRSHEET : " << this << " w/ texture " << texture <<  "\n";
 }
 
 SpriteSheet::SpriteSheet(SDL_Texture* texture, int nbcol, int nbrow)
 {
-	int w = 0, h = 0;
+	int w = 1, h = 1;
 	m_texture = texture;
 
 	SDL_QueryTexture(m_texture, NULL, NULL, &w, &h);
@@ -31,6 +33,7 @@ SpriteSheet::SpriteSheet(SDL_Texture* texture, int nbcol, int nbrow)
 	//std::cout << "w " << w << "  h " << h << "\n";
 
 	m_animationSpeed = 1;
+	m_currentRectIndex = 0;
 	m_timer = 0;
 	m_currentRect = SDL_Rect{ 0, 0, w, h };
 	//std::cout << "CUSTOM SPRSHEET : " << this << " w/ texture " << texture <<  "\n";
@@ -43,6 +46,7 @@ SpriteSheet::SpriteSheet(SpriteSheet const& a){
 		m_animationSpeed = a.m_animationSpeed;
 		m_timer = a.m_timer;
 		m_currentRect = a.m_currentRect;
+		m_currentRectIndex = a.m_currentRectIndex;
 	}
 }
 
@@ -53,6 +57,7 @@ SpriteSheet& SpriteSheet::operator=(SpriteSheet const& a){
 		m_animationSpeed = a.m_animationSpeed;
 		m_timer = a.m_timer;
 		m_currentRect = a.m_currentRect;
+		m_currentRectIndex = a.m_currentRectIndex;
 	}
 	return *this;
 }
@@ -66,16 +71,18 @@ void SpriteSheet::nextRect(double dt){
 		//std::cout << "POP!" <<  m_timer << " & "  << m_animationSpeed << "\n\n";
 		m_timer = 0;
 		m_currentRect.x += m_currentRect.w;
-
+		m_currentRectIndex++;
 		if (m_currentRect.x + m_currentRect.w > m_sheetSize.w){
 			m_currentRect.x = 0;
-
 			m_currentRect.y += m_currentRect.h;
-
 			if (m_currentRect.y + m_currentRect.h > m_sheetSize.h){
 				m_currentRect.y = 0;
 			}
 		}
+	}
+
+	if (m_currentRectIndex > ((m_sheetSize.w) / (m_currentRect.w)) * ((m_sheetSize.h) / (m_currentRect.h))){
+		m_currentRectIndex = 0;
 	}
 
 }

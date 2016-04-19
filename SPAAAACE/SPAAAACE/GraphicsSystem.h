@@ -5,8 +5,8 @@
 #include <string>
 #include <SDL_ttf.h>
 
-#define SCREEN_W 1920
-#define SCREEN_H 1080
+#define SCREEN_W 1020
+#define SCREEN_H 880
 
 struct Camera {
 	double angle;

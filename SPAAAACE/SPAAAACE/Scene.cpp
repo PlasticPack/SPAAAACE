@@ -1,14 +1,53 @@
 #include "Scene.h"
 
 
-Scene::Scene(std::string arg, std::string id)
+Scene::Scene(std::string scripts, std::string xml, std::string id)
 {
 	m_id = id;
-	init(arg);
+
+	std::map<std::string, std::shared_ptr<GameObject>> source_objs;
+	std::vector<std::shared_ptr<GameObject>> final_objs_vec;
+
+	luain::loadFromRep(source_objs, scripts);
+	XML_u::loadObjects(final_objs_vec, source_objs, xml);
+
+	//transfo vector en map
+
+	for (auto& it : final_objs_vec){
+		m_gameObjects[it->getID()] = it;
+		for (auto& s : it->getComponents()){
+			std::cout << "\nAdding " << s.first.name() << "to " << id;
+			if (s.first == std::type_index(typeid(PositionComponent))){
+				m_posComps.push_back(std::dynamic_pointer_cast<PositionComponent>(s.second));
+			}
+
+			if (s.first == std::type_index(typeid(PhysicsComponent))){
+				m_physicsComps.push_back(std::dynamic_pointer_cast<PhysicsComponent>(s.second));
+			}
+
+			if (s.first == std::type_index(typeid(GraphicsComponent))){
+				m_graphicsComps.push_back(std::dynamic_pointer_cast<GraphicsComponent>(s.second));
+			}
+
+			if (s.first == std::type_index(typeid(GameLogicComponent))){
+				m_GLComps.push_back(std::dynamic_pointer_cast<GameLogicComponent>(s.second));
+			}
+
+			if (s.first == std::type_index(typeid(ActionComponent))){
+				m_ActionComps.push_back(std::dynamic_pointer_cast<ActionComponent>(s.second));
+			}
+
+			if (s.first == std::type_index(typeid(AiComponent))){
+				m_AiComps.push_back(std::dynamic_pointer_cast<AiComponent>(s.second));
+			}
+		}
+	}
+
+	init();
 }
 
 
-void Scene::init(std::string arg){
+void Scene::init(){
 
 	GraphicsSystem::init();
 	MissionSystem::init();
@@ -16,7 +55,7 @@ void Scene::init(std::string arg){
 
 
 	try {
-		luain::loadFromRep(this, m_gameObjects, arg);
+		//luain::loadFromRep(this, m_gameObjects, arg);
 	}
 	catch (std::exception e){
 		std::cout << e.what() << "\n";
@@ -437,7 +476,7 @@ void Scene::update(Message &postman)
 				Vec2 objPos;
 				if (m_id == "game"){
 					playerPos = m_gameObjects["player"]->get<PhysicsComponent>()->getPosition();
-					basePos = m_gameObjects["base"]->get<PhysicsComponent>()->getPosition();
+					//basePos = m_gameObjects["base"]->get<PhysicsComponent>()->getPosition();
 					objPos = MissionSystem::getObjPosition();
 				}
 
@@ -524,6 +563,10 @@ void Scene::update(Message &postman)
 				GraphicsSystem::update(postman, currentID,*gc, 1.0 / GraphicsSystem::getFPS());
 			}
 		}
+
+		if (postman.getMessage("GraphicsSystem", currentID, MS_OBJ_DONE) == 1){
+			currentObj->activate(false);
+		}
 	}
 		
 	std::map<std::string, std::shared_ptr<GameObject>>::iterator it;
@@ -554,8 +597,5 @@ void Scene::update(Message &postman)
 		postman.addMessage("Action", "Button", MS_EXIT_REQUEST, 1);
 
 	GraphicsSystem::endFrame(postman);
-	
-	if(postman.getMessage("GraphicsSystem", currentID, MS_OBJ_DONE) == 1){
-		currentObj->activate(false);
-	}
+
 }
