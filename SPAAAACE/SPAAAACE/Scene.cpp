@@ -316,7 +316,6 @@ void Scene::update(Message &postman)
 		}
 	}
 		
-	
 	//TIR DU VAISSEAU
 	if (m_inSystem.checkTriggeredAction(AC_SHOOT))
 	{
@@ -326,190 +325,166 @@ void Scene::update(Message &postman)
 
 	GraphicsSystem::initFrame();
 
-
 	for (int i = 0; i < m_orderedGO.size(); i++){
-
+		
 		std::string currentID = m_orderedGO[i];
 		auto currentObj = m_gameObjects[m_orderedGO[i]];
-
-		if (m_orderedGO[i] == "planet_menu"){
-			GraphicsSystem::setCameraTarget(currentObj->get<PositionComponent>()->getPosition() + Vec2(-SCREEN_W/2, 0));
-		}
-
-		//
-
-		//if (m_gameObjects[i]->get<PositionComponent>() != nullptr)
-			//std::cout << m_gameObjects[i]->get<PositionComponent>()->getZIndex() << "\n";
-
-		std::shared_ptr<PhysicsComponent> pc = currentObj->get<PhysicsComponent>();
-		if (pc != nullptr){
-			/*if (currentID == MissionSystem::getCurrentObjective()){
-				objectivePos = currentObj->get<PositionComponent>()->getPosition();
+		
+		if(currentObj->isActive()){
+			if (m_orderedGO[i] == "planet_menu"){
+				GraphicsSystem::setCameraTarget(currentObj->get<PositionComponent>()->getPosition() + Vec2(-SCREEN_W/2, 0));
 			}
 
-			if (currentID == "base"){
-				basePos = currentObj->get<PhysicsComponent>()->getPosition();
-			}*/
-
-			//DÉCISION DE MOUVEMENT : JOUEUR
-			if (currentID == "player") {
-				if (currentObj->get<GameLogicComponent>()->getCurrentFuel() > 0) { // si assez de fuel
-					//on check la direction du joueur
-					Vec2 forces(0, 0);
-					Vec2 direction(cos(pc->getPositionComponent()->getAngle() * (3.14159 / 180.0)), sin(pc->getPositionComponent()->getAngle() * (3.14159 / 180.0)));
-					int pwr = currentObj->get<GameLogicComponent>()->getEnginePower();
-
-					double angle = 0;
-
-					if (m_inSystem.checkTriggeredAction(AC_HORIZONTAL_PUSH) || m_inSystem.checkTriggeredAction(AC_VERTICAL_PUSH))
-					{
-						forces = Vec2(m_inSystem.checkTriggeredAction(AC_HORIZONTAL_PUSH) / 20.0, m_inSystem.checkTriggeredAction(AC_VERTICAL_PUSH) / 20.0);
-					}
-					else {
-						if (m_inSystem.checkTriggeredAction(AC_UP))
-							forces += Vec2(0, -pwr);
-
-						if (m_inSystem.checkTriggeredAction(AC_DOWN))
-							forces += Vec2(0, pwr);
-
-						if (m_inSystem.checkTriggeredAction(AC_LEFT))
-							forces += Vec2(-pwr, 0);
-
-						if (m_inSystem.checkTriggeredAction(AC_RIGHT))
-							forces += Vec2(pwr, 0);
-					}
-
-					//std::cout << forces.getNormalized().y() << " ";
-					angle = forces.getAngle();
-					//std::cout << angle << "\n";
-
-					//gestion avec angle
-					/*	double deltaAngle = 0;
-
-					if (m_inSystem.checkTriggeredAction(AC_UP))
-					forces += direction * pwr;
-					if (m_inSystem.checkTriggeredAction(AC_DOWN))
-					forces += pc->getVelocity().getNormalized() * -pwr;
-
-					if (m_inSystem.checkTriggeredAction(AC_LEFT))
-					deltaAngle = -0.95;
-
-					if (m_inSystem.checkTriggeredAction(AC_RIGHT))
-					deltaAngle = 0.95;
-
-
-					if(deltaAngle == 0) //réduction automatique de la rotation
-					deltaAngle = -(pc->getAngularVelocity() / 200.0);*/
-					//on baisse le fuel
-
-					if (forces.getLength() > 0) {
-						postman.addMessage("player", "player", MS_ENGINE_ACTIVE, 1);
-
-						//on baisse le fuel
-
-						postman.addMessage("Scene", currentID, MS_ENGINE_ACTIVE, 1);
-						pc->getPositionComponent()->setAngle(angle);
-
-						pc->setForces(forces);
-					}
-
+			std::shared_ptr<PhysicsComponent> pc = currentObj->get<PhysicsComponent>();
+			if (pc != nullptr){
+				/*if (currentID == MissionSystem::getCurrentObjective()){
+					objectivePos = currentObj->get<PositionComponent>()->getPosition();
 				}
 
+				if (currentID == "base"){
+					basePos = currentObj->get<PhysicsComponent>()->getPosition();
+				}*/
 
+				//DÉCISION DE MOUVEMENT : JOUEUR
+				if (currentID == "player") {
+					if (currentObj->get<GameLogicComponent>()->getCurrentFuel() > 0) { // si assez de fuel
+						//on check la direction du joueur
+						Vec2 forces(0, 0);
+						Vec2 direction(cos(pc->getPositionComponent()->getAngle() * (3.14159 / 180.0)), sin(pc->getPositionComponent()->getAngle() * (3.14159 / 180.0)));
+						int pwr = currentObj->get<GameLogicComponent>()->getEnginePower();
+
+						double angle = 0;
+
+						if (m_inSystem.checkTriggeredAction(AC_HORIZONTAL_PUSH) || m_inSystem.checkTriggeredAction(AC_VERTICAL_PUSH))
+						{
+							forces = Vec2(m_inSystem.checkTriggeredAction(AC_HORIZONTAL_PUSH) / 20.0, m_inSystem.checkTriggeredAction(AC_VERTICAL_PUSH) / 20.0);
+						}
+						else {
+							if (m_inSystem.checkTriggeredAction(AC_UP))
+								forces += Vec2(0, -pwr);
+
+							if (m_inSystem.checkTriggeredAction(AC_DOWN))
+								forces += Vec2(0, pwr);
+
+							if (m_inSystem.checkTriggeredAction(AC_LEFT))
+								forces += Vec2(-pwr, 0);
+
+							if (m_inSystem.checkTriggeredAction(AC_RIGHT))
+								forces += Vec2(pwr, 0);
+						}
+
+						//std::cout << forces.getNormalized().y() << " ";
+						angle = forces.getAngle();
+						//std::cout << angle << "\n";
+
+						//gestion avec angle
+						/*	double deltaAngle = 0;
+
+						if (m_inSystem.checkTriggeredAction(AC_UP))
+						forces += direction * pwr;
+						if (m_inSystem.checkTriggeredAction(AC_DOWN))
+						forces += pc->getVelocity().getNormalized() * -pwr;
+
+						if (m_inSystem.checkTriggeredAction(AC_LEFT))
+						deltaAngle = -0.95;
+
+						if (m_inSystem.checkTriggeredAction(AC_RIGHT))
+						deltaAngle = 0.95;
+
+
+						if(deltaAngle == 0) //réduction automatique de la rotation
+						deltaAngle = -(pc->getAngularVelocity() / 200.0);*/
+						//on baisse le fuel
+
+						if (forces.getLength() > 0) {
+							postman.addMessage("player", "player", MS_ENGINE_ACTIVE, 1);
+
+							//on baisse le fuel
+
+							postman.addMessage("Scene", currentID, MS_ENGINE_ACTIVE, 1);
+							pc->getPositionComponent()->setAngle(angle);
+
+							pc->setForces(forces);
+						}
+
+					}
+
+
+				}
+				PhysicsSystem::update(postman, this, *pc, m_physicsComps, 1.0 / GraphicsSystem::getFPS());
 			}
-			PhysicsSystem::update(postman, this, *pc, m_physicsComps, 1.0 / GraphicsSystem::getFPS());
-		}
-		
-
-		if (postman.getMessage("Physics", currentID, MS_COLLISION) > 1){
-			postman.addMessage(currentID, getFatherID<PhysicsComponent>(postman.getMessage("Physics", currentID, MS_COLLISION)), MS_COLLISION, 1);
-		}
-
-		auto GLC = currentObj->get<GameLogicComponent>();
-		if (GLC != nullptr){
-			GameLogicSystem::update(postman, currentObj, *GLC, 1.0 / GraphicsSystem::getFPS());
-		}
-
-		auto AiC = currentObj->get<AiComponent>();
-
-		if (AiC != nullptr){
-			AiSystem::update(AiC, m_physicsComps, m_gameObjects["player"]->get<PhysicsComponent>());
-		}
-
-		auto gc = currentObj->get<GraphicsComponent>();
-		if (gc != nullptr){
-
-			Vec2 playerPos;
-			Vec2 basePos;
-			Vec2 objPos;
-			if (m_id == "game"){
-				playerPos = m_gameObjects["player"]->get<PhysicsComponent>()->getPosition();
-				basePos = m_gameObjects["base"]->get<PhysicsComponent>()->getPosition();
-				objPos = MissionSystem::getObjPosition();
+			
+			if (postman.getMessage("Physics", currentID, MS_COLLISION) > 1){
+				postman.addMessage(currentID, getFatherID<PhysicsComponent>(postman.getMessage("Physics", currentID, MS_COLLISION)), MS_COLLISION, 1);
 			}
 
-			if (currentID == m_focusedID){
-				gc->getSprite()->setSpriteSheet("selected");
-			}
-			else {
-				gc->getSprite()->setSpriteSheet("default");
+			auto GLC = currentObj->get<GameLogicComponent>();
+			if (GLC != nullptr){
+				GameLogicSystem::update(postman, currentObj, *GLC, 1.0 / GraphicsSystem::getFPS());
 			}
 
-			if (currentID == "player"){
+			auto AiC = currentObj->get<AiComponent>();
 
-				double vel = currentObj->get<PhysicsComponent>()->getVelocity().getLength();
-				double zoom = 0.685;
-
-				GraphicsSystem::setCameraZoom(zoom);
-				GraphicsSystem::setCameraTarget(gc->getPosition());
-				
+			if (AiC != nullptr){
+				AiSystem::update(AiC, m_physicsComps, m_gameObjects["player"]->get<PhysicsComponent>());
 			}
 
-			if (m_id == "game"){
-				if (currentID.find("hud") != std::string::npos) { // si l'objet fait partie du hud
+			auto gc = currentObj->get<GraphicsComponent>();
+			if (gc != nullptr){
 
-					std::string id = currentID;
+				Vec2 playerPos;
+				Vec2 basePos;
+				Vec2 objPos;
+				if (m_id == "game"){
+					playerPos = m_gameObjects["player"]->get<PhysicsComponent>()->getPosition();
+					basePos = m_gameObjects["base"]->get<PhysicsComponent>()->getPosition();
+					objPos = MissionSystem::getObjPosition();
+				}
 
-					if (id == "hud_fuel"){
-						if (postman.getMessage("GameLogic", m_gameObjects["player"]->getID(), MS_ENGINE_ACTIVE) > 0){
+				if (currentID == m_focusedID){
+					gc->getSprite()->setSpriteSheet("selected");
+				}
+				else {
+					gc->getSprite()->setSpriteSheet("default");
+				}
 
-							//on réduit le fuel
+				if (currentID == "player"){
+
+					double vel = currentObj->get<PhysicsComponent>()->getVelocity().getLength();
+					double zoom = 0.685;
+
+					GraphicsSystem::setCameraZoom(zoom);
+					GraphicsSystem::setCameraTarget(gc->getPosition());
+					
+				}
+
+				if (m_id == "game"){
+					if (currentID.find("hud") != std::string::npos) { // si l'objet fait partie du hud
+
+						std::string id = currentID;
+
+						if (id == "hud_fuel"){
+							if (postman.getMessage("GameLogic", m_gameObjects["player"]->getID(), MS_ENGINE_ACTIVE) > 0){
+
+								//on réduit le fuel
+								Vec2 baseSize = currentObj->get<GraphicsComponent>()->getMaxSize();
+								double fuel = (double)(m_gameObjects["player"]->get<GameLogicComponent>()->getCurrentFuel()) / (double)m_gameObjects["player"]->get<GameLogicComponent>()->getMaxFuel();
+								currentObj->get<GraphicsComponent>()->setSize(Vec2(baseSize.x() * fuel, baseSize.y()));
+
+							}
+						}
+						else if (id == "hud_life"){
+							//if (postman.getMessage("GameLogic", currentID, MS_LIFE_DOWN) > 0) {
+
 							Vec2 baseSize = currentObj->get<GraphicsComponent>()->getMaxSize();
-							double fuel = (double)(m_gameObjects["player"]->get<GameLogicComponent>()->getCurrentFuel()) / (double)m_gameObjects["player"]->get<GameLogicComponent>()->getMaxFuel();
-							currentObj->get<GraphicsComponent>()->setSize(Vec2(baseSize.x() * fuel, baseSize.y()));
-
+							double life = (double)(m_gameObjects["player"]->get<GameLogicComponent>()->getCurrentLife()) / (double)m_gameObjects["player"]->get<GameLogicComponent>()->getMaxLife();
+							currentObj->get<GraphicsComponent>()->setSize(Vec2(baseSize.x() * life, baseSize.y()));
+							//}
 						}
-					}
-					else if (id == "hud_life"){
-						//if (postman.getMessage("GameLogic", currentID, MS_LIFE_DOWN) > 0) {
-
-						Vec2 baseSize = currentObj->get<GraphicsComponent>()->getMaxSize();
-						double life = (double)(m_gameObjects["player"]->get<GameLogicComponent>()->getCurrentLife()) / (double)m_gameObjects["player"]->get<GameLogicComponent>()->getMaxLife();
-						currentObj->get<GraphicsComponent>()->setSize(Vec2(baseSize.x() * life, baseSize.y()));
-						//}
-					}
-					else if (id == "hud_base_pointer"){
-						Vec2 direction = basePos - playerPos;
-						if (direction.getLength() > 0){
-							currentObj->get<PositionComponent>()->setAngle(direction.getAngle());
-							double size = 25000.0 / (direction.getLength());
-
-							if (size > 1)
-								size = 1;
-							if (size < 0.5)
-								size = 0.5;
-
-							currentObj->get<GraphicsComponent>()->setSize(currentObj->get<GraphicsComponent>()->getMaxSize() *size);
-							currentObj->get<PositionComponent>()->setPosition(getPointerPosition(direction, 32));
-						}
-					}
-					else if (id == "hud_obj_pointer"){
-						if (MissionSystem::getCurrentObjective() != "null"){
-							Vec2 direction = objPos - playerPos;
+						else if (id == "hud_base_pointer"){
+							Vec2 direction = basePos - playerPos;
 							if (direction.getLength() > 0){
-
 								currentObj->get<PositionComponent>()->setAngle(direction.getAngle());
-
 								double size = 25000.0 / (direction.getLength());
 
 								if (size > 1)
@@ -521,18 +496,36 @@ void Scene::update(Message &postman)
 								currentObj->get<PositionComponent>()->setPosition(getPointerPosition(direction, 32));
 							}
 						}
-						else {
-							//on affiche pas le truc
+						else if (id == "hud_obj_pointer"){
+							if (MissionSystem::getCurrentObjective() != "null"){
+								Vec2 direction = objPos - playerPos;
+								if (direction.getLength() > 0){
+
+									currentObj->get<PositionComponent>()->setAngle(direction.getAngle());
+
+									double size = 25000.0 / (direction.getLength());
+
+									if (size > 1)
+										size = 1;
+									if (size < 0.5)
+										size = 0.5;
+
+									currentObj->get<GraphicsComponent>()->setSize(currentObj->get<GraphicsComponent>()->getMaxSize() *size);
+									currentObj->get<PositionComponent>()->setPosition(getPointerPosition(direction, 32));
+								}
+							}
+							else {
+								//on affiche pas le truc
+							}
 						}
 					}
 				}
+
+				GraphicsSystem::update(postman, currentID,*gc, 1.0 / GraphicsSystem::getFPS());
 			}
-
-			GraphicsSystem::update(postman, currentID,*gc, 1.0 / GraphicsSystem::getFPS());
 		}
-
 	}
-
+		
 	std::map<std::string, std::shared_ptr<GameObject>>::iterator it;
 	for (auto& it : m_gameObjects){
 		auto AC = it.second->get<ActionComponent>();
@@ -560,7 +553,9 @@ void Scene::update(Message &postman)
 	if (m_inSystem.checkTriggeredAction(AC_EXIT))
 		postman.addMessage("Action", "Button", MS_EXIT_REQUEST, 1);
 
-
-
 	GraphicsSystem::endFrame(postman);
+	
+	if(postman.getMessage("GraphicsSystem", currentID, MS_OBJ_DONE) == 1){
+		currentObj->activate(false);
+	}
 }

@@ -26,6 +26,14 @@ public:
 	SDL_Texture* getTexture();
 	void setAnimationSpeed(double d);
 	void nextRect(double dt);
+	
+	int getCurrentRectIndex(){
+		return (m_currentRect.x / m_currentRect.w) + ((m_currentRect.y / m_currentRect.h) * m_sheetSize.w / m_currentRect.x);
+	}
+	
+	int getTotalRectNumber(){
+		return ((m_sheetSize.w) / (m_currentRect.x)) * ((m_sheetSize.h) / (m_currentRect.y));
+	}
 
 protected:
 	double m_animationSpeed; //vitesse d'animation en images par seconde

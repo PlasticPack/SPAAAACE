@@ -62,8 +62,6 @@ GraphicsSystem::~GraphicsSystem()
 {
 }
 
-
-
 void GraphicsSystem::close(){
 	if (m_initialized){
 		std::cout << "\n\nDEST";
@@ -194,13 +192,25 @@ void GraphicsSystem::update(Message &postman, std::string id, GraphicsComponent 
 	if (m_initialized) {
 		if (m_frameStarted){
 
-
+			bool isLastPlay = false;	
+			
 			//si on recoit qu'il y a eu collision
 			if (postman.getMessage("GameLogic", id, MS_COLLISION) > 500.0){
 				gComp.getSprite()->setSpriteSheet("collision");
 			}
+			
+			if(postman.getMessage("GameLogic", currentID, MS_DEAD) == 1){
+				isLastPlay = true;
+				gComp.getSprite()->setSpriteSheet("death");
+			}
 
 			if (gComp.getSprite() != nullptr) {
+				
+				//si animation est bouclée
+				if(gComp.getSprite()->getCurrentSpriteSheet()->getCurrentRectIndex() >= gComp.getSprite()->getCurrentSpriteSheet()->getTotalRectNumber() - 1){
+					postman.addMessage("GraphicsSystem", id, MS_OBJ_DONE, 1);
+				}
+				
 				gComp.getSprite()->getCurrentSpriteSheet()->nextRect(dt);
 				double angleComp = gComp.getPositionComponent()->getAngle();
 
