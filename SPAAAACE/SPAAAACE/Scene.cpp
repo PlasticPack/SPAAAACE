@@ -13,8 +13,8 @@ Scene::Scene(std::string scripts, std::string xml, std::string id)
 	//transfo vector en map
 
 	for (auto& it : final_objs_vec){
+
 		m_gameObjects[it->getID()] = it;
-		//std::cout << m_gameObjects[it->getID()]->get<PositionComponent>()->getPosition().x() << " dsdsaddasdasdasdoaus\n";
 		for (auto& s : it->getComponents()){
 			std::cout << "\nAdding " << s.first.name() << " from " << it->getID() << " to " << id;
 
@@ -154,7 +154,6 @@ void Scene::orderByZIndex(){
 		for (int i = 0; i < vec.size();i++){
 			m_orderedGO.push_back(vec[i].first);
 			std::cout << vec[i].first << " " << vec[i].second << "\n";
-			std::cout << m_gameObjects[m_orderedGO[i]]->get<PhysicsComponent>()->getPosition().x() << "\n";
 		}
 
 		
@@ -496,7 +495,7 @@ void Scene::update(Message &postman)
 
 					GraphicsSystem::setCameraZoom(zoom);
 					GraphicsSystem::setCameraTarget(gc->getPosition());
-					//std::cout << gc->getPosition().x() << "\n";
+					
 				}
 
 				if (m_id == "game"){

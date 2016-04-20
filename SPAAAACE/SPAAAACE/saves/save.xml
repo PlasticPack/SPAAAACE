@@ -4,14 +4,14 @@
 <ai>
 	<ai>
 		<position>
-			<x>200</x>
-			<y>0</y>
+			<x>0</x>
+			<y>99</y>
 		</position>
 	</ai>
 	<ai>
 		<position>
-			<x>400</x>
-			<y>0</y>
+			<x>0</x>
+			<y>111</y>
 		</position>
 	</ai>
 </ai>
