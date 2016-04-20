@@ -16,23 +16,12 @@ bool XML_u::loadObjects(std::vector<std::shared_ptr<GameObject> > &pureObjects, 
 				//Check if element category is actually an entry defined by scripted subclasses
 				if (roughtObjects.find(entityTypes->Value()) != roughtObjects.end()){
 					std::cout << "Found script for " << entityTypes->Value() << std::endl;
-					int index = 0;
 					//Creates all the instances of the entitys
 					for (element entity = entityTypes->FirstChildElement(); entity; entity = entity->NextSiblingElement()){
-						index++;
-						std::cout << "Initializing " << entity->Value() << " as " << (entityTypes->Value() + std::to_string(index)) << " entity." << std::endl;
-						GameObject object = *roughtObjects[entityTypes->Value()];
-
-
-						if (index != 1)
-							object.setID(entityTypes->Value() + std::to_string(index));
-						else 
-							object.setID(entityTypes->Value());
-						pureObjects.push_back(std::make_shared<GameObject>(object));
-						std::cout << pureObjects.back()->getID() << " IS ID BEING ADDED\n";
-
-						for (element node = entity->FirstChildElement(); node; node = node->NextSiblingElement()){
-							
+						std::cout << "Initialising " << entity->Value() << " as " << entityTypes->Value() << " entity." << std::endl;
+						std::shared_ptr<GameObject> object = roughtObjects[entityTypes->Value()];
+						for (element node = entity->FirstChildElement(); node;
+							node = node->NextSiblingElement()){
 							//std::cout << node->Value() << std::endl;
 							//check if node as child(i.e. if node is a table or a table entry)
 							//May change with a method with attributes
@@ -47,59 +36,69 @@ bool XML_u::loadObjects(std::vector<std::shared_ptr<GameObject> > &pureObjects, 
 								}
 								else if (strcmp("mass", node->Value()) == 0){
 									//Mass is supposed to be set by scripts
-									if (pureObjects.back()->hasComponent(idn(PhysicsComponent))){
+									if (object->hasComponent(idn(PhysicsComponent))){
 										//std::cout << "Setting mass to : " << node->GetText() << std::endl;
-										pureObjects.back()->get<PhysicsComponent>()->setMass(std::stod(node->GetText()));
+										object->get<PhysicsComponent>()->setMass(std::stod(node->GetText()));
 									}
 								}
 							}
 							else{
+
 								//std::cout << "Has non-attributes" << std::endl;
 								if (strcmp("position", node->Value()) == 0){
 									//std::cout << "Setting position." << std::endl;
-									if (pureObjects.back()->hasComponent(idn(PositionComponent))){
+									if (object->hasComponent(idn(PositionComponent))){
 
 										for (element subnode = node->FirstChildElement(); subnode; subnode = subnode->NextSiblingElement()){
 											if (strcmp("x", subnode->Value()) == 0){
-												pos(pureObjects.back())->setPosition(Vec2(std::stod(subnode->GetText()), pos(pureObjects.back())->getPosition().y()));
+												pos(object)->setPosition(Vec2(std::stod(subnode->GetText()), pos(object)->getPosition().y()));
 											}
 											else if (strcmp("y", subnode->Value()) == 0){
-												pos(pureObjects.back())->setPosition(Vec2(pos(pureObjects.back())->getPosition().x(), std::stod(subnode->GetText())));
+												pos(object)->setPosition(Vec2(pos(object)->getPosition().x(), std::stod(subnode->GetText())));
 											}
 										}
 									}
+
 								}
 								else if (strcmp("velocity", node->Value()) == 0){
 									//std::cout << "Has physic component" << std::endl;
-									if (pureObjects.back()->hasComponent(idn(PhysicsComponent))){
+									if (object->hasComponent(idn(PhysicsComponent))){
 										//std::cout << "Setting velocity." << std::endl;
 										for (element subnode = node->FirstChildElement(); subnode; subnode = subnode->NextSiblingElement()){
 											if (strcmp("x", subnode->Value()) == 0){
-												phys(pureObjects.back())->setVelocity(Vec2(std::stod(subnode->GetText()), phys(pureObjects.back())->getVelocity().y()));
+												phys(object)->setVelocity(Vec2(std::stod(subnode->GetText()), phys(object)->getVelocity().y()));
+
 											}
 											else if (strcmp("y", subnode->Value()) == 0){
-												phys(pureObjects.back())->setVelocity(Vec2(phys(pureObjects.back())->getVelocity().x(), std::stod(subnode->GetText())));
+												phys(object)->setVelocity(Vec2(phys(object)->getVelocity().x(), std::stod(subnode->GetText())));
 											}
 										}
+
+
 									}
+
 								}
 								else if (strcmp("forces", node->Value()) == 0){
-									if (pureObjects.back()->hasComponent(idn(PhysicsComponent))){
+									if (object->hasComponent(idn(PhysicsComponent))){
 										//std::cout << "Setting forces." << std::endl;
 										for (TiXmlElement *subnode = node->FirstChildElement(); subnode; subnode = subnode->NextSiblingElement()){
 											if (strcmp("x", subnode->Value()) == 0){
-												phys(pureObjects.back())->setForces(Vec2(std::stod(subnode->GetText()), phys(pureObjects.back())->getForces().y()));
+												phys(object)->setForces(Vec2(std::stod(subnode->GetText()), phys(object)->getForces().y()));
 											}
 											else if (strcmp("y", subnode->Value()) == 0){
-												pureObjects.back()->get<PhysicsComponent>()->setForces(Vec2(phys(pureObjects.back())->getForces().x(), std::stod(subnode->GetText())));
+												object->get<PhysicsComponent>()->setForces(Vec2(phys(object)->getForces().x(), std::stod(subnode->GetText())));
 											}
 										}
 									}
 								}
 								//else std::cout << "No position component!" << std::endl;
 							}
+							object->setID(entityTypes->Value());
+
 						}
+						pureObjects.push_back(object);
 					}
+
 				}
 				else{
 					std::cout << "Script not found for" << entityTypes->Value() << std::endl;
@@ -112,7 +111,6 @@ bool XML_u::loadObjects(std::vector<std::shared_ptr<GameObject> > &pureObjects, 
 	else {
 		std::cout << "File could not be opened" << std::endl; return false;
 	}
-
 	return true;
 }
 

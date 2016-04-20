@@ -10,14 +10,13 @@ Scene::Scene(std::string scripts, std::string xml, std::string id)
 
 	luain::loadFromRep(source_objs, scripts);
 	XML_u::loadObjects(final_objs_vec, source_objs, xml);
+
 	//transfo vector en map
 
 	for (auto& it : final_objs_vec){
-
 		m_gameObjects[it->getID()] = it;
 		for (auto& s : it->getComponents()){
-			std::cout << "\nAdding " << s.first.name() << " from " << it->getID() << " to " << id;
-
+			std::cout << "\nAdding " << s.first.name() << "to " << id;
 			if (s.first == std::type_index(typeid(PositionComponent))){
 				m_posComps.push_back(std::dynamic_pointer_cast<PositionComponent>(s.second));
 			}
@@ -570,9 +569,9 @@ void Scene::update(Message &postman)
 		}
 	}
 		
-	
-	for (int i = 0; i < m_orderedGO.size(); i++){
-		auto AC = m_gameObjects[m_orderedGO[i]]->get<ActionComponent>();
+	std::map<std::string, std::shared_ptr<GameObject>>::iterator it;
+	for (auto& it : m_gameObjects){
+		auto AC = it.second->get<ActionComponent>();
 		if (AC != nullptr){
 			ActionSystem::update(postman, *AC);
 		}

@@ -11,6 +11,7 @@
 #include <exception>
 #include "MusicSystem.h"
 #include <iterator>
+
 #include "XML_utilities.hpp"
 
 /*********************************************
@@ -57,7 +58,6 @@ Et voilà!
 #include "Message.h"
 
 class PhysicsSystem;
-class GameObject;
 
 class Scene
 {

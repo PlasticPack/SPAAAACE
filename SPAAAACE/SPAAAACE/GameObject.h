@@ -1,17 +1,11 @@
 #pragma once
 
-#include "AiComponent.h"
-#include "ActionComponent.h"
-#include "GameLogicComponent.h"
-#include "PhysicsComponent.h"
-#include "GraphicsComponent.h"
+#include "PositionComponent.h"
 #include <map>
 #include <memory>
 #include <typeindex>
 #include <typeinfo>
 #include <string>
-
-
 class GameObject
 {
 public:

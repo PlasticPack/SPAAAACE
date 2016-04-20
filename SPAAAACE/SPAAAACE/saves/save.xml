@@ -1,17 +1,95 @@
 <player>
 	<name>Guy-Dune Albator</name>
 </player>
-<ai>
-	<ai>
+<nem>
+	<ghost>
+		<mass>10.2</mass>
+		<velocity>
+			<x>1</x>
+			<y>14.67</y>
+		</velocity>
+		<forces>
+			<x>10.6</x>
+			<y>1.56</y>
+		</forces>
+	</ghost>
+	<ghost>
+		<mass>10.0</mass>
+		<velocity>
+			<x>1</x>
+			<y>14.67</y>
+		</velocity>
+		<forces>
+			<x>10.6</x>
+			<y>1.56</y>
+		</forces>
+	</ghost><ghost>
+		<mass>10.0</mass>
+		<velocity>
+			<x>1</x>
+			<y>14.67</y>
+		</velocity>
+		<forces>
+			<x>10.6</x>
+			<y>1.56</y>
+		</forces>
+	</ghost><ghost>
+		<mass>10.0</mass>
+		<velocity>
+			<x>1</x>
+			<y>14.67</y>
+		</velocity>
+		<forces>
+			<x>10.6</x>
+			<y>1.56</y>
+		</forces>
+	</ghost><ghost>
+		<mass>10.0</mass>
+		<velocity>
+			<x>1</x>
+			<y>14.67</y>
+		</velocity>
+		<forces>
+			<x>10.6</x>
+			<y>1.56</y>
+		</forces>
+	</ghost><ghost>
+		<mass>10.0</mass>
+		<velocity>
+			<x>1</x>
+			<y>14.67</y>
+		</velocity>
+		<forces>
+			<x>10.6</x>
+			<y>1.56</y>
+		</forces>
+	</ghost><ghost>
+		<mass>10.0</mass>
+		<velocity>
+			<x>1</x>
+			<y>14.67</y>
+		</velocity>
+		<forces>
+			<x>10.6</x>
+			<y>1.56</y>
+		</forces>
+	</ghost><ghost>
+		<mass>10.3</mass>
+		<velocity>
+			<x>1</x>
+			<y>14.67</y>
+		</velocity>
+		<forces>
+			<x>10.6</x>
+			<y>1.56</y>
+		</forces>
+	</ghost>
+</nem>
+<rock>
+	<rock1>
 		<position>
 			<x>0</x>
-			<y>99</y>
+			<y>10</y>
 		</position>
-	</ai>
-	<ai>
-		<position>
-			<x>0</x>
-			<y>111</y>
-		</position>
-	</ai>
-</ai>
+	</rock1>
+</rock>
