@@ -216,7 +216,6 @@ void GraphicsSystem::update(Message &postman, std::string id, GraphicsComponent 
 
 				SDL_Rect sprRect = gComp.getSprite()->getCurrentSpriteSheet()->getCurrentRect();
 				if (gComp.isAffectedByCamera()){
-
 					Vec2 coord, tempPos, finalPos, newPos, screenCoord(SCREEN_W, SCREEN_H);
 					coord = gComp.getPosition();
 					newPos = coord;

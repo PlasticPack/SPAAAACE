@@ -62,6 +62,7 @@ bool XML_u::loadObjects(std::vector<std::shared_ptr<GameObject> > &pureObjects, 
 										for (element subnode = node->FirstChildElement(); subnode; subnode = subnode->NextSiblingElement()){
 											if (strcmp("x", subnode->Value()) == 0){
 												pos(pureObjects.back())->setPosition(Vec2(std::stod(subnode->GetText()), pos(pureObjects.back())->getPosition().y()));
+												std::cout << pos(pureObjects.back())->getPosition().x() << "\n";
 											}
 											else if (strcmp("y", subnode->Value()) == 0){
 												pos(pureObjects.back())->setPosition(Vec2(pos(pureObjects.back())->getPosition().x(), std::stod(subnode->GetText())));
