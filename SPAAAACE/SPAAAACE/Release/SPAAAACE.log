@@ -1,15 +1,45 @@
-﻿  AiComponent.cpp
+﻿  ActionComponent.cpp
+ActionComponent.cpp(27): warning C4018: '<' : incompatibilité signed/unsigned
+ActionComponent.cpp(41): warning C4018: '<' : incompatibilité signed/unsigned
+  ActionSystem.cpp
+ActionSystem.cpp(6): warning C4018: '>' : incompatibilité signed/unsigned
+  AiComponent.cpp
   AiSystem.cpp
 AiSystem.cpp(11): warning C4018: '<' : incompatibilité signed/unsigned
+  Component.cpp
+  GameLogicComponent.cpp
+  GameLogicSystem.cpp
+GameLogicSystem.cpp(25): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+GameLogicSystem.cpp(42): warning C4244: 'argument' : conversion de 'double' en 'unsigned int', perte possible de données
+  GraphicsComponent.cpp
+GraphicsComponent.cpp(49): warning C4018: '<' : incompatibilité signed/unsigned
+  GraphicsSystem.cpp
+GraphicsSystem.cpp(235): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+GraphicsSystem.cpp(244): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+GraphicsSystem.cpp(276): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+GraphicsSystem.cpp(294): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+GraphicsSystem.cpp(295): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+GraphicsSystem.cpp(300): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+GraphicsSystem.cpp(301): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+GraphicsSystem.cpp(306): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+GraphicsSystem.cpp(309): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+GraphicsSystem.cpp(313): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+GraphicsSystem.cpp(315): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+GraphicsSystem.cpp(373): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+  InputSystem.cpp
+InputSystem.cpp(62): warning C4018: '>' : incompatibilité signed/unsigned
+InputSystem.cpp(155): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+  InputsComponent.cpp
   LuaFunctions.cpp
 c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\LuaInit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
           c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\Scene.h(63) : voir la déclaration de 'Scene'
 LuaFunctions.cpp(170): warning C4018: '<' : incompatibilité signed/unsigned
 LuaFunctions.cpp(190): warning C4018: '<' : incompatibilité signed/unsigned
-  main.cpp
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\LuaInit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
-          c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\PhysicsSystem.h(19) : voir la déclaration de 'Scene'
-main.cpp(22): warning C4101: 'e' : variable locale non référencée
+  Message.cpp
+  MissionSystem.cpp
+MissionSystem.cpp(59): warning C4805: '==' : mélange risqué de type 'double' et de type 'bool' dans l'opération
+  MusicSystem.cpp
+  PhysicsComponent.cpp
   PhysicsSystem.cpp
 c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\LuaInit.hpp(22): warning C4099: 'Scene' : nom de type déjà rencontré avec 'struct' et utilisant maintenant 'class'
           c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\LuaInit.hpp(20) : voir la déclaration de 'Scene'
@@ -20,6 +50,7 @@ PhysicsSystem.cpp(103): warning C4244: '=' : conversion de 'double' en 'int', p
 PhysicsSystem.cpp(158): warning C4018: '<' : incompatibilité signed/unsigned
 PhysicsSystem.cpp(159): warning C4018: '<' : incompatibilité signed/unsigned
 PhysicsSystem.cpp(194): warning C4018: '<' : incompatibilité signed/unsigned
+  PositionComponent.cpp
   Scene.cpp
 c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\LuaInit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
           c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\PhysicsSystem.h(19) : voir la déclaration de 'Scene'
@@ -30,7 +61,28 @@ Scene.cpp(104): warning C4018: '<' : incompatibilité signed/unsigned
 Scene.cpp(114): warning C4018: '<' : incompatibilité signed/unsigned
 Scene.cpp(330): warning C4018: '<' : incompatibilité signed/unsigned
 Scene.cpp(425): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+  Sprite.cpp
+  Compilation en cours...
+  SpriteSheet.cpp
+  XML_utilityfunctions.cpp
+XML_utilityfunctions.cpp(120): warning C4018: '<' : incompatibilité signed/unsigned
+XML_utilityfunctions.cpp(141): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+XML_utilityfunctions.cpp(142): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+  main.cpp
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\LuaInit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
+          c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\PhysicsSystem.h(19) : voir la déclaration de 'Scene'
+main.cpp(22): warning C4101: 'e' : variable locale non référencée
   Génération de code en cours
 c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(153): warning C4715: 'GraphicsSystem::loadTexture' : les chemins de contrôle ne retournent pas tous une valeur
   Fin de la génération du code
+tinystr.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'tinystr.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
+tinyxml.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'tinyxml.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
+tinyxmlerror.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'tinyxmlerror.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
+tinyxmlparser.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'tinyxmlparser.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
+boostExemple.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'boostExemple.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
+LTimer.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'LTimer.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
+Musique.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'Musique.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
+scriptinit_exemple.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'scriptinit_exemple.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
+Son.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'Son.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
+Source1.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'Source1.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
   SPAAAACE.vcxproj -> C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\SPAAAACE.exe
