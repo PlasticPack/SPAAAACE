@@ -18,7 +18,33 @@ GameObject::GameObject(GameObject const& g){
 		for (auto it = g.m_components.begin(); it != g.m_components.end(); it++){
 
 			//std::cout << "\nover here!";
-			addComponent(it->first, it->second);
+			//addComponent(it->first, it->second);
+
+			std::cout << "copy constr call \n";
+			if (it->first == std::type_index(typeid(PositionComponent))){
+
+				m_components[it->first] = std::make_shared<PositionComponent>(*std::dynamic_pointer_cast<PositionComponent>(it->second));
+			}
+
+			if (it->first == std::type_index(typeid(PhysicsComponent))){
+				m_components[it->first] = std::make_shared<PhysicsComponent>(*std::dynamic_pointer_cast<PhysicsComponent>(it->second));
+			}
+
+			if (it->first == std::type_index(typeid(GraphicsComponent))){
+				m_components[it->first] = std::make_shared<GraphicsComponent>(*std::dynamic_pointer_cast<GraphicsComponent>(it->second));
+			}
+
+			if (it->first == std::type_index(typeid(GameLogicComponent))){
+				m_components[it->first] = std::make_shared<GameLogicComponent>(*std::dynamic_pointer_cast<GameLogicComponent>(it->second));
+			}
+
+			if (it->first == std::type_index(typeid(ActionComponent))){
+				m_components[it->first] = std::make_shared<ActionComponent>(*std::dynamic_pointer_cast<ActionComponent>(it->second));
+			}
+
+			if (it->first == std::type_index(typeid(AiComponent))){
+				m_components[it->first] = std::make_shared<AiComponent>(*std::dynamic_pointer_cast<AiComponent>(it->second));
+			}
 
 		}
 	}
@@ -30,7 +56,32 @@ GameObject& GameObject::operator=(GameObject const& g){
 		for (auto it = g.m_components.begin(); it != g.m_components.end(); it++){
 			
 			//std::shared_ptr<Component> newComp = std::make_shared<Component>(it->second);
-			addComponent(it->first, it->second);
+			
+			std::cout << "operator= call \n";
+			if (it->first == std::type_index(typeid(PositionComponent))){
+
+				m_components[it->first] = std::make_shared<PositionComponent>(*std::dynamic_pointer_cast<PositionComponent>(it->second));
+			}
+
+			if (it->first == std::type_index(typeid(PhysicsComponent))){
+				m_components[it->first] = std::make_shared<PhysicsComponent>(*std::dynamic_pointer_cast<PhysicsComponent>(it->second));
+			}
+
+			if (it->first == std::type_index(typeid(GraphicsComponent))){
+				m_components[it->first] = std::make_shared<GraphicsComponent>(*std::dynamic_pointer_cast<GraphicsComponent>(it->second));
+			}
+
+			if (it->first == std::type_index(typeid(GameLogicComponent))){
+				m_components[it->first] = std::make_shared<GameLogicComponent>(*std::dynamic_pointer_cast<GameLogicComponent>(it->second));
+			}
+
+			if (it->first == std::type_index(typeid(ActionComponent))){
+				m_components[it->first] = std::make_shared<ActionComponent>(*std::dynamic_pointer_cast<ActionComponent>(it->second));
+			}
+
+			if (it->first == std::type_index(typeid(AiComponent))){
+				m_components[it->first] = std::make_shared<AiComponent>(*std::dynamic_pointer_cast<AiComponent>(it->second));
+			}
 		}
 	}
 	return *this;

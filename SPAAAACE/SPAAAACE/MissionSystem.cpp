@@ -47,8 +47,18 @@ void MissionSystem::update(Message &postman, std::map<std::string, std::shared_p
 	}*/
 
 	if (m_currentObjective != "null") {
-		if (m_objectives[m_currentObjective].targetID != "none"){
+		std::cout << m_objectives[m_currentObjective].targetID << "\n";
+
+		if (m_objectives[m_currentObjective].targetID  == "yog_sogoth"){
+			std::cout << "??";
+		}
+
+		if (m_objectives[m_currentObjective].targetID != "none" && objs.find(m_objectives[m_currentObjective].targetID) != objs.end()){
+			
+			//std::cout << m_objectives[m_currentObjective].targetID  << "\n";
+
 			m_objPosition = objs[m_objectives[m_currentObjective].targetID]->get<PositionComponent>()->getPosition();
+			
 			objs[m_currentObjective]->get<PositionComponent>()->setPosition(m_objPosition);
 		}
 		else {

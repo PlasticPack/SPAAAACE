@@ -1,6 +1,9 @@
 #pragma once
 
-#include "PositionComponent.h"
+#include "AiComponent.h"
+#include "ActionComponent.h"
+#include "GameLogicComponent.h"
+#include "GraphicsComponent.h"
 #include <map>
 #include <memory>
 #include <typeindex>

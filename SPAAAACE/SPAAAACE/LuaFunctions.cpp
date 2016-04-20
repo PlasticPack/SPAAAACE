@@ -138,7 +138,6 @@ std::shared_ptr<GameObject> luain::loadGameObjects(Scene *s, lua_State* L, const
 }*/
 
 
-
 std::vector<std::string> getFiles(const std::string& filepath, const std::string& ext){
 	std::vector<std::string> files;
 	//Check if 

@@ -19,11 +19,26 @@ bool XML_u::loadObjects(std::vector<std::shared_ptr<GameObject> > &pureObjects, 
 					//Creates all the instances of the entitys
 					for (element entity = entityTypes->FirstChildElement(); entity; entity = entity->NextSiblingElement()){
 						std::cout << "Initialising " << entity->Value() << " as " << entityTypes->Value() << " entity." << std::endl;
-						std::shared_ptr<GameObject> object = roughtObjects[entityTypes->Value()];
-						for (element node = entity->FirstChildElement(); node;
+						std::shared_ptr<GameObject> object = std::make_shared<GameObject>(*roughtObjects[entityTypes->Value()]);
+
+						//on arrange les components de l'objet pour qu'ils pointent tous sur un seul 
+						//position component
+						if (object->hasComponent(std::type_index(idn(PhysicsComponent)))){
+							object->get<PhysicsComponent>()->setPositionComp(object->get<PositionComponent>());
+						}
+
+						if (object->hasComponent(std::type_index(idn(GraphicsComponent)))){
+							object->get<GraphicsComponent>()->setPositionComponent(object->get<PositionComponent>());
+						}
+
+						if (object->hasComponent(std::type_index(idn(AiComponent)))){
+							object->get<AiComponent>()->setPhysicsComp(object->get<PhysicsComponent>());
+						}
+
+						/*for (element node = entity->FirstChildElement(); node;
 							node = node->NextSiblingElement()){
 							//std::cout << node->Value() << std::endl;
-							//check if node as child(i.e. if node is a table or a table entry)
+							//check if node has child(i.e. if node is a table or a table entry)
 							//May change with a method with attributes
 							//Don't fracking delete this!
 
@@ -96,6 +111,7 @@ bool XML_u::loadObjects(std::vector<std::shared_ptr<GameObject> > &pureObjects, 
 							object->setID(entityTypes->Value());
 
 						}
+						*/
 						pureObjects.push_back(object);
 					}
 

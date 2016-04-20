@@ -11,6 +11,39 @@ AiComponent::~AiComponent()
 {
 }
 
+AiComponent::AiComponent(AiComponent const& a){
+	if (this != &a){
+		m_acc = a.m_acc;
+		m_vec = a.m_vec;
+		m_typeAi = a.m_typeAi;
+
+		m_nearDanger.reset();
+		m_phyComponent.reset();
+		m_target.reset();
+
+		m_target = a.m_target;
+		m_nearDanger = std::make_shared<PhysicsComponent>(*a.m_nearDanger);
+		m_target = std::make_shared<PhysicsComponent>(*a.m_target);
+	}
+}
+
+
+AiComponent& AiComponent::operator=(AiComponent const& a){
+	if (this != &a){
+		m_acc = a.m_acc;
+		m_vec = a.m_vec;
+		m_typeAi = a.m_typeAi;
+
+		m_nearDanger.reset();
+		m_phyComponent.reset();
+		m_target.reset();
+
+		m_target = a.m_target;
+		m_nearDanger = std::make_shared<PhysicsComponent>(*a.m_nearDanger);
+		m_target = std::make_shared<PhysicsComponent>(*a.m_target);
+	}
+	return *this;
+}
 
 int AiComponent::getType()
 {
