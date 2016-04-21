@@ -10,7 +10,7 @@ public:
 	static void init();
 	static void close();
 
-	static void update(Message &postman, std::shared_ptr<GameObject>, GameLogicComponent &comp);
+	static void update(Message &postman, std::shared_ptr<GameObject>, GameLogicComponent &comp, double dt);
 
 protected:
 	GameLogicSystem();

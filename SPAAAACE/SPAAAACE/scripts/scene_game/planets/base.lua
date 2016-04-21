@@ -2,15 +2,17 @@ base = {
 	Position = {
 		x = 8000,
 		y = 0000,
+		z = 0.999,
+		fixed = "true"
 	},
 	Physics = {
-		mass = 7000,
-		hitbox = 1000,
-		elasticity = 0.8
+		mass = 6000,
+		hitbox = 1500,
+		elasticity = 0.6
 	},
 	Graphics = {
 		filename = "ressources/planet_1.png",
-		width = 2000,
-		height = 2000
+		width = 3000,
+		height = 3000
 	}
 }

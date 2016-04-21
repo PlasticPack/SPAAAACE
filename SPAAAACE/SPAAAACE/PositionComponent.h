@@ -32,9 +32,15 @@ public:
 	Vec2 getPosition() { return m_position; }
 	double getZIndex() { return m_zIndex; }
 
+	bool isFixed(){ return m_fixed; }
+	void fix(bool f) { m_fixed = f; }
+
+	bool operator<(const PositionComponent &comp);
+
 protected:
 	Vec2 m_position;
 	double m_angle;
 	double m_zIndex; 
+	bool m_fixed;
 };
 

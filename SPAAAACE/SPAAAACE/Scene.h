@@ -1,6 +1,7 @@
 #pragma once
 
 #include "PhysicsSystem.h"
+#include "AiSystem.h"
 #include "InputSystem.h"
 #include "MissionSystem.h"
 #include <stdio.h>
@@ -9,6 +10,7 @@
 #include "LuaInit.hpp"
 #include <exception>
 #include "MusicSystem.h"
+#include <iterator>
 
 #include "XML_utilities.hpp"
 
@@ -90,43 +92,41 @@ public:
 
 	template <typename C> std::string getFatherID(std::shared_ptr<C> c){
 
-		int j = 0;
-		for (int i = 0; i < m_gameObjects.size(); i++){
+		std::string str = "none";
+		for (auto& i : m_gameObjects){
 
-			if (std::to_string((int)c.get()) == std::to_string((int)m_gameObjects[i]->get<C>().get()) ) {
-				j = i;
-				i = m_gameObjects.size();
+			if (std::to_string((int)c.get()) == std::to_string((int)i.second->get<C>().get()) ) {
+				str = i.first;
 			}
 		}
 
-		return m_gameObjects[j]->getID();
+		return str;
 	}
 
 
 	template <typename C> std::string getFatherID(int c){
 
-		int j = 0;
-		for (int i = 0; i < m_gameObjects.size(); i++){
+		std::string str = "none";
+		for (auto& i : m_gameObjects){
 
-			if (std::to_string(c) == std::to_string((int)m_gameObjects[i]->get<C>().get())) {
-				j = i;
-				i = m_gameObjects.size();
+			if (std::to_string(c) == std::to_string((int)i.second->get<C>().get())) {
+				str = i.first;
 			}
 		}
 
-		return m_gameObjects[j]->getID();
+		return str;
 	}
 
 protected:
-	std::vector<std::shared_ptr<GameObject>> m_gameObjects;
+	std::map<std::string, std::shared_ptr<GameObject>> m_gameObjects;
+	std::vector<std::string> m_orderedGO;
 
 	std::vector<std::shared_ptr<PositionComponent>>		m_posComps;
 	std::vector<std::shared_ptr<GraphicsComponent>>		m_graphicsComps;
 	std::vector<std::shared_ptr<PhysicsComponent>>		m_physicsComps;
 	std::vector<std::shared_ptr<GameLogicComponent>>	m_GLComps;
 	std::vector<std::shared_ptr<ActionComponent>>		m_ActionComps;
-
-	//std::vector<std::shared_ptr<AiComponent>> m_aiComps;
+	std::vector<std::shared_ptr<AiComponent>>			m_AiComps;
 	//std::map<std::type_index, std::vector<std::shared_ptr<Component>>> m_components;
 
 	std::string m_id;
@@ -139,3 +139,4 @@ protected:
 	LTimer m_dialogueTimer;
 };
 
+bool zSort(std::shared_ptr<GameObject> g1, std::shared_ptr<GameObject> g2);

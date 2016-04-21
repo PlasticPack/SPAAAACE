@@ -35,6 +35,18 @@ GameObject& GameObject::operator=(GameObject const& g){
 	}
 	return *this;
 }
+/*
+bool GameObject::operator<(GameObject &g)
+{
+	if (this != &g){
+		
+		if (hasComponent(std::type_index(typeid(PositionComponent))) && g.hasComponent(std::type_index(typeid(PositionComponent)))) {
+			return (&get<PositionComponent>() > &g.get<PositionComponent>());
+		}
+
+	}
+	return false;
+}*/
 
 GameObject::~GameObject()
 {

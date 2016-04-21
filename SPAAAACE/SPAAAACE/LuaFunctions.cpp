@@ -242,7 +242,16 @@ std::shared_ptr<GameObject> luain::loadGameObjects(Scene *s, lua_State* L, const
 		else if (componentName == "Action"){
 			LuaRef ACTable = entityTable[componentName];
 			addComponent<ActionComponent>(s, obj, ACTable);
+		} 
+		else if (componentName == "Objective"){
+			LuaRef ObjTable = entityTable[componentName];
+			MissionSystem::addObjective(ObjTable);
 		}
+		else if (componentName == "AI"){
+			LuaRef ACTable = entityTable[componentName];
+			addComponent<AiComponent>(s, obj, ACTable);
+		}
+
 		else std::cout << "Unknown component: " << componentName;
 
 		std::cout<< "Added " << componentName << " to " << type << std::endl;
@@ -254,6 +263,10 @@ std::shared_ptr<GameObject> luain::loadGameObjects(Scene *s, lua_State* L, const
 		}
 		if (obj->hasComponent(typeid(PhysicsComponent))){
 			obj->get<PhysicsComponent>()->setPositionComp(obj->get<PositionComponent>());
+
+			if (obj->hasComponent(typeid(AiComponent))){
+				obj->get<AiComponent>()->setPhysicsComp(obj->get<PhysicsComponent>());
+			}
 		}
 	}
 
