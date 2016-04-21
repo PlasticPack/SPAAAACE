@@ -11,7 +11,7 @@ MusicSystem::MusicSystem()
 	}
 	
 	init();
-	m_musique["menu"].play(10000); //TODO: le gérer dans update()!!
+	//m_musique["menu"].play(10000); //TODO: le gérer dans update()!!
 }
 
 MusicSystem::~MusicSystem()
