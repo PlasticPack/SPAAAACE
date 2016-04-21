@@ -35,7 +35,7 @@ bool XML_u::loadObjects(std::vector<std::shared_ptr<GameObject> > &pureObjects, 
 							object->get<AiComponent>()->setPhysicsComp(object->get<PhysicsComponent>());
 						}
 
-						/*for (element node = entity->FirstChildElement(); node;
+						for (element node = entity->FirstChildElement(); node;
 							node = node->NextSiblingElement()){
 							//std::cout << node->Value() << std::endl;
 							//check if node has child(i.e. if node is a table or a table entry)
@@ -111,7 +111,7 @@ bool XML_u::loadObjects(std::vector<std::shared_ptr<GameObject> > &pureObjects, 
 							object->setID(entityTypes->Value());
 
 						}
-						*/
+						
 						pureObjects.push_back(object);
 					}
 

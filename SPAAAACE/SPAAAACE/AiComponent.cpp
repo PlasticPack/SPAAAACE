@@ -70,8 +70,6 @@ int AiComponent::getAcc(){
 	return m_acc;
 }
 
-
-
 void AiComponent::setType(int type)
 {
 	m_typeAi = type;

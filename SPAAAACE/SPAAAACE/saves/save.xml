@@ -1,11 +1,54 @@
 <player>
-	<name>Guy-Dune Albator</name>
+	<main>
+		<position>
+			<x>3000</x>
+			<y>200</y>
+		</position>
+	</main>
 </player>
 <ai>
 	<a>
+		<position>
+			<x>300</x>
+			<y>200</y>
+		</position>
 	</a>
+	<a2>
+		<position>
+			<x>-300</x>
+			<y>200</y>
+		</position>
+	</a2>
+	<a3>
+		<position>
+			<x>10000</x>
+			<y>20</y>
+		</position>
+	</a3>
 </ai>
 <base>
 	<a1>
 	</a1>
 </base>
+<hud_base_pointer>
+	<a></a>
+</hud_base_pointer>
+<hud_fuel>
+	<a></a>
+</hud_fuel>
+<hud_fuel_container>
+	<a></a>
+</hud_fuel_container>
+<hud_life>
+	<a></a>
+</hud_life>
+<hud_life_container>
+	<a></a>
+</hud_life_container>
+<hud_obj_pointer>
+	<a></a>
+</hud_obj_pointer>
+
+
+
+

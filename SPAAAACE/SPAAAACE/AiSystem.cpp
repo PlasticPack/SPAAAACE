@@ -16,7 +16,7 @@ void AiSystem::update(std::shared_ptr <AiComponent> ac, std::vector<std::shared_
 		}
 	}
 
-	play(ac);
+//	play(ac);*/
 }
 
 
@@ -61,11 +61,11 @@ void AiSystem::verifObject(std::shared_ptr <AiComponent> ac){
 	{
 		evitement(ac);
 	}
-	std::cout << ac->getNearDanger()->getHitboxRadius() + 200 << std::endl;
+	//std::cout << ac->getNearDanger()->getHitboxRadius() + 200 << std::endl;
 }
 
 void AiSystem::evitement(std::shared_ptr <AiComponent> ac){
-	std::cout << "DANGER" << std::endl;
+	//std::cout << "DANGER" << std::endl;
 
 	Vec2 vecDirection;
 

@@ -47,11 +47,11 @@ void MissionSystem::update(Message &postman, std::map<std::string, std::shared_p
 	}*/
 
 	if (m_currentObjective != "null") {
-		std::cout << m_objectives[m_currentObjective].targetID << "\n";
+		//std::cout << m_objectives[m_currentObjective].targetID << "\n";
 
-		if (m_objectives[m_currentObjective].targetID  == "yog_sogoth"){
-			std::cout << "??";
-		}
+		//if (m_objectives[m_currentObjective].targetID  == "yog_sogoth"){
+			//std::cout << "??";
+		//}
 
 		if (objs.find(m_objectives[m_currentObjective].targetID) != objs.end()){
 			if (m_objectives[m_currentObjective].targetID != "none"){

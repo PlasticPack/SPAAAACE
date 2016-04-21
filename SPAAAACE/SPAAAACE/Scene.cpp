@@ -15,7 +15,7 @@ void Scene::init(std::string arg){
 	//AJOUTEZ VOS OBJETS ICI! **********************************************
 
 	try {
-		luain::loadFromRep(this, m_gameObjects, arg);
+		luain::loadFromRep(m_gameObjects, arg);
 	}
 	catch (std::exception e){
 		std::cout << e.what() << "\n";
@@ -26,6 +26,25 @@ void Scene::init(std::string arg){
 
 	//modif des ids
 	m_gameObjects.clear();
+	std::map<std::string, int> mapID;
+	std::string lastID = pure[0]->getID();
+	int total = 1;
+	for (int i = 1; i < pure.size(); i++){
+
+		if (lastID != pure[i]->getID()){
+			mapID[lastID] = total;
+			total = 1;
+		}
+		else {
+			total++;
+		}
+
+		if (i == pure.size() - 1){
+			mapID[pure[i]->getID()] = total;
+		}
+
+		lastID = pure[i]->getID();
+	}
 
 	for (int i = 0; i < pure.size(); i++){
 
@@ -34,11 +53,50 @@ void Scene::init(std::string arg){
 		//sauf si player, là on laisse player
 		std::string newID = pure[i]->getID();
 
-		if (pure[i]->getID() != "player" || pure[i]->getID() == "base")
+		//si y'en a juste un dans le script, on mets pas de "1"
+		//std::cout << "HEYHEY HEY" << newID << mapID[newID] << "\n";
+
+		if (mapID[newID] != 1){
+			//std::cout << "HEYHEY HEY" << newID <<  mapID[newID] << "\n";
 			newID += std::to_string(i);
-		std::cout << newID << "\n";
+		}
+
+		//std::cout << newID << "\n";
 		m_gameObjects[newID] = pure[i];
+		m_gameObjects[newID]->setID(newID);
+
+		//on ajoute les components à la scene
+
+		for (auto const& c : m_gameObjects[newID]->getComponents()){
+
+			if (c.first == std::type_index(typeid(PositionComponent))){
+				m_posComps.push_back(std::dynamic_pointer_cast<PositionComponent>(c.second));
+			}
+
+			if (c.first == std::type_index(typeid(PhysicsComponent))){
+				m_physicsComps.push_back(std::dynamic_pointer_cast<PhysicsComponent>(c.second));
+			}
+
+			if (c.first == std::type_index(typeid(GraphicsComponent))){
+				m_graphicsComps.push_back(std::dynamic_pointer_cast<GraphicsComponent>(c.second));
+			}
+
+			if (c.first == std::type_index(typeid(GameLogicComponent))){
+				m_GLComps.push_back(std::dynamic_pointer_cast<GameLogicComponent>(c.second));
+			}
+
+			if (c.first == std::type_index(typeid(ActionComponent))){
+				m_ActionComps.push_back(std::dynamic_pointer_cast<ActionComponent>(c.second));
+			}
+
+			if (c.first == std::type_index(typeid(AiComponent))){
+				m_AiComps.push_back(std::dynamic_pointer_cast<AiComponent>(c.second));
+			}
+
+		}
 	}
+
+	//std::cout << "PHYSCADOCHAU : " << m_physicsComps.size() << "\n";
 
 	//std::cout << "!!!!!\n\n\n\n";
 	//std::cout << m_gameObjects["ai1"]->get<PositionComponent>()->getPosition().x();
@@ -217,7 +275,6 @@ void Scene::update(Message &postman)
 			m_dialogueTimer.start();
 		}
 	}
-		
 	
 	//TIR DU VAISSEAU
 	if (m_inSystem.checkTriggeredAction(AC_SHOOT))
@@ -332,9 +389,10 @@ void Scene::update(Message &postman)
 			GameLogicSystem::update(postman, currentObj, *GLC, 1.0 / GraphicsSystem::getFPS());
 		}
 
-		auto AiC = currentObj->get<AiComponent>();
 
+		auto AiC = currentObj->get<AiComponent>();
 		if (AiC != nullptr){
+			//std::cout << "AIAIAIAIA";
 			AiSystem::update(AiC, m_physicsComps, m_gameObjects["player"]->get<PhysicsComponent>());
 		}
 
@@ -346,7 +404,7 @@ void Scene::update(Message &postman)
 			Vec2 objPos;
 			if (m_id == "game"){
 				playerPos = m_gameObjects["player"]->get<PhysicsComponent>()->getPosition();
-				//basePos = m_gameObjects["base"]->get<PhysicsComponent>()->getPosition();
+				basePos = m_gameObjects["base"]->get<PhysicsComponent>()->getPosition();
 				objPos = MissionSystem::getObjPosition();
 			}
 

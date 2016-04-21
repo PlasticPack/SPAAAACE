@@ -39,6 +39,9 @@ public:
 	
 	bool hasComponent(std::type_index);
 	void setID(std::string id){ m_ID = id; }
+
+	std::map<std::type_index, std::shared_ptr<Component>> getComponents() { return m_components; }
+
 	//bool operator<(GameObject &comp);
 
 protected:
