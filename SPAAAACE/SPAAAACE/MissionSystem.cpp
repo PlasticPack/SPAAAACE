@@ -53,16 +53,18 @@ void MissionSystem::update(Message &postman, std::map<std::string, std::shared_p
 			std::cout << "??";
 		}
 
-		if (m_objectives[m_currentObjective].targetID != "none" && objs.find(m_objectives[m_currentObjective].targetID) != objs.end()){
-			
-			//std::cout << m_objectives[m_currentObjective].targetID  << "\n";
+		if (objs.find(m_objectives[m_currentObjective].targetID) != objs.end()){
+			if (m_objectives[m_currentObjective].targetID != "none"){
 
-			m_objPosition = objs[m_objectives[m_currentObjective].targetID]->get<PositionComponent>()->getPosition();
-			
-			objs[m_currentObjective]->get<PositionComponent>()->setPosition(m_objPosition);
-		}
-		else {
-			m_objPosition = objs[m_currentObjective]->get<PositionComponent>()->getPosition();
+				//std::cout << m_objectives[m_currentObjective].targetID  << "\n";
+
+				m_objPosition = objs[m_objectives[m_currentObjective].targetID]->get<PositionComponent>()->getPosition();
+
+				objs[m_currentObjective]->get<PositionComponent>()->setPosition(m_objPosition);
+			}
+			else {
+				m_objPosition = objs[m_currentObjective]->get<PositionComponent>()->getPosition();
+			}
 		}
 	}
 

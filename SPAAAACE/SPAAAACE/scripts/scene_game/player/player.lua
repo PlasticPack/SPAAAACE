@@ -1,6 +1,6 @@
 player = {
 	Position = {
-		x = 0,
+		x = 5,
 		y = 0,
 		a = 0
 	},

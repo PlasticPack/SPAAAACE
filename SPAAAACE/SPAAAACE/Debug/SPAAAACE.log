@@ -1,6 +1,13 @@
-﻿  XML_utilityfunctions.cpp
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\xml_utilityfunctions.cpp(136): warning C4018: '<' : incompatibilité signed/unsigned
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\xml_utilityfunctions.cpp(157): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\xml_utilityfunctions.cpp(158): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+﻿  Scene.cpp
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\luainit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
+          c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\physicssystem.h(19) : voir la déclaration de 'Scene'
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(30): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(103): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(112): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(123): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(126): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(136): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(232): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(327): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
   SPAAAACE.vcxproj -> C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Debug\SPAAAACE.exe
 BSCMAKE : warning BK4503: erreur mineure dans le fichier .SBR 'Debug\InputSystem.sbr' ignorÚe

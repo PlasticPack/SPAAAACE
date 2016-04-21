@@ -21,10 +21,15 @@ AiComponent::AiComponent(AiComponent const& a){
 		m_phyComponent.reset();
 		m_target.reset();
 
-		m_target = a.m_target;
-		m_nearDanger = std::make_shared<PhysicsComponent>(*a.m_nearDanger);
-		m_target = std::make_shared<PhysicsComponent>(*a.m_target);
-	}
+		if (a.m_target != nullptr)
+			m_target = a.m_target;
+		
+		if (a.m_nearDanger != nullptr)
+			m_nearDanger = std::make_shared<PhysicsComponent>(*a.m_nearDanger);
+
+		if (a.m_phyComponent != nullptr)
+			m_phyComponent = std::make_shared<PhysicsComponent>(*a.m_phyComponent);
+	}	
 }
 
 
@@ -38,9 +43,14 @@ AiComponent& AiComponent::operator=(AiComponent const& a){
 		m_phyComponent.reset();
 		m_target.reset();
 
-		m_target = a.m_target;
-		m_nearDanger = std::make_shared<PhysicsComponent>(*a.m_nearDanger);
-		m_target = std::make_shared<PhysicsComponent>(*a.m_target);
+		if (a.m_target != nullptr)
+			m_target = a.m_target;
+
+		if (a.m_nearDanger != nullptr)
+			m_nearDanger = std::make_shared<PhysicsComponent>(*a.m_nearDanger);
+
+		if (a.m_phyComponent != nullptr)
+			m_phyComponent = std::make_shared<PhysicsComponent>(*a.m_phyComponent);
 	}
 	return *this;
 }

@@ -24,6 +24,25 @@ void Scene::init(std::string arg){
 	std::vector<std::shared_ptr<GameObject>> pure;
 	XML_u::loadObjects(pure, m_gameObjects, "saves/save.xml");
 
+	//modif des ids
+	m_gameObjects.clear();
+
+	for (int i = 0; i < pure.size(); i++){
+
+		//création de l'ID de l'objet selon son ID précédent
+		//ou simplement le i
+		//sauf si player, là on laisse player
+		std::string newID = pure[i]->getID();
+
+		if (pure[i]->getID() != "player" || pure[i]->getID() == "base")
+			newID += std::to_string(i);
+		std::cout << newID << "\n";
+		m_gameObjects[newID] = pure[i];
+	}
+
+	//std::cout << "!!!!!\n\n\n\n";
+	//std::cout << m_gameObjects["ai1"]->get<PositionComponent>()->getPosition().x();
+
 	//À PARTIR DE CE POINT, N'AJOUTEZ PLUS D'OBJETS  ***********************
 	
 	///AJOUT BACKGROUND ET MACHINs
@@ -63,16 +82,19 @@ void Scene::init(std::string arg){
 }
 
 void Scene::orderByZIndex(){
+
 	if (m_gameObjects.size() > 1){
 
 		std::vector < std::pair<std::string, double> > vec;
-		for (auto const& it : m_gameObjects){
+		for (auto& it : m_gameObjects){
+
 			if (it.second->get<PositionComponent>() != nullptr){
-				vec.push_back(std::pair < std::string, double>(it.second->getID(), it.second->get<PositionComponent>()->getZIndex()));
+				vec.push_back(std::pair < std::string, double>(it.first, it.second->get<PositionComponent>()->getZIndex()));
 			}
 			else {
-				vec.push_back(std::pair < std::string, double>(it.second->getID(), 0));
+				vec.push_back(std::pair < std::string, double>(it.first, 0));
 			}
+
 		}
 
 		bool ordered = true;
@@ -115,9 +137,6 @@ void Scene::orderByZIndex(){
 			m_orderedGO.push_back(vec[i].first);
 			std::cout << vec[i].first << " " << vec[i].second << "\n";
 		}
-
-		
-		
 	}
 }
 
@@ -327,7 +346,7 @@ void Scene::update(Message &postman)
 			Vec2 objPos;
 			if (m_id == "game"){
 				playerPos = m_gameObjects["player"]->get<PhysicsComponent>()->getPosition();
-				basePos = m_gameObjects["base"]->get<PhysicsComponent>()->getPosition();
+				//basePos = m_gameObjects["base"]->get<PhysicsComponent>()->getPosition();
 				objPos = MissionSystem::getObjPosition();
 			}
 
