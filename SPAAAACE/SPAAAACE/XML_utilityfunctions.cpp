@@ -56,9 +56,13 @@ bool XML_u::loadObjects(std::vector<std::shared_ptr<GameObject> > &pureObjects, 
 										object->get<PhysicsComponent>()->setMass(std::stod(node->GetText()));
 									}
 								}
+								else if (strcmp("id", node->Value()) == 0){
+									object->setID(node->GetText());
+									object->idSet(true);
+								}
+								
 							}
 							else{
-
 								//std::cout << "Has non-attributes" << std::endl;
 								if (strcmp("position", node->Value()) == 0){
 									//std::cout << "Setting position." << std::endl;
@@ -106,9 +110,17 @@ bool XML_u::loadObjects(std::vector<std::shared_ptr<GameObject> > &pureObjects, 
 										}
 									}
 								}
+								
 								//else std::cout << "No position component!" << std::endl;
 							}
-							object->setID(entityTypes->Value());
+
+							if (!object->idSet()) {
+								
+								object->setID(entityTypes->Value());
+							}
+							else {
+								std::cout << "<\n\n\n\n " << object->getID() << "  \n\n\n\n\n";
+							}
 
 						}
 						

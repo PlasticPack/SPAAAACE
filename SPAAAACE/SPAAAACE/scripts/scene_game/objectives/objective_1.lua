@@ -9,7 +9,7 @@ objective_1 = {
 		activated = "false"
 	},
 	Action = {
-		trigger = "player objective_1 34048 1",
+		trigger = "objective_1 player 34048 1",
 		answer = "Action objective_1 34063 1",
 		timer = -1
 	},

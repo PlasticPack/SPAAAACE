@@ -66,9 +66,13 @@ void MissionSystem::update(Message &postman, std::map<std::string, std::shared_p
 				m_objPosition = objs[m_currentObjective]->get<PositionComponent>()->getPosition();
 			}
 		}
+		else if (objs.find(m_currentObjective) != objs.end()){
+			m_objPosition = objs[m_currentObjective]->get<PositionComponent>()->getPosition();
+		}
 	}
 
 	if (postman.getMessage("Action", m_currentObjective, MS_OBJECTIVE) == true){
+		//std::cout << "JEUEJEJKAGDPIUPOSHDUIOAHSDSDAG:I\n\nHGDPIASDUIASDH\n\n";
 		m_objectives[m_currentObjective].done = true;
 		//std::cout << m_currentObjective << "\n";
 		std::map < std::string, s_objective >::iterator it = m_objectives.find(m_currentObjective);

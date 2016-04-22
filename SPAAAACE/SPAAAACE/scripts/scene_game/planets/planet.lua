@@ -1,4 +1,4 @@
-planet_1 = {
+planet = {
 	Position = {
 		x = 0000,
 		y = 2000,

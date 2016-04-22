@@ -6,30 +6,26 @@
 		</position>
 	</main>
 </player>
-<ai>
+<!--<ai>
 	<a>
 		<position>
 			<x>300</x>
 			<y>200</y>
 		</position>
 	</a>
-	<a2>
-		<position>
-			<x>-300</x>
-			<y>200</y>
-		</position>
-	</a2>
-	<a3>
-		<position>
-			<x>10000</x>
-			<y>20</y>
-		</position>
-	</a3>
-</ai>
+</ai>-->
 <base>
 	<a1>
 	</a1>
 </base>
+<planet>
+	<aa>
+		<id>planet_1</id>
+	</aa>
+</planet>
+<!-- 
+PAS TOUCHER AUX SECTIONS APRÈS CECI
+-->
 <hud_base_pointer>
 	<a></a>
 </hud_base_pointer>
@@ -48,7 +44,9 @@
 <hud_obj_pointer>
 	<a></a>
 </hud_obj_pointer>
-
+<objective_1><a></a></objective_1>
+<objective_2><a></a></objective_2>
+<objective_3><a></a></objective_3>
 
 
 

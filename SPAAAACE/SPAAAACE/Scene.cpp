@@ -28,22 +28,30 @@ void Scene::init(std::string arg){
 	m_gameObjects.clear();
 	std::map<std::string, int> mapID;
 	std::string lastID = pure[0]->getID();
+	
 	int total = 1;
 	for (int i = 1; i < pure.size(); i++){
 
-		if (lastID != pure[i]->getID()){
-			mapID[lastID] = total;
-			total = 1;
+		//si on a pas déjà setté l'ID
+		if (!pure[i]->idSet()) {
+			if (lastID != pure[i]->getID()){
+				mapID[lastID] = total;
+				total = 1;
+			}
+			else {
+				total++;
+			}
+
+			if (i == pure.size() - 1){
+				mapID[pure[i]->getID()] = total;
+			}
+
+			lastID = pure[i]->getID();
 		}
 		else {
-			total++;
+			std::cout << ":(:(:(\n";
+			mapID[pure[i]->getID()] = 1;
 		}
-
-		if (i == pure.size() - 1){
-			mapID[pure[i]->getID()] = total;
-		}
-
-		lastID = pure[i]->getID();
 	}
 
 	for (int i = 0; i < pure.size(); i++){
@@ -97,7 +105,6 @@ void Scene::init(std::string arg){
 	}
 
 	//std::cout << "PHYSCADOCHAU : " << m_physicsComps.size() << "\n";
-
 	//std::cout << "!!!!!\n\n\n\n";
 	//std::cout << m_gameObjects["ai1"]->get<PositionComponent>()->getPosition().x();
 
@@ -197,7 +204,6 @@ void Scene::orderByZIndex(){
 		}
 	}
 }
-
 
 Scene::~Scene()
 {
@@ -300,6 +306,8 @@ void Scene::update(Message &postman)
 		//if (m_gameObjects[i]->get<PositionComponent>() != nullptr)
 			//std::cout << m_gameObjects[i]->get<PositionComponent>()->getZIndex() << "\n";
 
+
+		//Vec2 basePos(0, 0), objectivePos(0, 0);
 		std::shared_ptr<PhysicsComponent> pc = currentObj->get<PhysicsComponent>();
 		if (pc != nullptr){
 			/*if (currentID == MissionSystem::getCurrentObjective()){
@@ -503,6 +511,9 @@ void Scene::update(Message &postman)
 
 	if (m_id == "game"){
 		MissionSystem::update(postman, m_gameObjects);
+
+		std::cout << MissionSystem::getCurrentObjective() << "\n";
+
 		if (postman.getMessage("MissionSystem", "Mission", MS_MISSION_OVER) == 1){
 			//std::cout << "OVER!!!";
 			GraphicsSystem::print("Mission terminée.");

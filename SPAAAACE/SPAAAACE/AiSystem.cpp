@@ -16,7 +16,7 @@ void AiSystem::update(std::shared_ptr <AiComponent> ac, std::vector<std::shared_
 		}
 	}
 
-//	play(ac);*/
+	play(ac);
 }
 
 
@@ -44,7 +44,8 @@ void AiSystem::verifVision(std::shared_ptr <AiComponent> ac){
 		vecTest.normalize();
 		ac->getPhysicsComponent()->setVelocity(vecTest*1500);
 	}
-	else*/ if (ac->getPhysicsComponent()->getPosition().getDist(ac->getTarget()->getPosition()) < 1500)
+	else*/
+	if (ac->getPhysicsComponent()->getPosition().getDist(ac->getTarget()->getPosition()) < 1500)
 	{
 		mouvementCont(ac);
 	}

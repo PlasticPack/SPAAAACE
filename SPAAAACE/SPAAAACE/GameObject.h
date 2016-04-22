@@ -40,6 +40,9 @@ public:
 	bool hasComponent(std::type_index);
 	void setID(std::string id){ m_ID = id; }
 
+	void idSet(bool b){ m_idSet = b; }
+	bool idSet() { return m_idSet; }
+
 	std::map<std::type_index, std::shared_ptr<Component>> getComponents() { return m_components; }
 
 	//bool operator<(GameObject &comp);
@@ -47,5 +50,6 @@ public:
 protected:
 	std::map<std::type_index, std::shared_ptr<Component>> m_components;
 	std::string m_ID;
+	bool m_idSet;
 };
 
