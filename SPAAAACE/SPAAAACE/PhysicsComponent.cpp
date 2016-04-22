@@ -80,6 +80,36 @@ PhysicsComponent::~PhysicsComponent()
 {
 }
 
+PhysicsComponent::PhysicsComponent(PhysicsComponent const& p){
+	if (this != &p){
+		m_activated = p.m_activated;
+		m_angularVelocity = p.m_angularVelocity;
+		m_elasticity = p.m_elasticity;
+		m_forces = p.m_forces;
+		m_hitboxRadius = p.m_hitboxRadius;
+		m_mass = p.m_mass;
+		m_velocity = p.m_velocity;
+
+		m_posComponent.reset();
+		m_posComponent = std::make_shared<PositionComponent>(*p.m_posComponent);
+	}
+}
+
+PhysicsComponent& PhysicsComponent::operator=(PhysicsComponent const& p){
+	if (this != &p){
+		m_activated = p.m_activated;
+		m_angularVelocity = p.m_angularVelocity;
+		m_elasticity = p.m_elasticity;
+		m_forces = p.m_forces;
+		m_hitboxRadius = p.m_hitboxRadius;
+		m_mass = p.m_mass;
+		m_velocity = p.m_velocity;
+
+		m_posComponent.reset();
+		m_posComponent = std::make_shared<PositionComponent>(*p.m_posComponent);
+	}
+	return *this;
+}
 
 Vec2 PhysicsComponent::getVelocity(){
 	return m_velocity;

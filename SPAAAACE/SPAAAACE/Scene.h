@@ -87,6 +87,18 @@ public:
 		if (std::type_index(typeid(T)) == std::type_index(typeid(GraphicsComponent))){
 			m_graphicsComps.push_back(std::dynamic_pointer_cast<GraphicsComponent>(c));
 		}
+
+		if (std::type_index(typeid(T)) == std::type_index(typeid(GameLogicComponent))){
+			m_GLComps.push_back(std::dynamic_pointer_cast<GameLogicComponent>(c));
+		}
+
+		if (std::type_index(typeid(T)) == std::type_index(typeid(ActionComponent))){
+			m_ActionComps.push_back(std::dynamic_pointer_cast<ActionComponent>(c));
+		}
+
+		if (std::type_index(typeid(T)) == std::type_index(typeid(AiComponent))){
+			m_AiComps.push_back(std::dynamic_pointer_cast<AiComponent>(c));
+		}
 	}
 
 
@@ -102,8 +114,6 @@ public:
 
 		return str;
 	}
-
-
 	template <typename C> std::string getFatherID(int c){
 
 		std::string str = "none";

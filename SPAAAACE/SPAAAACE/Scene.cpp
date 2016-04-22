@@ -14,18 +14,103 @@ void Scene::init(std::string arg){
 	MissionSystem::init();
 	//AJOUTEZ VOS OBJETS ICI! **********************************************
 
-
 	try {
-		luain::loadFromRep(this, m_gameObjects, arg);
+		luain::loadFromRep(m_gameObjects, arg);
 	}
 	catch (std::exception e){
 		std::cout << e.what() << "\n";
-
 	}
 
+	std::vector<std::shared_ptr<GameObject>> pure;
+	XML_u::loadObjects(pure, m_gameObjects, "saves/final.xml");
+
+	//modif des ids
+	m_gameObjects.clear();
+	std::map<std::string, int> mapID;
+	std::string lastID = pure[0]->getID();
+	
+	int total = 1;
+	for (int i = 1; i < pure.size(); i++){
+
+		//si on a pas déjà setté l'ID
+		if (!pure[i]->idSet()) {
+			if (lastID != pure[i]->getID()){
+				mapID[lastID] = total;
+				total = 1;
+			}
+			else {
+				total++;
+			}
+
+			if (i == pure.size() - 1){
+				mapID[pure[i]->getID()] = total;
+			}
+
+			lastID = pure[i]->getID();
+		}
+		else {
+			std::cout << ":(:(:(\n";
+			mapID[pure[i]->getID()] = 1;
+		}
+	}
+
+	for (int i = 0; i < pure.size(); i++){
+
+		//création de l'ID de l'objet selon son ID précédent
+		//ou simplement le i
+		//sauf si player, là on laisse player
+		std::string newID = pure[i]->getID();
+
+		//si y'en a juste un dans le script, on mets pas de "1"
+		//std::cout << "HEYHEY HEY" << newID << mapID[newID] << "\n";
+
+		if (mapID[newID] != 1){
+			//std::cout << "HEYHEY HEY" << newID <<  mapID[newID] << "\n";
+			newID += std::to_string(i);
+		}
+
+		//std::cout << newID << "\n";
+		m_gameObjects[newID] = pure[i];
+		m_gameObjects[newID]->setID(newID);
+		m_gameObjects[newID]->setType(pure[i]->getType());
+
+		//on ajoute les components à la scene
+
+		for (auto const& c : m_gameObjects[newID]->getComponents()){
+
+			if (c.first == std::type_index(typeid(PositionComponent))){
+				m_posComps.push_back(std::dynamic_pointer_cast<PositionComponent>(c.second));
+			}
+
+			if (c.first == std::type_index(typeid(PhysicsComponent))){
+				m_physicsComps.push_back(std::dynamic_pointer_cast<PhysicsComponent>(c.second));
+			}
+
+			if (c.first == std::type_index(typeid(GraphicsComponent))){
+				m_graphicsComps.push_back(std::dynamic_pointer_cast<GraphicsComponent>(c.second));
+			}
+
+			if (c.first == std::type_index(typeid(GameLogicComponent))){
+				m_GLComps.push_back(std::dynamic_pointer_cast<GameLogicComponent>(c.second));
+			}
+
+			if (c.first == std::type_index(typeid(ActionComponent))){
+				m_ActionComps.push_back(std::dynamic_pointer_cast<ActionComponent>(c.second));
+			}
+
+			if (c.first == std::type_index(typeid(AiComponent))){
+				m_AiComps.push_back(std::dynamic_pointer_cast<AiComponent>(c.second));
+			}
+
+		}
+	}
+
+	//std::cout << "PHYSCADOCHAU : " << m_physicsComps.size() << "\n";
+	//std::cout << "!!!!!\n\n\n\n";
+	//std::cout << m_gameObjects["ai1"]->get<PositionComponent>()->getPosition().x();
+
 	//À PARTIR DE CE POINT, N'AJOUTEZ PLUS D'OBJETS  ***********************
-
-
+	
 	///AJOUT BACKGROUND ET MACHINs
 
 	orderByZIndex(); 
@@ -60,19 +145,24 @@ void Scene::init(std::string arg){
 	GraphicsSystem::setCameraZoom(1);
 	m_navigationTimer.start();
 	m_dialogueTimer.start();
+
+	XML_u::saveObjects(m_gameObjects, "saves/final2.xml");
 }
 
 void Scene::orderByZIndex(){
+
 	if (m_gameObjects.size() > 1){
 
 		std::vector < std::pair<std::string, double> > vec;
-		for (auto const& it : m_gameObjects){
+		for (auto& it : m_gameObjects){
+
 			if (it.second->get<PositionComponent>() != nullptr){
-				vec.push_back(std::pair < std::string, double>(it.second->getID(), it.second->get<PositionComponent>()->getZIndex()));
+				vec.push_back(std::pair < std::string, double>(it.first, it.second->get<PositionComponent>()->getZIndex()));
 			}
 			else {
-				vec.push_back(std::pair < std::string, double>(it.second->getID(), 0));
+				vec.push_back(std::pair < std::string, double>(it.first, 0));
 			}
+
 		}
 
 		bool ordered = true;
@@ -115,129 +205,8 @@ void Scene::orderByZIndex(){
 			m_orderedGO.push_back(vec[i].first);
 			std::cout << vec[i].first << " " << vec[i].second << "\n";
 		}
-
-		
-		/*std::vector< std::pair<std::string, std::shared_ptr<GameObject>>> vecGO(m_gameObjects.begin(), m_gameObjects.end());
-
-		int j = 0;
-		bool ordered = true;
-
-		do {
-			
-			for (int i = 0; i < vecGO.size() - 1; i++){
-				//std::cout << i << m_gameObjects[i]->getID() << " & " << m_gameObjects[i+1]->getID();
-			
-				if (vecGO[i].second->get<PositionComponent>()->getZIndex() > vecGO[i+1].second->get<PositionComponent>()->getZIndex()){
-					std::cout << " just swapped\n";
-					std::iter_swap(vecGO[i].second, vecGO[i +1].second);
-					//swapped = true;
-				}
-				else 
-					std::cout << "\n";
-
-			}
-
-			ordered = true;
-			for (int i = 0; i < vecGO.size() - 1; i++){
-				//std::cout << i << m_gameObjects[i]->getID() << " & " << m_gameObjects[i+1]->getID();
-
-				if (vecGO[i].second->get<PositionComponent>()->getZIndex() > vecGO[i].second->get<PositionComponent>()->getZIndex()){
-					ordered = false;
-					break;
-				}
-			}
-
-		} while (!ordered);
-
-		//std::reverse(m_gameObjects.begin(), m_gameObjects.end());
-
-		//on place le joueur au "dessus" des objets à sa même hauteur
-		for (int i = 0; i < vecGO.size(); i++){
-			if (vecGO[i].second->getID() == "player"){
-				if (i != vecGO.size() - 1) {
-					for (int j = i; j < vecGO.size(); j++){
-						if (vecGO[j].second->getID() != "player" && vecGO[j].second->get<PositionComponent>()->getZIndex() == vecGO[i].second->get<PositionComponent>()->getZIndex()) {
-							std::iter_swap(vecGO.begin() + i, vecGO.begin() + j);
-							std::cout << i << j << "\n";
-							break;
-						}
-					}
-				}
-			}
-		}
-
-		//recopie du vector dans la map
-		m_gameObjects.clear();
-		for (auto const& k : vecGO){
-			m_gameObjects[k.first] = k.second;
-		}*/
 	}
 }
-
-/*
-bool zSort(std::shared_ptr<GameObject> g1, std::shared_ptr<GameObject> g2){
-
-if (&g1 != &g2){
-
-if (g1->hasComponent(std::type_index(typeid(PositionComponent))) && g2->hasComponent(std::type_index(typeid(PositionComponent)))) {
-return (g1->get<PositionComponent>() > g2->get<PositionComponent>());
-}
-
-}
-return false;
-}
-
-void Scene::orderByZIndex(){
-/*if (m_gameObjects.size() > 0){
-int j = 0;
-bool swapped = false;
-do {
-for (int i(1); i < m_gameObjects.size(); i++){
-
-if (m_gameObjects[i-1]->get<PositionComponent>()->getZIndex() < m_gameObjects[i]->get<PositionComponent>()->getZIndex()){
-std::iter_swap(m_gameObjects.begin() + i -1, m_gameObjects.begin() + i);
-swapped = true;
-}
-
-if (i == m_gameObjects.size() - 1 && !swapped){
-swapped = true;
-}
-}
-} while (!swapped);
-
-//on place le joueur au "dessus" des objets à sa même hauteur
-/*for (int i = 0; i < m_gameObjects.size(); i++){
-if (m_gameObjects[i]->getID() == "player"){
-if (i != m_gameObjects.size() - 1) {
-for (int j = i; j < m_gameObjects.size(); j++){
-if (m_gameObjects[j]->getID() != "player" && m_gameObjects[j]->get<PositionComponent>()->getZIndex() == m_gameObjects[i]->get<PositionComponent>()->getZIndex()) {
-//std::iter_swap(m_gameObjects.begin() + i, m_gameObjects.begin() + j);
-std::cout << i << j << "\n";
-break;
-}
-}
-}
-}
-}
-}*
-
-std::sort(m_gameObjects.begin(), m_gameObjects.end(), zSort);
-
-for (int i = 0; i < m_gameObjects.size(); i++){
-	if (m_gameObjects[i]->getID() == "player"){
-		if (i != m_gameObjects.size() - 1) {
-			for (int j = i; j < m_gameObjects.size(); j++){
-				if (m_gameObjects[j]->getID() != "player" && m_gameObjects[j]->get<PositionComponent>()->getZIndex() == m_gameObjects[i]->get<PositionComponent>()->getZIndex()) {
-					std::iter_swap(m_gameObjects.begin() + i, m_gameObjects.begin() + j);
-					std::cout << i << j << "\n";
-					break;
-				}
-			}
-		}
-	}
-}
-//std::reverse(m_gameObjects.begin(), m_gameObjects.end());
-}*/
 
 Scene::~Scene()
 {
@@ -315,7 +284,6 @@ void Scene::update(Message &postman)
 			m_dialogueTimer.start();
 		}
 	}
-		
 	
 	//TIR DU VAISSEAU
 	if (m_inSystem.checkTriggeredAction(AC_SHOOT))
@@ -341,6 +309,8 @@ void Scene::update(Message &postman)
 		//if (m_gameObjects[i]->get<PositionComponent>() != nullptr)
 			//std::cout << m_gameObjects[i]->get<PositionComponent>()->getZIndex() << "\n";
 
+
+		//Vec2 basePos(0, 0), objectivePos(0, 0);
 		std::shared_ptr<PhysicsComponent> pc = currentObj->get<PhysicsComponent>();
 		if (pc != nullptr){
 			/*if (currentID == MissionSystem::getCurrentObjective()){
@@ -430,9 +400,10 @@ void Scene::update(Message &postman)
 			GameLogicSystem::update(postman, currentObj, *GLC, 1.0 / GraphicsSystem::getFPS());
 		}
 
-		auto AiC = currentObj->get<AiComponent>();
 
+		auto AiC = currentObj->get<AiComponent>();
 		if (AiC != nullptr){
+			//std::cout << "AIAIAIAIA";
 			AiSystem::update(AiC, m_physicsComps, m_gameObjects["player"]->get<PhysicsComponent>());
 		}
 
@@ -543,6 +514,9 @@ void Scene::update(Message &postman)
 
 	if (m_id == "game"){
 		MissionSystem::update(postman, m_gameObjects);
+
+		std::cout << MissionSystem::getCurrentObjective() << "\n";
+
 		if (postman.getMessage("MissionSystem", "Mission", MS_MISSION_OVER) == 1){
 			//std::cout << "OVER!!!";
 			GraphicsSystem::print("Mission terminée.");
@@ -555,7 +529,7 @@ void Scene::update(Message &postman)
 	}
 	
 	//MusSystem
-	m_musSytem.update(postman);
+	//m_musSytem.update(postman);
 
 	if (m_inSystem.checkTriggeredAction(AC_EXIT))
 		postman.addMessage("Action", "Button", MS_EXIT_REQUEST, 1);
