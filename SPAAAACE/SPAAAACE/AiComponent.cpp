@@ -88,6 +88,14 @@ std::shared_ptr<PhysicsComponent> AiComponent::getPhysicsComponent(){
 	return m_phyComponent;
 }
 
+void AiComponent::setGLComponent(std::shared_ptr<GameLogicComponent> comp){
+	this->m_gameLogicComponent = comp;
+}
+
+std::shared_ptr<GameLogicComponent> AiComponent::getGLComponent(){
+	return m_gameLogicComponent;
+}
+
 void AiComponent::setTarget(std::shared_ptr<PhysicsComponent> target){
 	m_target = target;
 }
@@ -108,4 +116,15 @@ std::shared_ptr <PhysicsComponent> AiComponent::getNearDanger(){
 AiComponent::AiComponent(luabridge::LuaRef& componentTable, std::shared_ptr<PhysicsComponent> comp){
 	using namespace luabridge;
 	m_phyComponent = comp;
+}
+
+
+bool AiComponent::isCloseToDanger(){
+	if (this->getPhysicsComponent()->getPosition().getDist(this->getNearDanger()->getPosition()) <= (this->getNearDanger()->getHitboxRadius() + 100))
+	{
+		return true;
+	}
+	else{
+		return false;
+	}
 }

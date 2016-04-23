@@ -7,6 +7,7 @@ But: Prototypes de la classe AiComponent
 
 #include "Component.h"
 #include "PhysicsComponent.h"
+#include "GameLogicComponent.h"
 
 #include "Vec2.h"
 #include <math.h>
@@ -18,6 +19,7 @@ protected:
 	int m_acc;
 	std::shared_ptr<PhysicsComponent> m_target, m_phyComponent;
 	std::shared_ptr<PhysicsComponent>  m_nearDanger;
+	std::shared_ptr<GameLogicComponent> m_gameLogicComponent;
 	
 
 public:
@@ -36,6 +38,7 @@ public:
 	int getType();
 	Vec2 getVec();
 	std::shared_ptr<PhysicsComponent> getPhysicsComponent();
+	std::shared_ptr<GameLogicComponent> getGLComponent();
 	std::shared_ptr<PhysicsComponent> getTarget();
 	std::shared_ptr <PhysicsComponent> getNearDanger();
 	int getAcc();
@@ -43,6 +46,8 @@ public:
 	void setType(int);
 	void setVec(Vec2);
 	void setPhysicsComp(std::shared_ptr<PhysicsComponent> comp);
+	void setGLComponent(std::shared_ptr<GameLogicComponent> comp);
 	void setTarget(std::shared_ptr<PhysicsComponent> comp);
 	void setNearDanger(std::shared_ptr <PhysicsComponent> comp);
+	bool isCloseToDanger();
 };

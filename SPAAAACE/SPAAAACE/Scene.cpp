@@ -54,6 +54,7 @@ void Scene::init(std::string arg){
 		}
 	}
 
+
 	for (int i = 0; i < pure.size(); i++){
 
 		//création de l'ID de l'objet selon son ID précédent
@@ -301,13 +302,13 @@ void Scene::update(Message &postman)
 		auto currentObj = m_gameObjects[m_orderedGO[i]];
 
 		if (m_orderedGO[i] == "planet_menu"){
-			GraphicsSystem::setCameraTarget(currentObj->get<PositionComponent>()->getPosition() + Vec2(-SCREEN_W/2, 0));
+			GraphicsSystem::setCameraTarget(currentObj->get<PositionComponent>()->getPosition() + Vec2(-SCREEN_W / 2, 0));
 		}
 
 		//
 
 		//if (m_gameObjects[i]->get<PositionComponent>() != nullptr)
-			//std::cout << m_gameObjects[i]->get<PositionComponent>()->getZIndex() << "\n";
+		//std::cout << m_gameObjects[i]->get<PositionComponent>()->getZIndex() << "\n";
 
 
 		//Vec2 basePos(0, 0), objectivePos(0, 0);
@@ -315,11 +316,11 @@ void Scene::update(Message &postman)
 		if (pc != nullptr){
 			/*if (currentID == MissionSystem::getCurrentObjective()){
 				objectivePos = currentObj->get<PositionComponent>()->getPosition();
-			}
+				}
 
-			if (currentID == "base"){
+				if (currentID == "base"){
 				basePos = currentObj->get<PhysicsComponent>()->getPosition();
-			}*/
+				}*/
 
 			//DÉCISION DE MOUVEMENT : JOUEUR
 			if (currentID == "player") {
@@ -389,7 +390,7 @@ void Scene::update(Message &postman)
 			}
 			PhysicsSystem::update(postman, this, *pc, m_physicsComps, 1.0 / GraphicsSystem::getFPS());
 		}
-		
+
 
 		if (postman.getMessage("Physics", currentID, MS_COLLISION) > 1){
 			postman.addMessage(currentID, getFatherID<PhysicsComponent>(postman.getMessage("Physics", currentID, MS_COLLISION)), MS_COLLISION, 1);
@@ -401,11 +402,24 @@ void Scene::update(Message &postman)
 		}
 
 
+
 		auto AiC = currentObj->get<AiComponent>();
 		if (AiC != nullptr){
-			//std::cout << "AIAIAIAIA";
-			AiSystem::update(AiC, m_physicsComps, m_gameObjects["player"]->get<PhysicsComponent>());
+			for (int j = 1; j < m_physicsComps.size(); j++) {
+				if (getFatherID<PhysicsComponent>(m_physicsComps[j]) == "planets"){
+					if (AiC->getPhysicsComponent()->getPosition().getDist(AiC->getNearDanger()->getPosition()) >= AiC->getPhysicsComponent()->getPosition().getDist(m_physicsComps[j]->getPosition())){
+						AiC->setNearDanger(m_physicsComps[j]);
+					}
+				}
+				else if (getFatherID<PhysicsComponent>(m_physicsComps[j]) == "player"){
+					AiC->setTarget(m_physicsComps[j]);
+				}
+			}
+
+			AiSystem::update(AiC);
+
 		}
+
 
 		auto gc = currentObj->get<GraphicsComponent>();
 		if (gc != nullptr){
