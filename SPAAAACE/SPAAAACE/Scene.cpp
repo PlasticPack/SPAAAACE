@@ -513,7 +513,7 @@ void Scene::update(Message &postman)
 	}
 
 	if (m_id == "game"){
-		//MissionSystem::update(postman, m_gameObjects);
+		MissionSystem::update(postman, m_gameObjects);
 
 		//std::cout << MissionSystem::getCurrentObjective() << "\n";
 
