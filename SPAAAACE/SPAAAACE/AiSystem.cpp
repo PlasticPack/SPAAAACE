@@ -44,7 +44,8 @@ void AiSystem::verifVision(std::shared_ptr <AiComponent> ac){
 		vecTest.normalize();
 		ac->getPhysicsComponent()->setVelocity(vecTest*1500);
 	}
-	else*/ if (ac->getPhysicsComponent()->getPosition().getDist(ac->getTarget()->getPosition()) < 1500)
+	else*/
+	if (ac->getPhysicsComponent()->getPosition().getDist(ac->getTarget()->getPosition()) < 1500)
 	{
 		mouvementCont(ac);
 	}
@@ -61,11 +62,11 @@ void AiSystem::verifObject(std::shared_ptr <AiComponent> ac){
 	{
 		evitement(ac);
 	}
-	std::cout << ac->getNearDanger()->getHitboxRadius() + 200 << std::endl;
+	//std::cout << ac->getNearDanger()->getHitboxRadius() + 200 << std::endl;
 }
 
 void AiSystem::evitement(std::shared_ptr <AiComponent> ac){
-	std::cout << "DANGER" << std::endl;
+	//std::cout << "DANGER" << std::endl;
 
 	Vec2 vecDirection;
 

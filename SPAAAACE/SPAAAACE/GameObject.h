@@ -1,6 +1,9 @@
 #pragma once
 
-#include "PositionComponent.h"
+#include "AiComponent.h"
+#include "ActionComponent.h"
+#include "GameLogicComponent.h"
+#include "GraphicsComponent.h"
 #include <map>
 #include <memory>
 #include <typeindex>
@@ -36,10 +39,20 @@ public:
 	
 	bool hasComponent(std::type_index);
 	void setID(std::string id){ m_ID = id; }
+
+	void idSet(bool b){ m_idSet = b; }
+	bool idSet() { return m_idSet; }
+
+	std::map<std::type_index, std::shared_ptr<Component>> getComponents() { return m_components; }
+
+	void setType(std::string t){ this->m_type = t; }
+	std::string getType(){ return this->m_type; }
+
 	//bool operator<(GameObject &comp);
 
 protected:
 	std::map<std::type_index, std::shared_ptr<Component>> m_components;
-	std::string m_ID;
+	std::string m_ID,m_type;
+	bool m_idSet;
 };
 

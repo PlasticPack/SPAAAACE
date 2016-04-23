@@ -25,6 +25,11 @@ public:
 	
 
 	AiComponent(luabridge::LuaRef& componentTable, std::shared_ptr<PhysicsComponent> comp = nullptr);
+
+	//CODE DE CHARLES : contructeur de copie + operator=
+	AiComponent(AiComponent const& ai);
+	AiComponent& operator=(AiComponent const& ai);
+
 	~AiComponent();
 	
 

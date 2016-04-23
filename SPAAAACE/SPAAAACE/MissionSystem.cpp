@@ -47,16 +47,32 @@ void MissionSystem::update(Message &postman, std::map<std::string, std::shared_p
 	}*/
 
 	if (m_currentObjective != "null") {
-		if (m_objectives[m_currentObjective].targetID != "none"){
-			m_objPosition = objs[m_objectives[m_currentObjective].targetID]->get<PositionComponent>()->getPosition();
-			objs[m_currentObjective]->get<PositionComponent>()->setPosition(m_objPosition);
+		//std::cout << m_objectives[m_currentObjective].targetID << "\n";
+
+		//if (m_objectives[m_currentObjective].targetID  == "yog_sogoth"){
+			//std::cout << "??";
+		//}
+
+		if (objs.find(m_objectives[m_currentObjective].targetID) != objs.end()){
+			if (m_objectives[m_currentObjective].targetID != "none"){
+
+				//std::cout << m_objectives[m_currentObjective].targetID  << "\n";
+
+				m_objPosition = objs[m_objectives[m_currentObjective].targetID]->get<PositionComponent>()->getPosition();
+
+				objs[m_currentObjective]->get<PositionComponent>()->setPosition(m_objPosition);
+			}
+			else {
+				m_objPosition = objs[m_currentObjective]->get<PositionComponent>()->getPosition();
+			}
 		}
-		else {
+		else if (objs.find(m_currentObjective) != objs.end()){
 			m_objPosition = objs[m_currentObjective]->get<PositionComponent>()->getPosition();
 		}
 	}
 
 	if (postman.getMessage("Action", m_currentObjective, MS_OBJECTIVE) == true){
+		//std::cout << "JEUEJEJKAGDPIUPOSHDUIOAHSDSDAG:I\n\nHGDPIASDUIASDH\n\n";
 		m_objectives[m_currentObjective].done = true;
 		//std::cout << m_currentObjective << "\n";
 		std::map < std::string, s_objective >::iterator it = m_objectives.find(m_currentObjective);
