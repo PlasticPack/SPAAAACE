@@ -50,7 +50,7 @@ void AiSystem::verifVision(std::shared_ptr <AiComponent> ac){
 		mouvementCont(ac);
 	}
 	else{
-		ac->getPhysicsComponent()->setPosition(ac->getTarget()->getPosition() + Vec2(250,250));
+		//ac->getPhysicsComponent()->setPosition(ac->getTarget()->getPosition() + Vec2(250,250));
 		ac->getPhysicsComponent()->setVelocity(Vec2(0,0));
 	}
 
@@ -73,7 +73,7 @@ void AiSystem::evitement(std::shared_ptr <AiComponent> ac){
 	vecDirection = ac->getNearDanger()->getPosition() - ac->getPhysicsComponent()->getPosition();
 	vecDirection.normalize();
 
-	ac->getPhysicsComponent()->setForces(vecDirection * -10000);
+	//ac->getPhysicsComponent()->setForces(vecDirection * -100);
 }
 
 void AiSystem::mouvementCont(std::shared_ptr <AiComponent> ac){

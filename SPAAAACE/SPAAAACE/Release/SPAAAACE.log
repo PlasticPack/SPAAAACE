@@ -3,13 +3,22 @@ c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace
           c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\PhysicsSystem.h(19) : voir la déclaration de 'Scene'
 Scene.cpp(33): warning C4018: '<' : incompatibilité signed/unsigned
 Scene.cpp(57): warning C4018: '<' : incompatibilité signed/unsigned
-Scene.cpp(168): warning C4018: '<' : incompatibilité signed/unsigned
-Scene.cpp(177): warning C4018: '<' : incompatibilité signed/unsigned
-Scene.cpp(188): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(171): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(180): warning C4018: '<' : incompatibilité signed/unsigned
 Scene.cpp(191): warning C4018: '<' : incompatibilité signed/unsigned
-Scene.cpp(201): warning C4018: '<' : incompatibilité signed/unsigned
-Scene.cpp(295): warning C4018: '<' : incompatibilité signed/unsigned
-Scene.cpp(390): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+Scene.cpp(194): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(204): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(298): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(395): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+  XML_utilityfunctions.cpp
+XML_utilityfunctions.cpp(152): warning C4018: '<' : incompatibilité signed/unsigned
+XML_utilityfunctions.cpp(173): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+XML_utilityfunctions.cpp(174): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+XML_utilityfunctions.cpp(250): warning C4067: jetons inattendus après la directive du préprocesseur - saut de ligne attendu
+XML_utilityfunctions.cpp(252): warning C4067: jetons inattendus après la directive du préprocesseur - saut de ligne attendu
+XML_utilityfunctions.cpp(253): warning C4067: jetons inattendus après la directive du préprocesseur - saut de ligne attendu
+XML_utilityfunctions.cpp(254): warning C4067: jetons inattendus après la directive du préprocesseur - saut de ligne attendu
+XML_utilityfunctions.cpp(255): warning C4067: jetons inattendus après la directive du préprocesseur - saut de ligne attendu
   Génération de code en cours
 c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(153): warning C4715: 'GraphicsSystem::loadTexture' : les chemins de contrôle ne retournent pas tous une valeur
   Fin de la génération du code

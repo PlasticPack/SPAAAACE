@@ -124,6 +124,7 @@ bool XML_u::loadObjects(std::vector<std::shared_ptr<GameObject> > &pureObjects, 
 						else {
 							std::cout << "<\n\n\n\n " << object->getID() << "  \n\n\n\n\n";
 						}
+
 						object->setType(entityTypes->Value());
 
 						
@@ -153,7 +154,7 @@ bool XML_u::saveObjects(std::vector<std::shared_ptr<GameObject> > &objects, cons
 		if (objects_byTypes.find(objects[i]->getType()) != objects_byTypes.end()){
 			objects_byTypes[objects[i]->getType()].push_back(objects[i]);
 		}
-		else objects_byTypes.insert(std::make_pair(objects[i]->getID(), std::vector<std::shared_ptr<GameObject>>(1, objects[i])));
+		else objects_byTypes.insert(std::make_pair(objects[i]->getType(), std::vector<std::shared_ptr<GameObject>>(1, objects[i])));
 	}
 
 

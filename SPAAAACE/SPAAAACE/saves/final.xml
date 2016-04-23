@@ -145,6 +145,20 @@ PAS TOUCHER AUX SECTIONS APRÈS CECI
     </planet0>
 	<a/>
 </planet>
+<ai>
+	<a>
+		<position>
+			<x>-400.000000</x>
+			<y>200.000000</y>
+		</position>
+	</a>
+	<b>
+		<position>
+			<x>-200.000000</x>
+			<y>300.000000</y>
+		</position>
+	</b>
+</ai>
 <player>
     <player0>
         <mass>4.000000</mass>
