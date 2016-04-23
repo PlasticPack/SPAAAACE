@@ -62,8 +62,6 @@ GraphicsSystem::~GraphicsSystem()
 {
 }
 
-
-
 void GraphicsSystem::close(){
 	if (m_initialized){
 		std::cout << "\n\nDEST";
@@ -140,7 +138,7 @@ SDL_Texture* GraphicsSystem::loadTexture(const std::string filename, Uint8 r, Ui
 			std::cout << "COULD NOT LOAD SURFACE FROM " << filename << " " << SDL_GetError() << "\n";
 		}
 		else {
-			SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGBA(loadedSurface->format, 0, 0, 0, 255));
+			SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGBA(loadedSurface->format, 255, 0, 0, 255));
 			SDL_SetSurfaceColorMod(loadedSurface, r, g, b);
 			texture = SDL_CreateTextureFromSurface(m_renderer, loadedSurface);
 			SDL_FreeSurface(loadedSurface);

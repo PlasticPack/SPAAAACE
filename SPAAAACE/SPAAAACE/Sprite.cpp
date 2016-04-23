@@ -27,6 +27,11 @@ void Sprite::addSpriteSheet(std::string id, std::shared_ptr<SpriteSheet> sheet){
 	//std::cout << m_spriteSheets[id]->getCurrentRect().w << " IT'S A TRAP\n";
 }
 
+std::shared_ptr<SpriteSheet> Sprite::getSpriteSheet(std::string name){
+
+	return m_spriteSheets[name];
+}
+
 std::shared_ptr<SpriteSheet> Sprite::getCurrentSpriteSheet() {
 
 	return m_spriteSheets[m_currentSpriteSheet];

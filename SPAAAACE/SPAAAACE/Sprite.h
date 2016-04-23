@@ -15,6 +15,9 @@ public:
 	void setSpriteSheet(std::string id);
 	std::shared_ptr<SpriteSheet> getCurrentSpriteSheet();
 
+
+	std::shared_ptr<SpriteSheet> getSpriteSheet(std::string name);
+
 protected:
 	double m_animationSpeed; // en fps
 	std::map<std::string, std::shared_ptr<SpriteSheet>> m_spriteSheets;

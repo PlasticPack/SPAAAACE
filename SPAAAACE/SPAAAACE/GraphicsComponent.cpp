@@ -36,6 +36,7 @@ GraphicsComponent::GraphicsComponent(luabridge::LuaRef& componentTable, std::sha
 			// si on a pas trouvé de __ ca veut dire qu'il y a pas de spécification de nom
 			//donc on prend default 
 			m_sprite = std::make_shared<Sprite>(std::make_shared<SpriteSheet>(GraphicsSystem::loadTexture(spriteRef), c, r));
+			m_sprite->getCurrentSpriteSheet()->setFilename(spriteRef);
 		}
 		else {
 			m_sprite = std::make_shared<Sprite>();
@@ -63,6 +64,7 @@ GraphicsComponent::GraphicsComponent(luabridge::LuaRef& componentTable, std::sha
 
 				std::cout << name << "__" << file << "\n";
 				m_sprite->addSpriteSheet(name, std::make_shared<SpriteSheet>(GraphicsSystem::loadTexture(file), c, r));
+				m_sprite->getSpriteSheet(name)->setFilename(file);
 			}
 		}
 		
