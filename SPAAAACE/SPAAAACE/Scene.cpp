@@ -146,7 +146,7 @@ void Scene::init(std::string arg){
 	m_navigationTimer.start();
 	m_dialogueTimer.start();
 
-	XML_u::saveObjects(m_gameObjects, "saves/final2.xml");
+	//XML_u::saveObjects(m_gameObjects, "saves/final2.xml");
 }
 
 void Scene::orderByZIndex(){
@@ -404,7 +404,7 @@ void Scene::update(Message &postman)
 		auto AiC = currentObj->get<AiComponent>();
 		if (AiC != nullptr){
 			//std::cout << "AIAIAIAIA";
-			AiSystem::update(AiC, m_physicsComps, m_gameObjects["player"]->get<PhysicsComponent>());
+			//AiSystem::update(AiC, m_physicsComps, m_gameObjects["player"]->get<PhysicsComponent>());
 		}
 
 		auto gc = currentObj->get<GraphicsComponent>();

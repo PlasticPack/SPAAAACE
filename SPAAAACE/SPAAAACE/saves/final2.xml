@@ -84,8 +84,8 @@
         </position>
     </objective_30>
 </objective_3>
-<planet10>
-    <planet100>
+<planet>
+    <planet0>
         <mass>700.000000</mass>
         <velocity>
             <x>150.000000</x>
@@ -99,10 +99,8 @@
             <x>0.000000</x>
             <y>2000.000000</y>
         </position>
-    </planet100>
-</planet10>
-<planet11>
-    <planet110>
+    </planet0>
+    <planet1>
         <mass>700.000000</mass>
         <velocity>
             <x>150.000000</x>
@@ -116,8 +114,8 @@
             <x>0.000000</x>
             <y>2000.000000</y>
         </position>
-    </planet110>
-</planet11>
+    </planet1>
+</planet>
 <player>
     <player0>
         <mass>4.000000</mass>
