@@ -58,7 +58,7 @@ bool XML_u::loadObjects(std::vector<std::shared_ptr<GameObject> > &pureObjects, 
 								}
 								else if (strcmp("id", node->Value()) == 0){
 									object->setID(node->GetText());
-									object->setID(node->GetText());
+									//object->setID(node->GetText());
 									object->idSet(true);
 								}
 								
@@ -114,18 +114,18 @@ bool XML_u::loadObjects(std::vector<std::shared_ptr<GameObject> > &pureObjects, 
 								
 								//else std::cout << "No position component!" << std::endl;
 							}
-
-							if (!object->idSet()) {
-								
-								object->setID(entityTypes->Value());
-								object->setType(entityTypes->Value());
-							}
-							else {
-								std::cout << "<\n\n\n\n " << object->getID() << "  \n\n\n\n\n";
-							}
-							object->setType(entityTypes->Value());
-
 						}
+						
+						if (!object->idSet()) {
+
+							object->setID(entityTypes->Value());
+							object->setType(entityTypes->Value());
+						}
+						else {
+							std::cout << "<\n\n\n\n " << object->getID() << "  \n\n\n\n\n";
+						}
+						object->setType(entityTypes->Value());
+
 						
 						pureObjects.push_back(object);
 					}

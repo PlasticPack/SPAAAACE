@@ -1,14 +1,11 @@
-﻿  Scene.cpp
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\luainit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
-          c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\physicssystem.h(19) : voir la déclaration de 'Scene'
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(33): warning C4018: '<' : incompatibilité signed/unsigned
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(57): warning C4018: '<' : incompatibilité signed/unsigned
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(171): warning C4018: '<' : incompatibilité signed/unsigned
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(180): warning C4018: '<' : incompatibilité signed/unsigned
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(191): warning C4018: '<' : incompatibilité signed/unsigned
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(194): warning C4018: '<' : incompatibilité signed/unsigned
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(204): warning C4018: '<' : incompatibilité signed/unsigned
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(298): warning C4018: '<' : incompatibilité signed/unsigned
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\scene.cpp(395): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+﻿  XML_utilityfunctions.cpp
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\xml_utilityfunctions.cpp(150): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\xml_utilityfunctions.cpp(171): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\xml_utilityfunctions.cpp(172): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\xml_utilityfunctions.cpp(248): warning C4067: jetons inattendus après la directive du préprocesseur - saut de ligne attendu
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\xml_utilityfunctions.cpp(250): warning C4067: jetons inattendus après la directive du préprocesseur - saut de ligne attendu
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\xml_utilityfunctions.cpp(251): warning C4067: jetons inattendus après la directive du préprocesseur - saut de ligne attendu
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\xml_utilityfunctions.cpp(252): warning C4067: jetons inattendus après la directive du préprocesseur - saut de ligne attendu
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\xml_utilityfunctions.cpp(253): warning C4067: jetons inattendus après la directive du préprocesseur - saut de ligne attendu
   SPAAAACE.vcxproj -> C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Debug\SPAAAACE.exe
 BSCMAKE : warning BK4503: erreur mineure dans le fichier .SBR 'Debug\InputSystem.sbr' ignorÚe

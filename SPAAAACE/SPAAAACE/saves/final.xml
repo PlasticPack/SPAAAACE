@@ -1,4 +1,4 @@
-<player>
+<!--<player>
 	<main>
 		<position>
 			<x>3000</x>
@@ -6,14 +6,14 @@
 		</position>
 	</main>
 </player>
-<!--<ai>
+<ai>
 	<a>
 		<position>
 			<x>300</x>
 			<y>200</y>
 		</position>
 	</a>
-</ai>-->
+</ai>
 <base>
 	<a1>
 	</a1>
@@ -22,13 +22,11 @@
 	<aa>
 		<id>planet_1</id>
 	</aa>
-	<planet>
-	</planet>
 </planet>
 
 <!-- 
 PAS TOUCHER AUX SECTIONS APRÈS CECI
--->
+--
 <hud_base_pointer>
 	<a></a>
 </hud_base_pointer>
@@ -51,25 +49,12 @@ PAS TOUCHER AUX SECTIONS APRÈS CECI
 <objective_2><a></a></objective_2>
 <objective_3><a></a></objective_3>
 
+-->
 
 
 
-
-<!--<base>
+<base>
     <base0>
-        <mass>6000.000000</mass>
-        <velocity>
-            <x>0.000000</x>
-            <y>0.000000</y>
-        </velocity>
-        <forces>
-            <x>0.000000</x>
-            <y>0.000000</y>
-        </forces>
-        <position>
-            <x>8000.000000</x>
-            <y>0.000000</y>
-        </position>
     </base0>
 </base>
 <hud_base_pointer>
@@ -143,6 +128,7 @@ PAS TOUCHER AUX SECTIONS APRÈS CECI
 </objective_3>
 <planet>
     <planet0>
+		<id>planet_1</id>
         <mass>700.000000</mass>
         <velocity>
             <x>150.000000</x>
@@ -157,21 +143,7 @@ PAS TOUCHER AUX SECTIONS APRÈS CECI
             <y>2000.000000</y>
         </position>
     </planet0>
-    <planet1>
-        <mass>700.000000</mass>
-        <velocity>
-            <x>150.000000</x>
-            <y>160.000000</y>
-        </velocity>
-        <forces>
-            <x>0.000000</x>
-            <y>0.000000</y>
-        </forces>
-        <position>
-            <x>0.000000</x>
-            <y>2000.000000</y>
-        </position>
-    </planet1>
+	<a/>
 </planet>
 <player>
     <player0>
@@ -190,4 +162,4 @@ PAS TOUCHER AUX SECTIONS APRÈS CECI
         </position>
     </player0>
 </player>
--->
+

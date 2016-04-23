@@ -515,7 +515,7 @@ void Scene::update(Message &postman)
 	if (m_id == "game"){
 		MissionSystem::update(postman, m_gameObjects);
 
-		std::cout << MissionSystem::getCurrentObjective() << "\n";
+		//std::cout << MissionSystem::getCurrentObjective() << "\n";
 
 		if (postman.getMessage("MissionSystem", "Mission", MS_MISSION_OVER) == 1){
 			//std::cout << "OVER!!!";

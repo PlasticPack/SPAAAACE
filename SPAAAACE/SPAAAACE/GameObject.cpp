@@ -4,11 +4,13 @@
 GameObject::GameObject(std::string id) : m_ID(id)
 {
 	m_idSet = false;
+	m_type = "";
 }
 
 GameObject::GameObject() : m_ID("NO_ID")
 {
 	m_idSet = false;
+	m_type = "";
 }
 
 GameObject::GameObject(GameObject const& g){
@@ -16,6 +18,7 @@ GameObject::GameObject(GameObject const& g){
 		//on copie PAS L'ID EXACT
 		//bon, pour le moment on fait ca, question de truc de vector
 		m_ID = g.m_ID;
+		m_type = g.m_type;
 		m_idSet = g.m_idSet;
 		m_components.clear();
 		for (auto it = g.m_components.begin(); it != g.m_components.end(); it++){
@@ -56,6 +59,7 @@ GameObject::GameObject(GameObject const& g){
 GameObject& GameObject::operator=(GameObject const& g){
 	if (this != &g){
 		m_ID = g.m_ID;
+		m_type = g.m_type;
 		m_idSet = g.m_idSet;
 		m_components.clear();
 		for (auto it = g.m_components.begin(); it != g.m_components.end(); it++){
