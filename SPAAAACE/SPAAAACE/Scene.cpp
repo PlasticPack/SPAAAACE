@@ -1,14 +1,14 @@
 #include "Scene.h"
 
 
-Scene::Scene(std::string arg, std::string id)
+Scene::Scene(std::string arg, std::string xml, std::string id)
 {
 	m_id = id;
-	init(arg);
+	init(arg, xml);
 }
 
 
-void Scene::init(std::string arg){
+void Scene::init(std::string arg, std::string xml){
 
 	GraphicsSystem::init();
 	MissionSystem::init();
@@ -22,7 +22,7 @@ void Scene::init(std::string arg){
 	}
 
 	std::vector<std::shared_ptr<GameObject>> pure;
-	XML_u::loadObjects(pure, m_gameObjects, "saves/final.xml");
+	XML_u::loadObjects(pure, m_gameObjects, xml);
 
 	//modif des ids
 	m_gameObjects.clear();
@@ -138,6 +138,7 @@ void Scene::init(std::string arg){
 	m_inSystem.setActionTrigger(AC_SELECT, GP_BUTTON_A);
 
 	m_inSystem.setActionTrigger(AC_NEXT, SDL_SCANCODE_N);
+	m_inSystem.setActionTrigger(AC_PAUSE, SDL_SCANCODE_LCTRL);
 
 	GraphicsSystem::setFont("ressources/CaviarDreams.ttf", 30, { 225, 220, 255 });
 
@@ -145,6 +146,7 @@ void Scene::init(std::string arg){
 	GraphicsSystem::setCameraZoom(1);
 	m_navigationTimer.start();
 	m_dialogueTimer.start();
+	m_pauseTimer.start();
 
 	XML_u::saveObjects(m_gameObjects, "saves/final2.xml");
 }
@@ -217,6 +219,7 @@ void Scene::update(Message &postman)
 {
 
 	if (postman.getMessage("main", "main", MS_SWITCHED) == 1) {
+		std::cout << "SWITCHED\n";
 		if (m_id == "game"){ // pour le moment c'est ca
 			GraphicsSystem::clearBackgrounds();
 			GraphicsSystem::loadBackground("ressources/space_1.png", 0);
@@ -232,12 +235,22 @@ void Scene::update(Message &postman)
 		}
 	}
 
-	postman.clearAll();
 	//INPUT GÉNÉRAL
 	m_inSystem.pollInputs();
 	postman.clearAll();
 	if (m_inSystem.checkTriggeredAction(AC_START))
 		postman.addMessage("game", "Input", 0, 1);
+
+	if (m_inSystem.checkTriggeredAction(AC_PAUSE)) {
+		if (m_pauseTimer.getTicks() > 450) {
+			postman.addMessage("Scene", "Input", MS_PAUSE, 1);
+			m_pauseTimer.stop();
+			m_pauseTimer.start();
+			m_pause = !m_pause;
+		}
+	}
+
+
 
 	//GESTION DU MENU
 
@@ -312,7 +325,7 @@ void Scene::update(Message &postman)
 
 		//Vec2 basePos(0, 0), objectivePos(0, 0);
 		std::shared_ptr<PhysicsComponent> pc = currentObj->get<PhysicsComponent>();
-		if (pc != nullptr){
+		if (pc != nullptr && !m_pause){
 			/*if (currentID == MissionSystem::getCurrentObjective()){
 				objectivePos = currentObj->get<PositionComponent>()->getPosition();
 			}
@@ -410,6 +423,8 @@ void Scene::update(Message &postman)
 		auto gc = currentObj->get<GraphicsComponent>();
 		if (gc != nullptr){
 
+			bool updateGS = true;
+
 			Vec2 playerPos;
 			Vec2 basePos;
 			Vec2 objPos;
@@ -437,6 +452,10 @@ void Scene::update(Message &postman)
 			}
 
 			if (m_id == "game"){
+				if (m_pause){
+					GraphicsSystem::printAt("Pause", 500, 250, 400, 100);
+				}
+
 				if (currentID.find("hud") != std::string::npos) { // si l'objet fait partie du hud
 
 					std::string id = currentID;
@@ -461,7 +480,7 @@ void Scene::update(Message &postman)
 					}
 					else if (id == "hud_base_pointer"){
 						Vec2 direction = basePos - playerPos;
-						if (direction.getLength() > 0){
+						if (direction.getLength() > SCREEN_W ){
 							currentObj->get<PositionComponent>()->setAngle(direction.getAngle());
 							double size = 25000.0 / (direction.getLength());
 
@@ -473,11 +492,13 @@ void Scene::update(Message &postman)
 							currentObj->get<GraphicsComponent>()->setSize(currentObj->get<GraphicsComponent>()->getMaxSize() *size);
 							currentObj->get<PositionComponent>()->setPosition(getPointerPosition(direction, 32));
 						}
+						else
+							updateGS = false;
 					}
 					else if (id == "hud_obj_pointer"){
 						if (MissionSystem::getCurrentObjective() != "null"){
 							Vec2 direction = objPos - playerPos;
-							if (direction.getLength() > 0){
+							if (direction.getLength() > SCREEN_W){
 
 								currentObj->get<PositionComponent>()->setAngle(direction.getAngle());
 
@@ -491,15 +512,18 @@ void Scene::update(Message &postman)
 								currentObj->get<GraphicsComponent>()->setSize(currentObj->get<GraphicsComponent>()->getMaxSize() *size);
 								currentObj->get<PositionComponent>()->setPosition(getPointerPosition(direction, 32));
 							}
+							else
+								updateGS = false;
 						}
 						else {
 							//on affiche pas le truc
+							updateGS = false;
 						}
 					}
 				}
 			}
-
-			GraphicsSystem::update(postman, currentID,*gc, 1.0 / GraphicsSystem::getFPS());
+			if (updateGS)
+				GraphicsSystem::update(postman, currentID,*gc, 1.0 / GraphicsSystem::getFPS());
 		}
 
 	}
@@ -529,12 +553,10 @@ void Scene::update(Message &postman)
 	}
 	
 	//MusSystem
-	//m_musSytem.update(postman);
+	m_musSytem.update(postman);
 
 	if (m_inSystem.checkTriggeredAction(AC_EXIT))
 		postman.addMessage("Action", "Button", MS_EXIT_REQUEST, 1);
-
-
 
 	GraphicsSystem::endFrame(postman);
 }

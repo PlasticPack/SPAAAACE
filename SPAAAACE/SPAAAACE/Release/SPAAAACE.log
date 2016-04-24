@@ -3,13 +3,13 @@ c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace
           c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\PhysicsSystem.h(19) : voir la déclaration de 'Scene'
 Scene.cpp(33): warning C4018: '<' : incompatibilité signed/unsigned
 Scene.cpp(57): warning C4018: '<' : incompatibilité signed/unsigned
-Scene.cpp(171): warning C4018: '<' : incompatibilité signed/unsigned
-Scene.cpp(180): warning C4018: '<' : incompatibilité signed/unsigned
-Scene.cpp(191): warning C4018: '<' : incompatibilité signed/unsigned
-Scene.cpp(194): warning C4018: '<' : incompatibilité signed/unsigned
-Scene.cpp(204): warning C4018: '<' : incompatibilité signed/unsigned
-Scene.cpp(298): warning C4018: '<' : incompatibilité signed/unsigned
-Scene.cpp(395): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+Scene.cpp(173): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(182): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(193): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(196): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(206): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(311): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(408): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
   Génération de code en cours
 c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(151): warning C4715: 'GraphicsSystem::loadTexture' : les chemins de contrôle ne retournent pas tous une valeur
   Fin de la génération du code

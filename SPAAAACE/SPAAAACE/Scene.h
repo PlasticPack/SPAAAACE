@@ -63,11 +63,11 @@ class Scene
 {
 public:
 
-	Scene(std::string arg, std::string);
+	Scene(std::string arg, std::string xml, std::string);
 	~Scene();
 	
 	void update(Message &postman);
-	void init(std::string arg); // méthode qui prend un script  et initialise le vector de gameObjects
+	void init(std::string arg, std::string xml); // méthode qui prend un script  et initialise le vector de gameObjects
 
 	void orderByZIndex();
 
@@ -147,6 +147,8 @@ protected:
 
 	LTimer m_navigationTimer;
 	LTimer m_dialogueTimer;
+	LTimer m_pauseTimer;
+	bool m_pause = false;
 };
 
 bool zSort(std::shared_ptr<GameObject> g1, std::shared_ptr<GameObject> g2);

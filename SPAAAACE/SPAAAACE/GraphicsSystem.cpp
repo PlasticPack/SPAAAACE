@@ -170,6 +170,11 @@ void GraphicsSystem::setCamera(Vec2 t, double z, double a){
 void GraphicsSystem::reset(){
 	if (m_initialized){
 		std::cout << "Reset\n";
+		for (int i = 0; i < 4; i++) {
+			if (m_backgrounds[i] != NULL)
+				SDL_DestroyTexture(m_backgrounds[i]);
+		}
+
 		m_camera = { 0, 1, Vec2(SCREEN_W / 2, SCREEN_H / 2), true };
 	}
 }
@@ -257,7 +262,7 @@ void GraphicsSystem::initFrame(){
 
 			m_avgFPS = m_countedFrames / (1 + m_fpsTimer.getTicks() / 1000.0);
 			//std::cout << m_countedFrames << " / " << m_fpsTimer.getTicks() / 1000.0 <<  " = "  << m_avgFPS << "<- :D\n";
-			if (m_avgFPS > 20000 || m_avgFPS < 10){
+			if (m_avgFPS > 20000 || m_avgFPS < 3){
 				m_avgFPS = 60;
 			}
 
