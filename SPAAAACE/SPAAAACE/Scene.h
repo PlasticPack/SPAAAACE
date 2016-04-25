@@ -148,6 +148,8 @@ protected:
 	LTimer m_navigationTimer;
 	LTimer m_dialogueTimer;
 	LTimer m_pauseTimer;
+	LTimer m_mapTimer;
+	bool m_map = false;
 	bool m_pause = false;
 };
 

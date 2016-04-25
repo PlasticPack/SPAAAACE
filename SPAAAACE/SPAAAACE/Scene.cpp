@@ -139,6 +139,7 @@ void Scene::init(std::string arg, std::string xml){
 
 	m_inSystem.setActionTrigger(AC_NEXT, SDL_SCANCODE_N);
 	m_inSystem.setActionTrigger(AC_PAUSE, SDL_SCANCODE_LCTRL);
+	m_inSystem.setActionTrigger(AC_MAP, SDL_SCANCODE_M);
 
 	GraphicsSystem::setFont("ressources/CaviarDreams.ttf", 30, { 225, 220, 255 });
 
@@ -147,6 +148,7 @@ void Scene::init(std::string arg, std::string xml){
 	m_navigationTimer.start();
 	m_dialogueTimer.start();
 	m_pauseTimer.start();
+	m_mapTimer.start();
 
 	XML_u::saveObjects(m_gameObjects, "saves/final2.xml");
 }
@@ -250,6 +252,18 @@ void Scene::update(Message &postman)
 		}
 	}
 
+	if (m_inSystem.checkTriggeredAction(AC_MAP)) {
+		if (m_mapTimer.getTicks() > 375) {
+			m_mapTimer.stop();
+			m_mapTimer.start();
+			m_map = !m_map;
+		}
+	}
+
+	if (m_map){
+		postman.addMessage("Scene", "Input", MS_MAP, 1);
+	}
+
 
 
 	//GESTION DU MENU
@@ -325,7 +339,7 @@ void Scene::update(Message &postman)
 
 		//Vec2 basePos(0, 0), objectivePos(0, 0);
 		std::shared_ptr<PhysicsComponent> pc = currentObj->get<PhysicsComponent>();
-		if (pc != nullptr && !m_pause){
+		if (pc != nullptr && !m_pause && !m_map){
 			/*if (currentID == MissionSystem::getCurrentObjective()){
 				objectivePos = currentObj->get<PositionComponent>()->getPosition();
 			}
@@ -522,7 +536,7 @@ void Scene::update(Message &postman)
 					}
 				}
 			}
-			if (updateGS)
+			if (updateGS && !m_map)
 				GraphicsSystem::update(postman, currentID,*gc, 1.0 / GraphicsSystem::getFPS());
 		}
 
@@ -558,5 +572,5 @@ void Scene::update(Message &postman)
 	if (m_inSystem.checkTriggeredAction(AC_EXIT))
 		postman.addMessage("Action", "Button", MS_EXIT_REQUEST, 1);
 
-	GraphicsSystem::endFrame(postman);
+	GraphicsSystem::endFrame(postman, m_gameObjects);
 }

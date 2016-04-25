@@ -327,65 +327,130 @@ void GraphicsSystem::initFrame(){
 	}
 }
 
-void GraphicsSystem::endFrame(Message &postman){
+void GraphicsSystem::endFrame(Message &postman, std::map<std::string, std::shared_ptr<GameObject>> &objs){
 	if (m_initialized) {
 		if (m_frameStarted){
-			//std::cout << "RENDERING\n";
-			//si on appuie sur next
-			if (postman.getMessage("Scene", "Input", MS_DIALOGUE_NEXT) > 0){
-				if (m_textQueue.size() > 0) {
-					m_textQueue.erase(m_textQueue.begin());
-					m_textTimer.stop();
-					m_textTimer.start();
+			
+
+			//affichage de la carte
+			if (postman.getMessage("Scene", "Input", MS_MAP) == 1){
+
+				//BACKGROUND RECT
+				//SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
+				SDL_Rect bgRect = {50, 50, SCREEN_W - 100, SCREEN_H - 100};
+				SDL_Rect bgRect2 = { 75, 75, SCREEN_W - 150, SCREEN_H - 150 };
+
+				SDL_SetRenderDrawColor(m_renderer, 40, 40, 80, 160);
+				SDL_RenderFillRect(m_renderer, &bgRect);
+
+				SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 250);
+				SDL_RenderFillRect(m_renderer, &bgRect2);
+
+				//objets 
+				Vec2 screenSize(SCREEN_W - 150, SCREEN_H - 150);
+				//proportions 16:9 présumées
+				Vec2 mapSize(200000, 111250); // taolle arbitraire  16:9
+
+				for (auto const& it : objs){
+					if (it.first.find("hud") == std::string::npos && it.second->get<GraphicsComponent>() != nullptr && it.first.find("objective") == std::string::npos){
+
+						//dessine un pixel à l'emplacement X
+						Vec2 basePos = it.second->get<PositionComponent>()->getPosition();
+						Vec2 xPos(basePos.x() * screenSize.x() / mapSize.x(), basePos.y() * screenSize.y() / mapSize.y());
+						xPos += screenSize / 2;
+						xPos += Vec2(75, 75);
+						
+						//modifie la taille et la couleur en fonction de l'objet
+
+						SDL_Color c = { 205, 205, 255 };
+						Vec2 finalSize(2, 2);
+
+						if (it.first == "player"){
+							c = { 0, 255, 10 };
+							finalSize = Vec2(3, 3);
+						}
+						else if (it.first.find("ai") != std::string::npos){
+							c = { 255, 45, 10 };
+							finalSize = Vec2(2, 2);
+						}
+						else if (it.first.find("base") != std::string::npos){
+							c = { 10, 205, 255 };
+							finalSize = Vec2(6, 6);
+						}
+						else if (it.first.find("planet") != std::string::npos){
+							c = { 10, 205, 255 };
+							finalSize = Vec2(4, 4);
+						}
+
+						SDL_Rect point = { xPos.x(), xPos.y(), finalSize.x(), finalSize.y() };
+						SDL_SetRenderDrawColor(m_renderer, c.r, c.g, c.b, 255);
+
+
+						SDL_RenderFillRect(m_renderer, &point);
+
+					}
 				}
-				std::cout << m_textQueue.size() << "\n";
+				
 			}
+			else {
+				//std::cout << "RENDERING\n";
+				//si on appuie sur next
+				if (postman.getMessage("Scene", "Input", MS_DIALOGUE_NEXT) > 0){
+					if (m_textQueue.size() > 0) {
+						m_textQueue.erase(m_textQueue.begin());
+						m_textTimer.stop();
+						m_textTimer.start();
+					}
+					std::cout << m_textQueue.size() << "\n";
+				}
 
 
-			if (m_textQueue.size() > 0){
-				//création de la texture à partir du texte en premier dans la liste
-				if (m_textQueue.front() != m_currentText){
+				if (m_textQueue.size() > 0){
+					//création de la texture à partir du texte en premier dans la liste
+					if (m_textQueue.front() != m_currentText){
 
-					m_currentText = m_textQueue.front();
+						m_currentText = m_textQueue.front();
 
+						if (m_currentTextTexture != NULL){
+							SDL_DestroyTexture(m_currentTextTexture);
+						}
+
+						SDL_Surface* surf = TTF_RenderText_Blended_Wrapped(m_currentFont, m_textQueue.front().c_str(), m_textColor, SCREEN_W - 60);
+						m_currentTextTexture = SDL_CreateTextureFromSurface(m_renderer, surf);
+						SDL_FreeSurface(surf);
+					}
+
+					//on touche pas à ça
 					if (m_currentTextTexture != NULL){
-						SDL_DestroyTexture(m_currentTextTexture);
-					}
 
-					SDL_Surface* surf = TTF_RenderText_Blended_Wrapped(m_currentFont, m_textQueue.front().c_str(), m_textColor, SCREEN_W - 60);
-					m_currentTextTexture = SDL_CreateTextureFromSurface(m_renderer, surf);
-					SDL_FreeSurface(surf);
+						SDL_Rect maxRect = { 15, SCREEN_H - 224 - 45, SCREEN_W - 30, 224 + 30 };
+
+						SDL_Rect msgRect = maxRect;
+
+						int w(0), h(0);
+
+						msgRect.x += 15;
+						msgRect.w -= 30;
+						msgRect.h -= 30;
+						msgRect.y += 15;
+
+						TTF_SizeText(m_currentFont, m_currentText.c_str(), &w, &h);
+
+						msgRect.h = h * ceil((double)w / (double)(msgRect.w));
+						if (ceil((double)w / (double)(msgRect.w)) == 1){
+							msgRect.w = w;
+						}
+
+						SDL_SetRenderDrawBlendMode(m_renderer, SDL_BLENDMODE_BLEND);
+						SDL_SetRenderDrawColor(m_renderer, 50, 50, 65, 125);
+						SDL_RenderFillRect(m_renderer, &maxRect);
+						SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
+						SDL_RenderCopy(m_renderer, m_currentTextTexture, NULL, &msgRect);
+					}
 				}
 
-				//on touche pas à ça
-				if (m_currentTextTexture != NULL){
-
-					SDL_Rect maxRect = { 15, SCREEN_H - 224 - 45, SCREEN_W - 30, 224 + 30 };
-
-					SDL_Rect msgRect = maxRect;
-
-					int w(0), h(0);
-
-					msgRect.x += 15;
-					msgRect.w -= 30;
-					msgRect.h -= 30;
-					msgRect.y += 15;
-
-					TTF_SizeText(m_currentFont, m_currentText.c_str(), &w, &h);
-
-					msgRect.h = h * ceil((double)w / (double)(msgRect.w));
-					if (ceil((double)w / (double)(msgRect.w)) == 1){
-						msgRect.w = w;
-					}
-
-					SDL_SetRenderDrawBlendMode(m_renderer, SDL_BLENDMODE_BLEND);
-					SDL_SetRenderDrawColor(m_renderer, 50, 50, 65, 125);
-					SDL_RenderFillRect(m_renderer, &maxRect);
-					SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
-					SDL_RenderCopy(m_renderer, m_currentTextTexture, NULL, &msgRect);
-				}
 			}
-
+			SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
 			SDL_RenderPresent(m_renderer);
 			m_frameStarted = false;
 			m_countedFrames++;

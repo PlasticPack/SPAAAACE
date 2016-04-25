@@ -114,7 +114,7 @@ Vec2 getPointerPosition(Vec2 direction, int half_size){
 		l = sqrt(pow(SCREEN_H / 2, 2) + pow(tan((90 + direction.getAngle()) * (3.14159 / 180.0)) * SCREEN_H / 2, 2));
 	}
 
-	l -= half_size - 10;
+	l -= (half_size + 25);
 
 	return Vec2((direction.getNormalized() * (l)) + Vec2(SCREEN_W / 2 - half_size, SCREEN_H / 2 - half_size));
 }
