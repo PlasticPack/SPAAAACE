@@ -1,93 +1,8 @@
-﻿La génération a démarré 21/04/2016 15:24:31.
+﻿La génération a démarré 26/04/2016 00:54:28.
      1>Projet "C:\Users\PlasticPack\Documents\GitHub\SPAAAACE\SPAAAACE\SPAAAACE\SPAAAACE.vcxproj" sur le nœud 2 (Build cible(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\Boost /I..\..\Lua\5.2\include /I"..\..\LuaBridge-master\Source\LuaBridge" /I..\..\SDL2_ttf\include /I..\..\tinyxml /I"..\..\SDL2_mixer-2.0.1\include" /I"..\..\SDL2_image-2.0.1\include" /I"..\..\SDL2-2.0.4\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\tinyxml\tinystr.cpp ..\..\tinyxml\tinyxml.cpp ..\..\tinyxml\tinyxmlerror.cpp ..\..\tinyxml\tinyxmlparser.cpp ActionComponent.cpp ActionSystem.cpp AiComponent.cpp AiSystem.cpp boostExemple.cpp Component.cpp GameLogicComponent.cpp GameLogicSystem.cpp GameObject.cpp GraphicsComponent.cpp GraphicsSystem.cpp LTimer.cpp InputsComponent.cpp InputSystem.cpp LuaFunctions.cpp main.cpp Message.cpp MissionSystem.cpp MusicSystem.cpp Musique.cpp PhysicsComponent.cpp PhysicsSystem.cpp PositionComponent.cpp Scene.cpp scriptinit_exemple.cpp Son.cpp Source1.cpp Sprite.cpp SpriteSheet.cpp Vec2.cpp XML_utilityfunctions.cpp
-         tinystr.cpp
-         tinyxml.cpp
-         tinyxmlerror.cpp
-         tinyxmlparser.cpp
-         ActionComponent.cpp
-     1>ActionComponent.cpp(27): warning C4018: '<' : incompatibilité signed/unsigned
-     1>ActionComponent.cpp(41): warning C4018: '<' : incompatibilité signed/unsigned
-         ActionSystem.cpp
-     1>ActionSystem.cpp(6): warning C4018: '>' : incompatibilité signed/unsigned
-         AiComponent.cpp
-         AiSystem.cpp
-     1>AiSystem.cpp(11): warning C4018: '<' : incompatibilité signed/unsigned
-         boostExemple.cpp
-         Component.cpp
-         GameLogicComponent.cpp
-         GameLogicSystem.cpp
-     1>GameLogicSystem.cpp(25): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-     1>GameLogicSystem.cpp(42): warning C4244: 'argument' : conversion de 'double' en 'unsigned int', perte possible de données
-         GameObject.cpp
-         GraphicsComponent.cpp
-     1>GraphicsComponent.cpp(49): warning C4018: '<' : incompatibilité signed/unsigned
-         GraphicsSystem.cpp
-     1>GraphicsSystem.cpp(235): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-     1>GraphicsSystem.cpp(244): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-     1>GraphicsSystem.cpp(276): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-     1>GraphicsSystem.cpp(294): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-     1>GraphicsSystem.cpp(295): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-     1>GraphicsSystem.cpp(300): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-     1>GraphicsSystem.cpp(301): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-     1>GraphicsSystem.cpp(306): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-     1>GraphicsSystem.cpp(309): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-     1>GraphicsSystem.cpp(313): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-     1>GraphicsSystem.cpp(315): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-     1>GraphicsSystem.cpp(373): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-         LTimer.cpp
-         InputsComponent.cpp
-         InputSystem.cpp
-     1>InputSystem.cpp(62): warning C4018: '>' : incompatibilité signed/unsigned
-     1>InputSystem.cpp(155): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
-         LuaFunctions.cpp
-     1>c:\users\plasticpack\documents\github\spaaaace\spaaaace\spaaaace\LuaInit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
-                 c:\users\plasticpack\documents\github\spaaaace\spaaaace\spaaaace\Scene.h(63) : voir la déclaration de 'Scene'
-     1>LuaFunctions.cpp(170): warning C4018: '<' : incompatibilité signed/unsigned
-     1>LuaFunctions.cpp(190): warning C4018: '<' : incompatibilité signed/unsigned
-         main.cpp
-     1>c:\users\plasticpack\documents\github\spaaaace\spaaaace\spaaaace\LuaInit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
-                 c:\users\plasticpack\documents\github\spaaaace\spaaaace\spaaaace\PhysicsSystem.h(19) : voir la déclaration de 'Scene'
-     1>main.cpp(22): warning C4101: 'e' : variable locale non référencée
-         Compilation en cours...
-         Message.cpp
-         MissionSystem.cpp
-     1>MissionSystem.cpp(59): warning C4805: '==' : mélange risqué de type 'double' et de type 'bool' dans l'opération
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\Boost /I..\..\Lua\5.2\include /I"..\..\LuaBridge-master\Source\LuaBridge" /I..\..\SDL2_ttf\include /I..\..\tinyxml /I"..\..\SDL2_mixer-2.0.1\include" /I"..\..\SDL2_image-2.0.1\include" /I"..\..\SDL2-2.0.4\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt MusicSystem.cpp
          MusicSystem.cpp
-         Musique.cpp
-         PhysicsComponent.cpp
-         PhysicsSystem.cpp
-     1>c:\users\plasticpack\documents\github\spaaaace\spaaaace\spaaaace\LuaInit.hpp(22): warning C4099: 'Scene' : nom de type déjà rencontré avec 'struct' et utilisant maintenant 'class'
-                 c:\users\plasticpack\documents\github\spaaaace\spaaaace\spaaaace\LuaInit.hpp(20) : voir la déclaration de 'Scene'
-     1>c:\users\plasticpack\documents\github\spaaaace\spaaaace\spaaaace\Scene.h(63): warning C4099: 'Scene' : nom de type déjà rencontré avec 'struct' et utilisant maintenant 'class'
-                 c:\users\plasticpack\documents\github\spaaaace\spaaaace\spaaaace\LuaInit.hpp(20) : voir la déclaration de 'Scene'
-     1>PhysicsSystem.cpp(70): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-     1>PhysicsSystem.cpp(103): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-     1>PhysicsSystem.cpp(158): warning C4018: '<' : incompatibilité signed/unsigned
-     1>PhysicsSystem.cpp(159): warning C4018: '<' : incompatibilité signed/unsigned
-     1>PhysicsSystem.cpp(194): warning C4018: '<' : incompatibilité signed/unsigned
-         PositionComponent.cpp
-         Scene.cpp
-     1>c:\users\plasticpack\documents\github\spaaaace\spaaaace\spaaaace\LuaInit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
-                 c:\users\plasticpack\documents\github\spaaaace\spaaaace\spaaaace\PhysicsSystem.h(19) : voir la déclaration de 'Scene'
-     1>Scene.cpp(81): warning C4018: '<' : incompatibilité signed/unsigned
-     1>Scene.cpp(90): warning C4018: '<' : incompatibilité signed/unsigned
-     1>Scene.cpp(101): warning C4018: '<' : incompatibilité signed/unsigned
-     1>Scene.cpp(104): warning C4018: '<' : incompatibilité signed/unsigned
-     1>Scene.cpp(114): warning C4018: '<' : incompatibilité signed/unsigned
-     1>Scene.cpp(330): warning C4018: '<' : incompatibilité signed/unsigned
-     1>Scene.cpp(425): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
-         scriptinit_exemple.cpp
-         Son.cpp
-         Source1.cpp
-         Sprite.cpp
-         SpriteSheet.cpp
-         Vec2.cpp
-         XML_utilityfunctions.cpp
-     1>XML_utilityfunctions.cpp(120): warning C4018: '<' : incompatibilité signed/unsigned
-     1>XML_utilityfunctions.cpp(141): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
-     1>XML_utilityfunctions.cpp(142): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\PlasticPack\Documents\GitHub\SPAAAACE\SPAAAACE\Release\SPAAAACE.exe" /NOLOGO /LIBPATH:..\..\Boost\stage\lib /LIBPATH:..\..\SDL2_ttf\lib\x86 /LIBPATH:"..\..\SDL2_mixer-2.0.1\lib\x86" /LIBPATH:"..\..\SDL2_image-2.0.1\lib\x86" /LIBPATH:"..\..\SDL2-2.0.4\lib\x86" /LIBPATH:..\..\Lua\5.2\lib lua5.2.lib SDL2main.lib SDL2.lib SDL2_image.lib SDL2_mixer.lib SDL2_ttf.lib "boost_filesystem-vc120-mt-1_60.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\PlasticPack\Documents\GitHub\SPAAAACE\SPAAAACE\Release\SPAAAACE.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\PlasticPack\Documents\GitHub\SPAAAACE\SPAAAACE\Release\SPAAAACE.lib" /MACHINE:X86 /SAFESEH Release\tinystr.obj
          Release\tinyxml.obj
@@ -98,6 +13,8 @@
          Release\AiComponent.obj
          Release\AiSystem.obj
          Release\boostExemple.obj
+         Release\CinemaSystem.obj
+         Release\Cinematique.obj
          Release\Component.obj
          Release\GameLogicComponent.obj
          Release\GameLogicSystem.obj
@@ -132,4 +49,4 @@
 
 La génération a réussi.
 
-Temps écoulé 00:00:34.21
+Temps écoulé 00:00:07.61

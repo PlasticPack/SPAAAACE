@@ -67,6 +67,8 @@ public:
 	static void print(std::string text);
 	static void printAt(std::string text, int x, int y, int d_w = 0, int d_h = 0);
 
+	static bool isTextLeft() { return m_textQueue.size(); }
+
 protected:
 	GraphicsSystem();
 	~GraphicsSystem();

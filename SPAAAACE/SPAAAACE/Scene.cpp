@@ -1,5 +1,5 @@
 #include "Scene.h"
-
+#include "Command.h"
 
 Scene::Scene(std::string arg, std::string id)
 {
@@ -322,6 +322,8 @@ void Scene::update(Message &postman)
 	{
 		//std::cout << "pew!\n";
 		postman.addMessage("game", "Input", MS_SHOOT, 1);
+		
+		
 	}
 
 	GraphicsSystem::initFrame();
@@ -352,6 +354,7 @@ void Scene::update(Message &postman)
 			}*/
 
 			//DÉCISION DE MOUVEMENT : JOUEUR
+			if (!m_cineSystem.isPlaying())
 			if (currentID == "player") {
 				if (currentObj->get<GameLogicComponent>()->getCurrentFuel() > 0) { // si assez de fuel
 					//on check la direction du joueur
@@ -417,6 +420,10 @@ void Scene::update(Message &postman)
 
 
 			}
+			else
+			{
+				m_cineSystem.updateObject(currentObj.get(),postman);
+			}
 			PhysicsSystem::update(postman, this, *pc, m_physicsComps, 1.0 / GraphicsSystem::getFPS());
 		}
 		
@@ -477,8 +484,11 @@ void Scene::update(Message &postman)
 							Vec2 baseSize = currentObj->get<GraphicsComponent>()->getMaxSize();
 							double fuel = (double)(m_gameObjects["player"]->get<GameLogicComponent>()->getCurrentFuel()) / (double)m_gameObjects["player"]->get<GameLogicComponent>()->getMaxFuel();
 							currentObj->get<GraphicsComponent>()->setSize(Vec2(baseSize.x() * fuel, baseSize.y()));
-
+							
+							
 						}
+						postman.addMessage("HUD", "FUEL", MS_FUEL_LEVEL, m_gameObjects["player"]->get<GameLogicComponent>()->getCurrentFuel());
+						
 					}
 					else if (id == "hud_life"){
 						//if (postman.getMessage("GameLogic", currentID, MS_LIFE_DOWN) > 0) {
@@ -553,6 +563,8 @@ void Scene::update(Message &postman)
 		GraphicsSystem::print("TRRRIIIIGGGERREDDD oh thats rude");
 	
 	}
+	
+	m_cineSystem.update(postman);
 	
 	//MusSystem
 	m_musSytem.update(postman);
