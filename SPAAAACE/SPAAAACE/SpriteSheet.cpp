@@ -5,6 +5,7 @@ SpriteSheet::SpriteSheet(){
 	m_animationSpeed = 1;
 	m_timer = 0;
 	m_currentRect = SDL_Rect{0,0,0,0};
+	m_filename = "";
 	//std::cout << "DEFAULT SPRSHEET " << this << " CREATED\n";
 }
 
@@ -14,6 +15,7 @@ SpriteSheet::SpriteSheet(SDL_Texture* texture, SDL_Rect rectSize, SDL_Rect sheet
 	m_animationSpeed = 1;
 	m_timer = 0;
 	m_currentRect = SDL_Rect{ 0, 0, rectSize.w, rectSize.h };
+	m_filename = "";
 	//std::cout << "CUSTOM SPRSHEET : " << this << " w/ texture " << texture <<  "\n";
 }
 
@@ -21,7 +23,7 @@ SpriteSheet::SpriteSheet(SDL_Texture* texture, int nbcol, int nbrow)
 {
 	int w = 0, h = 0;
 	m_texture = texture;
-
+	m_filename = "";
 	SDL_QueryTexture(m_texture, NULL, NULL, &w, &h);
 	//std::cout << "c " << nbcol << "  r " << nbrow << "\n";
 	m_sheetSize = {0,0, w, h};
@@ -38,6 +40,7 @@ SpriteSheet::SpriteSheet(SDL_Texture* texture, int nbcol, int nbrow)
 
 SpriteSheet::SpriteSheet(SpriteSheet const& a){
 	if (this != &a){
+		m_filename = a.m_filename;
 		//std::cout << "Copying " << &a << " to " << this << "\n";
 		m_texture = a.m_texture; // pas besoin de faire de deep copy
 		m_animationSpeed = a.m_animationSpeed;
@@ -49,6 +52,7 @@ SpriteSheet::SpriteSheet(SpriteSheet const& a){
 SpriteSheet& SpriteSheet::operator=(SpriteSheet const& a){
 	if (this != &a){
 		//std::cout << "Copying " << &a << " to " << this << "\n";
+		m_filename = a.m_filename;
 		m_texture = a.m_texture;
 		m_animationSpeed = a.m_animationSpeed;
 		m_timer = a.m_timer;

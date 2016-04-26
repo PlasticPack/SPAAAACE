@@ -36,6 +36,7 @@ GraphicsComponent::GraphicsComponent(luabridge::LuaRef& componentTable, std::sha
 			// si on a pas trouvé de __ ca veut dire qu'il y a pas de spécification de nom
 			//donc on prend default 
 			m_sprite = std::make_shared<Sprite>(std::make_shared<SpriteSheet>(GraphicsSystem::loadTexture(spriteRef), c, r));
+			m_sprite->getCurrentSpriteSheet()->setFilename(spriteRef);
 		}
 		else {
 			m_sprite = std::make_shared<Sprite>();
@@ -63,6 +64,7 @@ GraphicsComponent::GraphicsComponent(luabridge::LuaRef& componentTable, std::sha
 
 				std::cout << name << "__" << file << "\n";
 				m_sprite->addSpriteSheet(name, std::make_shared<SpriteSheet>(GraphicsSystem::loadTexture(file), c, r));
+				m_sprite->getSpriteSheet(name)->setFilename(file);
 			}
 		}
 		
@@ -98,8 +100,6 @@ GraphicsComponent::GraphicsComponent(luabridge::LuaRef& componentTable, std::sha
 	this->m_posComponent = comp;
 }
 
-
-
 GraphicsComponent::GraphicsComponent(std::shared_ptr<PositionComponent> comp, std::shared_ptr<Sprite> spr)
 {
 	m_camera = true;
@@ -113,6 +113,37 @@ GraphicsComponent::GraphicsComponent(std::shared_ptr<PositionComponent> comp, st
 
 void GraphicsComponent::setSprite(std::shared_ptr<Sprite> spr){
 	m_sprite = spr;
+}
+
+GraphicsComponent::GraphicsComponent(GraphicsComponent const& g){
+	if (this != &g){
+		m_camera = g.m_camera;
+		m_center = g.m_center;
+		m_maxSize = g.m_maxSize;
+		m_size = g.m_size;
+		
+		m_sprite.reset();
+		m_sprite = std::make_shared<Sprite>(*g.m_sprite);
+
+		m_posComponent.reset();
+		m_posComponent = std::make_shared<PositionComponent>(*g.m_posComponent);
+	}
+}
+
+GraphicsComponent& GraphicsComponent::operator=(GraphicsComponent const& g){
+	if (this != &g){
+		m_camera = g.m_camera;
+		m_center = g.m_center;
+		m_maxSize = g.m_maxSize;
+		m_size = g.m_size;
+
+		m_sprite.reset();
+		m_sprite = std::make_shared<Sprite>(*g.m_sprite);
+
+		m_posComponent.reset();
+		m_posComponent = std::make_shared<PositionComponent>(*g.m_posComponent);
+	}
+	return *this;
 }
 
 GraphicsComponent::~GraphicsComponent()

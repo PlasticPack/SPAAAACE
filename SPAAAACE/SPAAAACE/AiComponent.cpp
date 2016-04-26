@@ -11,6 +11,49 @@ AiComponent::~AiComponent()
 {
 }
 
+AiComponent::AiComponent(AiComponent const& a){
+	if (this != &a){
+		m_acc = a.m_acc;
+		m_vec = a.m_vec;
+		m_typeAi = a.m_typeAi;
+
+		m_nearDanger.reset();
+		m_phyComponent.reset();
+		m_target.reset();
+
+		if (a.m_target != nullptr)
+			m_target = a.m_target;
+		
+		if (a.m_nearDanger != nullptr)
+			m_nearDanger = std::make_shared<PhysicsComponent>(*a.m_nearDanger);
+
+		if (a.m_phyComponent != nullptr)
+			m_phyComponent = std::make_shared<PhysicsComponent>(*a.m_phyComponent);
+	}	
+}
+
+
+AiComponent& AiComponent::operator=(AiComponent const& a){
+	if (this != &a){
+		m_acc = a.m_acc;
+		m_vec = a.m_vec;
+		m_typeAi = a.m_typeAi;
+
+		m_nearDanger.reset();
+		m_phyComponent.reset();
+		m_target.reset();
+
+		if (a.m_target != nullptr)
+			m_target = a.m_target;
+
+		if (a.m_nearDanger != nullptr)
+			m_nearDanger = std::make_shared<PhysicsComponent>(*a.m_nearDanger);
+
+		if (a.m_phyComponent != nullptr)
+			m_phyComponent = std::make_shared<PhysicsComponent>(*a.m_phyComponent);
+	}
+	return *this;
+}
 
 int AiComponent::getType()
 {
@@ -26,8 +69,6 @@ Vec2 AiComponent::getVec()
 int AiComponent::getAcc(){
 	return m_acc;
 }
-
-
 
 void AiComponent::setType(int type)
 {

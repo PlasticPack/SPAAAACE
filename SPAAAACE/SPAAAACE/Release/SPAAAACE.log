@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿La génération a démarré 21/04/2016 15:24:31.
      1>Projet "C:\Users\PlasticPack\Documents\GitHub\SPAAAACE\SPAAAACE\SPAAAACE\SPAAAACE.vcxproj" sur le nœud 2 (Build cible(s)).
      1>ClCompile:
@@ -133,3 +134,31 @@
 La génération a réussi.
 
 Temps écoulé 00:00:34.21
+=======
+﻿  Scene.cpp
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\LuaInit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
+          c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\PhysicsSystem.h(19) : voir la déclaration de 'Scene'
+Scene.cpp(33): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(57): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(175): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(184): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(195): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(198): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(208): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(325): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(422): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+  Génération de code en cours
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(151): warning C4715: 'GraphicsSystem::loadTexture' : les chemins de contrôle ne retournent pas tous une valeur
+  Fin de la génération du code
+tinystr.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'tinystr.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
+tinyxml.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'tinyxml.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
+tinyxmlerror.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'tinyxmlerror.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
+tinyxmlparser.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'tinyxmlparser.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
+boostExemple.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'boostExemple.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
+LTimer.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'LTimer.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
+Musique.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'Musique.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
+scriptinit_exemple.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'scriptinit_exemple.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
+Son.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'Son.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
+Source1.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'Source1.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
+  SPAAAACE.vcxproj -> C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\SPAAAACE.exe
+>>>>>>> f92b196e53eb91484b4437d082cd69d4127796ec

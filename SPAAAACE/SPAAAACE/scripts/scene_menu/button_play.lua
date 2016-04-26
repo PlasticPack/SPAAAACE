@@ -1,7 +1,7 @@
 button_play = {
 	Position = {
 		x = 125,
-		y = 775,
+		y = 650,
 	},
 	Graphics = {
 		filename = "default__ressources/button_play.png 33selected__ressources/button_play_selected.png",

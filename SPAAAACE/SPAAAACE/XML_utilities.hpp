@@ -22,5 +22,5 @@
 namespace XML_u{
 	bool loadObjects(std::vector<std::shared_ptr<GameObject> > &pureObjects, std::map<std::string, std::shared_ptr<GameObject> > roughtObjects, const std::string &filepath);
 	bool saveObjects(std::vector<std::shared_ptr<GameObject> > &objects, const std::string &filepath);
-
+	bool saveObjects(std::map<std::string, std::shared_ptr<GameObject>> &objects, const std::string &filepath);
 }

@@ -63,11 +63,11 @@ class Scene
 {
 public:
 
-	Scene(std::string arg, std::string);
+	Scene(std::string arg, std::string xml, std::string);
 	~Scene();
 	
 	void update(Message &postman);
-	void init(std::string arg); // méthode qui prend un script  et initialise le vector de gameObjects
+	void init(std::string arg, std::string xml); // méthode qui prend un script  et initialise le vector de gameObjects
 
 	void orderByZIndex();
 
@@ -87,6 +87,18 @@ public:
 		if (std::type_index(typeid(T)) == std::type_index(typeid(GraphicsComponent))){
 			m_graphicsComps.push_back(std::dynamic_pointer_cast<GraphicsComponent>(c));
 		}
+
+		if (std::type_index(typeid(T)) == std::type_index(typeid(GameLogicComponent))){
+			m_GLComps.push_back(std::dynamic_pointer_cast<GameLogicComponent>(c));
+		}
+
+		if (std::type_index(typeid(T)) == std::type_index(typeid(ActionComponent))){
+			m_ActionComps.push_back(std::dynamic_pointer_cast<ActionComponent>(c));
+		}
+
+		if (std::type_index(typeid(T)) == std::type_index(typeid(AiComponent))){
+			m_AiComps.push_back(std::dynamic_pointer_cast<AiComponent>(c));
+		}
 	}
 
 
@@ -102,8 +114,6 @@ public:
 
 		return str;
 	}
-
-
 	template <typename C> std::string getFatherID(int c){
 
 		std::string str = "none";
@@ -137,6 +147,10 @@ protected:
 
 	LTimer m_navigationTimer;
 	LTimer m_dialogueTimer;
+	LTimer m_pauseTimer;
+	LTimer m_mapTimer;
+	bool m_map = false;
+	bool m_pause = false;
 };
 
 bool zSort(std::shared_ptr<GameObject> g1, std::shared_ptr<GameObject> g2);
