@@ -12,6 +12,10 @@ public:
 	PhysicsComponent(luabridge::LuaRef& componentTable, std::shared_ptr<PositionComponent> comp=nullptr);
 	~PhysicsComponent();
 
+
+	PhysicsComponent(PhysicsComponent const& p);
+	PhysicsComponent& operator=(PhysicsComponent const& p);
+
 	Vec2 getPosition();
 	Vec2 getVelocity();
 	Vec2 getForces();

@@ -1,12 +1,13 @@
 #pragma once
 
 #include "GraphicsComponent.h"
+#include "GameObject.h"
 #include "LTimer.h"
 #include <string>
 #include <SDL_ttf.h>
 
-#define SCREEN_W 1920
-#define SCREEN_H 1080
+#define SCREEN_W 1600
+#define SCREEN_H 900
 
 struct Camera {
 	double angle;
@@ -16,6 +17,7 @@ struct Camera {
 };
 
 class GraphicsComponent;
+class GameObject;
 
 class GraphicsSystem
 {
@@ -60,7 +62,7 @@ public:
 	}
 
 	static void initFrame();
-	static void endFrame(Message &postman);
+	static void endFrame(Message &postman, std::map<std::string, std::shared_ptr<GameObject>> &objs);
 
 	static void setFont(std::string f, int s, SDL_Color c = {255, 255, 255});
 	static void setTextColor(SDL_Color c);

@@ -26,6 +26,8 @@ public:
 	SDL_Texture* getTexture();
 	void setAnimationSpeed(double d);
 	void nextRect(double dt);
+	std::string getFilename() const { return m_filename; }
+	void setFilename(std::string f) { m_filename = f; }
 
 protected:
 	double m_animationSpeed; //vitesse d'animation en images par seconde
@@ -33,5 +35,5 @@ protected:
 	SDL_Texture* m_texture;
 	SDL_Rect m_sheetSize;
 	SDL_Rect m_currentRect;
-
+	std::string m_filename;
 };

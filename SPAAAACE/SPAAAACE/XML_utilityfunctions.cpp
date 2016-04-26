@@ -19,11 +19,26 @@ bool XML_u::loadObjects(std::vector<std::shared_ptr<GameObject> > &pureObjects, 
 					//Creates all the instances of the entitys
 					for (element entity = entityTypes->FirstChildElement(); entity; entity = entity->NextSiblingElement()){
 						std::cout << "Initialising " << entity->Value() << " as " << entityTypes->Value() << " entity." << std::endl;
-						std::shared_ptr<GameObject> object = roughtObjects[entityTypes->Value()];
+						std::shared_ptr<GameObject> object = std::make_shared<GameObject>(*roughtObjects[entityTypes->Value()]);
+
+						//on arrange les components de l'objet pour qu'ils pointent tous sur un seul 
+						//position component
+						if (object->hasComponent(std::type_index(idn(PhysicsComponent)))){
+							object->get<PhysicsComponent>()->setPositionComp(object->get<PositionComponent>());
+						}
+
+						if (object->hasComponent(std::type_index(idn(GraphicsComponent)))){
+							object->get<GraphicsComponent>()->setPositionComponent(object->get<PositionComponent>());
+						}
+
+						if (object->hasComponent(std::type_index(idn(AiComponent)))){
+							object->get<AiComponent>()->setPhysicsComp(object->get<PhysicsComponent>());
+						}
+
 						for (element node = entity->FirstChildElement(); node;
 							node = node->NextSiblingElement()){
 							//std::cout << node->Value() << std::endl;
-							//check if node as child(i.e. if node is a table or a table entry)
+							//check if node has child(i.e. if node is a table or a table entry)
 							//May change with a method with attributes
 							//Don't fracking delete this!
 
@@ -41,9 +56,14 @@ bool XML_u::loadObjects(std::vector<std::shared_ptr<GameObject> > &pureObjects, 
 										object->get<PhysicsComponent>()->setMass(std::stod(node->GetText()));
 									}
 								}
+								else if (strcmp("id", node->Value()) == 0){
+									object->setID(node->GetText());
+									//object->setID(node->GetText());
+									object->idSet(true);
+								}
+								
 							}
 							else{
-
 								//std::cout << "Has non-attributes" << std::endl;
 								if (strcmp("position", node->Value()) == 0){
 									//std::cout << "Setting position." << std::endl;
@@ -91,11 +111,23 @@ bool XML_u::loadObjects(std::vector<std::shared_ptr<GameObject> > &pureObjects, 
 										}
 									}
 								}
+								
 								//else std::cout << "No position component!" << std::endl;
 							}
-							object->setID(entityTypes->Value());
-
 						}
+						
+						if (!object->idSet()) {
+
+							object->setID(entityTypes->Value());
+							object->setType(entityTypes->Value());
+						}
+						else {
+							std::cout << "<\n\n\n\n " << object->getID() << "  \n\n\n\n\n";
+						}
+
+						object->setType(entityTypes->Value());
+
+						
 						pureObjects.push_back(object);
 					}
 
@@ -119,10 +151,10 @@ bool XML_u::saveObjects(std::vector<std::shared_ptr<GameObject> > &objects, cons
 	//Dont't touch this part, very important for class differ
 	for (int i = 0; i < objects.size(); i++){
 		//std::cout << objects[i]->getID() << std::endl;
-		if (objects_byTypes.find(objects[i]->getID()) != objects_byTypes.end()){
-			objects_byTypes[objects[i]->getID()].push_back(objects[i]);
+		if (objects_byTypes.find(objects[i]->getType()) != objects_byTypes.end()){
+			objects_byTypes[objects[i]->getType()].push_back(objects[i]);
 		}
-		else objects_byTypes.insert(std::make_pair(objects[i]->getID(), std::vector<std::shared_ptr<GameObject>>(1, objects[i])));
+		else objects_byTypes.insert(std::make_pair(objects[i]->getType(), std::vector<std::shared_ptr<GameObject>>(1, objects[i])));
 	}
 
 
@@ -132,7 +164,7 @@ bool XML_u::saveObjects(std::vector<std::shared_ptr<GameObject> > &objects, cons
 		element script = new_element(iterator->first);
 		int cpt = 0;
 		for (std::shared_ptr<GameObject> object : iterator->second){
-			element elements = new_element(object->getID()
+			element elements = new_element(iterator->first
 				+ std::to_string(cpt)
 				);
 			if (object->hasComponent(idn(PositionComponent)))
@@ -204,3 +236,20 @@ bool XML_u::saveObjects(std::vector<std::shared_ptr<GameObject> > &objects, cons
 	return doc.SaveFile(filepath);
 	//declaration->
 }
+
+bool XML_u::saveObjects(std::map<std::string, std::shared_ptr<GameObject>> &objects, const std::string &filepath){
+	std::vector<std::shared_ptr<GameObject>> pure_objs;
+	for (std::pair<std::string, std::shared_ptr<GameObject>> obj : objects){
+		pure_objs.push_back(obj.second);
+	}
+	return XML_u::saveObjects(pure_objs, filepath);
+}
+
+#undef idn
+#undef element
+#undef new_element(s)
+#undef text
+#undef new_text(s)
+#undef STR(s)
+#undef phys(o)
+#undef pos(o)

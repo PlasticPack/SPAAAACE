@@ -223,9 +223,6 @@
     <Filter Include="Headers\Load\TinyXML">
       <UniqueIdentifier>{acb8639d-40c4-4020-9ab0-943d9159d5a6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Headers\Systems">
-      <UniqueIdentifier>{f32387a8-9bca-49aa-ab09-0c31958c565d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Headers\Components">
       <UniqueIdentifier>{633ab670-1335-4165-8d5f-ff45407e7e33}</UniqueIdentifier>
     </Filter>
@@ -234,6 +231,9 @@
     </Filter>
     <Filter Include="Sources\Components">
       <UniqueIdentifier>{742afcbc-b65d-42b6-a878-83865cdbf4c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Systems">
+      <UniqueIdentifier>{f32387a8-9bca-49aa-ab09-0c31958c565d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -23,6 +23,9 @@ public:
 	GraphicsComponent(luabridge::LuaRef& componentTable, std::shared_ptr<PositionComponent> comp=nullptr);
 	~GraphicsComponent();
 
+	GraphicsComponent(GraphicsComponent const& g);
+	GraphicsComponent& operator=(GraphicsComponent const& g);
+
 	std::shared_ptr<PositionComponent> getPositionComponent();
 	Vec2 getPosition();
 	Vec2 getCenter();
@@ -39,6 +42,8 @@ public:
 
 	void affectedByCamera(bool c) { m_camera = c; };
 	bool isAffectedByCamera(){ return m_camera; }
+
+	std::string getFilename() { return m_sprite->getCurrentSpriteSheet()->getFilename(); }
 
 protected:
 	//sprite

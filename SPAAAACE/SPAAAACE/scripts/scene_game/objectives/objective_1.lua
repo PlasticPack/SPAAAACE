@@ -5,11 +5,11 @@ objective_1 = {
 		fixed = "true"
 	},
 	Physics = {
-		hitbox = 1200,
+		hitbox = 1500,
 		activated = "false"
 	},
 	Action = {
-		trigger = "player objective_1 34048 1",
+		trigger = "player base 34048 1",
 		answer = "Action objective_1 34063 1",
 		timer = -1
 	},
