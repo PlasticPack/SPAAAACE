@@ -11,7 +11,7 @@
 #include <exception>
 #include "MusicSystem.h"
 #include <iterator>
-
+#include "CinemaSystem.h"
 #include "XML_utilities.hpp"
 
 /*********************************************
@@ -127,6 +127,14 @@ public:
 		return str;
 	}
 
+	void syncTimers(Scene& other){
+		m_navigationTimer = other.m_navigationTimer;
+		m_dialogueTimer = other.m_dialogueTimer;
+		m_pauseTimer = other.m_pauseTimer;
+		m_mapTimer = other.m_mapTimer;
+		m_selectTimer = other.m_selectTimer;
+	}
+
 protected:
 	std::map<std::string, std::shared_ptr<GameObject>> m_gameObjects;
 	std::vector<std::string> m_orderedGO;
@@ -144,11 +152,14 @@ protected:
 
 	MusicSystem m_musSytem;
 	InputsSystem m_inSystem;
+	CinemaSystem m_cineSystem;
 
 	LTimer m_navigationTimer;
 	LTimer m_dialogueTimer;
 	LTimer m_pauseTimer;
 	LTimer m_mapTimer;
+	LTimer m_selectTimer;
+
 	bool m_map = false;
 	bool m_pause = false;
 };

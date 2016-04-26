@@ -48,11 +48,15 @@ public:
 	void setType(std::string t){ this->m_type = t; }
 	std::string getType(){ return this->m_type; }
 
+	bool isActive() { return m_active; }
+	void activate(bool b) { m_active = b; }
+
 	//bool operator<(GameObject &comp);
 
 protected:
 	std::map<std::type_index, std::shared_ptr<Component>> m_components;
 	std::string m_ID,m_type;
 	bool m_idSet;
+	bool m_active;
 };
 

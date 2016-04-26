@@ -29,6 +29,16 @@ public:
 	std::string getFilename() const { return m_filename; }
 	void setFilename(std::string f) { m_filename = f; }
 
+	int getCurrentRectIndex(){
+		std::cout << m_currentRectIndex << "\n";
+		return m_currentRectIndex;
+	}
+
+	int getTotalRectNumber(){
+		//std::cout << "   \n"<< ((m_sheetSize.w) / (m_currentRect.w)) * ((m_sheetSize.h) / (m_currentRect.h)) - 1;
+		return ((m_sheetSize.w) / (m_currentRect.w)) * ((m_sheetSize.h) / (m_currentRect.h));
+	}
+
 protected:
 	double m_animationSpeed; //vitesse d'animation en images par seconde
 	double m_timer;
@@ -36,4 +46,5 @@ protected:
 	SDL_Rect m_sheetSize;
 	SDL_Rect m_currentRect;
 	std::string m_filename;
+	int m_currentRectIndex;
 };
