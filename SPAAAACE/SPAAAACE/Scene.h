@@ -11,7 +11,7 @@
 #include <exception>
 #include "MusicSystem.h"
 #include <iterator>
-
+#include "CinemaSystem.h"
 #include "XML_utilities.hpp"
 
 /*********************************************
@@ -144,7 +144,7 @@ protected:
 
 	MusicSystem m_musSytem;
 	InputsSystem m_inSystem;
-
+	CinemaSystem m_cineSystem;
 	LTimer m_navigationTimer;
 	LTimer m_dialogueTimer;
 	LTimer m_pauseTimer;
