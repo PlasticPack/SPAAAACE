@@ -92,6 +92,8 @@
     <ClCompile Include="AiComponent.cpp" />
     <ClCompile Include="AiSystem.cpp" />
     <ClCompile Include="boostExemple.cpp" />
+    <ClCompile Include="CinemaSystem.cpp" />
+    <ClCompile Include="Cinematique.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="GameLogicComponent.cpp" />
     <ClCompile Include="GameLogicSystem.cpp" />
@@ -126,6 +128,9 @@
     <ClInclude Include="ActionSystem.h" />
     <ClInclude Include="AiComponent.h" />
     <ClInclude Include="AiSystem.h" />
+    <ClInclude Include="CinemaSystem.h" />
+    <ClInclude Include="cinematique.h" />
+    <ClInclude Include="Command.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Flags.h" />
     <ClInclude Include="GameLogicComponent.h" />

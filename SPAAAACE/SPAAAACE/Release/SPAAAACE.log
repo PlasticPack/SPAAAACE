@@ -1,15 +1,20 @@
-﻿  Scene.cpp
+﻿  MissionSystem.cpp
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\GraphicsSystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
+MissionSystem.cpp(73): warning C4805: '==' : mélange risqué de type 'double' et de type 'bool' dans l'opération
+  Scene.cpp
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\GraphicsSystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
 c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\LuaInit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
           c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\PhysicsSystem.h(19) : voir la déclaration de 'Scene'
-Scene.cpp(33): warning C4018: '<' : incompatibilité signed/unsigned
-Scene.cpp(57): warning C4018: '<' : incompatibilité signed/unsigned
-Scene.cpp(175): warning C4018: '<' : incompatibilité signed/unsigned
-Scene.cpp(184): warning C4018: '<' : incompatibilité signed/unsigned
-Scene.cpp(195): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\Command.h(158): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+Scene.cpp(32): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(56): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(178): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(187): warning C4018: '<' : incompatibilité signed/unsigned
 Scene.cpp(198): warning C4018: '<' : incompatibilité signed/unsigned
-Scene.cpp(208): warning C4018: '<' : incompatibilité signed/unsigned
-Scene.cpp(325): warning C4018: '<' : incompatibilité signed/unsigned
-Scene.cpp(422): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+Scene.cpp(201): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(211): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(343): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(437): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
   Génération de code en cours
 c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(151): warning C4715: 'GraphicsSystem::loadTexture' : les chemins de contrôle ne retournent pas tous une valeur
   Fin de la génération du code

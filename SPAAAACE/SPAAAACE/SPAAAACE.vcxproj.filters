@@ -106,6 +106,12 @@
     <ClCompile Include="AiSystem.cpp">
       <Filter>Sources\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="CinemaSystem.cpp">
+      <Filter>Sources\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Cinematique.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Flags.h">
@@ -197,6 +203,15 @@
     </ClInclude>
     <ClInclude Include="AiSystem.h">
       <Filter>Headers\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="CinemaSystem.h">
+      <Filter>Headers\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="cinematique.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

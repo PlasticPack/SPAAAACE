@@ -127,6 +127,10 @@ public:
 		return str;
 	}
 
+	std::shared_ptr<MissionSystem> getMissionSystem() {
+		return m_missionSystem;
+	}
+
 	void syncTimers(Scene& other){
 		m_navigationTimer = other.m_navigationTimer;
 		m_dialogueTimer = other.m_dialogueTimer;
@@ -150,6 +154,7 @@ protected:
 	std::string m_id;
 	std::string m_focusedID;
 
+	std::shared_ptr<MissionSystem> m_missionSystem;
 	MusicSystem m_musSytem;
 	InputsSystem m_inSystem;
 	CinemaSystem m_cineSystem;

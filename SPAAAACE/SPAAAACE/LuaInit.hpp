@@ -27,8 +27,8 @@ namespace luain{
 	void loadGetKeysFunction(lua_State* L);
 	std::vector<std::string> getTableKeys(lua_State* L, const std::string& name);
 	//std::shared_ptr<GameObject> loadGameObjects(lua_State* L, const std::string& type);
-	void loadFromRep(std::vector<std::shared_ptr<GameObject>> &objects, const std::string& filepath, const std::string& ext=".lua");
-	void loadFromRep(std::map<std::string, std::shared_ptr<GameObject>> &objs, const std::string& filepath, const std::string& ext=".lua");
-	std::shared_ptr<GameObject> loadGameObjects( lua_State* L, const std::string& type);
+	void loadFromRep(std::vector<std::shared_ptr<GameObject>> &objects, Scene *s, const std::string& filepath, const std::string& ext = ".lua");
+	void loadFromRep(std::map<std::string, std::shared_ptr<GameObject>> &objs, Scene *s, const std::string& filepath, const std::string& ext = ".lua");
+	std::shared_ptr<GameObject> loadGameObjects(lua_State* L, Scene* s, const std::string& type);
 	//void loadFromRep(Scene* sc, std::map<std::string, GameObject> &objs, const std::string& filepath, const std::string& ext);
 }

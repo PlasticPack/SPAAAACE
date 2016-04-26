@@ -1,9 +1,8 @@
 #include "Scene.h"
 #include "Command.h"
 
-Scene::Scene(std::string arg, std::string xml, std::string id)
+Scene::Scene(std::string arg, std::string xml, std::string id) : m_id(id), m_missionSystem(std::make_shared<MissionSystem>())
 {
-	m_id = id;
 	init(arg, xml);
 }
 
@@ -11,11 +10,11 @@ Scene::Scene(std::string arg, std::string xml, std::string id)
 void Scene::init(std::string arg, std::string xml){
 
 	GraphicsSystem::init();
-	MissionSystem::init();
+	m_missionSystem->init();
 	//AJOUTEZ VOS OBJETS ICI! **********************************************
 
 	try {
-		luain::loadFromRep(m_gameObjects, arg);
+		luain::loadFromRep(m_gameObjects,this, arg);
 	}
 	catch (std::exception e){
 		std::cout << e.what() << "\n";
@@ -354,7 +353,7 @@ void Scene::update(Message &postman)
 
 			std::shared_ptr<PhysicsComponent> pc = currentObj->get<PhysicsComponent>();
 			if (pc != nullptr && !m_pause && !m_map){
-				/*if (currentID == MissionSystem::getCurrentObjective()){
+				/*if (currentID == m_missionSystem->getCurrentObjective()){
 					objectivePos = currentObj->get<PositionComponent>()->getPosition();
 					}
 
@@ -460,7 +459,7 @@ void Scene::update(Message &postman)
 				if (m_id == "game"){
 					playerPos = m_gameObjects["player"]->get<PhysicsComponent>()->getPosition();
 					basePos = m_gameObjects["base"]->get<PhysicsComponent>()->getPosition();
-					objPos = MissionSystem::getObjPosition();
+					objPos = m_missionSystem->getObjPosition();
 				}
 
 				if (currentID == m_focusedID){
@@ -528,7 +527,7 @@ void Scene::update(Message &postman)
 								updateGS = false;
 						}
 						else if (id == "hud_obj_pointer"){
-							if (MissionSystem::getCurrentObjective() != "null"){
+							if (m_missionSystem->getCurrentObjective() != "null"){
 								Vec2 direction = objPos - playerPos;
 								if (direction.getLength() > SCREEN_W){
 
@@ -575,9 +574,9 @@ void Scene::update(Message &postman)
 	}
 
 	if (m_id == "game"){
-		MissionSystem::update(postman, m_gameObjects);
+		m_missionSystem->update(postman, m_gameObjects);
 
-		//std::cout << MissionSystem::getCurrentObjective() << "\n";
+		//std::cout << m_missionSystem->getCurrentObjective() << "\n";
 
 		if (postman.getMessage("MissionSystem", "Mission", MS_MISSION_OVER) == 1){
 			//std::cout << "OVER!!!";
