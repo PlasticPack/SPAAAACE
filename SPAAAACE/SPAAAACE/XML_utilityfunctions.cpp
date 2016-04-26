@@ -61,6 +61,16 @@ bool XML_u::loadObjects(std::vector<std::shared_ptr<GameObject> > &pureObjects, 
 									//object->setID(node->GetText());
 									object->idSet(true);
 								}
+								else if (strcmp("trigger", node->Value()) == 0){
+									if (object->hasComponent(idn(ActionComponent))){
+										object->get<ActionComponent>()->setTrigger(stringToMessage(node->GetText()));
+									}
+								}
+								else if (strcmp("answer", node->Value()) == 0){
+									if (object->hasComponent(idn(ActionComponent))){
+										object->get<ActionComponent>()->setAnswer(stringToMessage(node->GetText()));
+									}
+								}
 								
 							}
 							else{

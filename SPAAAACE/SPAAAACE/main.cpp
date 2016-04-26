@@ -23,8 +23,13 @@ int main(int argc, char* argv[]){
 
 
 
+	Scene savesMenu("scripts/scene_menu", "saves/menu2.xml", "savesMenu");
 	Scene menu("scripts/scene_menu", "saves/menu.xml", "menu");
-	Scene game("scripts/scene_game", "saves/final.xml", "game");
+	
+	Scene save1("scripts/scene_game", "saves/final.xml", "game");
+	Scene save2("scripts/scene_game", "saves/final.xml", "game");
+	Scene save3("scripts/scene_game", "saves/final.xml", "game");
+
 	Message postman;
 
 	postman.addMessage("main", "main", MS_SWITCHED, 1);
@@ -35,13 +40,34 @@ int main(int argc, char* argv[]){
 
 		currentScene->update(postman);
 
+		savesMenu.syncTimers(*currentScene);
+		menu.syncTimers(*currentScene);
+		/*save1.syncTimers(*currentScene);
+		save2.syncTimers(*currentScene);
+		save3.syncTimers(*currentScene);*/
+
 		if (postman.getMessage("Action", "Button", MS_EXIT_REQUEST)){
 			quit = true;
 		}
 		else if (postman.getMessage("Action", "Button", MS_PLAY)){
 			postman.addMessage("main", "main", MS_SWITCHED, 1);
 			GraphicsSystem::reset();
-			currentScene = std::make_shared<Scene>(game);
+			currentScene = std::make_shared<Scene>(savesMenu);
+		}
+		else if (postman.getMessage("Action", "Button", MS_SAVE1)){
+			postman.addMessage("main", "main", MS_SWITCHED, 1);
+			GraphicsSystem::reset();
+			currentScene = std::make_shared<Scene>(save1);
+		}
+		else if (postman.getMessage("Action", "Button", MS_SAVE2)){
+			postman.addMessage("main", "main", MS_SWITCHED, 1);
+			GraphicsSystem::reset();
+			currentScene = std::make_shared<Scene>(save2);
+		}
+		else if (postman.getMessage("Action", "Button", MS_SAVE3)){
+			postman.addMessage("main", "main", MS_SWITCHED, 1);
+			GraphicsSystem::reset();
+			currentScene = std::make_shared<Scene>(save3);
 		}
 
 		/*else if (postman.getMessage("Action", "Button", MS_MENU)) {

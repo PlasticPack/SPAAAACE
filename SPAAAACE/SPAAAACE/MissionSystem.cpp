@@ -1,11 +1,9 @@
 #include "MissionSystem.h"
 #include <LuaBridge.h>
 
-std::map<std::string, s_objective> MissionSystem::m_objectives;
-std::string MissionSystem::m_currentObjective = "objective_1";
-Vec2 MissionSystem::m_objPosition = Vec2(0, 0);
 
-MissionSystem::MissionSystem()
+
+MissionSystem::MissionSystem() : m_objectives(), m_currentObjective ("objective_1"), m_objPosition(0, 0)
 {
 }
 
@@ -21,7 +19,8 @@ void MissionSystem::addObjective(luabridge::LuaRef& componentTable){
 	auto target = componentTable["target"];
 	
 	if (name.isString()){
-		m_objectives["objective_" + std::to_string(m_objectives.size() + 1)] = { name, "none", false };
+		int size = m_objectives.size();
+		m_objectives["objective_" + std::to_string(size + 1)] = { name, "none", false };
 		if (target.isString()){
 			m_objectives["objective_" + std::to_string(m_objectives.size())].targetID = target.cast<std::string>();
 		}

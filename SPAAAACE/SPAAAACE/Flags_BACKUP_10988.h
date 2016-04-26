@@ -20,12 +20,8 @@ enum message
 	MS_SWITCHED,
 	MS_OBJECTIVE,
 	MS_MISSION_OVER,
-<<<<<<< HEAD
-	MS_FUEL_LEVEL
-=======
 	MS_PAUSE,
 	MS_MAP
->>>>>>> master
 };
 
 /*
