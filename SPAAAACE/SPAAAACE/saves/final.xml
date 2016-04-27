@@ -1,60 +1,50 @@
-<!--<player>
-	<main>
-		<position>
-			<x>3000</x>
-			<y>200</y>
-		</position>
-	</main>
-</player>
 <ai>
-	<a>
-		<position>
-			<x>300</x>
-			<y>200</y>
-		</position>
-	</a>
+    <ai0>
+        <mass>2.000000</mass>
+        <velocity>
+            <x>0.000000</x>
+            <y>0.000000</y>
+        </velocity>
+        <forces>
+            <x>0.000000</x>
+            <y>0.000000</y>
+        </forces>
+        <position>
+            <x>-399.642622</x>
+            <y>200.046909</y>
+        </position>
+    </ai0>
+    <ai1>
+        <mass>2.000000</mass>
+        <velocity>
+            <x>0.000000</x>
+            <y>0.000000</y>
+        </velocity>
+        <forces>
+            <x>0.000000</x>
+            <y>0.000000</y>
+        </forces>
+        <position>
+            <x>-199.806491</x>
+            <y>300.000306</y>
+        </position>
+    </ai1>
 </ai>
 <base>
-	<a1>
-	</a1>
-</base>
-<planet>
-	<aa>
-		<id>planet_1</id>
-	</aa>
-</planet>
-
-<!-- 
-PAS TOUCHER AUX SECTIONS APRÈS CECI
---
-<hud_base_pointer>
-	<a></a>
-</hud_base_pointer>
-<hud_fuel>
-	<a></a>
-</hud_fuel>
-<hud_fuel_container>
-	<a></a>
-</hud_fuel_container>
-<hud_life>
-	<a></a>
-</hud_life>
-<hud_life_container>
-	<a></a>
-</hud_life_container>
-<hud_obj_pointer>
-	<a></a>
-</hud_obj_pointer>
-<objective_1><a></a></objective_1>
-<objective_2><a></a></objective_2>
-<objective_3><a></a></objective_3>
-
--->
-
-
-
-<base>
     <base0>
+        <mass>6000.000000</mass>
+        <velocity>
+            <x>-15.522793</x>
+            <y>1.344341</y>
+        </velocity>
+        <forces>
+            <x>0.000000</x>
+            <y>0.000000</y>
+        </forces>
+        <position>
+            <x>8000.000000</x>
+            <y>0.000000</y>
+        </position>
     </base0>
 </base>
 <hud_base_pointer>
@@ -104,8 +94,8 @@ PAS TOUCHER AUX SECTIONS APRÈS CECI
             <y>0.000000</y>
         </forces>
         <position>
-            <x>0.000000</x>
-            <y>2000.000000</y>
+            <x>2485.788352</x>
+            <y>3855.863627</y>
         </position>
     </objective_20>
 </objective_2>
@@ -128,52 +118,51 @@ PAS TOUCHER AUX SECTIONS APRÈS CECI
 </objective_3>
 <planet>
     <planet0>
-		<id>planet_1</id>
         <mass>700.000000</mass>
         <velocity>
-            <x>150.000000</x>
-            <y>160.000000</y>
+            <x>212.243107</x>
+            <y>-120.406391</y>
         </velocity>
         <forces>
             <x>0.000000</x>
             <y>0.000000</y>
         </forces>
         <position>
-            <x>0.000000</x>
-            <y>2000.000000</y>
+            <x>1445.469548</x>
+            <y>-3910.117975</y>
         </position>
     </planet0>
-	<a/>
+    <planet1>
+		<id>planet_1</id>
+        <mass>700.000000</mass>
+        <velocity>
+            <x>220.517277</x>
+            <y>110.364123</y>
+        </velocity>
+        <forces>
+            <x>0.000000</x>
+            <y>0.000000</y>
+        </forces>
+        <position>
+            <x>2485.788352</x>
+            <y>3855.863627</y>
+        </position>
+    </planet1>
 </planet>
-<ai>
-	<a>
-		<position>
-			<x>-400.000000</x>
-			<y>200.000000</y>
-		</position>
-	</a>
-	<b>
-		<position>
-			<x>-200.000000</x>
-			<y>300.000000</y>
-		</position>
-	</b>
-</ai>
 <player>
     <player0>
         <mass>4.000000</mass>
         <velocity>
-            <x>0.000000</x>
-            <y>0.000000</y>
+            <x>-1470.169643</x>
+            <y>411.534672</y>
         </velocity>
         <forces>
             <x>0.000000</x>
             <y>0.000000</y>
         </forces>
         <position>
-            <x>3000.000000</x>
-            <y>200.000000</y>
+            <x>4267.728261</x>
+            <y>3664.825846</y>
         </position>
     </player0>
 </player>
-

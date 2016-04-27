@@ -14,8 +14,8 @@ player = {
 		anim_speed = 12
 	},
 	GameLogic =  {
-		pwr = 3000,
+		pwr = 4000,
 		fuel = 40000,
-		life = 30
+		life = 15
 	}
 }
