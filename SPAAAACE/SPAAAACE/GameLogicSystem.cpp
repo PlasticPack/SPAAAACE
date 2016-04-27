@@ -22,7 +22,7 @@ void GameLogicSystem::update(Message &postman, std::shared_ptr<GameObject> go, G
 		//std::cout << vel;
 		postman.addMessage("GameLogic", go->getID(), MS_COLLISION, vel);
 
-		int life_lost = floor(vel / 400.f);
+		int life_lost = floor(vel / 40.f);
 		//std::cout << life_lost << "\n";
 
 		comp.setLife(comp.getCurrentLife() - life_lost);

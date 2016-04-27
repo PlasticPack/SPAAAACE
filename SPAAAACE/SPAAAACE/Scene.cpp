@@ -1,16 +1,15 @@
 #include "Scene.h"
 #include "Command.h"
 
-Scene::Scene(std::string arg, std::string xml, std::string id) : m_id(id), m_missionSystem(std::make_shared<MissionSystem>())
+Scene::Scene(std::string arg, std::string xml, std::string id) : m_id(id), m_missionSystem(std::make_shared<MissionSystem>()), m_saveTarget(xml), m_scriptSource(arg)
 {
+	GraphicsSystem::init();
+	m_missionSystem->init();
 	init(arg, xml);
 }
 
 
 void Scene::init(std::string arg, std::string xml){
-
-	GraphicsSystem::init();
-	m_missionSystem->init();
 	//AJOUTEZ VOS OBJETS ICI! **********************************************
 
 	try {
@@ -21,7 +20,7 @@ void Scene::init(std::string arg, std::string xml){
 	}
 
 	std::vector<std::shared_ptr<GameObject>> pure;
-	XML_u::loadObjects(pure, m_gameObjects, xml);
+	XML_u::loadObjects(this, pure, m_gameObjects, xml);
 
 	//modif des ids
 	m_gameObjects.clear();
@@ -122,7 +121,7 @@ void Scene::init(std::string arg, std::string xml){
 	}
 
 	//Inputs init
-	m_inSystem.setActionTrigger(AC_EXIT, SDL_SCANCODE_ESCAPE);
+	m_inSystem.setActionTrigger(AC_EXIT, SDL_SCANCODE_Q);
 	
 	//initialise le mouvement du joueur selon le clavier
 	m_inSystem.setActionTrigger(AC_SHOOT, SDL_SCANCODE_SPACE);
@@ -140,8 +139,14 @@ void Scene::init(std::string arg, std::string xml){
 	m_inSystem.setActionTrigger(AC_SELECT, GP_BUTTON_A);
 
 	m_inSystem.setActionTrigger(AC_NEXT, SDL_SCANCODE_N);
-	m_inSystem.setActionTrigger(AC_PAUSE, SDL_SCANCODE_LCTRL);
+	m_inSystem.setActionTrigger(AC_PAUSE, SDL_SCANCODE_ESCAPE);
 	m_inSystem.setActionTrigger(AC_MAP, SDL_SCANCODE_M);
+
+	m_inSystem.setActionTrigger(AC_RESTART, SDL_SCANCODE_R);
+
+	m_inSystem.setActionTrigger(AC_SAVE, SDL_SCANCODE_F5);
+	m_inSystem.setActionTrigger(AC_LOAD, SDL_SCANCODE_F9);
+
 
 	GraphicsSystem::setFont("ressources/CaviarDreams.ttf", 30, { 225, 220, 255 });
 
@@ -151,9 +156,35 @@ void Scene::init(std::string arg, std::string xml){
 	m_dialogueTimer.start();
 	m_selectTimer.start();
 	m_pauseTimer.start();
+	m_loadTimer.start();
+	m_saveTimer.start();
 	m_mapTimer.start();
 
-	XML_u::saveObjects(m_gameObjects, "saves/final2.xml");
+	//XML_u::saveObjects(m_gameObjects, "saves/final2.xml");
+}
+
+void Scene::clear(){
+	m_gameObjects.clear();
+	m_orderedGO.clear();
+
+	m_posComps.clear();
+	m_graphicsComps.clear();
+	m_physicsComps.clear();
+	m_GLComps.clear();
+	m_ActionComps.clear();
+	m_AiComps.clear();
+
+	m_missionSystem.reset();
+	m_missionSystem = std::make_shared<MissionSystem>();
+	
+	m_map = false;
+	m_pause = false;
+}
+
+void Scene::reset(){
+	clear();
+	init("scripts/scene_game", "saves/default.xml");
+	XML_u::saveObjects(this, m_gameObjects, m_saveTarget);
 }
 
 void Scene::orderByZIndex(){
@@ -233,7 +264,7 @@ void Scene::update(Message &postman)
 			GraphicsSystem::loadBackground("ressources/space_3.png", 2);
 		}
 
-		if (m_id == "menu"){ // pour le moment c'est ca
+		if (m_id == "menu" || m_id == "savesMenu"){ // pour le moment c'est ca
 			GraphicsSystem::clearBackgrounds();
 			GraphicsSystem::loadBackground("ressources/space_1.png", 0, 255, 100, 100);
 			GraphicsSystem::loadBackground("ressources/space_2.png", 1, 100, 255, 100);
@@ -256,6 +287,10 @@ void Scene::update(Message &postman)
 		}
 	}
 
+	if (m_pause && m_id == "savesMenu"){
+		//retour menu
+	}
+
 	if (m_inSystem.checkTriggeredAction(AC_MAP)) {
 		if (m_mapTimer.getTicks() > 375) {
 			m_mapTimer.stop();
@@ -264,11 +299,43 @@ void Scene::update(Message &postman)
 		}
 	}
 
+	if (m_inSystem.checkTriggeredAction(AC_SAVE)) {
+		if (m_saveTimer.getTicks() > 375) {
+			GraphicsSystem::print("Sauvegarde effectuée");
+			XML_u::saveObjects(this,m_gameObjects, m_saveTarget);
+			m_saveTimer.stop();
+			m_saveTimer.start();
+		}
+	}
+
+	if (m_inSystem.checkTriggeredAction(AC_LOAD)) {
+		if (m_loadTimer.getTicks() > 375) {
+			GraphicsSystem::print("Chargement...");
+
+			clear();
+			init(m_scriptSource, m_saveTarget);
+
+			m_loadTimer.stop();
+			m_loadTimer.start();
+		}
+	}
+
 	if (m_map){
 		postman.addMessage("Scene", "Input", MS_MAP, 1);
 	}
 
-
+	if (m_id == "savesMenu" && m_inSystem.checkTriggeredAction(AC_RESTART)){
+		
+		if (m_focusedID == "button_save1"){
+			postman.addMessage("Scene", "Menu", MS_RESETSAVE, 1);
+		}
+		if (m_focusedID == "button_save2"){
+			postman.addMessage("Scene", "Menu", MS_RESETSAVE, 2);
+		}
+		if (m_focusedID == "button_save3"){
+			postman.addMessage("Scene", "Menu", MS_RESETSAVE, 3);
+		}
+	}
 
 	//GESTION DU MENU
 
@@ -297,7 +364,8 @@ void Scene::update(Message &postman)
 				//on avance vers le bas 
 				newPos = (pos + 1) % menuList.size();
 			}
-			else if (m_inSystem.checkTriggeredAction(AC_UP)){
+			
+			if (m_inSystem.checkTriggeredAction(AC_UP)){
 				//on recule vers le haut
 				newPos = (pos - 1) % menuList.size();
 			}
@@ -333,8 +401,6 @@ void Scene::update(Message &postman)
 	{
 		//std::cout << "pew!\n";
 		postman.addMessage("game", "Input", MS_SHOOT, 1);
-		
-		
 	}
 
 	GraphicsSystem::initFrame();
@@ -352,7 +418,7 @@ void Scene::update(Message &postman)
 			}
 
 			std::shared_ptr<PhysicsComponent> pc = currentObj->get<PhysicsComponent>();
-			if (pc != nullptr && !m_pause && !m_map){
+			if (pc != nullptr && ((!m_pause && !m_map)  || (m_id != "game") ) ){
 				//DÉCISION DE MOUVEMENT : JOUEUR
 				if (!m_cineSystem.isPlaying()){
 					if (currentID == "player") {
@@ -473,7 +539,9 @@ void Scene::update(Message &postman)
 
 				if (m_id == "game"){
 					if (m_pause){
-						GraphicsSystem::printAt("Pause", 500, 250, 400, 100);
+						//SI EN PAUSE ******************************************
+						GraphicsSystem::printAt("Pause", (SCREEN_W - 140) / 2 , SCREEN_H / 5, 140, 60);
+
 					}
 
 					if (currentID.find("hud") != std::string::npos) { // si l'objet fait partie du hud
@@ -583,7 +651,7 @@ void Scene::update(Message &postman)
 	//MusSystem
 	m_musSytem.update(postman);
 
-	if (m_inSystem.checkTriggeredAction(AC_EXIT))
+	if ((m_inSystem.checkTriggeredAction(AC_EXIT) && m_pause && m_id == "game") || (m_id == "menu" && m_pause))
 		postman.addMessage("Action", "Button", MS_EXIT_REQUEST, 1);
 
 	GraphicsSystem::endFrame(postman, m_gameObjects);

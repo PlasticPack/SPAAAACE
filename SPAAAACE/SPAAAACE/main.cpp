@@ -26,9 +26,9 @@ int main(int argc, char* argv[]){
 	Scene savesMenu("scripts/scene_menu", "saves/menu2.xml", "savesMenu");
 	Scene menu("scripts/scene_menu", "saves/menu.xml", "menu");
 	
-	Scene save1("scripts/scene_game", "saves/final.xml", "game");
-	Scene save2("scripts/scene_game", "saves/final.xml", "game");
-	Scene save3("scripts/scene_game", "saves/final.xml", "game");
+	Scene save1("scripts/scene_game", "saves/save1.xml", "game");
+	Scene save2("scripts/scene_game", "saves/save2.xml", "game");
+	Scene save3("scripts/scene_game", "saves/save3.xml", "game");
 
 	Message postman;
 
@@ -68,6 +68,16 @@ int main(int argc, char* argv[]){
 			postman.addMessage("main", "main", MS_SWITCHED, 1);
 			GraphicsSystem::reset();
 			currentScene = std::make_shared<Scene>(save3);
+		}
+
+		if (postman.getMessage("Scene", "Menu", MS_RESETSAVE) == 1){
+			save1.reset();
+		}
+		if (postman.getMessage("Scene", "Menu", MS_RESETSAVE) == 2){
+			save2.reset();
+		}
+		if (postman.getMessage("Scene", "Menu", MS_RESETSAVE) == 3){
+			save3.reset();
 		}
 
 		/*else if (postman.getMessage("Action", "Button", MS_MENU)) {

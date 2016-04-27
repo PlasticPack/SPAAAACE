@@ -361,7 +361,7 @@ void GraphicsSystem::endFrame(Message &postman, std::map<std::string, std::share
 				//objets 
 				Vec2 screenSize(SCREEN_W - 150, SCREEN_H - 150);
 				//proportions 16:9 présumées
-				Vec2 mapSize(200000, 111250); // taolle arbitraire  16:9
+				Vec2 mapSize(800000, 311250); // taolle arbitraire  16:9
 
 				for (auto const& it : objs){
 					if (it.first.find("hud") == std::string::npos && it.second->get<GraphicsComponent>() != nullptr && it.first.find("objective") == std::string::npos){

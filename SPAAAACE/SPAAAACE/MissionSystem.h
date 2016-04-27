@@ -25,7 +25,8 @@ public:
 	std::string getCurrentTarget() { return m_objectives[m_currentObjective].targetID; }
 	Vec2 getObjPosition() { return m_objPosition; };
 	void setObjPosition(Vec2 v) { m_objPosition = v; };
-
+	s_objective getObjective(std::string l) { return m_objectives[l]; }
+	void activateObjective(std::string name, bool a = true) { if(m_objectives.find(name) != m_objectives.end())  m_objectives[name].done = a; }
 
 protected:
 	//liste des objectifs

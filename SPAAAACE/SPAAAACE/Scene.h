@@ -68,6 +68,8 @@ public:
 	
 	void update(Message &postman);
 	void init(std::string arg, std::string xml); // méthode qui prend un script  et initialise le vector de gameObjects
+	void clear();
+	void reset();
 
 	void orderByZIndex();
 
@@ -154,15 +156,21 @@ protected:
 	std::string m_id;
 	std::string m_focusedID;
 
+	std::string m_saveTarget;
+	std::string m_scriptSource;
 	std::shared_ptr<MissionSystem> m_missionSystem;
 	MusicSystem m_musSytem;
 	InputsSystem m_inSystem;
 	CinemaSystem m_cineSystem;
+
+	//en attendant les key presses/release
 	LTimer m_navigationTimer;
 	LTimer m_dialogueTimer;
 	LTimer m_pauseTimer;
 	LTimer m_mapTimer;
 	LTimer m_selectTimer;
+	LTimer m_loadTimer;
+	LTimer m_saveTimer;
 
 	bool m_map = false;
 	bool m_pause = false;

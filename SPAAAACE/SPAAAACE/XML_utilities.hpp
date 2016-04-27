@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include "Scene.h"
 #include "GameObject.h"
 #include"PhysicsComponent.h"
 #include"GraphicsComponent.h"
@@ -20,7 +21,7 @@
 
 
 namespace XML_u{
-	bool loadObjects(std::vector<std::shared_ptr<GameObject> > &pureObjects, std::map<std::string, std::shared_ptr<GameObject> > roughtObjects, const std::string &filepath);
-	bool saveObjects(std::vector<std::shared_ptr<GameObject> > &objects, const std::string &filepath);
-	bool saveObjects(std::map<std::string, std::shared_ptr<GameObject>> &objects, const std::string &filepath);
+	bool loadObjects(Scene *s, std::vector<std::shared_ptr<GameObject> > &pureObjects, std::map<std::string, std::shared_ptr<GameObject> > roughtObjects, const std::string &filepath);
+	bool saveObjects(Scene *s, std::vector<std::shared_ptr<GameObject> > &objects, const std::string &filepath);
+	bool saveObjects(Scene *s, std::map<std::string, std::shared_ptr<GameObject>> &objects, const std::string &filepath);
 }

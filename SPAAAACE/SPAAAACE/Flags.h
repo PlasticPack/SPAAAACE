@@ -26,7 +26,10 @@ enum message
 	MS_FUEL_LEVEL,
 	MS_PAUSE,
 	MS_MAP,
-	MS_OBJ_DONE
+	MS_OBJ_DONE,
+	MS_SAVING,
+	MS_LOADSAVE,
+	MS_RESETSAVE
 };
 
 /*
@@ -103,6 +106,11 @@ enum action // METTRE NOUVELLEs ACTIONS ICI
 	AC_LEFT,
 	AC_RIGHT,
 	AC_NEXT,
+	AC_MAP,
+	AC_PAUSE,
+	AC_SAVE,
+	AC_LOAD,
+	AC_RESTART,
 	AC_NUMBER_OF_ACTION // Mettre tout autre action AVANT celle-ci
 };
 
