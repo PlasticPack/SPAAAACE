@@ -1,86 +1,23 @@
-<<<<<<< HEAD
-﻿La génération a démarré 26/04/2016 00:54:28.
-     1>Projet "C:\Users\PlasticPack\Documents\GitHub\SPAAAACE\SPAAAACE\SPAAAACE\SPAAAACE.vcxproj" sur le nœud 2 (Build cible(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\Boost /I..\..\Lua\5.2\include /I"..\..\LuaBridge-master\Source\LuaBridge" /I..\..\SDL2_ttf\include /I..\..\tinyxml /I"..\..\SDL2_mixer-2.0.1\include" /I"..\..\SDL2_image-2.0.1\include" /I"..\..\SDL2-2.0.4\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt MusicSystem.cpp
-         MusicSystem.cpp
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\PlasticPack\Documents\GitHub\SPAAAACE\SPAAAACE\Release\SPAAAACE.exe" /NOLOGO /LIBPATH:..\..\Boost\stage\lib /LIBPATH:..\..\SDL2_ttf\lib\x86 /LIBPATH:"..\..\SDL2_mixer-2.0.1\lib\x86" /LIBPATH:"..\..\SDL2_image-2.0.1\lib\x86" /LIBPATH:"..\..\SDL2-2.0.4\lib\x86" /LIBPATH:..\..\Lua\5.2\lib lua5.2.lib SDL2main.lib SDL2.lib SDL2_image.lib SDL2_mixer.lib SDL2_ttf.lib "boost_filesystem-vc120-mt-1_60.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\PlasticPack\Documents\GitHub\SPAAAACE\SPAAAACE\Release\SPAAAACE.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\PlasticPack\Documents\GitHub\SPAAAACE\SPAAAACE\Release\SPAAAACE.lib" /MACHINE:X86 /SAFESEH Release\tinystr.obj
-         Release\tinyxml.obj
-         Release\tinyxmlerror.obj
-         Release\tinyxmlparser.obj
-         Release\ActionComponent.obj
-         Release\ActionSystem.obj
-         Release\AiComponent.obj
-         Release\AiSystem.obj
-         Release\boostExemple.obj
-         Release\CinemaSystem.obj
-         Release\Cinematique.obj
-         Release\Component.obj
-         Release\GameLogicComponent.obj
-         Release\GameLogicSystem.obj
-         Release\GameObject.obj
-         Release\GraphicsComponent.obj
-         Release\GraphicsSystem.obj
-         Release\LTimer.obj
-         Release\InputsComponent.obj
-         Release\InputSystem.obj
-         Release\LuaFunctions.obj
-         Release\main.obj
-         Release\Message.obj
-         Release\MissionSystem.obj
-         Release\MusicSystem.obj
-         Release\Musique.obj
-         Release\PhysicsComponent.obj
-         Release\PhysicsSystem.obj
-         Release\PositionComponent.obj
-         Release\Scene.obj
-         Release\scriptinit_exemple.obj
-         Release\Son.obj
-         Release\Source1.obj
-         Release\Sprite.obj
-         Release\SpriteSheet.obj
-         Release\Vec2.obj
-         Release\XML_utilityfunctions.obj
-         Génération de code en cours
-     1>c:\users\plasticpack\documents\github\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(153): warning C4715: 'GraphicsSystem::loadTexture' : les chemins de contrôle ne retournent pas tous une valeur
-         Fin de la génération du code
-         SPAAAACE.vcxproj -> C:\Users\PlasticPack\Documents\GitHub\SPAAAACE\SPAAAACE\Release\SPAAAACE.exe
-     1>Génération du projet "C:\Users\PlasticPack\Documents\GitHub\SPAAAACE\SPAAAACE\SPAAAACE\SPAAAACE.vcxproj" terminée (Build cible(s)).
-
-La génération a réussi.
-
-Temps écoulé 00:00:07.61
-=======
-﻿  MissionSystem.cpp
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\GraphicsSystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
-MissionSystem.cpp(73): warning C4805: '==' : mélange risqué de type 'double' et de type 'bool' dans l'opération
-  Scene.cpp
+﻿  Scene.cpp
 c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\GraphicsSystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
 c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\LuaInit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
           c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\PhysicsSystem.h(19) : voir la déclaration de 'Scene'
 c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\Command.h(158): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-Scene.cpp(32): warning C4018: '<' : incompatibilité signed/unsigned
-Scene.cpp(56): warning C4018: '<' : incompatibilité signed/unsigned
-Scene.cpp(178): warning C4018: '<' : incompatibilité signed/unsigned
-Scene.cpp(187): warning C4018: '<' : incompatibilité signed/unsigned
-Scene.cpp(198): warning C4018: '<' : incompatibilité signed/unsigned
-Scene.cpp(201): warning C4018: '<' : incompatibilité signed/unsigned
-Scene.cpp(211): warning C4018: '<' : incompatibilité signed/unsigned
-Scene.cpp(343): warning C4018: '<' : incompatibilité signed/unsigned
-Scene.cpp(437): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+Scene.cpp(31): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(55): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(209): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(218): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(229): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(232): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(242): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(410): warning C4018: '<' : incompatibilité signed/unsigned
+Scene.cpp(496): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+Scene.cpp(650): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+Scene.cpp(651): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
   Génération de code en cours
 c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(151): warning C4715: 'GraphicsSystem::loadTexture' : les chemins de contrôle ne retournent pas tous une valeur
   Fin de la génération du code
-tinystr.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'tinystr.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
-tinyxml.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'tinyxml.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
-tinyxmlerror.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'tinyxmlerror.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
-tinyxmlparser.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'tinyxmlparser.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
 boostExemple.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'boostExemple.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
-LTimer.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'LTimer.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
-Musique.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'Musique.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
 scriptinit_exemple.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'scriptinit_exemple.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
-Son.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'Son.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
 Source1.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'Source1.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
   SPAAAACE.vcxproj -> C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\SPAAAACE.exe
->>>>>>> debut_map_level

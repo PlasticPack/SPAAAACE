@@ -248,7 +248,7 @@ void Scene::orderByZIndex(){
 
 Scene::~Scene()
 {
-
+	clear();
 	//GraphicsSystem::close();
 }
 
@@ -279,7 +279,7 @@ void Scene::update(Message &postman)
 		postman.addMessage("game", "Input", 0, 1);
 
 	if (m_inSystem.checkTriggeredAction(AC_PAUSE)) {
-		if (m_pauseTimer.getTicks() > 450) {
+		if (m_pauseTimer.getTicks() > 400) {
 			postman.addMessage("Scene", "Input", MS_PAUSE, 1);
 			m_pauseTimer.stop();
 			m_pauseTimer.start();
@@ -289,6 +289,7 @@ void Scene::update(Message &postman)
 
 	if (m_pause && m_id == "savesMenu"){
 		//retour menu
+		postman.addMessage("Scene", "Input", MS_MENU, 1);
 	}
 
 	if (m_inSystem.checkTriggeredAction(AC_MAP)) {
@@ -640,9 +641,18 @@ void Scene::update(Message &postman)
 			GraphicsSystem::print("Mission terminée.");
 		}
 	}
+	else if (m_id == "savesMenu"){
+		Vec2 basePos(0, 0);
+		if (m_gameObjects.find(m_focusedID) != m_gameObjects.end()){
+			basePos = m_gameObjects[m_focusedID]->get<PositionComponent>()->getPosition() + Vec2(300, 0);
+		}
+
+		GraphicsSystem::printAt("R - Supprimer et recommencer", basePos.x(), basePos.y() + 5, 300, 30);
+		GraphicsSystem::printAt("Enter - Jouer",				basePos.x(), basePos.y() + 35, 150, 30);
+	}
 
 	if (postman.getMessage("Action", "Trigger", 34061) > 0) {
-		GraphicsSystem::print("TRRRIIIIGGGERREDDD oh thats rude");
+		//GraphicsSystem::print("TRRRIIIIGGGERREDDD oh thats rude");
 	
 	}
 	
