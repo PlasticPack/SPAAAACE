@@ -1,5 +1,6 @@
 <ai>
     <ai0>
+        <id>ai0</id>
         <mass>2.000000</mass>
         <velocity>
             <x>0.000000</x>
@@ -15,6 +16,7 @@
         </position>
     </ai0>
     <ai1>
+        <id>ai1</id>
         <mass>2.000000</mass>
         <velocity>
             <x>0.000000</x>
@@ -32,6 +34,7 @@
 </ai>
 <base>
     <base0>
+        <id>base</id>
         <mass>6000.000000</mass>
         <velocity>
             <x>-15.522793</x>
@@ -48,25 +51,38 @@
     </base0>
 </base>
 <hud_base_pointer>
-    <hud_base_pointer0 />
+    <hud_base_pointer0>
+        <id>hud_base_pointer</id>
+    </hud_base_pointer0>
 </hud_base_pointer>
 <hud_fuel>
-    <hud_fuel0 />
+    <hud_fuel0>
+        <id>hud_fuel</id>
+    </hud_fuel0>
 </hud_fuel>
 <hud_fuel_container>
-    <hud_fuel_container0 />
+    <hud_fuel_container0>
+        <id>hud_fuel_container</id>
+    </hud_fuel_container0>
 </hud_fuel_container>
 <hud_life>
-    <hud_life0 />
+    <hud_life0>
+        <id>hud_life</id>
+    </hud_life0>
 </hud_life>
 <hud_life_container>
-    <hud_life_container0 />
+    <hud_life_container0>
+        <id>hud_life_container</id>
+    </hud_life_container0>
 </hud_life_container>
 <hud_obj_pointer>
-    <hud_obj_pointer0 />
+    <hud_obj_pointer0>
+        <id>hud_obj_pointer</id>
+    </hud_obj_pointer0>
 </hud_obj_pointer>
 <objective_1>
     <objective_10>
+        <id>objective_1</id>
         <mass>1.000000</mass>
         <velocity>
             <x>0.000000</x>
@@ -84,6 +100,7 @@
 </objective_1>
 <objective_2>
     <objective_20>
+        <id>objective_2</id>
         <mass>1.000000</mass>
         <velocity>
             <x>0.000000</x>
@@ -101,6 +118,7 @@
 </objective_2>
 <objective_3>
     <objective_30>
+        <id>objective_3</id>
         <mass>1.000000</mass>
         <velocity>
             <x>0.000000</x>
@@ -118,6 +136,7 @@
 </objective_3>
 <planet>
     <planet0>
+        <id>planet</id>
         <mass>700.000000</mass>
         <velocity>
             <x>212.243107</x>
@@ -133,7 +152,7 @@
         </position>
     </planet0>
     <planet1>
-		<id>planet_1</id>
+        <id>planet_1</id>
         <mass>700.000000</mass>
         <velocity>
             <x>220.517277</x>
@@ -151,18 +170,37 @@
 </planet>
 <player>
     <player0>
+        <id>player</id>
         <mass>4.000000</mass>
         <velocity>
-            <x>-1470.169643</x>
-            <y>411.534672</y>
+            <x>0.000000</x>
+            <y>0.000000</y>
         </velocity>
         <forces>
             <x>0.000000</x>
             <y>0.000000</y>
         </forces>
         <position>
-            <x>4267.728261</x>
-            <y>3664.825846</y>
+            <x>-5000.000000</x>
+            <y>-400.000000</y>
         </position>
     </player0>
 </player>
+<yog_sogoth>
+    <yog_sogoth0>
+        <id>yog_sogoth</id>
+        <mass>6000.000000</mass>
+        <velocity>
+            <x>160.000000</x>
+            <y>-160.000000</y>
+        </velocity>
+        <forces>
+            <x>0.000000</x>
+            <y>0.000000</y>
+        </forces>
+        <position>
+            <x>84000.000000</x>
+            <y>-18000.000000</y>
+        </position>
+    </yog_sogoth0>
+</yog_sogoth>

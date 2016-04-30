@@ -26,4 +26,7 @@ public:
 	
 	void clearAll(void);
 
+	//temporaire, bugfixing
+	int getNumberOfMsg() { return m_messages.size(); }
+
 };

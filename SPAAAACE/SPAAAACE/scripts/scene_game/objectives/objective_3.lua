@@ -4,11 +4,11 @@ objective_3 = {
 		y = -4000
 	},
 	Physics = {
-		hitbox = 3200,
+		hitbox = 31200,
 		activated = "false"
 	},
 	Action = {
-		trigger = "player objective_3 34048 1",
+		trigger = "player yog_sogoth 34048 1",
 		answer = "Action objective_3 34063 1",
 		timer = 1
 	},
