@@ -1,6 +1,6 @@
 button_play = {
 	Position = {
-		x = 125,
+		x = 50,
 		y = 650,
 	},
 	Graphics = {

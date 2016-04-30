@@ -4,7 +4,7 @@ objective_2 = {
 		y = 2000,
 	},
 	Physics = {
-		hitbox = 800,
+		hitbox = 1300,
 		activated = "false"
 	},
 	Action = {

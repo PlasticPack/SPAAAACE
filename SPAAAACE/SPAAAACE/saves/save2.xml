@@ -116,6 +116,9 @@
         </position>
     </objective_30>
 </objective_3>
+<!--<objective_4>
+    <ob/>
+</objective_4>-->
 <planet>
     <planet0>
         <mass>700.000000</mass>
@@ -149,20 +152,25 @@
         </position>
     </planet1>
 </planet>
+<yog_sogoth>
+	<a>
+		<id>yog_sogoth</id>
+	</a>
+</yog_sogoth>
 <player>
     <player0>
         <mass>4.000000</mass>
         <velocity>
-            <x>-1470.169643</x>
-            <y>411.534672</y>
+            <x>0</x>
+            <y>0</y>
         </velocity>
         <forces>
             <x>0.000000</x>
             <y>0.000000</y>
         </forces>
         <position>
-            <x>4267.728261</x>
-            <y>3664.825846</y>
+             <x>-5000</x>
+            <y>-400</y>
         </position>
     </player0>
 </player>

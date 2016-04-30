@@ -248,7 +248,7 @@ void Scene::orderByZIndex(){
 
 Scene::~Scene()
 {
-
+	clear();
 	//GraphicsSystem::close();
 }
 
@@ -278,8 +278,8 @@ void Scene::update(Message &postman)
 	if (m_inSystem.checkTriggeredAction(AC_START))
 		postman.addMessage("game", "Input", 0, 1);
 
-	if (m_inSystem.checkTriggeredAction(AC_PAUSE)) {
-		if (m_pauseTimer.getTicks() > 450) {
+	if (m_inSystem.checkTriggeredAction(AC_PAUSE) && !m_map) {
+		if (m_pauseTimer.getTicks() > 400) {
 			postman.addMessage("Scene", "Input", MS_PAUSE, 1);
 			m_pauseTimer.stop();
 			m_pauseTimer.start();
@@ -289,6 +289,7 @@ void Scene::update(Message &postman)
 
 	if (m_pause && m_id == "savesMenu"){
 		//retour menu
+		postman.addMessage("Scene", "Input", MS_MENU, 1);
 	}
 
 	if (m_inSystem.checkTriggeredAction(AC_MAP)) {
@@ -497,6 +498,11 @@ void Scene::update(Message &postman)
 
 			auto GLC = currentObj->get<GameLogicComponent>();
 			if (GLC != nullptr){
+				//SI LE JOUEUR EST SUR LA BASE, ++ Fuel
+				if (currentID == "player" && postman.getMessage("player", "base", MS_COLLISION) == 1){
+					GLC->setFuel(GLC->getCurrentFuel() + 0.5);
+				}
+
 				GameLogicSystem::update(postman, currentObj, *GLC, 1.0 / GraphicsSystem::getFPS());
 			}
 
@@ -586,7 +592,8 @@ void Scene::update(Message &postman)
 						else if (id == "hud_obj_pointer"){
 							if (m_missionSystem->getCurrentObjective() != "null"){
 								Vec2 direction = objPos - playerPos;
-								if (direction.getLength() > SCREEN_W){
+								//std::cout << "HEYHEY\n " << m_gameObjects[m_missionSystem->getCurrentTarget()]->get<PhysicsComponent>()->getHitboxRadius();
+								if (direction.getLength() > m_gameObjects[m_missionSystem->getCurrentObjective()]->get<PhysicsComponent>()->getHitboxRadius()){
 
 									currentObj->get<PositionComponent>()->setAngle(direction.getAngle());
 
@@ -640,9 +647,18 @@ void Scene::update(Message &postman)
 			GraphicsSystem::print("Mission terminée.");
 		}
 	}
+	else if (m_id == "savesMenu"){
+		Vec2 basePos(0, 0);
+		if (m_gameObjects.find(m_focusedID) != m_gameObjects.end()){
+			basePos = m_gameObjects[m_focusedID]->get<PositionComponent>()->getPosition() + Vec2(300, 0);
+		}
+
+		GraphicsSystem::printAt("R - Supprimer et recommencer", basePos.x(), basePos.y() + 5, 300, 30);
+		GraphicsSystem::printAt("Enter - Jouer",				basePos.x(), basePos.y() + 35, 150, 30);
+	}
 
 	if (postman.getMessage("Action", "Trigger", 34061) > 0) {
-		GraphicsSystem::print("TRRRIIIIGGGERREDDD oh thats rude");
+		//GraphicsSystem::print("TRRRIIIIGGGERREDDD oh thats rude");
 	
 	}
 	
@@ -653,6 +669,8 @@ void Scene::update(Message &postman)
 
 	if ((m_inSystem.checkTriggeredAction(AC_EXIT) && m_pause && m_id == "game") || (m_id == "menu" && m_pause))
 		postman.addMessage("Action", "Button", MS_EXIT_REQUEST, 1);
+
+	GraphicsSystem::printAt(std::to_string(postman.getNumberOfMsg()), 300, 200);
 
 	GraphicsSystem::endFrame(postman, m_gameObjects);
 }

@@ -69,6 +69,10 @@ int main(int argc, char* argv[]){
 			GraphicsSystem::reset();
 			currentScene = std::make_shared<Scene>(save3);
 		}
+		else if (postman.getMessage("Scene", "Input", MS_MENU)) {
+			GraphicsSystem::reset();
+			currentScene = std::make_shared<Scene>(menu);
+		}
 
 		if (postman.getMessage("Scene", "Menu", MS_RESETSAVE) == 1){
 			save1.reset();
@@ -79,11 +83,6 @@ int main(int argc, char* argv[]){
 		if (postman.getMessage("Scene", "Menu", MS_RESETSAVE) == 3){
 			save3.reset();
 		}
-
-		/*else if (postman.getMessage("Action", "Button", MS_MENU)) {
-			//GraphicsSystem::reset();
-			currentScene = std::make_shared<Scene>(menu);
-		}*/
 
 	}
 	GraphicsSystem::close();
