@@ -24,7 +24,6 @@ public:
 		auto it = m_components.find(std::type_index(typeid(T))); // on trouve la position du component
 
 		if (it != m_components.end()) {
-			//std::cout << "\nFOUND COMP : " << std::type_index(typeid(T)).name();
 
 			return std::dynamic_pointer_cast<T>(it->second); // on retourne le component si trouvé
 		}

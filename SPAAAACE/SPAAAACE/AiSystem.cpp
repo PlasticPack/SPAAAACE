@@ -35,7 +35,7 @@ void AiSystem::verifVision(std::shared_ptr <AiComponent> ac){
 		ac->getPhysicsComponent()->setVelocity(vecTest*1500);
 	}
 	else*/
-	if (ac->getPhysicsComponent()->getPosition().getDist(ac->getTarget()->getPosition()) < 1500)
+	if (ac->getPhysicsComponent()->getPosition().getDist(ac->getTarget()->getPosition()) < 100000)
 	{
 		mouvementCont(ac);
 	}
@@ -48,7 +48,10 @@ void AiSystem::verifVision(std::shared_ptr <AiComponent> ac){
 }
 
 void AiSystem::verifObject(std::shared_ptr <AiComponent> ac){
-	if (ac->getPhysicsComponent()->getPosition().getDist(ac->getNearDanger()->getPosition()) <= (ac->getNearDanger()->getHitboxRadius() + 100))
+/*	if ((ac->getPhysicsComponent()->getPosition().getDist(ac->getNearDanger()->getPosition()) <= (ac->getNearDanger()->getHitboxRadius() + 1000)) && (ac->getPhysicsComponent()->getPosition().getDist(ac->getNearDanger()->getPosition()) >= (ac->getNearDanger()->getHitboxRadius() + 500))){
+		decc(ac);
+	}
+	else*/ if ((ac->getPhysicsComponent()->getPosition().getDist(ac->getNearDanger()->getPosition()) <= (ac->getNearDanger()->getHitboxRadius() + 500)))
 	{
 		evitement(ac);
 	}
@@ -83,7 +86,11 @@ void AiSystem::evitement(std::shared_ptr <AiComponent> ac){
 		}
 	}
 
-	ac->getPhysicsComponent()->setForces(vecDirection * ac->getGLComponent()->getEnginePower());
+	vecDirection = vecDirection + Vec2(ac->getNearDanger()->getPosition() - ac->getPhysicsComponent()->getPosition()).getNormalized();
+	
+	std::cout << vecDirection.x() << " , " << vecDirection.y() <<" AI" << std::endl;
+
+	ac->getPhysicsComponent()->setForces(vecDirection *2000);
 	
 	
 
@@ -96,12 +103,12 @@ void AiSystem::mouvementCont(std::shared_ptr <AiComponent> ac){
 	vecDirection.normalize();;
 
 	if (fabs(vecDirection.x()) > fabs(vecDirection.y())){
-		ac->getPhysicsComponent()->setForces(Vec2(vecDirection.x() * ac->getGLComponent()->getEnginePower, 0));
+		ac->getPhysicsComponent()->setForces(Vec2(vecDirection.x() * 2000, 0));
 		
 
 	}
 	else if (fabs(vecDirection.x()) < fabs(vecDirection.y())){
-		ac->getPhysicsComponent()->setForces(Vec2(0, vecDirection.y() * ac->getGLComponent()->getEnginePower));
+		ac->getPhysicsComponent()->setForces(Vec2(0, vecDirection.y() * 2000));
 	}
 	/*else{
 		ac->getPhysicsComponent()->setForces(vecTest.operator*(1500));
@@ -161,20 +168,19 @@ void AiSystem::mouvementAcc(std::shared_ptr <AiComponent> ac){
 
 }
 
-/*
-Revoie la distance minimale pour déccélérer selon
-l'acc (qui est l'équivalent de décc) et la vitesse
-*/
-/*double AiSystem::decc(double vit, double acc, std::shared_ptr <AiComponent> ac)
+
+void AiSystem::decc(std::shared_ptr <AiComponent> ac)
 {
-	int n = ceil(vit / (double)acc);
-	double tot = 0;
-	for (int i = 1; i <= n; i++)
-	{
-		tot += i*acc;
-	}
-	return tot;
-}*/
+	Vec2 vecDirection;
+
+	vecDirection = ac->getPhysicsComponent()->getPosition() - ac->getNearDanger()->getPosition();
+	vecDirection.normalize();
+	//if (ac->getPhysicsComponent()->getVelocity().getLength() > 200){
+		ac->getPhysicsComponent()->setForces(vecDirection * -2000);
+	//}
+	
+
+}
 
 void AiSystem::play(std::shared_ptr <AiComponent> ac){
 	if (ac->isCloseToDanger()){
@@ -182,6 +188,6 @@ void AiSystem::play(std::shared_ptr <AiComponent> ac){
 	}
 	else{
 		verifVision(ac);
-	}	
+	}
 }
 

@@ -36,11 +36,9 @@ PhysicsComponent::PhysicsComponent(luabridge::LuaRef& componentTable, std::share
 	
 	if (massRef.isNumber()){
 		setMass(massRef.cast<double>());
-		//std::cout << "Mass is : " << massRef.cast<double>();
 	}
 	else {
 		setMass(1.0);
-		std::cout << "Mass is : " << getMass();
 	}
 
 	if (activateRef.isString()){

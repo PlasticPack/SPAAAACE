@@ -43,6 +43,8 @@ public:
 	void affectedByCamera(bool c) { m_camera = c; };
 	bool isAffectedByCamera(){ return m_camera; }
 
+	std::string getFilename() { return m_sprite->getCurrentSpriteSheet()->getFilename(); }
+
 protected:
 	//sprite
 	//pointeur sur un renderer/fenetre

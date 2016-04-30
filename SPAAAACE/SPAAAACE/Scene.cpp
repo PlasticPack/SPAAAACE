@@ -1,14 +1,14 @@
 #include "Scene.h"
+#include "Command.h"
 
-
-Scene::Scene(std::string arg, std::string id)
+Scene::Scene(std::string arg, std::string xml, std::string id)
 {
 	m_id = id;
-	init(arg);
+	init(arg, xml);
 }
 
 
-void Scene::init(std::string arg){
+void Scene::init(std::string arg, std::string xml){
 
 	GraphicsSystem::init();
 	MissionSystem::init();
@@ -22,7 +22,7 @@ void Scene::init(std::string arg){
 	}
 
 	std::vector<std::shared_ptr<GameObject>> pure;
-	XML_u::loadObjects(pure, m_gameObjects, "saves/final.xml");
+	XML_u::loadObjects(pure, m_gameObjects, xml);
 
 	//modif des ids
 	m_gameObjects.clear();
@@ -53,7 +53,6 @@ void Scene::init(std::string arg){
 			mapID[pure[i]->getID()] = 1;
 		}
 	}
-
 
 	for (int i = 0; i < pure.size(); i++){
 
@@ -139,6 +138,8 @@ void Scene::init(std::string arg){
 	m_inSystem.setActionTrigger(AC_SELECT, GP_BUTTON_A);
 
 	m_inSystem.setActionTrigger(AC_NEXT, SDL_SCANCODE_N);
+	m_inSystem.setActionTrigger(AC_PAUSE, SDL_SCANCODE_LCTRL);
+	m_inSystem.setActionTrigger(AC_MAP, SDL_SCANCODE_M);
 
 	GraphicsSystem::setFont("ressources/CaviarDreams.ttf", 30, { 225, 220, 255 });
 
@@ -146,8 +147,10 @@ void Scene::init(std::string arg){
 	GraphicsSystem::setCameraZoom(1);
 	m_navigationTimer.start();
 	m_dialogueTimer.start();
+	m_pauseTimer.start();
+	m_mapTimer.start();
 
-	XML_u::saveObjects(m_gameObjects, "saves/final2.xml");
+
 }
 
 void Scene::orderByZIndex(){
@@ -211,6 +214,7 @@ void Scene::orderByZIndex(){
 
 Scene::~Scene()
 {
+	
 	//GraphicsSystem::close();
 }
 
@@ -218,6 +222,7 @@ void Scene::update(Message &postman)
 {
 
 	if (postman.getMessage("main", "main", MS_SWITCHED) == 1) {
+		std::cout << "SWITCHED\n";
 		if (m_id == "game"){ // pour le moment c'est ca
 			GraphicsSystem::clearBackgrounds();
 			GraphicsSystem::loadBackground("ressources/space_1.png", 0);
@@ -233,12 +238,34 @@ void Scene::update(Message &postman)
 		}
 	}
 
-	postman.clearAll();
 	//INPUT GÉNÉRAL
 	m_inSystem.pollInputs();
 	postman.clearAll();
 	if (m_inSystem.checkTriggeredAction(AC_START))
 		postman.addMessage("game", "Input", 0, 1);
+
+	if (m_inSystem.checkTriggeredAction(AC_PAUSE)) {
+		if (m_pauseTimer.getTicks() > 450) {
+			postman.addMessage("Scene", "Input", MS_PAUSE, 1);
+			m_pauseTimer.stop();
+			m_pauseTimer.start();
+			m_pause = !m_pause;
+		}
+	}
+
+	if (m_inSystem.checkTriggeredAction(AC_MAP)) {
+		if (m_mapTimer.getTicks() > 375) {
+			m_mapTimer.stop();
+			m_mapTimer.start();
+			m_map = !m_map;
+		}
+	}
+
+	if (m_map){
+		postman.addMessage("Scene", "Input", MS_MAP, 1);
+	}
+
+
 
 	//GESTION DU MENU
 
@@ -291,6 +318,8 @@ void Scene::update(Message &postman)
 	{
 		//std::cout << "pew!\n";
 		postman.addMessage("game", "Input", MS_SHOOT, 1);
+		
+		
 	}
 
 	GraphicsSystem::initFrame();
@@ -302,27 +331,28 @@ void Scene::update(Message &postman)
 		auto currentObj = m_gameObjects[m_orderedGO[i]];
 
 		if (m_orderedGO[i] == "planet_menu"){
-			GraphicsSystem::setCameraTarget(currentObj->get<PositionComponent>()->getPosition() + Vec2(-SCREEN_W / 2, 0));
+			GraphicsSystem::setCameraTarget(currentObj->get<PositionComponent>()->getPosition() + Vec2(-SCREEN_W/2, 0));
 		}
 
 		//
 
 		//if (m_gameObjects[i]->get<PositionComponent>() != nullptr)
-		//std::cout << m_gameObjects[i]->get<PositionComponent>()->getZIndex() << "\n";
+			//std::cout << m_gameObjects[i]->get<PositionComponent>()->getZIndex() << "\n";
 
 
 		//Vec2 basePos(0, 0), objectivePos(0, 0);
 		std::shared_ptr<PhysicsComponent> pc = currentObj->get<PhysicsComponent>();
-		if (pc != nullptr){
+		if (pc != nullptr && !m_pause && !m_map){
 			/*if (currentID == MissionSystem::getCurrentObjective()){
 				objectivePos = currentObj->get<PositionComponent>()->getPosition();
-				}
+			}
 
-				if (currentID == "base"){
+			if (currentID == "base"){
 				basePos = currentObj->get<PhysicsComponent>()->getPosition();
-				}*/
+			}*/
 
 			//DÉCISION DE MOUVEMENT : JOUEUR
+			if (!m_cineSystem.isPlaying())
 			if (currentID == "player") {
 				if (currentObj->get<GameLogicComponent>()->getCurrentFuel() > 0) { // si assez de fuel
 					//on check la direction du joueur
@@ -383,14 +413,18 @@ void Scene::update(Message &postman)
 
 						pc->setForces(forces);
 					}
-
 				}
-
-
+				
 			}
+			else
+			{
+				m_cineSystem.updateObject(currentObj.get(),postman);
+			}
+
+			pc->setVelocity(Vec2(0, 0));
 			PhysicsSystem::update(postman, this, *pc, m_physicsComps, 1.0 / GraphicsSystem::getFPS());
 		}
-
+		
 
 		if (postman.getMessage("Physics", currentID, MS_COLLISION) > 1){
 			postman.addMessage(currentID, getFatherID<PhysicsComponent>(postman.getMessage("Physics", currentID, MS_COLLISION)), MS_COLLISION, 1);
@@ -402,27 +436,30 @@ void Scene::update(Message &postman)
 		}
 
 
-
 		auto AiC = currentObj->get<AiComponent>();
 		if (AiC != nullptr){
-			for (int j = 1; j < m_physicsComps.size(); j++) {
-				if (getFatherID<PhysicsComponent>(m_physicsComps[j]) == "planets"){
-					if (AiC->getPhysicsComponent()->getPosition().getDist(AiC->getNearDanger()->getPosition()) >= AiC->getPhysicsComponent()->getPosition().getDist(m_physicsComps[j]->getPosition())){
-						AiC->setNearDanger(m_physicsComps[j]);
-					}
-				}
-				else if (getFatherID<PhysicsComponent>(m_physicsComps[j]) == "player"){
+			AiC->setNearDanger(m_physicsComps[0]);
+			for (int j = 0; j < m_physicsComps.size(); j++) {
+				if (getFatherID<PhysicsComponent>(m_physicsComps[j]) == "player"){
 					AiC->setTarget(m_physicsComps[j]);
 				}
+				else {
+					if (AiC->getPhysicsComponent()->getPosition().getDist(AiC->getNearDanger()->getPosition()) >= AiC->getPhysicsComponent()->getPosition().getDist(m_physicsComps[j]->getPosition()) && getFatherID<PhysicsComponent>(m_physicsComps[j]) == "planet_1"){
+						AiC->setNearDanger(m_physicsComps[j]);
+						std::cout << AiC->getNearDanger()->getPosition().x() << " , " << AiC->getNearDanger()->getPosition().y() << std::endl;
+					}
+				}
 			}
-
-			AiSystem::update(AiC);
-
 		}
-
+		
+		if (AiC != nullptr){
+			AiSystem::update(AiC);
+		}
 
 		auto gc = currentObj->get<GraphicsComponent>();
 		if (gc != nullptr){
+
+			bool updateGS = true;
 
 			Vec2 playerPos;
 			Vec2 basePos;
@@ -440,17 +477,22 @@ void Scene::update(Message &postman)
 				gc->getSprite()->setSpriteSheet("default");
 			}
 
-			if (currentID == "player"){
+			if (currentID == "ai"){
 
 				double vel = currentObj->get<PhysicsComponent>()->getVelocity().getLength();
-				double zoom = 0.685;
+				double zoom = 0.1;
 
 				GraphicsSystem::setCameraZoom(zoom);
 				GraphicsSystem::setCameraTarget(gc->getPosition());
 				
 			}
 
+
 			if (m_id == "game"){
+				if (m_pause){
+					GraphicsSystem::printAt("Pause", 500, 250, 400, 100);
+				}
+
 				if (currentID.find("hud") != std::string::npos) { // si l'objet fait partie du hud
 
 					std::string id = currentID;
@@ -462,8 +504,11 @@ void Scene::update(Message &postman)
 							Vec2 baseSize = currentObj->get<GraphicsComponent>()->getMaxSize();
 							double fuel = (double)(m_gameObjects["player"]->get<GameLogicComponent>()->getCurrentFuel()) / (double)m_gameObjects["player"]->get<GameLogicComponent>()->getMaxFuel();
 							currentObj->get<GraphicsComponent>()->setSize(Vec2(baseSize.x() * fuel, baseSize.y()));
-
+							
+							
 						}
+						postman.addMessage("HUD", "FUEL", MS_FUEL_LEVEL, m_gameObjects["player"]->get<GameLogicComponent>()->getCurrentFuel());
+						
 					}
 					else if (id == "hud_life"){
 						//if (postman.getMessage("GameLogic", currentID, MS_LIFE_DOWN) > 0) {
@@ -475,7 +520,7 @@ void Scene::update(Message &postman)
 					}
 					else if (id == "hud_base_pointer"){
 						Vec2 direction = basePos - playerPos;
-						if (direction.getLength() > 0){
+						if (direction.getLength() > SCREEN_W ){
 							currentObj->get<PositionComponent>()->setAngle(direction.getAngle());
 							double size = 25000.0 / (direction.getLength());
 
@@ -487,11 +532,13 @@ void Scene::update(Message &postman)
 							currentObj->get<GraphicsComponent>()->setSize(currentObj->get<GraphicsComponent>()->getMaxSize() *size);
 							currentObj->get<PositionComponent>()->setPosition(getPointerPosition(direction, 32));
 						}
+						else
+							updateGS = false;
 					}
 					else if (id == "hud_obj_pointer"){
 						if (MissionSystem::getCurrentObjective() != "null"){
 							Vec2 direction = objPos - playerPos;
-							if (direction.getLength() > 0){
+							if (direction.getLength() > SCREEN_W){
 
 								currentObj->get<PositionComponent>()->setAngle(direction.getAngle());
 
@@ -505,17 +552,19 @@ void Scene::update(Message &postman)
 								currentObj->get<GraphicsComponent>()->setSize(currentObj->get<GraphicsComponent>()->getMaxSize() *size);
 								currentObj->get<PositionComponent>()->setPosition(getPointerPosition(direction, 32));
 							}
+							else
+								updateGS = false;
 						}
 						else {
 							//on affiche pas le truc
+							updateGS = false;
 						}
 					}
 				}
 			}
-
-			GraphicsSystem::update(postman, currentID,*gc, 1.0 / GraphicsSystem::getFPS());
+			if (updateGS && !m_map)
+				GraphicsSystem::update(postman, currentID,*gc, 1.0 / GraphicsSystem::getFPS());
 		}
-
 	}
 
 	std::map<std::string, std::shared_ptr<GameObject>>::iterator it;
@@ -529,7 +578,7 @@ void Scene::update(Message &postman)
 	if (m_id == "game"){
 		MissionSystem::update(postman, m_gameObjects);
 
-		std::cout << MissionSystem::getCurrentObjective() << "\n";
+		//std::cout << MissionSystem::getCurrentObjective() << "\n";
 
 		if (postman.getMessage("MissionSystem", "Mission", MS_MISSION_OVER) == 1){
 			//std::cout << "OVER!!!";
@@ -542,13 +591,13 @@ void Scene::update(Message &postman)
 	
 	}
 	
+	m_cineSystem.update(postman);
+	
 	//MusSystem
-	//m_musSytem.update(postman);
+	m_musSytem.update(postman);
 
 	if (m_inSystem.checkTriggeredAction(AC_EXIT))
 		postman.addMessage("Action", "Button", MS_EXIT_REQUEST, 1);
 
-
-
-	GraphicsSystem::endFrame(postman);
+	GraphicsSystem::endFrame(postman, m_gameObjects);
 }

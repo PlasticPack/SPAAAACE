@@ -1,3 +1,35 @@
+<ai>
+    <ai0>
+        <mass>2.000000</mass>
+        <velocity>
+            <x>0.000000</x>
+            <y>0.000000</y>
+        </velocity>
+        <forces>
+            <x>0.000000</x>
+            <y>0.000000</y>
+        </forces>
+        <position>
+            <x>-400.000000</x>
+            <y>200.000000</y>
+        </position>
+    </ai0>
+    <ai1>
+        <mass>2.000000</mass>
+        <velocity>
+            <x>0.000000</x>
+            <y>0.000000</y>
+        </velocity>
+        <forces>
+            <x>0.000000</x>
+            <y>0.000000</y>
+        </forces>
+        <position>
+            <x>-200.000000</x>
+            <y>300.000000</y>
+        </position>
+    </ai1>
+</ai>
 <base>
     <base0>
         <mass>6000.000000</mass>
@@ -84,8 +116,23 @@
         </position>
     </objective_30>
 </objective_3>
-<planet10>
-    <planet100>
+<planet>
+    <planet0>
+        <mass>700.000000</mass>
+        <velocity>
+            <x>150.000000</x>
+            <y>-160.000000</y>
+        </velocity>
+        <forces>
+            <x>0.000000</x>
+            <y>0.000000</y>
+        </forces>
+        <position>
+            <x>-1000.000000</x>
+            <y>-2000.000000</y>
+        </position>
+    </planet0>
+    <planet1>
         <mass>700.000000</mass>
         <velocity>
             <x>150.000000</x>
@@ -99,25 +146,8 @@
             <x>0.000000</x>
             <y>2000.000000</y>
         </position>
-    </planet100>
-</planet10>
-<planet11>
-    <planet110>
-        <mass>700.000000</mass>
-        <velocity>
-            <x>150.000000</x>
-            <y>160.000000</y>
-        </velocity>
-        <forces>
-            <x>0.000000</x>
-            <y>0.000000</y>
-        </forces>
-        <position>
-            <x>0.000000</x>
-            <y>2000.000000</y>
-        </position>
-    </planet110>
-</planet11>
+    </planet1>
+</planet>
 <player>
     <player0>
         <mass>4.000000</mass>

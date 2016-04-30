@@ -19,4 +19,5 @@ public:
 
 	//Fonctions
 	void update(Message &postman); // Hard-code de music
+	static void stopMusic(int fadeOut);
 };

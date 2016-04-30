@@ -23,15 +23,12 @@ int main(int argc, char* argv[]){
 
 
 
-	//Scene menu("scripts/scene_menu", "menu");
-
-
-
-	Scene game("scripts/scene_game", "game");
+	Scene menu("scripts/scene_menu", "saves/menu.xml", "menu");
+	Scene game("scripts/scene_game", "saves/final.xml", "game");
 	Message postman;
 
 	postman.addMessage("main", "main", MS_SWITCHED, 1);
-	std::shared_ptr<Scene> currentScene = std::make_shared<Scene>(game);
+	std::shared_ptr<Scene> currentScene = std::make_shared<Scene>(menu);
 
 	while (!quit)
 	{
@@ -43,8 +40,10 @@ int main(int argc, char* argv[]){
 		}
 		else if (postman.getMessage("Action", "Button", MS_PLAY)){
 			postman.addMessage("main", "main", MS_SWITCHED, 1);
+			GraphicsSystem::reset();
 			currentScene = std::make_shared<Scene>(game);
 		}
+
 		/*else if (postman.getMessage("Action", "Button", MS_MENU)) {
 			//GraphicsSystem::reset();
 			currentScene = std::make_shared<Scene>(menu);

@@ -11,7 +11,7 @@
 #include <exception>
 #include "MusicSystem.h"
 #include <iterator>
-
+#include "CinemaSystem.h"
 #include "XML_utilities.hpp"
 
 /*********************************************
@@ -63,11 +63,11 @@ class Scene
 {
 public:
 
-	Scene(std::string arg, std::string);
+	Scene(std::string arg, std::string xml, std::string);
 	~Scene();
 	
 	void update(Message &postman);
-	void init(std::string arg); // méthode qui prend un script  et initialise le vector de gameObjects
+	void init(std::string arg, std::string xml); // méthode qui prend un script  et initialise le vector de gameObjects
 
 	void orderByZIndex();
 
@@ -75,7 +75,6 @@ public:
 	template <typename T> void addComponent(std::shared_ptr<Component> c){
 		 
 		//m_components[t].push_back(c);
-		//std::cout << "Added a " << std::type_index(typeid(T)).name() << " to Scene\n";
 		if (std::type_index(typeid(T)) == std::type_index(typeid(PositionComponent))){
 			m_posComps.push_back(std::dynamic_pointer_cast<PositionComponent>(c));
 		}
@@ -144,9 +143,13 @@ protected:
 
 	MusicSystem m_musSytem;
 	InputsSystem m_inSystem;
-
+	CinemaSystem m_cineSystem;
 	LTimer m_navigationTimer;
 	LTimer m_dialogueTimer;
+	LTimer m_pauseTimer;
+	LTimer m_mapTimer;
+	bool m_map = false;
+	bool m_pause = false;
 };
 
 bool zSort(std::shared_ptr<GameObject> g1, std::shared_ptr<GameObject> g2);

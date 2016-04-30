@@ -1,17 +1,61 @@
+<!--<player>
+	<main>
+		<position>
+			<x>3000</x>
+			<y>200</y>
+		</position>
+	</main>
+</player>
+<ai>
+	<a>
+		<position>
+			<x>300</x>
+			<y>200</y>
+		</position>
+	</a>
+</ai>
+<base>
+	<a1>
+	</a1>
+</base>
+<planet>
+	<aa>
+		<id>planet_1</id>
+	</aa>
+</planet>
+<!-- 
+PAS TOUCHER AUX SECTIONS APRÈS CECI
+--
+<hud_base_pointer>
+	<a></a>
+</hud_base_pointer>
+<hud_fuel>
+	<a></a>
+</hud_fuel>
+<hud_fuel_container>
+	<a></a>
+</hud_fuel_container>
+<hud_life>
+	<a></a>
+</hud_life>
+<hud_life_container>
+	<a></a>
+</hud_life_container>
+<hud_obj_pointer>
+	<a></a>
+</hud_obj_pointer>
+<objective_1><a></a></objective_1>
+<objective_2><a></a></objective_2>
+<objective_3><a></a></objective_3>
+-->
+
+
+
 <base>
     <base0>
-        <mass>6000.000000</mass>
-        <velocity>
-            <x>0.000000</x>
-            <y>0.000000</y>
-        </velocity>
-        <forces>
-            <x>0.000000</x>
-            <y>0.000000</y>
-        </forces>
-        <position>
-            <x>8000.000000</x>
-            <y>0.000000</y>
+	<position>
+            <x>10000000000.000000</x>
+            <y>10000000000.000000</y>
         </position>
     </base0>
 </base>
@@ -86,10 +130,11 @@
 </objective_3>
 <planet>
     <planet0>
+		<id>planet_1</id>
         <mass>700.000000</mass>
         <velocity>
-            <x>150.000000</x>
-            <y>160.000000</y>
+            <x>0.000000</x>
+            <y>0.000000</y>
         </velocity>
         <forces>
             <x>0.000000</x>
@@ -100,22 +145,22 @@
             <y>2000.000000</y>
         </position>
     </planet0>
-    <planet1>
-        <mass>700.000000</mass>
-        <velocity>
-            <x>150.000000</x>
-            <y>160.000000</y>
-        </velocity>
-        <forces>
-            <x>0.000000</x>
-            <y>0.000000</y>
-        </forces>
-        <position>
-            <x>0.000000</x>
-            <y>2000.000000</y>
+	<a>
+	<position>
+            <x>1000000000000000000000000.000000</x>
+            <y>1000000000000000000000000.000000</y>
         </position>
-    </planet1>
+	</a>
 </planet>
+<ai>
+	<a>
+		<position>
+			<x>0.000000</x>
+			<y>-400.000000</y>
+		</position>
+	</a>
+	
+</ai>
 <player>
     <player0>
         <mass>4.000000</mass>
@@ -128,8 +173,8 @@
             <y>0.000000</y>
         </forces>
         <position>
-            <x>3000.000000</x>
-            <y>200.000000</y>
+            <x>0.000000</x>
+            <y>3000.000000</y>
         </position>
     </player0>
 </player>

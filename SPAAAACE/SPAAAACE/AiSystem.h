@@ -13,7 +13,7 @@ public:
 	static void evitement(std::shared_ptr <AiComponent> ac);
 	static void mouvementCont(std::shared_ptr <AiComponent> ac);
 	static void mouvementAcc(std::shared_ptr <AiComponent> ac);
-	static double decc(double vit, double acc, std::shared_ptr <AiComponent> ac);
+	static void decc(std::shared_ptr <AiComponent> ac);
 	static void selectionMouvement(std::shared_ptr <AiComponent> ac);
 	static void play(std::shared_ptr <AiComponent> ac);
 
