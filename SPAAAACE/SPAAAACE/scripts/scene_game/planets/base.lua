@@ -11,7 +11,7 @@ base = {
 		vel_a = 4
 	},
 	Graphics = {
-		filename = "ressources/planet_1.png",
+		filename = "ressources/base.png",
 		width = 3000,
 		height = 3000
 	}

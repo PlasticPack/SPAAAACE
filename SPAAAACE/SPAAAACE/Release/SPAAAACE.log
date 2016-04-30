@@ -1,74 +1,4 @@
-﻿  ActionComponent.cpp
-ActionComponent.cpp(41): warning C4018: '<' : incompatibilité signed/unsigned
-  ActionSystem.cpp
-ActionSystem.cpp(6): warning C4018: '>' : incompatibilité signed/unsigned
-  AiComponent.cpp
-  AiSystem.cpp
-AiSystem.cpp(11): warning C4018: '<' : incompatibilité signed/unsigned
-  CinemaSystem.cpp
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\GraphicsSystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\Command.h(158): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-  Cinematique.cpp
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\GraphicsSystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\Command.h(158): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-  Component.cpp
-  GameLogicComponent.cpp
-  GameLogicSystem.cpp
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\GraphicsSystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
-GameLogicSystem.cpp(25): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-GameLogicSystem.cpp(42): warning C4244: 'argument' : conversion de 'double' en 'unsigned int', perte possible de données
-  GameObject.cpp
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\GraphicsSystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
-  GraphicsComponent.cpp
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\GraphicsSystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
-GraphicsComponent.cpp(50): warning C4018: '<' : incompatibilité signed/unsigned
-  GraphicsSystem.cpp
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\GraphicsSystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
-GraphicsSystem.cpp(250): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-GraphicsSystem.cpp(259): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-GraphicsSystem.cpp(291): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-GraphicsSystem.cpp(309): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-GraphicsSystem.cpp(310): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-GraphicsSystem.cpp(315): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-GraphicsSystem.cpp(316): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-GraphicsSystem.cpp(321): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-GraphicsSystem.cpp(324): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-GraphicsSystem.cpp(328): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-GraphicsSystem.cpp(330): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-GraphicsSystem.cpp(397): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-GraphicsSystem.cpp(451): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-  InputSystem.cpp
-InputSystem.cpp(62): warning C4018: '>' : incompatibilité signed/unsigned
-InputSystem.cpp(155): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
-  InputsComponent.cpp
-  LuaFunctions.cpp
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\GraphicsSystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\Command.h(158): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\LuaInit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
-          c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\Scene.h(63) : voir la déclaration de 'Scene'
-LuaFunctions.cpp(169): warning C4018: '<' : incompatibilité signed/unsigned
-LuaFunctions.cpp(190): warning C4018: '<' : incompatibilité signed/unsigned
-  Message.cpp
-  MissionSystem.cpp
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\GraphicsSystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
-MissionSystem.cpp(75): warning C4805: '==' : mélange risqué de type 'double' et de type 'bool' dans l'opération
-  MusicSystem.cpp
-  PhysicsComponent.cpp
-  PhysicsSystem.cpp
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\GraphicsSystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\LuaInit.hpp(22): warning C4099: 'Scene' : nom de type déjà rencontré avec 'struct' et utilisant maintenant 'class'
-          c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\LuaInit.hpp(20) : voir la déclaration de 'Scene'
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\Command.h(158): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\Scene.h(63): warning C4099: 'Scene' : nom de type déjà rencontré avec 'struct' et utilisant maintenant 'class'
-          c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\LuaInit.hpp(20) : voir la déclaration de 'Scene'
-PhysicsSystem.cpp(70): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-PhysicsSystem.cpp(103): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-PhysicsSystem.cpp(158): warning C4018: '<' : incompatibilité signed/unsigned
-PhysicsSystem.cpp(159): warning C4018: '<' : incompatibilité signed/unsigned
-PhysicsSystem.cpp(194): warning C4018: '<' : incompatibilité signed/unsigned
-  Compilation en cours...
-  PositionComponent.cpp
-  Scene.cpp
+﻿  Scene.cpp
 c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\GraphicsSystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
 c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\LuaInit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
           c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\PhysicsSystem.h(19) : voir la déclaration de 'Scene'
@@ -81,29 +11,9 @@ Scene.cpp(229): warning C4018: '<' : incompatibilité signed/unsigned
 Scene.cpp(232): warning C4018: '<' : incompatibilité signed/unsigned
 Scene.cpp(242): warning C4018: '<' : incompatibilité signed/unsigned
 Scene.cpp(410): warning C4018: '<' : incompatibilité signed/unsigned
-Scene.cpp(496): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
 Scene.cpp(503): warning C4244: 'argument' : conversion de 'double' en 'unsigned int', perte possible de données
 Scene.cpp(656): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
 Scene.cpp(657): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
-  XML_utilityfunctions.cpp
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\GraphicsSystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\LuaInit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
-          c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\PhysicsSystem.h(19) : voir la déclaration de 'Scene'
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\Command.h(158): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-XML_utilityfunctions.cpp(168): warning C4018: '<' : incompatibilité signed/unsigned
-XML_utilityfunctions.cpp(204): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
-XML_utilityfunctions.cpp(205): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
-XML_utilityfunctions.cpp(281): warning C4067: jetons inattendus après la directive du préprocesseur - saut de ligne attendu
-XML_utilityfunctions.cpp(283): warning C4067: jetons inattendus après la directive du préprocesseur - saut de ligne attendu
-XML_utilityfunctions.cpp(284): warning C4067: jetons inattendus après la directive du préprocesseur - saut de ligne attendu
-XML_utilityfunctions.cpp(285): warning C4067: jetons inattendus après la directive du préprocesseur - saut de ligne attendu
-XML_utilityfunctions.cpp(286): warning C4067: jetons inattendus après la directive du préprocesseur - saut de ligne attendu
-  main.cpp
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\GraphicsSystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\LuaInit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
-          c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\PhysicsSystem.h(19) : voir la déclaration de 'Scene'
-c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\Command.h(158): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-main.cpp(22): warning C4101: 'e' : variable locale non référencée
   Génération de code en cours
 c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(151): warning C4715: 'GraphicsSystem::loadTexture' : les chemins de contrôle ne retournent pas tous une valeur
   Fin de la génération du code
