@@ -1,6 +1,6 @@
 #include "Musique.h"
 
-Musique::Musique(std::string filepath)
+Musique::Musique(std::string filepath) : m_isPlaying(false)
 {
 	m_musique = Mix_LoadMUS(filepath.c_str());
 	m_filePath = filepath;
@@ -15,6 +15,7 @@ Musique& Musique::operator=(const Musique &musique)
 {
 	m_musique = Mix_LoadMUS(musique.m_filePath.c_str());
 	m_filePath = musique.m_filePath;
+	m_isPlaying = musique.m_isPlaying;
 	return *this;
 }
 
@@ -30,14 +31,19 @@ Musique::~Musique()
 
 void Musique::play(unsigned fadeIn)
 {
-	if (Mix_PausedMusic()) Mix_ResumeMusic();
-	else
-	Mix_FadeInMusic(m_musique,-1,fadeIn);
+	if (!m_isPlaying)
+	{
+		m_isPlaying = true;
+		if (Mix_PausedMusic()) Mix_ResumeMusic();
+		else
+		Mix_FadeInMusic(m_musique,-1,fadeIn);
+	}
 }
 
 void Musique::stop(unsigned fadeOut)
 {
 	Mix_FadeOutMusic(fadeOut);
+	m_isPlaying = false;
 }
 
 void Musique::pause()

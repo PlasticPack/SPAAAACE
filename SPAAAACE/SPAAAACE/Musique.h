@@ -9,12 +9,14 @@ class Musique
 private:
 	Mix_Music* m_musique;
 	std::string m_filePath;
+	bool m_isPlaying;
 public:
 	Musique(std::string filepath);
 	Musique();
 	Musique(const Musique &musique);
 	~Musique();
 
+	bool isPlaying(){ return m_isPlaying; }
 	void play(unsigned fadeIn = 0);
 	void stop(unsigned fadeOut = 0);
 	void pause();

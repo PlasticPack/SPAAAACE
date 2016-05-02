@@ -20,6 +20,11 @@ enum message
 	MS_SWITCHED,
 	MS_OBJECTIVE,
 	MS_MISSION_OVER,
+<<<<<<< HEAD
+	MS_FUEL_LEVEL,
+	MS_PAUSE,
+	MS_MAP
+=======
 	MS_SAVE1,
 	MS_SAVE2,
 	MS_SAVE3,
@@ -30,6 +35,7 @@ enum message
 	MS_SAVING,
 	MS_LOADSAVE,
 	MS_RESETSAVE
+>>>>>>> master
 };
 
 /*
@@ -106,11 +112,16 @@ enum action // METTRE NOUVELLEs ACTIONS ICI
 	AC_LEFT,
 	AC_RIGHT,
 	AC_NEXT,
+<<<<<<< HEAD
+	AC_PAUSE,
+	AC_MAP,
+=======
 	AC_MAP,
 	AC_PAUSE,
 	AC_SAVE,
 	AC_LOAD,
 	AC_RESTART,
+>>>>>>> master
 	AC_NUMBER_OF_ACTION // Mettre tout autre action AVANT celle-ci
 };
 

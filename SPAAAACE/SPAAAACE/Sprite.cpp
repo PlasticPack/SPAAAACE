@@ -49,6 +49,6 @@ void Sprite::setSpriteSheet(std::string id){
 		m_spriteSheets[id]->setAnimationSpeed(m_animationSpeed);
 		m_currentSpriteSheet = id;
 	}
-	//else
-		//std::cout << "sprsheet " << id << " not found\n";
+	else
+		 std::cout << "sprsheet " << id << " not found\n";
 }

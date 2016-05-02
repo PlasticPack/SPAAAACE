@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+﻿La génération a démarré 02/05/2016 00:26:30.
+     1>Projet "C:\Users\PlasticPack\Documents\GitHub\SPAAAACE\SPAAAACE\SPAAAACE\SPAAAACE.vcxproj" sur le nœud 2 (Build cible(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\Boost /I..\..\Lua\5.2\include /I"..\..\LuaBridge-master\Source\LuaBridge" /I..\..\SDL2_ttf\include /I..\..\tinyxml /I"..\..\SDL2_mixer-2.0.1\include" /I"..\..\SDL2_image-2.0.1\include" /I"..\..\SDL2-2.0.4\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt MusicSystem.cpp
+         MusicSystem.cpp
+     1>MusicSystem.cpp(39): error C2143: erreur de syntaxe : absence de ';' avant '}'
+     1>MusicSystem.cpp(62): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+     1>Génération du projet "C:\Users\PlasticPack\Documents\GitHub\SPAAAACE\SPAAAACE\SPAAAACE\SPAAAACE.vcxproj" terminée (Build cible(s)) -- ÉCHEC.
+=======
 ﻿La génération a démarré 01/05/2016 22:23:33.
      1>Projet "C:\Users\PlasticPack\Documents\GitHub\SPAAAACE\SPAAAACE\SPAAAACE\SPAAAACE.vcxproj" sur le nœud 2 (Build cible(s)).
      1>ClCompile:
@@ -46,7 +56,12 @@
          Fin de la génération du code
          SPAAAACE.vcxproj -> C:\Users\PlasticPack\Documents\GitHub\SPAAAACE\SPAAAACE\Release\SPAAAACE.exe
      1>Génération du projet "C:\Users\PlasticPack\Documents\GitHub\SPAAAACE\SPAAAACE\SPAAAACE\SPAAAACE.vcxproj" terminée (Build cible(s)).
+>>>>>>> master
 
-La génération a réussi.
+ÉCHEC de la build.
 
+<<<<<<< HEAD
+Temps écoulé 00:00:00.88
+=======
 Temps écoulé 00:00:09.50
+>>>>>>> master
