@@ -1,6 +1,6 @@
 #include "XML_utilities.hpp"
 
-bool XML_u::loadObjects(std::vector<std::shared_ptr<GameObject> > &pureObjects, std::map<std::string, std::shared_ptr<GameObject>> roughtObjects, const std::string &filepath){
+bool XML_u::loadObjects(Scene *s, std::vector<std::shared_ptr<GameObject> > &pureObjects, std::map<std::string, std::shared_ptr<GameObject>> roughtObjects, const std::string &filepath){
 	//Pure objects are the objects after having been initialised corrrectly, and so
 	//should only be used as so and at the very end of that process. 
 	//Rought objects are the molds that are used to make the pure objects. They are
@@ -61,7 +61,23 @@ bool XML_u::loadObjects(std::vector<std::shared_ptr<GameObject> > &pureObjects, 
 									//object->setID(node->GetText());
 									object->idSet(true);
 								}
+								else if (strcmp("trigger", node->Value()) == 0){
+									if (object->hasComponent(idn(ActionComponent))){
+										object->get<ActionComponent>()->setTrigger(stringToMessage(node->GetText()));
+									}
+								}
+								else if (strcmp("answer", node->Value()) == 0){
+									if (object->hasComponent(idn(ActionComponent))){
+										object->get<ActionComponent>()->setAnswer(stringToMessage(node->GetText()));
+									}
+								}
 								
+								if (strcmp("done", node->Value()) == 0){
+									//si c'est un objectif
+									if (object->getID().find("objective") != std::string::npos){
+										s->getMissionSystem()->activateObjective(object->getID(), true);
+									}
+								}
 							}
 							else{
 								//std::cout << "Has non-attributes" << std::endl;
@@ -146,7 +162,7 @@ bool XML_u::loadObjects(std::vector<std::shared_ptr<GameObject> > &pureObjects, 
 	return true;
 }
 
-bool XML_u::saveObjects(std::vector<std::shared_ptr<GameObject> > &objects, const std::string &filepath){
+bool XML_u::saveObjects(Scene *s, std::vector<std::shared_ptr<GameObject> > &objects, const std::string &filepath){
 	std::map<std::string, std::vector<std::shared_ptr<GameObject>>> objects_byTypes;
 	//Dont't touch this part, very important for class differ
 	for (int i = 0; i < objects.size(); i++){
@@ -164,9 +180,24 @@ bool XML_u::saveObjects(std::vector<std::shared_ptr<GameObject> > &objects, cons
 		element script = new_element(iterator->first);
 		int cpt = 0;
 		for (std::shared_ptr<GameObject> object : iterator->second){
+
 			element elements = new_element(iterator->first
 				+ std::to_string(cpt)
 				);
+
+			element id = new_element(STR(id));
+			id->LinkEndChild(new_text(object->getID()));
+			elements->LinkEndChild(id);
+
+			if (object->getID().find("objective") != std::string::npos){
+
+				if (s->getMissionSystem()->getObjective(object->getID()).done){
+					element done = new_element(STR(done));
+					done->LinkEndChild(new_text(""));
+					elements->LinkEndChild(done);
+				}
+			}
+
 			if (object->hasComponent(idn(PositionComponent)))
 			{
 				element position = new_element(STR(position));
@@ -237,12 +268,12 @@ bool XML_u::saveObjects(std::vector<std::shared_ptr<GameObject> > &objects, cons
 	//declaration->
 }
 
-bool XML_u::saveObjects(std::map<std::string, std::shared_ptr<GameObject>> &objects, const std::string &filepath){
+bool XML_u::saveObjects(Scene *s,std::map<std::string, std::shared_ptr<GameObject>> &objects, const std::string &filepath){
 	std::vector<std::shared_ptr<GameObject>> pure_objs;
 	for (std::pair<std::string, std::shared_ptr<GameObject>> obj : objects){
 		pure_objs.push_back(obj.second);
 	}
-	return XML_u::saveObjects(pure_objs, filepath);
+	return XML_u::saveObjects(s, pure_objs, filepath);
 }
 
 #undef idn

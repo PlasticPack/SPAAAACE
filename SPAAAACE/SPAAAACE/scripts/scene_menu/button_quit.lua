@@ -1,6 +1,6 @@
 button_quit = {
 	Position = {
-		x = 150,
+		x = 50,
 		y = 750,
 	},
 	Graphics = {

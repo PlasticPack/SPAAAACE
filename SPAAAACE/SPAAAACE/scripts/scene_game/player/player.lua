@@ -10,12 +10,18 @@ player = {
 		elasticity = 0.8
 	},
 	Graphics = {
+<<<<<<< HEAD
 		filename = "default__ressources/single_ship.png 55explosion__ressources/explosion.png",	
 		anim_speed = 20,
 		},
+=======
+		filename = "default__ressources/single_ship.png 55explosion__ressources/explosion.png",
+		anim_speed = 12
+	},
+>>>>>>> master
 	GameLogic =  {
-		pwr = 3000,
+		pwr = 4000,
 		fuel = 40000,
-		life = 30
+		life = 15
 	}
 }

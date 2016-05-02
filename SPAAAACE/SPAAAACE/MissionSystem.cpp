@@ -1,11 +1,9 @@
 #include "MissionSystem.h"
 #include <LuaBridge.h>
 
-std::map<std::string, s_objective> MissionSystem::m_objectives;
-std::string MissionSystem::m_currentObjective = "objective_1";
-Vec2 MissionSystem::m_objPosition = Vec2(0, 0);
 
-MissionSystem::MissionSystem()
+
+MissionSystem::MissionSystem() : m_objectives(), m_currentObjective ("objective_1"), m_objPosition(0, 0)
 {
 }
 
@@ -19,10 +17,13 @@ void MissionSystem::addObjective(luabridge::LuaRef& componentTable){
 	using namespace luabridge;
 	auto name = componentTable["name"];
 	auto target = componentTable["target"];
+	auto done = componentTable["done"];
 	
 	if (name.isString()){
-		m_objectives["objective_" + std::to_string(m_objectives.size() + 1)] = { name, "none", false };
+		int size = m_objectives.size();
+		m_objectives["objective_" + std::to_string(size + 1)] = { name, "none", false };
 		if (target.isString()){
+			std::cout << "TARGETING " << target.cast < std::string>() << "\n";
 			m_objectives["objective_" + std::to_string(m_objectives.size())].targetID = target.cast<std::string>();
 		}
 		m_currentObjective = m_objectives.begin()->first;
@@ -71,7 +72,7 @@ void MissionSystem::update(Message &postman, std::map<std::string, std::shared_p
 		}
 	}
 
-	if (postman.getMessage("Action", m_currentObjective, MS_OBJECTIVE) == true){
+	if (postman.getMessage("Action", m_currentObjective, MS_OBJECTIVE) == true || m_objectives[m_currentObjective].done == true){
 		//std::cout << "JEUEJEJKAGDPIUPOSHDUIOAHSDSDAG:I\n\nHGDPIASDUIASDH\n\n";
 		m_objectives[m_currentObjective].done = true;
 		//std::cout << m_currentObjective << "\n";

@@ -25,6 +25,9 @@ public:
 	typeSingleMessage getTrigger() { return m_trigger; }
 	typeSingleMessage getAnswer() { return m_answer; }
 
+	void setTrigger(typeSingleMessage t) { m_trigger = t; }
+	void setAnswer(typeSingleMessage a) { m_answer = a; }
+
 	int getCooldown() { return m_cooldown; }
 	void resetTimer() { m_timer.stop(); m_timer.start(); }
 	LTimer getTimer() { return m_timer; }
@@ -38,5 +41,7 @@ protected:
 	LTimer m_timer;
 	int m_cooldown;
 };
+
+typeSingleMessage stringToMessage(std::string  trig);
 
 #endif 

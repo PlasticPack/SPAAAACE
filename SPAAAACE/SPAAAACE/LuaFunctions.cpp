@@ -163,7 +163,7 @@ std::vector<std::string> getFiles(const std::string& filepath, const std::string
 	return files;
 }
 
-void luain::loadFromRep(std::vector<std::shared_ptr<GameObject>> &objects, const std::string& filepath, const std::string& ext){
+void luain::loadFromRep(std::vector<std::shared_ptr<GameObject>> &objects, Scene *s, const std::string& filepath, const std::string& ext){
 	std::vector<std::string> files_dir = getFiles(filepath,ext);
 	if (!files_dir.empty()){
 		for (int i = 0; i < files_dir.size(); i++){
@@ -173,7 +173,7 @@ void luain::loadFromRep(std::vector<std::shared_ptr<GameObject>> &objects, const
 			luaL_dofile(L, std::string(files_dir[i]).c_str());
 			loadGetKeysFunction(L);
 			boost::filesystem::path p(files_dir[i]);
-			std::shared_ptr<GameObject> obj = loadGameObjects(L, p.stem().string());
+			std::shared_ptr<GameObject> obj = loadGameObjects(L, s, p.stem().string());
 			//boost::filesystem::path p(files_dir[i]);
 			obj->setID(p.stem().string());
 			obj->setType(p.stem().string());
@@ -184,7 +184,7 @@ void luain::loadFromRep(std::vector<std::shared_ptr<GameObject>> &objects, const
 	
 }
 
-void luain::loadFromRep(std::map<std::string, std::shared_ptr<GameObject>> &objs, const std::string& filepath, const std::string& ext){
+void luain::loadFromRep(std::map<std::string, std::shared_ptr<GameObject>> &objs, Scene *s, const std::string& filepath, const std::string& ext){
 	std::vector<std::string> files_dir = getFiles(filepath, ext);
 	if (!files_dir.empty()){
 		for (int i = 0; i < files_dir.size(); i++){
@@ -194,7 +194,7 @@ void luain::loadFromRep(std::map<std::string, std::shared_ptr<GameObject>> &objs
 			luaL_dofile(L, std::string(files_dir[i]).c_str());
 			loadGetKeysFunction(L);
 			boost::filesystem::path p(files_dir[i]);
-			std::shared_ptr<GameObject> obj = loadGameObjects(L, p.stem().string());
+			std::shared_ptr<GameObject> obj = loadGameObjects(L, s, p.stem().string());
 			//boost::filesystem::path p(files_dir[i]);
 			if (objs.find(p.stem().string()) == objs.end()){
 				obj->setID(p.stem().string());
@@ -217,7 +217,7 @@ void addComponent(std::shared_ptr<GameObject> e, luabridge::LuaRef& componentTab
 	//s->addComponent<T>(e->get<T>());
 }
 
-std::shared_ptr<GameObject> luain::loadGameObjects(lua_State* L, const std::string& type){
+std::shared_ptr<GameObject> luain::loadGameObjects(lua_State* L, Scene* s, const std::string& type){
 	using namespace luabridge;
 	std::shared_ptr<GameObject> obj = std::make_shared<GameObject>();
 	obj->setID(type);
@@ -248,7 +248,7 @@ std::shared_ptr<GameObject> luain::loadGameObjects(lua_State* L, const std::stri
 		} 
 		else if (componentName == "Objective"){
 			LuaRef ObjTable = entityTable[componentName];
-			MissionSystem::addObjective(ObjTable);
+			s->getMissionSystem()->addObjective(ObjTable);
 		}
 		else if (componentName == "AI"){
 			LuaRef ACTable = entityTable[componentName];

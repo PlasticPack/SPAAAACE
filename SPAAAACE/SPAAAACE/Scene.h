@@ -68,6 +68,8 @@ public:
 	
 	void update(Message &postman);
 	void init(std::string arg, std::string xml); // méthode qui prend un script  et initialise le vector de gameObjects
+	void clear();
+	void reset();
 
 	void orderByZIndex();
 
@@ -127,6 +129,18 @@ public:
 		return str;
 	}
 
+	std::shared_ptr<MissionSystem> getMissionSystem() {
+		return m_missionSystem;
+	}
+
+	void syncTimers(Scene& other){
+		m_navigationTimer = other.m_navigationTimer;
+		m_dialogueTimer = other.m_dialogueTimer;
+		m_pauseTimer = other.m_pauseTimer;
+		m_mapTimer = other.m_mapTimer;
+		m_selectTimer = other.m_selectTimer;
+	}
+
 protected:
 	std::map<std::string, std::shared_ptr<GameObject>> m_gameObjects;
 	std::vector<std::string> m_orderedGO;
@@ -142,13 +156,22 @@ protected:
 	std::string m_id;
 	std::string m_focusedID;
 
+	std::string m_saveTarget;
+	std::string m_scriptSource;
+	std::shared_ptr<MissionSystem> m_missionSystem;
 	MusicSystem m_musSytem;
 	InputsSystem m_inSystem;
 	CinemaSystem m_cineSystem;
+
+	//en attendant les key presses/release
 	LTimer m_navigationTimer;
 	LTimer m_dialogueTimer;
 	LTimer m_pauseTimer;
 	LTimer m_mapTimer;
+	LTimer m_selectTimer;
+	LTimer m_loadTimer;
+	LTimer m_saveTimer;
+
 	bool m_map = false;
 	bool m_pause = false;
 };

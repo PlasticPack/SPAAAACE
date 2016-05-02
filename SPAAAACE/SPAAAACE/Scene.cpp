@@ -1,28 +1,26 @@
 #include "Scene.h"
 #include "Command.h"
 
-Scene::Scene(std::string arg, std::string xml, std::string id)
+Scene::Scene(std::string arg, std::string xml, std::string id) : m_id(id), m_missionSystem(std::make_shared<MissionSystem>()), m_saveTarget(xml), m_scriptSource(arg)
 {
-	m_id = id;
+	GraphicsSystem::init();
+	m_missionSystem->init();
 	init(arg, xml);
 }
 
 
 void Scene::init(std::string arg, std::string xml){
-
-	GraphicsSystem::init();
-	MissionSystem::init();
 	//AJOUTEZ VOS OBJETS ICI! **********************************************
 
 	try {
-		luain::loadFromRep(m_gameObjects, arg);
+		luain::loadFromRep(m_gameObjects,this, arg);
 	}
 	catch (std::exception e){
 		std::cout << e.what() << "\n";
 	}
 
 	std::vector<std::shared_ptr<GameObject>> pure;
-	XML_u::loadObjects(pure, m_gameObjects, xml);
+	XML_u::loadObjects(this, pure, m_gameObjects, xml);
 
 	//modif des ids
 	m_gameObjects.clear();
@@ -118,9 +116,12 @@ void Scene::init(std::string arg, std::string xml){
 	if (m_id == "menu"){
 		m_focusedID = "button_play";
 	}
+	else if (m_id == "savesMenu"){
+		m_focusedID = "button_save1";
+	}
 
 	//Inputs init
-	m_inSystem.setActionTrigger(AC_EXIT, SDL_SCANCODE_ESCAPE);
+	m_inSystem.setActionTrigger(AC_EXIT, SDL_SCANCODE_Q);
 	
 	//initialise le mouvement du joueur selon le clavier
 	m_inSystem.setActionTrigger(AC_SHOOT, SDL_SCANCODE_SPACE);
@@ -138,8 +139,14 @@ void Scene::init(std::string arg, std::string xml){
 	m_inSystem.setActionTrigger(AC_SELECT, GP_BUTTON_A);
 
 	m_inSystem.setActionTrigger(AC_NEXT, SDL_SCANCODE_N);
-	m_inSystem.setActionTrigger(AC_PAUSE, SDL_SCANCODE_LCTRL);
+	m_inSystem.setActionTrigger(AC_PAUSE, SDL_SCANCODE_ESCAPE);
 	m_inSystem.setActionTrigger(AC_MAP, SDL_SCANCODE_M);
+
+	m_inSystem.setActionTrigger(AC_RESTART, SDL_SCANCODE_R);
+
+	m_inSystem.setActionTrigger(AC_SAVE, SDL_SCANCODE_F5);
+	m_inSystem.setActionTrigger(AC_LOAD, SDL_SCANCODE_F9);
+
 
 	GraphicsSystem::setFont("ressources/CaviarDreams.ttf", 30, { 225, 220, 255 });
 
@@ -147,10 +154,37 @@ void Scene::init(std::string arg, std::string xml){
 	GraphicsSystem::setCameraZoom(1);
 	m_navigationTimer.start();
 	m_dialogueTimer.start();
+	m_selectTimer.start();
 	m_pauseTimer.start();
+	m_loadTimer.start();
+	m_saveTimer.start();
 	m_mapTimer.start();
 
-	XML_u::saveObjects(m_gameObjects, "saves/final2.xml");
+	//XML_u::saveObjects(m_gameObjects, "saves/final2.xml");
+}
+
+void Scene::clear(){
+	m_gameObjects.clear();
+	m_orderedGO.clear();
+
+	m_posComps.clear();
+	m_graphicsComps.clear();
+	m_physicsComps.clear();
+	m_GLComps.clear();
+	m_ActionComps.clear();
+	m_AiComps.clear();
+
+	m_missionSystem.reset();
+	m_missionSystem = std::make_shared<MissionSystem>();
+	
+	m_map = false;
+	m_pause = false;
+}
+
+void Scene::reset(){
+	clear();
+	init("scripts/scene_game", "saves/default.xml");
+	XML_u::saveObjects(this, m_gameObjects, m_saveTarget);
 }
 
 void Scene::orderByZIndex(){
@@ -214,6 +248,7 @@ void Scene::orderByZIndex(){
 
 Scene::~Scene()
 {
+	clear();
 	//GraphicsSystem::close();
 }
 
@@ -229,7 +264,7 @@ void Scene::update(Message &postman)
 			GraphicsSystem::loadBackground("ressources/space_3.png", 2);
 		}
 
-		if (m_id == "menu"){ // pour le moment c'est ca
+		if (m_id == "menu" || m_id == "savesMenu"){ // pour le moment c'est ca
 			GraphicsSystem::clearBackgrounds();
 			GraphicsSystem::loadBackground("ressources/space_1.png", 0, 255, 100, 100);
 			GraphicsSystem::loadBackground("ressources/space_2.png", 1, 100, 255, 100);
@@ -245,13 +280,18 @@ void Scene::update(Message &postman)
 	if (m_inSystem.checkTriggeredAction(AC_START))
 		postman.addMessage("game", "Input", 0, 1);
 
-	if (m_inSystem.checkTriggeredAction(AC_PAUSE)) {
-		if (m_pauseTimer.getTicks() > 450) {
+	if (m_inSystem.checkTriggeredAction(AC_PAUSE) && !m_map) {
+		if (m_pauseTimer.getTicks() > 400) {
 			postman.addMessage("Scene", "Input", MS_PAUSE, 1);
 			m_pauseTimer.stop();
 			m_pauseTimer.start();
 			m_pause = !m_pause;
 		}
+	}
+
+	if (m_pause && m_id == "savesMenu"){
+		//retour menu
+		postman.addMessage("Scene", "Input", MS_MENU, 1);
 	}
 
 	if (m_inSystem.checkTriggeredAction(AC_MAP)) {
@@ -262,24 +302,63 @@ void Scene::update(Message &postman)
 		}
 	}
 
+	if (m_inSystem.checkTriggeredAction(AC_SAVE)) {
+		if (m_saveTimer.getTicks() > 375) {
+			GraphicsSystem::print("Sauvegarde effectuée");
+			XML_u::saveObjects(this,m_gameObjects, m_saveTarget);
+			m_saveTimer.stop();
+			m_saveTimer.start();
+		}
+	}
+
+	if (m_inSystem.checkTriggeredAction(AC_LOAD)) {
+		if (m_loadTimer.getTicks() > 375) {
+			GraphicsSystem::print("Chargement...");
+
+			clear();
+			init(m_scriptSource, m_saveTarget);
+
+			m_loadTimer.stop();
+			m_loadTimer.start();
+		}
+	}
+
 	if (m_map){
 		postman.addMessage("Scene", "Input", MS_MAP, 1);
 	}
 
-
+	if (m_id == "savesMenu" && m_inSystem.checkTriggeredAction(AC_RESTART)){
+		
+		if (m_focusedID == "button_save1"){
+			postman.addMessage("Scene", "Menu", MS_RESETSAVE, 1);
+		}
+		if (m_focusedID == "button_save2"){
+			postman.addMessage("Scene", "Menu", MS_RESETSAVE, 2);
+		}
+		if (m_focusedID == "button_save3"){
+			postman.addMessage("Scene", "Menu", MS_RESETSAVE, 3);
+		}
+	}
 
 	//GESTION DU MENU
 
 	//NAVIGATION AVEC FLÈCHES
-	if (m_id == "menu"){
+	if (m_id == "menu" || m_id == "savesMenu"){
 
 		//en attendant gestion press/release
 		if (m_navigationTimer.getTicks() > 200){
 
 			//création du "template" de menu
 			std::vector<std::string> menuList;
-			menuList.push_back("button_play");
-			menuList.push_back("button_quit");
+			if (m_id == "menu") {
+				menuList.push_back("button_play");
+				menuList.push_back("button_quit");
+			}
+			else {
+				menuList.push_back("button_save1");
+				menuList.push_back("button_save2");
+				menuList.push_back("button_save3");
+			}
 
 			int pos = std::find(menuList.begin(), menuList.end(), m_focusedID) - menuList.begin();
 
@@ -288,7 +367,8 @@ void Scene::update(Message &postman)
 				//on avance vers le bas 
 				newPos = (pos + 1) % menuList.size();
 			}
-			else if (m_inSystem.checkTriggeredAction(AC_UP)){
+			
+			if (m_inSystem.checkTriggeredAction(AC_UP)){
 				//on recule vers le haut
 				newPos = (pos - 1) % menuList.size();
 			}
@@ -303,7 +383,12 @@ void Scene::update(Message &postman)
 	}
 
 	if (m_inSystem.checkTriggeredAction(AC_SELECT)){
-		postman.addMessage("Scene",  m_focusedID, MS_SELECT, 1);
+		if (m_selectTimer.getTicks() > 370){
+			std::cout << "HEY";
+			postman.addMessage("Scene", m_focusedID, MS_SELECT, 1);
+			m_selectTimer.stop();
+			m_selectTimer.start();
+		}
 	}
 
 	if (m_inSystem.checkTriggeredAction(AC_NEXT)) {
@@ -314,6 +399,7 @@ void Scene::update(Message &postman)
 		}
 	}
 	
+<<<<<<< HEAD
 	//TIR DU VAISSEAU
 	if (m_inSystem.checkTriggeredAction(AC_SHOOT))
 	{
@@ -323,6 +409,9 @@ void Scene::update(Message &postman)
 		m_gameObjects["player"]->get<GraphicsComponent>()->getSprite()->setSpriteSheet("explosion");
 		
 	}
+=======
+	
+>>>>>>> master
 
 	GraphicsSystem::initFrame();
 
@@ -332,12 +421,9 @@ void Scene::update(Message &postman)
 		std::string currentID = m_orderedGO[i];
 		auto currentObj = m_gameObjects[m_orderedGO[i]];
 
-		if (m_orderedGO[i] == "planet_menu"){
-			GraphicsSystem::setCameraTarget(currentObj->get<PositionComponent>()->getPosition() + Vec2(-SCREEN_W/2, 0));
-		}
+		if (currentObj->isActive()){
 
-		//
-
+<<<<<<< HEAD
 		//if (m_gameObjects[i]->get<PositionComponent>() != nullptr)
 			//std::cout << m_gameObjects[i]->get<PositionComponent>()->getZIndex() << "\n";
 
@@ -432,28 +518,112 @@ void Scene::update(Message &postman)
 				PhysicsSystem::update(postman, this, *pc, m_physicsComps, 1.0 / GraphicsSystem::getFPS());
 		}
 		
+=======
+			if (m_orderedGO[i].find("planet_menu") != std::string::npos){
+				GraphicsSystem::setCameraTarget(currentObj->get<PositionComponent>()->getPosition() + Vec2(-SCREEN_W / 2, 0));
+			}
 
-		if (postman.getMessage("Physics", currentID, MS_COLLISION) > 1){
-			postman.addMessage(currentID, getFatherID<PhysicsComponent>(postman.getMessage("Physics", currentID, MS_COLLISION)), MS_COLLISION, 1);
-		}
+			std::shared_ptr<PhysicsComponent> pc = currentObj->get<PhysicsComponent>();
+			if (pc != nullptr && ((!m_pause && !m_map)  || (m_id != "game") ) ){
+				//DÉCISION DE MOUVEMENT : JOUEUR
+				if (!m_cineSystem.isPlaying()){
+					if (currentID == "player") {
+						if (currentObj->get<GameLogicComponent>()->getCurrentFuel() > 0 && currentObj->get<GameLogicComponent>()->getCurrentLife() > 0) { // si assez de fuel
+							//on check la direction du joueur
+							Vec2 forces(0, 0);
+							Vec2 direction(cos(pc->getPositionComponent()->getAngle() * (3.14159 / 180.0)), sin(pc->getPositionComponent()->getAngle() * (3.14159 / 180.0)));
+							int pwr = currentObj->get<GameLogicComponent>()->getEnginePower();
 
-		auto GLC = currentObj->get<GameLogicComponent>();
-		if (GLC != nullptr){
-			GameLogicSystem::update(postman, currentObj, *GLC, 1.0 / GraphicsSystem::getFPS());
-		}
+							double angle = 0;
+
+							if (m_inSystem.checkTriggeredAction(AC_HORIZONTAL_PUSH) || m_inSystem.checkTriggeredAction(AC_VERTICAL_PUSH))
+							{
+								forces = Vec2(m_inSystem.checkTriggeredAction(AC_HORIZONTAL_PUSH) / 20.0, m_inSystem.checkTriggeredAction(AC_VERTICAL_PUSH) / 20.0);
+							}
+							else {
+								if (m_inSystem.checkTriggeredAction(AC_UP))
+									forces += Vec2(0, -pwr);
+
+								if (m_inSystem.checkTriggeredAction(AC_DOWN))
+									forces += Vec2(0, pwr);
+
+								if (m_inSystem.checkTriggeredAction(AC_LEFT))
+									forces += Vec2(-pwr, 0);
+
+								if (m_inSystem.checkTriggeredAction(AC_RIGHT))
+									forces += Vec2(pwr, 0);
+							}
+
+							//std::cout << forces.getNormalized().y() << " ";
+							angle = forces.getAngle();
+							//std::cout << angle << "\n";
+
+							//gestion avec angle
+							/*	double deltaAngle = 0;
+
+							if (m_inSystem.checkTriggeredAction(AC_UP))
+							forces += direction * pwr;
+							if (m_inSystem.checkTriggeredAction(AC_DOWN))
+							forces += pc->getVelocity().getNormalized() * -pwr;
+
+							if (m_inSystem.checkTriggeredAction(AC_LEFT))
+							deltaAngle = -0.95;
+
+							if (m_inSystem.checkTriggeredAction(AC_RIGHT))
+							deltaAngle = 0.95;
 
 
-		auto AiC = currentObj->get<AiComponent>();
-		if (AiC != nullptr){
-			//std::cout << "AIAIAIAIA";
-			AiSystem::update(AiC, m_physicsComps, m_gameObjects["player"]->get<PhysicsComponent>());
-		}
+							if(deltaAngle == 0) //réduction automatique de la rotation
+							deltaAngle = -(pc->getAngularVelocity() / 200.0);*/
+							//on baisse le fuel
 
-		auto gc = currentObj->get<GraphicsComponent>();
-		if (gc != nullptr){
+							if (forces.getLength() > 0) {
+								postman.addMessage("player", "player", MS_ENGINE_ACTIVE, 1);
 
-			bool updateGS = true;
+								//on baisse le fuel
 
+								postman.addMessage("Scene", currentID, MS_ENGINE_ACTIVE, 1);
+								pc->getPositionComponent()->setAngle(angle);
+
+								pc->setForces(forces);
+							}
+						}
+					}
+					else
+					{
+						m_cineSystem.updateObject(currentObj.get(), postman);
+					}
+				}
+				PhysicsSystem::update(postman, this, *pc, m_physicsComps, 1.0 / GraphicsSystem::getFPS());
+			}
+>>>>>>> master
+
+			if (postman.getMessage("Physics", currentID, MS_COLLISION) > 1){
+				postman.addMessage(currentID, getFatherID<PhysicsComponent>(postman.getMessage("Physics", currentID, MS_COLLISION)), MS_COLLISION, 1);
+			}
+
+			auto GLC = currentObj->get<GameLogicComponent>();
+			if (GLC != nullptr){
+				//SI LE JOUEUR EST SUR LA BASE, ++ Fuel
+				if (currentID == "player" && postman.getMessage("player", "base", MS_COLLISION) == 1){
+					GLC->setFuel(GLC->getCurrentFuel() + 0.5);
+				}
+
+				GameLogicSystem::update(postman, currentObj, *GLC, 1.0 / GraphicsSystem::getFPS());
+			}
+
+			auto AiC = currentObj->get<AiComponent>();
+			if (AiC != nullptr){
+				//std::cout << "AIAIAIAIA";
+				AiSystem::update(AiC, m_physicsComps, m_gameObjects["player"]->get<PhysicsComponent>());
+			}
+
+			auto gc = currentObj->get<GraphicsComponent>();
+			if (gc != nullptr){
+
+				bool updateGS = true;
+
+<<<<<<< HEAD
 			Vec2 playerPos;
 			Vec2 basePos;
 			Vec2 objPos;
@@ -469,71 +639,75 @@ void Scene::update(Message &postman)
 			else {
 				gc->getSprite()->setSpriteSheet("default");
 			}
-
-			if (currentID == "player"){
-
-				double vel = currentObj->get<PhysicsComponent>()->getVelocity().getLength();
-				double zoom = 0.685;
-
-				GraphicsSystem::setCameraZoom(zoom);
-				GraphicsSystem::setCameraTarget(gc->getPosition());
-				
-			}
-
-			if (m_id == "game"){
-				if (m_pause){
-					GraphicsSystem::printAt("Pause", 500, 250, 400, 100);
+=======
+				Vec2 playerPos;
+				Vec2 basePos;
+				Vec2 objPos;
+				if (m_id == "game"){
+					playerPos = m_gameObjects["player"]->get<PhysicsComponent>()->getPosition();
+					basePos = m_gameObjects["base"]->get<PhysicsComponent>()->getPosition();
+					objPos = m_missionSystem->getObjPosition();
 				}
 
-				if (currentID.find("hud") != std::string::npos) { // si l'objet fait partie du hud
+				if (currentID == m_focusedID){
+					gc->getSprite()->setSpriteSheet("selected");
+				}
+				else {
+					gc->getSprite()->setSpriteSheet("default");
+				}
+>>>>>>> master
 
-					std::string id = currentID;
+				if (currentID == "player"){
 
-					if (id == "hud_fuel"){
-						if (postman.getMessage("GameLogic", m_gameObjects["player"]->getID(), MS_ENGINE_ACTIVE) > 0){
+					double vel = currentObj->get<PhysicsComponent>()->getVelocity().getLength();
+					double zoom = 0.685;
 
-							//on réduit le fuel
-							Vec2 baseSize = currentObj->get<GraphicsComponent>()->getMaxSize();
-							double fuel = (double)(m_gameObjects["player"]->get<GameLogicComponent>()->getCurrentFuel()) / (double)m_gameObjects["player"]->get<GameLogicComponent>()->getMaxFuel();
-							currentObj->get<GraphicsComponent>()->setSize(Vec2(baseSize.x() * fuel, baseSize.y()));
-							
-							
+					GraphicsSystem::setCameraZoom(zoom);
+					GraphicsSystem::setCameraTarget(gc->getPosition());
+
+				}
+
+				if (m_id == "game"){
+					if (m_pause){
+						//SI EN PAUSE ******************************************
+						GraphicsSystem::printAt("Pause", (SCREEN_W - 140) / 2 , SCREEN_H / 5, 140, 60);
+
+					}
+
+					if (currentID.find("hud") != std::string::npos) { // si l'objet fait partie du hud
+
+						std::string id = currentID;
+
+						if (id == "hud_fuel"){
+							if (postman.getMessage("GameLogic", m_gameObjects["player"]->getID(), MS_ENGINE_ACTIVE) > 0){
+
+								//on réduit le fuel
+								Vec2 baseSize = currentObj->get<GraphicsComponent>()->getMaxSize();
+								double fuel = (double)(m_gameObjects["player"]->get<GameLogicComponent>()->getCurrentFuel()) / (double)m_gameObjects["player"]->get<GameLogicComponent>()->getMaxFuel();
+								currentObj->get<GraphicsComponent>()->setSize(Vec2(baseSize.x() * fuel, baseSize.y()));
+								postman.addMessage("HUD", "FUEL", MS_FUEL_LEVEL, m_gameObjects["player"]->get<GameLogicComponent>()->getCurrentFuel());
+							}
 						}
+<<<<<<< HEAD
 						postman.addMessage("HUD", "FUEL", MS_FUEL_LEVEL, (double)(m_gameObjects["player"]->get<GameLogicComponent>()->getCurrentFuel()) / (double)m_gameObjects["player"]->get<GameLogicComponent>()->getMaxFuel());
 						
 					}
 					else if (id == "hud_life"){
 						//if (postman.getMessage("GameLogic", currentID, MS_LIFE_DOWN) > 0) {
+=======
+						else if (id == "hud_life"){
+							//if (postman.getMessage("GameLogic", currentID, MS_LIFE_DOWN) > 0) {
+>>>>>>> master
 
-						Vec2 baseSize = currentObj->get<GraphicsComponent>()->getMaxSize();
-						double life = (double)(m_gameObjects["player"]->get<GameLogicComponent>()->getCurrentLife()) / (double)m_gameObjects["player"]->get<GameLogicComponent>()->getMaxLife();
-						currentObj->get<GraphicsComponent>()->setSize(Vec2(baseSize.x() * life, baseSize.y()));
-						//}
-					}
-					else if (id == "hud_base_pointer"){
-						Vec2 direction = basePos - playerPos;
-						if (direction.getLength() > SCREEN_W ){
-							currentObj->get<PositionComponent>()->setAngle(direction.getAngle());
-							double size = 25000.0 / (direction.getLength());
-
-							if (size > 1)
-								size = 1;
-							if (size < 0.5)
-								size = 0.5;
-
-							currentObj->get<GraphicsComponent>()->setSize(currentObj->get<GraphicsComponent>()->getMaxSize() *size);
-							currentObj->get<PositionComponent>()->setPosition(getPointerPosition(direction, 32));
+							Vec2 baseSize = currentObj->get<GraphicsComponent>()->getMaxSize();
+							double life = (double)(m_gameObjects["player"]->get<GameLogicComponent>()->getCurrentLife()) / (double)m_gameObjects["player"]->get<GameLogicComponent>()->getMaxLife();
+							currentObj->get<GraphicsComponent>()->setSize(Vec2(baseSize.x() * life, baseSize.y()));
+							//}
 						}
-						else
-							updateGS = false;
-					}
-					else if (id == "hud_obj_pointer"){
-						if (MissionSystem::getCurrentObjective() != "null"){
-							Vec2 direction = objPos - playerPos;
+						else if (id == "hud_base_pointer"){
+							Vec2 direction = basePos - playerPos;
 							if (direction.getLength() > SCREEN_W){
-
 								currentObj->get<PositionComponent>()->setAngle(direction.getAngle());
-
 								double size = 25000.0 / (direction.getLength());
 
 								if (size > 1)
@@ -547,17 +721,44 @@ void Scene::update(Message &postman)
 							else
 								updateGS = false;
 						}
-						else {
-							//on affiche pas le truc
-							updateGS = false;
+						else if (id == "hud_obj_pointer"){
+							if (m_missionSystem->getCurrentObjective() != "null"){
+								Vec2 direction = objPos - playerPos;
+								//std::cout << "HEYHEY\n " << m_gameObjects[m_missionSystem->getCurrentTarget()]->get<PhysicsComponent>()->getHitboxRadius();
+								if (direction.getLength() > m_gameObjects[m_missionSystem->getCurrentObjective()]->get<PhysicsComponent>()->getHitboxRadius()){
+
+									currentObj->get<PositionComponent>()->setAngle(direction.getAngle());
+
+									double size = 25000.0 / (direction.getLength());
+
+									if (size > 1)
+										size = 1;
+									if (size < 0.5)
+										size = 0.5;
+
+									currentObj->get<GraphicsComponent>()->setSize(currentObj->get<GraphicsComponent>()->getMaxSize() *size);
+									currentObj->get<PositionComponent>()->setPosition(getPointerPosition(direction, 32));
+								}
+								else
+									updateGS = false;
+							}
+							else {
+								//on affiche pas le truc
+								updateGS = false;
+							}
 						}
 					}
 				}
+				if (updateGS && !m_map)
+					GraphicsSystem::update(postman, currentID, *gc, 1.0 / GraphicsSystem::getFPS());
 			}
-			if (updateGS && !m_map)
-				GraphicsSystem::update(postman, currentID,*gc, 1.0 / GraphicsSystem::getFPS());
-		}
+		
+		
+			if (postman.getMessage("GraphicsSystem", currentID, MS_OBJ_DONE) == 1){
+				currentObj->activate(false);
+			}
 
+		}
 	}
 
 	std::map<std::string, std::shared_ptr<GameObject>>::iterator it;
@@ -569,18 +770,27 @@ void Scene::update(Message &postman)
 	}
 
 	if (m_id == "game"){
-		MissionSystem::update(postman, m_gameObjects);
+		m_missionSystem->update(postman, m_gameObjects);
 
-		//std::cout << MissionSystem::getCurrentObjective() << "\n";
+		//std::cout << m_missionSystem->getCurrentObjective() << "\n";
 
 		if (postman.getMessage("MissionSystem", "Mission", MS_MISSION_OVER) == 1){
 			//std::cout << "OVER!!!";
 			GraphicsSystem::print("Mission terminée.");
 		}
 	}
+	else if (m_id == "savesMenu"){
+		Vec2 basePos(0, 0);
+		if (m_gameObjects.find(m_focusedID) != m_gameObjects.end()){
+			basePos = m_gameObjects[m_focusedID]->get<PositionComponent>()->getPosition() + Vec2(300, 0);
+		}
+
+		GraphicsSystem::printAt("R - Supprimer et recommencer", basePos.x(), basePos.y() + 5, 300, 30);
+		GraphicsSystem::printAt("Enter - Jouer",				basePos.x(), basePos.y() + 35, 150, 30);
+	}
 
 	if (postman.getMessage("Action", "Trigger", 34061) > 0) {
-		GraphicsSystem::print("TRRRIIIIGGGERREDDD oh thats rude");
+		//GraphicsSystem::print("TRRRIIIIGGGERREDDD oh thats rude");
 	
 	}
 	
@@ -589,8 +799,17 @@ void Scene::update(Message &postman)
 	//MusSystem
 	m_musSytem.update(postman);
 
-	if (m_inSystem.checkTriggeredAction(AC_EXIT))
+	if ((m_inSystem.checkTriggeredAction(AC_EXIT) && m_pause && m_id == "game") || (m_id == "menu" && m_pause))
 		postman.addMessage("Action", "Button", MS_EXIT_REQUEST, 1);
+
+	GraphicsSystem::printAt(std::to_string(postman.getNumberOfMsg()), 300, 200);
+
+	//TIR DU VAISSEAU
+	if (m_inSystem.checkTriggeredAction(AC_SHOOT))
+	{
+		//std::cout << "pew!\n";
+		postman.printAllMsg();
+	}
 
 	GraphicsSystem::endFrame(postman, m_gameObjects);
 }
