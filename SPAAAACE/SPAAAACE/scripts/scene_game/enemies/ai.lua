@@ -22,11 +22,11 @@ ai =
 	Graphics = 
 	{
 		
-		filename = "ressources/test_coll.png",
+		filename = "ressources/ennemi.png",
 		
-		c = 2,
+		c = 4,
 		
-		r = 2,
+		r = 1,
 		
 		anim_speed = 5,
 		

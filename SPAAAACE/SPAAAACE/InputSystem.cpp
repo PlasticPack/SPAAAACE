@@ -93,7 +93,7 @@ void InputsSystem::pollInputs()
 					}
 				}
 			}
-#pragma endregion Inputs des bouton de manette
+#pragma endregion Inputs des boutons de manette
 		}
 	}
 	//Inputs clavier
@@ -104,7 +104,7 @@ void InputsSystem::pollInputs()
 	{
 		if (inputClavier[m_actionIt->second.first])
 		{
-			m_actionIt->second.second = 1;
+			m_actionIt->second.second++;
 		}
 	}
 
