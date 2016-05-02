@@ -28,5 +28,5 @@ public:
 
 	//temporaire, bugfixing
 	int getNumberOfMsg() { return m_messages.size(); }
-
+	void printAllMsg();
 };

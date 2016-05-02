@@ -397,12 +397,7 @@ void Scene::update(Message &postman)
 		}
 	}
 	
-	//TIR DU VAISSEAU
-	if (m_inSystem.checkTriggeredAction(AC_SHOOT))
-	{
-		//std::cout << "pew!\n";
-		postman.addMessage("game", "Input", MS_SHOOT, 1);
-	}
+	
 
 	GraphicsSystem::initFrame();
 
@@ -671,6 +666,13 @@ void Scene::update(Message &postman)
 		postman.addMessage("Action", "Button", MS_EXIT_REQUEST, 1);
 
 	GraphicsSystem::printAt(std::to_string(postman.getNumberOfMsg()), 300, 200);
+
+	//TIR DU VAISSEAU
+	if (m_inSystem.checkTriggeredAction(AC_SHOOT))
+	{
+		//std::cout << "pew!\n";
+		postman.printAllMsg();
+	}
 
 	GraphicsSystem::endFrame(postman, m_gameObjects);
 }

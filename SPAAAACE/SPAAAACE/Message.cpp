@@ -1,4 +1,5 @@
 #include "Message.h"
+#include <iostream>
 
 using namespace std;
 
@@ -14,7 +15,8 @@ Message::~Message()
 
 void Message::addMessage(std::string const& sender, std::string const& fromComponent, int const& msFlag, double const& message)
 {
-	m_messages.insert(std::make_pair(sender + fromComponent, make_pair(msFlag, message)));
+	if (getMessage(sender,fromComponent,msFlag) == 0)
+		m_messages.insert(std::make_pair(sender + fromComponent, make_pair(msFlag, message)));
 }
 
 
@@ -62,5 +64,17 @@ void Message::deleteMessage(std::string const& sender, std::string const& fromCo
 void Message::clearAll(void)
 {
 	m_messages.clear();
+}
+
+void Message::printAllMsg()
+{
+	string message = "\n===================MESSAGE LIST======================\n";
+	typeMessage::iterator it = m_messages.begin();
+	for (it; it != m_messages.end(); ++it)
+	{
+		message += it->first + " : " + to_string(it->second.first) + " : " + to_string(it->second.second) + "\n";
+	}
+	std::cout << message;
+	
 }
 
