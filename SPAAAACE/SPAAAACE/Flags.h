@@ -20,7 +20,12 @@ enum message
 	MS_SWITCHED,
 	MS_OBJECTIVE,
 	MS_MISSION_OVER,
+<<<<<<< HEAD
 	MS_FUEL_LEVEL
+=======
+	MS_PAUSE,
+	MS_MAP
+>>>>>>> master
 };
 
 /*
@@ -94,6 +99,8 @@ enum action // METTRE NOUVELLEs ACTIONS ICI
 	AC_LEFT,
 	AC_RIGHT,
 	AC_NEXT,
+	AC_PAUSE,
+	AC_MAP,
 	AC_NUMBER_OF_ACTION // Mettre tout autre action AVANT celle-ci
 };
 
