@@ -1,13 +1,6 @@
 #include <iostream>
 #include <SDL.h>
 #include "Scene.h"
-/*
-=======
-#include "Message.h"
->>>>>>> master
-const int SCREEN_W = 1600;
-const int SCREEN_H = 900;*/
-
 
 
 int main(int argc, char* argv[]){
