@@ -495,14 +495,14 @@ void Scene::update(Message &postman)
 				PhysicsSystem::update(postman, this, *pc, m_physicsComps, 1.0 / GraphicsSystem::getFPS());
 			}
 
-			if (postman.getMessage("Physics", currentID, MS_COLLISION) > 1){
+			/*if (postman.getMessage("Physics", currentID, MS_COLLISION) >= 1){
 				postman.addMessage(currentID, getFatherID<PhysicsComponent>(postman.getMessage("Physics", currentID, MS_COLLISION)), MS_COLLISION, 1);
-			}
+			}*/
 
 			auto GLC = currentObj->get<GameLogicComponent>();
 			if (GLC != nullptr){
 				//SI LE JOUEUR EST SUR LA BASE, ++ Fuel
-				if (currentID == "player" && postman.getMessage("player", "base", MS_COLLISION) == 1){
+				if (currentID == "player" && postman.getMessage("player", "base", MS_COLLISION) >= 1){
 					GLC->setFuel(GLC->getCurrentFuel() + 0.5);
 				}
 
@@ -597,7 +597,15 @@ void Scene::update(Message &postman)
 							if (m_missionSystem->getCurrentObjective() != "null"){
 								Vec2 direction = objPos - playerPos;
 								//std::cout << "HEYHEY\n " << m_gameObjects[m_missionSystem->getCurrentTarget()]->get<PhysicsComponent>()->getHitboxRadius();
-								if (direction.getLength() > m_gameObjects[m_missionSystem->getCurrentObjective()]->get<PhysicsComponent>()->getHitboxRadius()){
+								double hbRad = 1;
+								if (m_gameObjects[m_missionSystem->getCurrentObjective()]->get<PhysicsComponent>() != nullptr){
+									hbRad = m_gameObjects[m_missionSystem->getCurrentObjective()]->get<PhysicsComponent>()->getHitboxRadius();
+								}
+								else {
+									hbRad = m_gameObjects[m_missionSystem->getCurrentTarget()]->get<PhysicsComponent>()->getHitboxRadius();
+								}
+
+								if (direction.getLength() > hbRad){
 
 									currentObj->get<PositionComponent>()->setAngle(direction.getAngle());
 

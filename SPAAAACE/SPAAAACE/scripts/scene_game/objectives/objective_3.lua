@@ -1,10 +1,10 @@
 objective_3 = {
 	Position = {
-		x = 4000,
-		y = -4000
+		x = 40000,
+		y = -30000
 	},
 	Physics = {
-		hitbox = 31200,
+		hitbox = 11200,
 		activated = "false"
 	},
 	Action = {

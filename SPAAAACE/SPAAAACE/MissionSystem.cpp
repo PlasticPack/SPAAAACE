@@ -48,28 +48,24 @@ void MissionSystem::update(Message &postman, std::map<std::string, std::shared_p
 	}*/
 
 	if (m_currentObjective != "null") {
-		//std::cout << m_objectives[m_currentObjective].targetID << "\n";
-
-		//if (m_objectives[m_currentObjective].targetID  == "yog_sogoth"){
-			//std::cout << "??";
-		//}
-
 		if (objs.find(m_objectives[m_currentObjective].targetID) != objs.end()){
-			if (m_objectives[m_currentObjective].targetID != "none"){
+			if (m_objectives[m_currentObjective].targetID != "none" && objs[m_objectives[m_currentObjective].targetID]->get<PositionComponent>() != nullptr ){
 
 				//std::cout << m_objectives[m_currentObjective].targetID  << "\n";
-
 				m_objPosition = objs[m_objectives[m_currentObjective].targetID]->get<PositionComponent>()->getPosition();
 
-				objs[m_currentObjective]->get<PositionComponent>()->setPosition(m_objPosition);
+				if(objs[m_currentObjective]->get<PositionComponent>() != nullptr)
+					objs[m_currentObjective]->get<PositionComponent>()->setPosition(m_objPosition);
+				 
 			}
-			else {
+			else if (objs[m_currentObjective]->get<PositionComponent>() != nullptr){
 				m_objPosition = objs[m_currentObjective]->get<PositionComponent>()->getPosition();
 			}
 		}
-		else if (objs.find(m_currentObjective) != objs.end()){
+		else if (objs.find(m_currentObjective) != objs.end() && objs[m_currentObjective]->get<PositionComponent>() != nullptr){
 			m_objPosition = objs[m_currentObjective]->get<PositionComponent>()->getPosition();
 		}
+		
 	}
 
 	if (postman.getMessage("Action", m_currentObjective, MS_OBJECTIVE) == true || m_objectives[m_currentObjective].done == true){

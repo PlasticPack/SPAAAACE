@@ -1,8 +1,7 @@
 base = {
 	Position = {
 		x = 8000,
-		y = 0000,
-		z = 0.88
+		y = 0000
 	},
 	Physics = {
 		mass = 9000,

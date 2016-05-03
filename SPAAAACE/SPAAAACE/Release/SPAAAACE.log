@@ -1,1 +1,10 @@
-﻿  SPAAAACE.vcxproj -> C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\SPAAAACE.exe
+﻿  MissionSystem.cpp
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\GraphicsSystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
+MissionSystem.cpp(71): warning C4805: '==' : mélange risqué de type 'double' et de type 'bool' dans l'opération
+  Génération de code en cours
+c:\users\charles\google drive\cégep\projet d'intégration sim\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(151): warning C4715: 'GraphicsSystem::loadTexture' : les chemins de contrôle ne retournent pas tous une valeur
+  Fin de la génération du code
+boostExemple.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'boostExemple.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
+scriptinit_exemple.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'scriptinit_exemple.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
+Source1.obj : warning LNK4099: PDB 'vc120.pdb' n'a pu être trouvé avec 'Source1.obj' ou sur 'C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\vc120.pdb' ; l'objet sera lié sans informations de débogage
+  SPAAAACE.vcxproj -> C:\Users\Charles\Google Drive\CÉGEP\Projet d'intégration SIM\SPAAAACE\SPAAAACE\Release\SPAAAACE.exe

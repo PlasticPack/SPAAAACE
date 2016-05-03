@@ -22,8 +22,8 @@ void PhysicsSystem::resolveCollision(Message &postman, Scene *s, std::shared_ptr
 		a->setPosition(a->getPosition() + deplacement);
 		b->setPosition(b->getPosition() + deplacement*-1);
 
-		postman.addMessage("Physics", std::to_string((int)a.get()), MS_COLLISION, (a->getVelocity().getLength() + b->getVelocity().getLength()));
-		postman.addMessage("Physics", std::to_string((int)b.get()), MS_COLLISION, (a->getVelocity().getLength() + b->getVelocity().getLength())); // on envoie l'adresse de l'autre
+		postman.addMessage(s->getFatherID<PhysicsComponent>(a), s->getFatherID<PhysicsComponent>((int)b.get()), MS_COLLISION, (a->getVelocity().getLength() + b->getVelocity().getLength()));
+		postman.addMessage(s->getFatherID<PhysicsComponent>(b), s->getFatherID<PhysicsComponent>((int)a.get()), MS_COLLISION, (a->getVelocity().getLength() + b->getVelocity().getLength())); // on envoie l'adresse de l'autre
 
 		double elasticity = a->getElasticity() * b->getElasticity();
 
@@ -63,17 +63,28 @@ bool PhysicsSystem::checkIfCollide(Message &postman, Scene *s, std::shared_ptr<P
 		//donc je me suis dit fuck it, on y va pour ca pour tout de suite
 
 		bool detected = false;
-		double accuracy = 3; // la précision ou le nombre de bonds qu'on fait 
+		double accuracy = 2; // la précision ou le nombre de bonds qu'on fait 
 		for (int i = 1; i <= accuracy; i++){
 			if (a->getHitboxRadius() + b->getHitboxRadius() > (a->getPosition() + (a->getVelocity() * (i / accuracy) *dt)).getDist((b->getPosition()) + (b->getVelocity() * (i / accuracy) *dt))){
 				detected = true;
 				i = accuracy + 1;
 			}
 		}
-		if (detected){
+		if (detected ){
+
+
+			//collision entre joueur et obj.
+			if (s->getFatherID<PhysicsComponent>(a) == "player"){
+				if (s->getFatherID<PhysicsComponent>(b).find("objective")){
+					//postman.addMessage();
+				}
+			}
+
 			//std::cout << "DETECTED COLLISION\n";
-			postman.addMessage("Physics", s->getFatherID<PhysicsComponent>(a), MS_COLLISION, (int)b.get());
-			postman.addMessage("Physics", s->getFatherID<PhysicsComponent>(b), MS_COLLISION, (int)a.get());
+			if (!a->isActive() || !b->isActive()) {
+				//postman.addMessage(s->getFatherID<PhysicsComponent>(a), s->getFatherID<PhysicsComponent>((int)b.get()), MS_COLLISION, 1);
+				//postman.addMessage(s->getFatherID<PhysicsComponent>(b), s->getFatherID<PhysicsComponent>((int)a.get()), MS_COLLISION, 1);
+			}
 		}
 		else {
 
@@ -96,7 +107,7 @@ bool PhysicsSystem::checkIfCollide(PhysicsComponent &a, PhysicsComponent &b, dou
 		//donc je me suis dit fuck it, on y va pour ca pour tout de suite
 
 		bool detected = false;
-		double accuracy = 3; // la précision ou le nombre de bonds qu'on fait 
+		double accuracy = 2; // la précision ou le nombre de bonds qu'on fait 
 		for (int i = 1; i <= accuracy; i++){
 			if (a.getHitboxRadius() + b.getHitboxRadius() > (a.getPosition() + (a.getVelocity() * (i / accuracy) *dt)).getDist((b.getPosition()) + (b.getVelocity() * (i / accuracy) *dt))){
 				detected = true;
@@ -187,10 +198,11 @@ void PhysicsSystem::update(Message &postman, Scene *s, PhysicsComponent &body, s
 Vec2 PhysicsSystem::accelerate(PhysicsComponent& initial, PhysicsComponent &b, std::vector<std::shared_ptr<PhysicsComponent>> &bodies, double dt){
 	//retourne l'accélération selon l'état (position) et le temps
 
-	//calcule aussi la gravité de tous les autres corps
-	//sur ce corps-ci, si ils sont assez proche
-	Vec2 totalGravity;
-	//if (!initial.isFixed() && initial.isSolid()){ // si l'objet est affecté par la gravité
+	if (b.isActive()){
+		//calcule aussi la gravité de tous les autres corps
+		//sur ce corps-ci, si ils sont assez proche
+		Vec2 totalGravity;
+		//if (!initial.isFixed() && initial.isSolid()){ // si l'objet est affecté par la gravité
 		for (int i(0); i < bodies.size(); i++){
 			if (bodies[i].get() != &initial){ // si l'objet est différent de lui-même
 				if (!checkIfCollide(initial, *bodies[i], dt)) { // si l'objet est assez proche ET qu'ils sont pas l'un dans l'autre
@@ -199,9 +211,12 @@ Vec2 PhysicsSystem::accelerate(PhysicsComponent& initial, PhysicsComponent &b, s
 				//std::cout << "GRAV";
 			}
 		}
-	//}
+		//}
 
-	initial.setForces(initial.getForces() + totalGravity);
-	b.setForces(initial.getForces());
-	return (b.getForces()) / (b.getMass());
+		initial.setForces(initial.getForces() + totalGravity);
+		b.setForces(initial.getForces());
+		return (b.getForces()) / (b.getMass());
+	}
+	else
+		return Vec2(0, 0);
 }
