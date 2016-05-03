@@ -1,5 +1,6 @@
 #include "Scene.h"
 #include "Command.h"
+#include"genesis.hpp"
 
 Scene::Scene(std::string arg, std::string xml, std::string id) : m_id(id), m_missionSystem(std::make_shared<MissionSystem>()), m_saveTarget(xml), m_scriptSource(arg)
 {
@@ -18,8 +19,12 @@ void Scene::init(std::string arg, std::string xml){
 	catch (std::exception e){
 		std::cout << e.what() << "\n";
 	}
-
+	
 	std::vector<std::shared_ptr<GameObject>> pure;
+	if (!boost::filesystem::exists(xml)){
+		
+		genesis::generateObjects(this, boost::filesystem::path(xml).stem().string());
+	}
 	XML_u::loadObjects(this, pure, m_gameObjects, xml);
 
 	//modif des ids
