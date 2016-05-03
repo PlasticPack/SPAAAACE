@@ -1,7 +1,7 @@
-/*	Créateur: Marc-Antoine Céré
-Projet: test Ai
-Fichier: Ai.cpp
-But: Créer une ai qui détecte les objets dans sa vision
+/*	CrÃ©ateur: Marc-Antoine CÃ©rÃ©
+Projet: SPAAAACE
+Fichier: AiComponent.cpp
+But: CrÃ©er les composantes de l'intelligence artificielle
 */
 #include "AiComponent.h"
 using namespace std;
@@ -66,10 +66,6 @@ Vec2 AiComponent::getVec()
 	return m_vec;
 }
 
-int AiComponent::getAcc(){
-	return m_acc;
-}
-
 void AiComponent::setType(int type)
 {
 	m_typeAi = type;
@@ -86,6 +82,14 @@ void AiComponent::setPhysicsComp(std::shared_ptr<PhysicsComponent> comp){
 
 std::shared_ptr<PhysicsComponent> AiComponent::getPhysicsComponent(){
 	return m_phyComponent;
+}
+
+void AiComponent::setGLComponent(std::shared_ptr<GameLogicComponent> comp){
+	this->m_gameLogicComponent = comp;
+}
+
+std::shared_ptr<GameLogicComponent> AiComponent::getGLComponent(){
+	return m_gameLogicComponent;
 }
 
 void AiComponent::setTarget(std::shared_ptr<PhysicsComponent> target){
@@ -108,4 +112,23 @@ std::shared_ptr <PhysicsComponent> AiComponent::getNearDanger(){
 AiComponent::AiComponent(luabridge::LuaRef& componentTable, std::shared_ptr<PhysicsComponent> comp){
 	using namespace luabridge;
 	m_phyComponent = comp;
+}
+
+void AiComponent::setPower(int pwr){
+	m_pwr = pwr;
+}
+
+int AiComponent::getPower(){
+	return m_pwr;
+}
+
+
+bool AiComponent::isCloseToDanger(){
+	if (this->getPhysicsComponent()->getPosition().getDist(this->getNearDanger()->getPosition()) <= (this->getNearDanger()->getHitboxRadius() + 500))
+	{
+		return true;
+	}
+	else{
+		return false;
+	}
 }
