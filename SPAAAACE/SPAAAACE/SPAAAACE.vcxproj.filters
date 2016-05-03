@@ -112,6 +112,9 @@
     <ClCompile Include="Cinematique.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="genesis.cpp">
+      <Filter>Genesis</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Flags.h">
@@ -213,6 +216,12 @@
     <ClInclude Include="Command.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="gen_image.hpp">
+      <Filter>Genesis</Filter>
+    </ClInclude>
+    <ClInclude Include="genesis.hpp">
+      <Filter>Genesis</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sources">
@@ -244,6 +253,9 @@
     </Filter>
     <Filter Include="Headers\Systems">
       <UniqueIdentifier>{f32387a8-9bca-49aa-ab09-0c31958c565d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Genesis">
+      <UniqueIdentifier>{b963d51d-e855-4a31-b7ea-225655318a28}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
