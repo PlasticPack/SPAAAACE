@@ -32,7 +32,7 @@ void Scene::init(std::string arg, std::string xml){
 	int total = 1;
 	for (int i = 1; i < pure.size(); i++){
 
-		//si on a pas déjà setté l'ID
+		//si on a pas dÃ©jÃ  settÃ© l'ID
 		if (!pure[i]->idSet()) {
 			if (lastID != pure[i]->getID()){
 				mapID[lastID] = total;
@@ -56,9 +56,9 @@ void Scene::init(std::string arg, std::string xml){
 
 	for (int i = 0; i < pure.size(); i++){
 
-		//création de l'ID de l'objet selon son ID précédent
+		//crÃ©ation de l'ID de l'objet selon son ID prÃ©cÃ©dent
 		//ou simplement le i
-		//sauf si player, là on laisse player
+		//sauf si player, lÃ  on laisse player
 		std::string newID = pure[i]->getID();
 
 		//si y'en a juste un dans le script, on mets pas de "1"
@@ -74,7 +74,7 @@ void Scene::init(std::string arg, std::string xml){
 		m_gameObjects[newID]->setID(newID);
 		m_gameObjects[newID]->setType(pure[i]->getType());
 
-		//on ajoute les components à la scene
+		//on ajoute les components Ã  la scene
 
 		for (auto const& c : m_gameObjects[newID]->getComponents()){
 
@@ -109,7 +109,7 @@ void Scene::init(std::string arg, std::string xml){
 	//std::cout << "!!!!!\n\n\n\n";
 	//std::cout << m_gameObjects["ai1"]->get<PositionComponent>()->getPosition().x();
 
-	//À PARTIR DE CE POINT, N'AJOUTEZ PLUS D'OBJETS  ***********************
+	//Ã€ PARTIR DE CE POINT, N'AJOUTEZ PLUS D'OBJETS  ***********************
 	
 	///AJOUT BACKGROUND ET MACHINs
 
@@ -191,7 +191,7 @@ void Scene::orderByZIndex(){
 
 		} while (!ordered);
 
-		//on place le joueur au "dessus" des objets à sa même hauteur
+		//on place le joueur au "dessus" des objets Ã  sa mÃªme hauteur
 		for (int i = 0; i < vec.size(); i++){
 			if (vec[i].first == "player"){
 				if (i != vec.size() - 1) {
@@ -238,7 +238,7 @@ void Scene::update(Message &postman)
 		}
 	}
 
-	//INPUT GÉNÉRAL
+	//INPUT GÃ‰NÃ‰RAL
 	m_inSystem.pollInputs();
 	postman.clearAll();
 	if (m_inSystem.checkTriggeredAction(AC_START))
@@ -269,13 +269,13 @@ void Scene::update(Message &postman)
 
 	//GESTION DU MENU
 
-	//NAVIGATION AVEC FLÈCHES
+	//NAVIGATION AVEC FLÃˆCHES
 	if (m_id == "menu"){
 
 		//en attendant gestion press/release
 		if (m_navigationTimer.getTicks() > 200){
 
-			//création du "template" de menu
+			//crÃ©ation du "template" de menu
 			std::vector<std::string> menuList;
 			menuList.push_back("button_play");
 			menuList.push_back("button_quit");
@@ -351,7 +351,7 @@ void Scene::update(Message &postman)
 				basePos = currentObj->get<PhysicsComponent>()->getPosition();
 			}*/
 
-			//DÉCISION DE MOUVEMENT : JOUEUR
+			//DÃ‰CISION DE MOUVEMENT : JOUEUR
 			if (!m_cineSystem.isPlaying())
 			if (currentID == "player") {
 				if (currentObj->get<GameLogicComponent>()->getCurrentFuel() > 0) { // si assez de fuel
@@ -399,7 +399,7 @@ void Scene::update(Message &postman)
 					deltaAngle = 0.95;
 
 
-					if(deltaAngle == 0) //réduction automatique de la rotation
+					if(deltaAngle == 0) //rÃ©duction automatique de la rotation
 					deltaAngle = -(pc->getAngularVelocity() / 200.0);*/
 					//on baisse le fuel
 
@@ -440,20 +440,31 @@ void Scene::update(Message &postman)
 		if (AiC != nullptr){
 			AiC->setNearDanger(m_physicsComps[0]);
 			for (int j = 0; j < m_physicsComps.size(); j++) {
+
+				
+
 				if (getFatherID<PhysicsComponent>(m_physicsComps[j]) == "player"){
 					AiC->setTarget(m_physicsComps[j]);
 				}
 				else {
-					if (AiC->getPhysicsComponent()->getPosition().getDist(AiC->getNearDanger()->getPosition()) >= AiC->getPhysicsComponent()->getPosition().getDist(m_physicsComps[j]->getPosition()) && getFatherID<PhysicsComponent>(m_physicsComps[j]) == "planet_1"){
-						AiC->setNearDanger(m_physicsComps[j]);
-						std::cout << AiC->getNearDanger()->getPosition().x() << " , " << AiC->getNearDanger()->getPosition().y() << std::endl;
+					if (AiC->getPhysicsComponent()->getPosition().getDist(AiC->getNearDanger()->getPosition()) >= AiC->getPhysicsComponent()->getPosition().getDist(m_physicsComps[j]->getPosition()) && getFatherID<PhysicsComponent>(m_physicsComps[j]) == "ai"){
+						//AiC->setNearDanger(m_physicsComps[j]);
+						//std::cout << AiC->getNearDanger()->getPosition().x() << " , " << AiC->getNearDanger()->getPosition().y() << std::endl;
+						system("PAUSE");
 					}
 				}
 			}
 		}
+
 		
+		
+		for (int j = 0; j < m_physicsComps.size(); j++) {
+			std::cout << getFatherID<PhysicsComponent>(m_physicsComps[j]) << "  (" << m_physicsComps[j]->getPosition().x() << "," << m_physicsComps[j]->getPosition().y() << ")" << std::endl;
+		}
+
 		if (AiC != nullptr){
-			AiSystem::update(AiC);
+			std::shared_ptr <GameLogicComponent> GLAiCComp = currentObj->get<GameLogicComponent>();
+				AiSystem::update(AiC,GLAiCComp);
 		}
 
 		auto gc = currentObj->get<GraphicsComponent>();
@@ -500,7 +511,7 @@ void Scene::update(Message &postman)
 					if (id == "hud_fuel"){
 						if (postman.getMessage("GameLogic", m_gameObjects["player"]->getID(), MS_ENGINE_ACTIVE) > 0){
 
-							//on réduit le fuel
+							//on rÃ©duit le fuel
 							Vec2 baseSize = currentObj->get<GraphicsComponent>()->getMaxSize();
 							double fuel = (double)(m_gameObjects["player"]->get<GameLogicComponent>()->getCurrentFuel()) / (double)m_gameObjects["player"]->get<GameLogicComponent>()->getMaxFuel();
 							currentObj->get<GraphicsComponent>()->setSize(Vec2(baseSize.x() * fuel, baseSize.y()));
@@ -582,7 +593,7 @@ void Scene::update(Message &postman)
 
 		if (postman.getMessage("MissionSystem", "Mission", MS_MISSION_OVER) == 1){
 			//std::cout << "OVER!!!";
-			GraphicsSystem::print("Mission terminée.");
+			GraphicsSystem::print("Mission terminÃ©e.");
 		}
 	}
 
