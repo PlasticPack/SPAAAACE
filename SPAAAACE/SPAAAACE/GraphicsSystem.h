@@ -6,8 +6,8 @@
 #include <string>
 #include <SDL_ttf.h>
 
-#define SCREEN_W 1700
-#define SCREEN_H 1000
+#define SCREEN_W 1200
+#define SCREEN_H 900
 
 struct Camera {
 	double angle;
@@ -69,7 +69,7 @@ public:
 	static void print(std::string text);
 	static void printAt(std::string text, int x, int y, int d_w = 0, int d_h = 0);
 
-	static bool isTextLeft() { return m_textQueue.size(); }
+	static bool isTextLeft() { return m_textQueue.size() > 0; }
 
 protected:
 	GraphicsSystem();

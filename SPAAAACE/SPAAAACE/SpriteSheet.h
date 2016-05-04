@@ -16,8 +16,8 @@ class SpriteSheet
 {
 public:
 	SpriteSheet();
-	SpriteSheet(SDL_Texture* texture, int nbcol = 1, int nbrow = 1);
-	SpriteSheet(SDL_Texture* texture, SDL_Rect rectSize, SDL_Rect);
+	SpriteSheet(SDL_Texture* texture, std::string filename, int nbcol = 1, int nbrow = 1);
+	SpriteSheet(SDL_Texture* texture, std::string filename, SDL_Rect rectSize, SDL_Rect);
 	SpriteSheet(SpriteSheet const&);
 	SpriteSheet& operator=(SpriteSheet const&);
 	~SpriteSheet();

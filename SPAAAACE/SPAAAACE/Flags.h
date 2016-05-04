@@ -23,6 +23,7 @@ enum message
 	MS_SAVE1,
 	MS_SAVE2,
 	MS_SAVE3,
+	MS_NEAR,
 	MS_FUEL_LEVEL,
 	MS_PAUSE,
 	MS_MAP,
@@ -54,6 +55,7 @@ MS_MISSION_OVER				34064
 MS_SAVE1					34065
 MS_SAVE2					34066
 MS_SAVE3					34067
+MS_NEAR						34068
 */
 
 const int debutGamePadButtonList = 0x9900; //<-- !!!!NE PAS CHANGER!!!!!

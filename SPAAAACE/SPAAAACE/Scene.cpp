@@ -148,7 +148,7 @@ void Scene::init(std::string arg, std::string xml){
 	m_inSystem.setActionTrigger(AC_LOAD, SDL_SCANCODE_F9);
 
 
-	GraphicsSystem::setFont("ressources/CaviarDreams.ttf", 30, { 225, 220, 255 });
+	GraphicsSystem::setFont("ressources/CaviarDreams.ttf", 24, { 225, 220, 255 });
 
 	std::cout << "END OF INIT\n\n";
 	GraphicsSystem::setCameraZoom(1);
@@ -304,7 +304,7 @@ void Scene::update(Message &postman)
 
 	if (m_inSystem.checkTriggeredAction(AC_SAVE)) {
 		if (m_saveTimer.getTicks() > 375) {
-			GraphicsSystem::print("Sauvegarde effectuée");
+			GraphicsSystem::print("Sauvegarde effectuée.");
 			XML_u::saveObjects(this,m_gameObjects, m_saveTarget);
 			m_saveTimer.stop();
 			m_saveTimer.start();
@@ -313,7 +313,7 @@ void Scene::update(Message &postman)
 
 	if (m_inSystem.checkTriggeredAction(AC_LOAD)) {
 		if (m_loadTimer.getTicks() > 375) {
-			GraphicsSystem::print("Chargement...");
+			GraphicsSystem::print("Dernière sauvegarde chargée.");
 
 			clear();
 			init(m_scriptSource, m_saveTarget);
@@ -409,7 +409,6 @@ void Scene::update(Message &postman)
 	}
 
 	GraphicsSystem::initFrame();
-
 
 	for (int i = 0; i < m_orderedGO.size(); i++){
 
@@ -510,10 +509,35 @@ void Scene::update(Message &postman)
 			}
 
 			auto AiC = currentObj->get<AiComponent>();
+
+			if (AiC != nullptr){
+				AiC->setNearDanger(m_physicsComps[0]);
+				for (int j = 0; j < m_physicsComps.size(); j++) {
+
+					if (getFatherID<PhysicsComponent>(m_physicsComps[j]) == "player"){
+						AiC->setTarget(m_physicsComps[j]);
+					}
+					else {
+						if (AiC->getPhysicsComponent()->getPosition().getDist(AiC->getNearDanger()->getPosition()) >= AiC->getPhysicsComponent()->getPosition().getDist(m_physicsComps[j]->getPosition()) && getFatherID<PhysicsComponent>(m_physicsComps[j]) == "ai"){
+							//AiC->setNearDanger(m_physicsComps[j]);
+							//std::cout << AiC->getNearDanger()->getPosition().x() << " , " << AiC->getNearDanger()->getPosition().y() << std::endl;
+							//system("PAUSE");
+						}
+					}
+				}
+			}
+
+			if (AiC != nullptr){
+				std::shared_ptr <GameLogicComponent> GLAiCComp = currentObj->get<GameLogicComponent>();
+				AiSystem::update(AiC, GLAiCComp);
+			}
+
+			/*
 			if (AiC != nullptr){
 				//std::cout << "AIAIAIAIA";
 				AiSystem::update(AiC, m_physicsComps, m_gameObjects["player"]->get<PhysicsComponent>());
-			}
+			}*/
+
 
 			auto gc = currentObj->get<GraphicsComponent>();
 			if (gc != nullptr){
@@ -540,7 +564,7 @@ void Scene::update(Message &postman)
 				if (currentID == "player"){
 
 					double vel = currentObj->get<PhysicsComponent>()->getVelocity().getLength();
-					double zoom = 0.685;
+					double zoom = 0.485;
 
 					GraphicsSystem::setCameraZoom(zoom);
 					GraphicsSystem::setCameraTarget(gc->getPosition());
@@ -551,7 +575,6 @@ void Scene::update(Message &postman)
 					if (m_pause){
 						//SI EN PAUSE ******************************************
 						GraphicsSystem::printAt("Pause", (SCREEN_W - 140) / 2, SCREEN_H / 5, 140, 60);
-
 					}
 
 					if (currentID.find("hud") != std::string::npos) { // si l'objet fait partie du hud
@@ -641,6 +664,21 @@ void Scene::update(Message &postman)
 
 	}
 
+
+
+
+
+	if (m_id == "game"){
+		//check si joueur est proche
+
+		if (m_missionSystem->getCurrentTarget() != "none" && m_missionSystem->getCurrentObjective() != "null"){
+			Vec2 objPos = m_missionSystem->getObjPosition();
+			if (m_gameObjects["player"]->get<PositionComponent>()->getPosition().getDist(objPos) < m_gameObjects[m_missionSystem->getCurrentTarget()]->get<PhysicsComponent>()->getHitboxRadius() + 1400){
+				postman.addMessage("player", m_missionSystem->getCurrentTarget(), MS_NEAR, 1);
+			}
+		}
+	}
+
 	std::map<std::string, std::shared_ptr<GameObject>>::iterator it;
 	for (auto& it : m_gameObjects){
 		auto AC = it.second->get<ActionComponent>();
@@ -682,8 +720,7 @@ void Scene::update(Message &postman)
 	if ((m_inSystem.checkTriggeredAction(AC_EXIT) && m_pause && m_id == "game") || (m_id == "menu" && m_pause))
 		postman.addMessage("Action", "Button", MS_EXIT_REQUEST, 1);
 
-	GraphicsSystem::printAt(std::to_string(postman.getNumberOfMsg()), 300, 200);
-
+	
 	//TIR DU VAISSEAU
 	if (m_inSystem.checkTriggeredAction(AC_SHOOT))
 	{

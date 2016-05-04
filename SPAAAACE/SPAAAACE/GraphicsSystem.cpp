@@ -376,7 +376,7 @@ void GraphicsSystem::endFrame(Message &postman, std::map<std::string, std::share
 
 						SDL_Color c = { 205, 205, 255 };
 						Vec2 finalSize(2, 2);
-
+						bool f = true;
 						if (it.first == "player"){
 							c = { 0, 255, 10 };
 							finalSize = Vec2(3, 3);
@@ -386,23 +386,46 @@ void GraphicsSystem::endFrame(Message &postman, std::map<std::string, std::share
 							finalSize = Vec2(2, 2);
 						}
 						else if (it.first.find("base") != std::string::npos){
-							c = { 10, 205, 255 };
+							c = { 100, 100, 105 };
 							finalSize = Vec2(6, 6);
 						}
 						else if (it.first.find("planet") != std::string::npos){
 							c = { 10, 205, 255 };
 							finalSize = Vec2(4, 4);
 						}
+						else
+						{
+							f = false;
+						}
 
-						SDL_Rect point = { xPos.x(), xPos.y(), finalSize.x(), finalSize.y() };
-						SDL_SetRenderDrawColor(m_renderer, c.r, c.g, c.b, 255);
+						if (f){
+							SDL_Rect point = { xPos.x(), xPos.y(), finalSize.x(), finalSize.y() };
+							SDL_Rect point2 = { 110, 90, finalSize.x(), finalSize.y() };
+							SDL_SetRenderDrawColor(m_renderer, c.r, c.g, c.b, 255);
+							finalSize *= 2;
+							if (it.first == "player"){
+								point2 = { 100, 100, finalSize.x(), finalSize.y() };
+							}
+							else if (it.first.find("ai") != std::string::npos){
+								point2 = { 100, 190, finalSize.x(), finalSize.y() };
+							}
+							else if (it.first.find("base") != std::string::npos){
+								point2 = { 100, 130, finalSize.x(), finalSize.y() };
+							}
+							else if (it.first.find("planet") != std::string::npos){
+								point2 = { 100, 160, finalSize.x(), finalSize.y() };
+							}
 
-
-						SDL_RenderFillRect(m_renderer, &point);
-
+							SDL_RenderFillRect(m_renderer, &point2);
+							SDL_RenderFillRect(m_renderer, &point);
+						}
 					}
 				}
 				
+				printAt("Joueur", 110, 90);
+				printAt("Base", 110, 120);
+				printAt("Planètes", 110, 150);
+				printAt("Ennemis", 110, 180);
 			}
 			else {
 				//std::cout << "RENDERING\n";

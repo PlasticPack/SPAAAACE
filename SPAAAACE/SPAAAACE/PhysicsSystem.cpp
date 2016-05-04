@@ -24,6 +24,8 @@ void PhysicsSystem::resolveCollision(Message &postman, Scene *s, std::shared_ptr
 
 		postman.addMessage(s->getFatherID<PhysicsComponent>(a), s->getFatherID<PhysicsComponent>((int)b.get()), MS_COLLISION, (a->getVelocity().getLength() + b->getVelocity().getLength()));
 		postman.addMessage(s->getFatherID<PhysicsComponent>(b), s->getFatherID<PhysicsComponent>((int)a.get()), MS_COLLISION, (a->getVelocity().getLength() + b->getVelocity().getLength())); // on envoie l'adresse de l'autre
+		postman.addMessage("Physics", s->getFatherID<PhysicsComponent>(a), MS_COLLISION, (a->getVelocity().getLength() + b->getVelocity().getLength()));
+		postman.addMessage("Physics", s->getFatherID<PhysicsComponent>(b), MS_COLLISION, (a->getVelocity().getLength() + b->getVelocity().getLength()));
 
 		double elasticity = a->getElasticity() * b->getElasticity();
 
@@ -71,7 +73,6 @@ bool PhysicsSystem::checkIfCollide(Message &postman, Scene *s, std::shared_ptr<P
 			}
 		}
 		if (detected ){
-
 
 			//collision entre joueur et obj.
 			if (s->getFatherID<PhysicsComponent>(a) == "player"){

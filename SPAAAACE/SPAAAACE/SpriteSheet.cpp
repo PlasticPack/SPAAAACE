@@ -10,23 +10,23 @@ SpriteSheet::SpriteSheet(){
 	//std::cout << "DEFAULT SPRSHEET " << this << " CREATED\n";
 }
 
-SpriteSheet::SpriteSheet(SDL_Texture* texture, SDL_Rect rectSize, SDL_Rect sheetSize) : m_sheetSize(sheetSize)
+SpriteSheet::SpriteSheet(SDL_Texture* texture, std::string filename, SDL_Rect rectSize, SDL_Rect sheetSize) : m_sheetSize(sheetSize)
 {
 	m_texture = texture;
 	m_animationSpeed = 1;
 	m_timer = 0;
 	m_currentRect = SDL_Rect{ 0, 0, rectSize.w, rectSize.h };
-	m_filename = "";
+	m_filename = filename;
 	m_currentRectIndex = 0;
 	//std::cout << "CUSTOM SPRSHEET : " << this << " w/ texture " << texture <<  "\n";
 }
 
-SpriteSheet::SpriteSheet(SDL_Texture* texture, int nbcol, int nbrow)
+SpriteSheet::SpriteSheet(SDL_Texture* texture, std::string filename, int nbcol, int nbrow)
 {
 	m_currentRectIndex = 0;
 	int w = 0, h = 0;
 	m_texture = texture;
-	m_filename = "";
+	m_filename = filename;
 	SDL_QueryTexture(m_texture, NULL, NULL, &w, &h);
 	//std::cout << "c " << nbcol << "  r " << nbrow << "\n";
 	m_sheetSize = {0,0, w, h};

@@ -14,15 +14,15 @@ void GameLogicSystem::update(Message &postman, std::shared_ptr<GameObject> go, G
 
 	//se base strictement sur l'envoi/réception de messages
 	//std::cout << "GameLogic :" << std::to_string((int)go->get<PhysicsComponent>().get()) << " \n";
-	if (abs(postman.getMessage("Physics", std::to_string((int)go->get<PhysicsComponent>().get()), MS_COLLISION)) > 0) {
+	if (abs(postman.getMessage("Physics", go->getID(), MS_COLLISION)) > 0) {
 
 		//std::cout << "HEY";
 
-		double vel = postman.getMessage("Physics", std::to_string((int)go->get<PhysicsComponent>().get()), MS_COLLISION);
+		double vel = postman.getMessage("Physics", go->getID(), MS_COLLISION);
 		//std::cout << vel;
 		postman.addMessage("GameLogic", go->getID(), MS_COLLISION, vel);
 
-		int life_lost = floor(vel / 40.f);
+		int life_lost = floor(vel / 200.f);
 		//std::cout << life_lost << "\n";
 
 		comp.setLife(comp.getCurrentLife() - life_lost);

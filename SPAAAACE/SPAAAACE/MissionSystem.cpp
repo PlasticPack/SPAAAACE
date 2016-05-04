@@ -54,8 +54,9 @@ void MissionSystem::update(Message &postman, std::map<std::string, std::shared_p
 				//std::cout << m_objectives[m_currentObjective].targetID  << "\n";
 				m_objPosition = objs[m_objectives[m_currentObjective].targetID]->get<PositionComponent>()->getPosition();
 
-				if(objs[m_currentObjective]->get<PositionComponent>() != nullptr)
+				if (objs[m_currentObjective]->get<PositionComponent>() != nullptr) {
 					objs[m_currentObjective]->get<PositionComponent>()->setPosition(m_objPosition);
+				}
 				 
 			}
 			else if (objs[m_currentObjective]->get<PositionComponent>() != nullptr){

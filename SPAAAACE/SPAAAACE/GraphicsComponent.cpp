@@ -35,7 +35,7 @@ GraphicsComponent::GraphicsComponent(luabridge::LuaRef& componentTable, std::sha
 		if (spriteRef.cast<std::string>().find("__") == std::string::npos){
 			// si on a pas trouvé de __ ca veut dire qu'il y a pas de spécification de nom
 			//donc on prend default 
-			m_sprite = std::make_shared<Sprite>(std::make_shared<SpriteSheet>(GraphicsSystem::loadTexture(spriteRef), c, r));
+			m_sprite = std::make_shared<Sprite>(std::make_shared<SpriteSheet>(GraphicsSystem::loadTexture(spriteRef), spriteRef, c, r));
 			m_sprite->getCurrentSpriteSheet()->setFilename(spriteRef);
 		}
 		else {
@@ -63,7 +63,7 @@ GraphicsComponent::GraphicsComponent(luabridge::LuaRef& componentTable, std::sha
 				std::string file = part.substr(part.find("__") + 2, part.find("__") + 2 + part.length());
 
 				std::cout << name << "__" << file << "\n";
-				m_sprite->addSpriteSheet(name, std::make_shared<SpriteSheet>(GraphicsSystem::loadTexture(file), c, r));
+				m_sprite->addSpriteSheet(name, std::make_shared<SpriteSheet>(GraphicsSystem::loadTexture(file), file, c, r));
 				m_sprite->getSpriteSheet(name)->setFilename(file);
 			}
 		}
@@ -105,7 +105,6 @@ GraphicsComponent::GraphicsComponent(std::shared_ptr<PositionComponent> comp, st
 	m_camera = true;
 	m_sprite = spr;
 	m_center = Vec2(spr->getCurrentSpriteSheet()->getCurrentRect().w / 2, spr->getCurrentSpriteSheet()->getCurrentRect().h / 2);
-	//std::cout << m_center.x() << "  TWAS THE CENTER :D \n";
 	m_posComponent = comp;
 	m_size = Vec2(spr->getCurrentSpriteSheet()->getCurrentRect().w, spr->getCurrentSpriteSheet()->getCurrentRect().h);
 	m_maxSize = m_size;
