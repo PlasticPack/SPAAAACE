@@ -99,18 +99,21 @@ public:
 class CommandText : public Command
 {
 private:
-	std::string m_text;
+	std::string* m_text;
+	int m_size;
 	bool m_isInitialzed;
 public:
-	CommandText(std::string text) : Command()
+	
+	CommandText(std::string text[], int size) : Command()
 	{
 		m_isInitialzed = false;
 		m_text = text;
+		m_size = size;
 	}
 	CommandText() : Command()
 	{
 		m_isInitialzed = false;
-		m_text = "";
+		m_text;
 	}
 	~CommandText()
 	{
@@ -120,7 +123,8 @@ public:
 	{
 		if (!m_isInitialzed)
 		{
-			GraphicsSystem::print(m_text);
+			for (int i = 0; i < m_size;i++)
+			GraphicsSystem::print(m_text[i]);
 			m_isInitialzed = true;
 		}
 		else if (!GraphicsSystem::isTextLeft())
@@ -174,21 +178,23 @@ public:
 class CommandChangeSprite : public Command
 {
 private:
-	int m_animationSprite;
+	std::string m_animationSprite;
 
 public:
 
 	CommandChangeSprite() : Command()
 	{
-		m_animationSprite = 0;
+		m_animationSprite = "default";
 	}
-	CommandChangeSprite(int animation) : Command()
+	CommandChangeSprite(std::string animation) : Command()
 	{
 		m_animationSprite = animation;
 	}
 	virtual bool execute(GameObject* objet)
 	{
-		// TODO FAIRE LE CODE
+		objet->get<GraphicsComponent>()->getSprite()->setSpriteSheet(m_animationSprite);
+		m_isDone = true;
+		return true;
 	}
 
 };

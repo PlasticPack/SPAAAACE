@@ -98,6 +98,7 @@
     <ClCompile Include="GameLogicComponent.cpp" />
     <ClCompile Include="GameLogicSystem.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="genesis.cpp" />
     <ClCompile Include="GraphicsComponent.cpp" />
     <ClCompile Include="GraphicsSystem.cpp" />
     <ClCompile Include="LTimer.cpp" />
@@ -136,6 +137,8 @@
     <ClInclude Include="GameLogicComponent.h" />
     <ClInclude Include="GameLogicSystem.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="genesis.hpp" />
+    <ClInclude Include="gen_image.hpp" />
     <ClInclude Include="GraphicsComponent.h" />
     <ClInclude Include="GraphicsSystem.h" />
     <ClInclude Include="LTimer.h" />
