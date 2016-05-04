@@ -29,17 +29,26 @@ void MusicSystem::update(Message &postman)
 	else 
 	{
 		if (m_musique["menu"].isPlaying())
-			m_musique["menu"].stop(5000);
+		{
+			m_musique["menu"].stop();
+		}
 		else if (postman.getMessage("Scene", "Input", MS_PAUSE))
 		{
-				if (!m_musique["pause"].isPlaying())
+			if (!m_musique["pause"].isPlaying())
+			{
+				m_musique["zone1"].stop();
 				m_musique["pause"].play();
+
+			}
 				else
+				{
 					m_musique["pause"].stop();
-			
+				}
 		}
-		else if (!Mix_PlayingMusic())
+		else if (!m_musique["pause"].isPlaying())
 			m_musique["zone1"].play();
+		
+			
 	}
 
 	//SON
@@ -56,7 +65,7 @@ void MusicSystem::update(Message &postman)
 	
 	//avertisseur de fuel
 	double fuel = postman.getMessage("HUD", "FUEL", MS_FUEL_LEVEL);
-	
+	cout << fuel << endl;
 	if (fuel != 0)
 	{
 

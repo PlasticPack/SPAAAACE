@@ -602,7 +602,7 @@ void Scene::update(Message &postman)
 								Vec2 baseSize = currentObj->get<GraphicsComponent>()->getMaxSize();
 								double fuel = (double)(m_gameObjects["player"]->get<GameLogicComponent>()->getCurrentFuel()) / (double)m_gameObjects["player"]->get<GameLogicComponent>()->getMaxFuel();
 								currentObj->get<GraphicsComponent>()->setSize(Vec2(baseSize.x() * fuel, baseSize.y()));
-								postman.addMessage("HUD", "FUEL", MS_FUEL_LEVEL, m_gameObjects["player"]->get<GameLogicComponent>()->getCurrentFuel());
+								postman.addMessage("HUD", "FUEL", MS_FUEL_LEVEL, m_gameObjects["player"]->get<GameLogicComponent>()->getCurrentFuel() / m_gameObjects["player"]->get<GameLogicComponent>()->getMaxFuel());
 							}
 						}
 						else if (id == "hud_life"){
@@ -721,4 +721,5 @@ void Scene::update(Message &postman)
 	GraphicsSystem::printAt(std::to_string(postman.getNumberOfMsg()), 300, 200);
 	GraphicsSystem::endFrame(postman, m_gameObjects);
 #pragma endregion Général
+
 }
