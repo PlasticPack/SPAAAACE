@@ -144,8 +144,11 @@ void Scene::init(std::string arg, std::string xml){
 	m_inSystem.setActionTrigger(AC_SELECT, GP_BUTTON_A);
 
 	m_inSystem.setActionTrigger(AC_NEXT, SDL_SCANCODE_N);
+	m_inSystem.setActionTrigger(AC_NEXT, GP_BUTTON_A);
 	m_inSystem.setActionTrigger(AC_PAUSE, SDL_SCANCODE_ESCAPE);
+	m_inSystem.setActionTrigger(AC_PAUSE, GP_START);
 	m_inSystem.setActionTrigger(AC_MAP, SDL_SCANCODE_M);
+	m_inSystem.setActionTrigger(AC_MAP, GP_SELECT);
 
 	m_inSystem.setActionTrigger(AC_RESTART, SDL_SCANCODE_R);
 
@@ -259,7 +262,7 @@ Scene::~Scene()
 
 void Scene::update(Message &postman)
 {
-
+#pragma region menu
 	if (postman.getMessage("main", "main", MS_SWITCHED) == 1) {
 		std::cout << "SWITCHED\n";
 		if (m_id == "game"){ // pour le moment c'est ca
@@ -276,12 +279,15 @@ void Scene::update(Message &postman)
 			GraphicsSystem::loadBackground("ressources/space_3.png", 2, 100, 100, 255);
 		}
 	}
+#pragma endregion Ressources
 
+#pragma region Input
 	//INPUT GÉNÉRAL
 	m_inSystem.pollInputs();
 	postman.clearAll();
-	if (m_id == "menu")
+	if (m_id == "menu" || m_id == "savesMenu")
 		postman.addMessage("Scene", "ID", MS_MENU, 1);
+		
 	if (m_inSystem.checkTriggeredAction(AC_START))
 		postman.addMessage("game", "Input", 0, 1);
 
@@ -346,7 +352,6 @@ void Scene::update(Message &postman)
 	}
 
 	//GESTION DU MENU
-
 	//NAVIGATION AVEC FLÈCHES
 	if (m_id == "menu" || m_id == "savesMenu"){
 
@@ -368,6 +373,7 @@ void Scene::update(Message &postman)
 			int pos = std::find(menuList.begin(), menuList.end(), m_focusedID) - menuList.begin();
 
 			int newPos = pos;
+
 			if (m_inSystem.checkTriggeredAction(AC_DOWN)){
 				//on avance vers le bas 
 				newPos = (pos + 1) % menuList.size();
@@ -412,10 +418,13 @@ void Scene::update(Message &postman)
 		m_gameObjects["player"]->get<GraphicsComponent>()->getSprite()->setSpriteSheet("explosion");
 		
 	}
+	if ((m_inSystem.checkTriggeredAction(AC_EXIT) && m_pause && m_id == "game") || (m_id == "menu" && m_pause))
+		postman.addMessage("Action", "Button", MS_EXIT_REQUEST, 1);
+#pragma endregion Général
 
 	GraphicsSystem::initFrame();
 
-
+#pragma region MainLoop
 	for (int i = 0; i < m_orderedGO.size(); i++){
 
 		std::string currentID = m_orderedGO[i];
@@ -441,7 +450,7 @@ void Scene::update(Message &postman)
 
 							if (m_inSystem.checkTriggeredAction(AC_HORIZONTAL_PUSH) || m_inSystem.checkTriggeredAction(AC_VERTICAL_PUSH))
 							{
-								forces = Vec2(m_inSystem.checkTriggeredAction(AC_HORIZONTAL_PUSH) / 20.0, m_inSystem.checkTriggeredAction(AC_VERTICAL_PUSH) / 20.0);
+								forces = Vec2(m_inSystem.checkTriggeredAction(AC_HORIZONTAL_PUSH) / pow(2, 15)*pwr, m_inSystem.checkTriggeredAction(AC_VERTICAL_PUSH) /pow(2, 15)*pwr);
 							}
 							else {
 								if (m_inSystem.checkTriggeredAction(AC_UP))
@@ -528,7 +537,7 @@ void Scene::update(Message &postman)
 					if (AiC->getPhysicsComponent()->getPosition().getDist(AiC->getNearDanger()->getPosition()) >= AiC->getPhysicsComponent()->getPosition().getDist(m_physicsComps[j]->getPosition()) && getFatherID<PhysicsComponent>(m_physicsComps[j]) == "ai"){
 						//AiC->setNearDanger(m_physicsComps[j]);
 						//std::cout << AiC->getNearDanger()->getPosition().x() << " , " << AiC->getNearDanger()->getPosition().y() << std::endl;
-						system("PAUSE");
+						//system("PAUSE");
 					}
 				}
 			}
@@ -660,14 +669,10 @@ void Scene::update(Message &postman)
 		}
 
 	}
+#pragma endregion Général
 
-	std::map<std::string, std::shared_ptr<GameObject>>::iterator it;
-	for (auto& it : m_gameObjects){
-		auto AC = it.second->get<ActionComponent>();
-		if (AC != nullptr){
-			ActionSystem::update(postman, *AC);
-		}
-	}
+
+#pragma region GameState
 
 	if (m_id == "game"){
 		m_missionSystem->update(postman, m_gameObjects);
@@ -689,27 +694,31 @@ void Scene::update(Message &postman)
 		GraphicsSystem::printAt("Enter - Jouer",				basePos.x(), basePos.y() + 35, 150, 30);
 	}
 
+#pragma endregion Général
+
 	if (postman.getMessage("Action", "Trigger", 34061) > 0) {
 		//GraphicsSystem::print("TRRRIIIIGGGERREDDD oh thats rude");
 	
 	}
 	
+#pragma region System
+
+	std::map<std::string, std::shared_ptr<GameObject>>::iterator it;
+	for (auto& it : m_gameObjects){
+		auto AC = it.second->get<ActionComponent>();
+		if (AC != nullptr){
+			ActionSystem::update(postman, *AC);
+		}
+	}
+
 	m_cineSystem.update(postman);
 	
 	//MusSystem
 	m_musSytem.update(postman);
 
-	if ((m_inSystem.checkTriggeredAction(AC_EXIT) && m_pause && m_id == "game") || (m_id == "menu" && m_pause))
-		postman.addMessage("Action", "Button", MS_EXIT_REQUEST, 1);
+	
 
 	GraphicsSystem::printAt(std::to_string(postman.getNumberOfMsg()), 300, 200);
-
-	//TIR DU VAISSEAU
-	if (m_inSystem.checkTriggeredAction(AC_SHOOT))
-	{
-		//std::cout << "pew!\n";
-		postman.printAllMsg();
-	}
-
 	GraphicsSystem::endFrame(postman, m_gameObjects);
+#pragma endregion Général
 }
