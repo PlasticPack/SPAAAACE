@@ -1,7 +1,7 @@
 yog_sogoth = {
 	Position = {
-		x = 84000,
-		y = -18000,
+		x = -164000,
+		y = -23000,
 		z = 1
 	},
 	Physics = {

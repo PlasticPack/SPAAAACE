@@ -1049,7 +1049,8 @@ bool TiXmlDocument::LoadFile( FILE* file, TiXmlEncoding encoding )
     //		* CR+LF: DEC RT-11 and most other early non-Unix, non-IBM OSes, CP/M, MP/M, DOS, OS/2, Microsoft Windows, Symbian OS
     //		* CR:    Commodore 8-bit machines, Apple II family, Mac OS up to version 9 and OS-9
 
-	const char* p = buf;	// the read head
+	const char* p = buf;	// the read 
+
 	char* q = buf;			// the write head
 	const char CR = 0x0d;
 	const char LF = 0x0a;

@@ -2,6 +2,7 @@ planet = {
 	Position = {
 		x = -1000,
 		y = -2000,
+		fixed = true,
 	},
 	Physics = {
 		mass = 700,

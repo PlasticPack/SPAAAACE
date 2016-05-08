@@ -1,0 +1,31 @@
+﻿<center_mass><a/></center_mass>
+<planet_menu><a/></planet_menu>
+<button_save>
+	<a>
+		<id>button_save1</id>
+		<position>
+			<x>50.0</x>
+			<y>500.0</y>
+		</position>
+		<trigger>Scene button_save1 34059 1</trigger>
+		<answer>Action Button 34065 1</answer>
+	</a>
+	<aa>
+		<id>button_save2</id>
+		<position>
+			<x>50.0</x>
+			<y>600.0</y>
+		</position>
+		<trigger>Scene button_save2 34059 1</trigger>
+		<answer>Action Button 34066 1</answer>
+	</aa>
+	<b>
+		<id>button_save3</id>
+		<position>
+			<x>50.0</x>
+			<y>700.0</y>
+		</position>
+		<trigger>Scene button_save3 34059 1</trigger>
+		<answer>Action Button 34067 1</answer>
+	</b>
+</button_save>

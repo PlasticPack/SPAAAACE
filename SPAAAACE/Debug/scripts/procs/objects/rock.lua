@@ -1,0 +1,8 @@
+rock = {
+	Physics={
+	},
+	Position={
+	},
+	Graphics={
+	},
+}
