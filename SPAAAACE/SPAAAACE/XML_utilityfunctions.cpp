@@ -42,44 +42,7 @@ bool XML_u::loadObjects(Scene *s, std::vector<std::shared_ptr<GameObject> > &pur
 							//May change with a method with attributes
 							//Don't fracking delete this!
 
-							if (node->FirstChildElement() == NULL){
-								//std::cout << "Has attributes" << std::endl;
-
-								if (strcmp("health", node->Value()) == 0){
-									//For now we don't give a f*ck about health
-									//std::cout << "Setting health" << std::endl;
-								}
-								else if (strcmp("mass", node->Value()) == 0){
-									//Mass is supposed to be set by scripts
-									if (object->hasComponent(idn(PhysicsComponent))){
-										//std::cout << "Setting mass to : " << node->GetText() << std::endl;
-										object->get<PhysicsComponent>()->setMass(std::stod(node->GetText()));
-									}
-								}
-								else if (strcmp("id", node->Value()) == 0){
-									object->setID(node->GetText());
-									//object->setID(node->GetText());
-									object->idSet(true);
-								}
-								else if (strcmp("trigger", node->Value()) == 0){
-									if (object->hasComponent(idn(ActionComponent))){
-										object->get<ActionComponent>()->setTrigger(stringToMessage(node->GetText()));
-									}
-								}
-								else if (strcmp("answer", node->Value()) == 0){
-									if (object->hasComponent(idn(ActionComponent))){
-										object->get<ActionComponent>()->setAnswer(stringToMessage(node->GetText()));
-									}
-								}
-								
-								if (strcmp("done", node->Value()) == 0){
-									//si c'est un objectif
-									if (object->getID().find("objective") != std::string::npos){
-										s->getMissionSystem()->activateObjective(object->getID(), true);
-									}
-								}
-							}
-							else{
+							if (!node->FirstChildElement() == NULL){
 								//std::cout << "Has non-attributes" << std::endl;
 								if (strcmp("position", node->Value()) == 0){
 									//std::cout << "Setting position." << std::endl;
@@ -127,9 +90,67 @@ bool XML_u::loadObjects(Scene *s, std::vector<std::shared_ptr<GameObject> > &pur
 										}
 									}
 								}
-								
+								/*else if (strcmp("size", node->Value()) == 0){
+									if (object->hasComponent(idn(GraphicsComponent))){
+										for (element subnode = node->FirstChildElement(); subnode; subnode = subnode->NextSiblingElement()){
+										if (strcmp("x", subnode->Value()) == 0){
+										object->get<GraphicsComponent>()->setSize(Vec2(std::stoi(subnode->GetText()), object->get<GraphicsComponent>()->getSize().y()));
+										}
+										else if (strcmp("y", subnode->Value()) == 0){
+										object->get<GraphicsComponent>()->setSize(Vec2(object->get<GraphicsComponent>()->getSize().x(), std::stoi(subnode->GetText())));
+										}
+										}
+										}
+									if (object->hasComponent(idn(PhysicsComponent))){
+										phys(object)->setHitboxRadius(std::stoi(node->FirstChildElement()->GetText()));
+									}
+								}*/
+
+
 								//else std::cout << "No position component!" << std::endl;
 							}
+						else{
+								//std::cout << "Has attributes" << std::endl;
+
+								if (strcmp("health", node->Value()) == 0){
+									//For now we don't give a f*ck about health
+									//std::cout << "Setting health" << std::endl;
+								}
+								else if (strcmp("sprite", node->Value()) == 0){
+									//Sets the sprite of the object
+									object->get<GraphicsComponent>()->setSprite(std::make_shared<Sprite>(std::make_shared<SpriteSheet>(GraphicsSystem::loadTexture(node->GetText(), 1, 1),node->GetText())));
+								}
+								else if (strcmp("mass", node->Value()) == 0){
+									//Mass is supposed to be set by scripts
+									if (object->hasComponent(idn(PhysicsComponent))){
+										//std::cout << "Setting mass to : " << node->GetText() << std::endl;
+										object->get<PhysicsComponent>()->setMass(std::stod(node->GetText()));
+									}
+								}
+								else if (strcmp("id", node->Value()) == 0){
+									object->setID(node->GetText());
+									//object->setID(node->GetText());
+									object->idSet(true);
+								}
+								else if (strcmp("trigger", node->Value()) == 0){
+									if (object->hasComponent(idn(ActionComponent))){
+										object->get<ActionComponent>()->setTrigger(stringToMessage(node->GetText()));
+									}
+								}
+								else if (strcmp("answer", node->Value()) == 0){
+									if (object->hasComponent(idn(ActionComponent))){
+										object->get<ActionComponent>()->setAnswer(stringToMessage(node->GetText()));
+									}
+								}
+								
+								if (strcmp("done", node->Value()) == 0){
+									//si c'est un objectif
+									if (object->getID().find("objective") != std::string::npos){
+										s->getMissionSystem()->activateObjective(object->getID(), true);
+									}
+								}
+							}
+							
 						}
 						
 						if (!object->idSet()) {
@@ -257,7 +278,21 @@ bool XML_u::saveObjects(Scene *s, std::vector<std::shared_ptr<GameObject> > &obj
 			}
 			if (object->hasComponent(idn(GraphicsComponent)))
 			{
-
+				if (object->getType()=="planet"){
+					element sprite = new_element(STR(sprite));
+					sprite->LinkEndChild(new_text(object->get<GraphicsComponent>()->getFilename()));
+					elements->LinkEndChild(sprite);
+				}
+				if (strcmp("planet", object->getType().c_str()) == 0 || strcmp("star", object->getType().c_str()) == 0){
+					element size = new_element(STR(size));
+					element x = new_element(STR(x));
+					x->LinkEndChild(new_text(std::to_string(object->get<GraphicsComponent>()->getSize().x())));
+					size->LinkEndChild(x);
+					element y = new_element(STR(y));
+					y->LinkEndChild(new_text(std::to_string(object->get<GraphicsComponent>()->getSize().y())));
+					size->LinkEndChild(y);
+					elements->LinkEndChild(size);
+				}
 			}
 			script->LinkEndChild(elements);
 			cpt++;

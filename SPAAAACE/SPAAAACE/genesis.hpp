@@ -51,7 +51,7 @@ namespace genesis{
 	std::vector<std::vector<int>> generatePlanet(const std::string& seed, int& type);
 	std::vector<genesis::star> generateSystem(const std::string& filepath,const std::string& seed = "Supper's Ready");
 	std::vector<std::shared_ptr<GameObject>> generateObjects(Scene *scene,const std::string& filepath, const std::string& seed = "Supper's Ready");
-
+	std::string generateString();
 
 }
 
