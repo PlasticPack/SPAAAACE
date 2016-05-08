@@ -1,104 +1,7 @@
-﻿La génération a démarré 2016-05-03 19:32:55.
+﻿La génération a démarré 2016-05-07 17:43:31.
      1>Projet "C:\Users\Tristan\Documents\GitHub\SPAAAACE\SPAAAACE\SPAAAACE\SPAAAACE.vcxproj" sur le nœud 2 (Build cible(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\Boost /I..\..\Lua\5.2\include /I"..\..\LuaBridge-master\Source\LuaBridge" /I..\..\SDL2_ttf\include /I..\..\tinyxml /I"..\..\SDL2_mixer-2.0.1\include" /I"..\..\SDL2_image-2.0.1\include" /I"..\..\SDL2-2.0.4\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /FR"Debug\\" /Gd /TP /analyze- /errorReport:prompt ..\..\tinyxml\tinystr.cpp ..\..\tinyxml\tinyxml.cpp ..\..\tinyxml\tinyxmlerror.cpp ..\..\tinyxml\tinyxmlparser.cpp ActionComponent.cpp ActionSystem.cpp AiComponent.cpp AiSystem.cpp boostExemple.cpp CinemaSystem.cpp Cinematique.cpp Component.cpp GameLogicComponent.cpp GameLogicSystem.cpp GameObject.cpp genesis.cpp GraphicsComponent.cpp GraphicsSystem.cpp LTimer.cpp InputsComponent.cpp InputSystem.cpp LuaFunctions.cpp main.cpp Message.cpp MissionSystem.cpp MusicSystem.cpp Musique.cpp PhysicsComponent.cpp PhysicsSystem.cpp PositionComponent.cpp Scene.cpp scriptinit_exemple.cpp Son.cpp Source1.cpp Sprite.cpp SpriteSheet.cpp Vec2.cpp XML_utilityfunctions.cpp
-         XML_utilityfunctions.cpp
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\graphicssystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\luainit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
-                 c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\physicssystem.h(19) : voir la déclaration de 'Scene'
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\command.h(162): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\xml_utilityfunctions.cpp(168): warning C4018: '<' : incompatibilité signed/unsigned
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\xml_utilityfunctions.cpp(204): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\xml_utilityfunctions.cpp(205): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\xml_utilityfunctions.cpp(281): warning C4067: jetons inattendus après la directive du préprocesseur - saut de ligne attendu
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\xml_utilityfunctions.cpp(283): warning C4067: jetons inattendus après la directive du préprocesseur - saut de ligne attendu
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\xml_utilityfunctions.cpp(284): warning C4067: jetons inattendus après la directive du préprocesseur - saut de ligne attendu
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\xml_utilityfunctions.cpp(285): warning C4067: jetons inattendus après la directive du préprocesseur - saut de ligne attendu
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\xml_utilityfunctions.cpp(286): warning C4067: jetons inattendus après la directive du préprocesseur - saut de ligne attendu
-         Vec2.cpp
-         SpriteSheet.cpp
-         Sprite.cpp
-         Source1.cpp
-         Son.cpp
-         scriptinit_exemple.cpp
-         Scene.cpp
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\graphicssystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\luainit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
-                 c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\physicssystem.h(19) : voir la déclaration de 'Scene'
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\command.h(162): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\genesis.hpp(11): warning C4005: 'M_PI' : redéfinition de macro
-                 c:\users\tristan\documents\github\spaaaace\sdl2-2.0.4\include\sdl_stdinc.h(436) : voir la définition précédente de 'M_PI'
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\scene.cpp(36): warning C4018: '<' : incompatibilité signed/unsigned
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\scene.cpp(60): warning C4018: '<' : incompatibilité signed/unsigned
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\scene.cpp(214): warning C4018: '<' : incompatibilité signed/unsigned
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\scene.cpp(223): warning C4018: '<' : incompatibilité signed/unsigned
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\scene.cpp(234): warning C4018: '<' : incompatibilité signed/unsigned
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\scene.cpp(237): warning C4018: '<' : incompatibilité signed/unsigned
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\scene.cpp(247): warning C4018: '<' : incompatibilité signed/unsigned
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\scene.cpp(419): warning C4018: '<' : incompatibilité signed/unsigned
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\scene.cpp(504): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\scene.cpp(511): warning C4244: 'argument' : conversion de 'double' en 'unsigned int', perte possible de données
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\scene.cpp(665): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\scene.cpp(666): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
-         PositionComponent.cpp
-         PhysicsSystem.cpp
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\graphicssystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\luainit.hpp(22): warning C4099: 'Scene' : nom de type déjà rencontré avec 'struct' et utilisant maintenant 'class'
-                 c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\luainit.hpp(20) : voir la déclaration de 'Scene'
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\command.h(162): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\scene.h(63): warning C4099: 'Scene' : nom de type déjà rencontré avec 'struct' et utilisant maintenant 'class'
-                 c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\luainit.hpp(20) : voir la déclaration de 'Scene'
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\physicssystem.cpp(70): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\physicssystem.cpp(103): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\physicssystem.cpp(158): warning C4018: '<' : incompatibilité signed/unsigned
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\physicssystem.cpp(159): warning C4018: '<' : incompatibilité signed/unsigned
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\physicssystem.cpp(194): warning C4018: '<' : incompatibilité signed/unsigned
-         PhysicsComponent.cpp
-         Musique.cpp
-         MusicSystem.cpp
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\musicsystem.cpp(63): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
-         MissionSystem.cpp
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\graphicssystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\missionsystem.cpp(75): warning C4805: '==' : mélange risqué de type 'double' et de type 'bool' dans l'opération
-         Message.cpp
-         main.cpp
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\graphicssystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\luainit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
-                 c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\physicssystem.h(19) : voir la déclaration de 'Scene'
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\command.h(162): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\main.cpp(15): warning C4101: 'e' : variable locale non référencée
-         LuaFunctions.cpp
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\graphicssystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\command.h(162): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\luainit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
-                 c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\scene.h(63) : voir la déclaration de 'Scene'
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\luafunctions.cpp(169): warning C4018: '<' : incompatibilité signed/unsigned
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\luafunctions.cpp(190): warning C4018: '<' : incompatibilité signed/unsigned
-         InputSystem.cpp
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\inputsystem.cpp(62): warning C4018: '>' : incompatibilité signed/unsigned
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\inputsystem.cpp(155): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
-         InputsComponent.cpp
-         LTimer.cpp
-         Génération de code en cours...
-         Compilation en cours...
-         GraphicsSystem.cpp
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\graphicssystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(250): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(259): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(291): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(309): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(310): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(315): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(316): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(321): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(324): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(328): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(330): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(397): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(451): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-         GraphicsComponent.cpp
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\graphicssystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\graphicscomponent.cpp(50): warning C4018: '<' : incompatibilité signed/unsigned
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\Boost /I..\..\Lua\5.2\include /I"..\..\LuaBridge-master\Source\LuaBridge" /I..\..\SDL2_ttf\include /I..\..\tinyxml /I"..\..\SDL2_mixer-2.0.1\include" /I"..\..\SDL2_image-2.0.1\include" /I"..\..\SDL2-2.0.4\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /FR"Debug\\" /Gd /TP /analyze- /errorReport:prompt genesis.cpp
          genesis.cpp
      1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\graphicssystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
      1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\luainit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
@@ -132,39 +35,13 @@
                  c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\genesis.cpp(119) : définition de 'i' utilisée
      1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\genesis.cpp(159): warning C4244: 'argument' : conversion de 'double' en 'unsigned int', perte possible de données
      1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\genesis.cpp(292): warning C4244: 'argument' : conversion de 'double' en 'unsigned int', perte possible de données
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\genesis.cpp(378): warning C4018: '<' : incompatibilité signed/unsigned
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\genesis.cpp(379): warning C4018: '<' : incompatibilité signed/unsigned
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\genesis.cpp(491): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\genesis.cpp(501): warning C4101: 'p' : variable locale non référencée
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\genesis.cpp(499): warning C4101: 'w' : variable locale non référencée
-         GameObject.cpp
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\graphicssystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
-         GameLogicSystem.cpp
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\graphicssystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\gamelogicsystem.cpp(25): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\gamelogicsystem.cpp(42): warning C4244: 'argument' : conversion de 'double' en 'unsigned int', perte possible de données
-         GameLogicComponent.cpp
-         Component.cpp
-         Cinematique.cpp
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\graphicssystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\command.h(162): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-         CinemaSystem.cpp
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\graphicssystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\command.h(162): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-         boostExemple.cpp
-         AiSystem.cpp
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\aisystem.cpp(11): warning C4018: '<' : incompatibilité signed/unsigned
-         AiComponent.cpp
-         ActionSystem.cpp
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\actionsystem.cpp(6): warning C4018: '>' : incompatibilité signed/unsigned
-         ActionComponent.cpp
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\actioncomponent.cpp(41): warning C4018: '<' : incompatibilité signed/unsigned
-         tinyxmlparser.cpp
-         tinyxmlerror.cpp
-         tinyxml.cpp
-         tinystr.cpp
-         Génération de code en cours...
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(151): warning C4715: 'GraphicsSystem::loadTexture' : les chemins de contrôle ne retournent pas tous une valeur
+     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\genesis.cpp(380): warning C4018: '<' : incompatibilité signed/unsigned
+     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\genesis.cpp(381): warning C4018: '<' : incompatibilité signed/unsigned
+     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\genesis.cpp(446): warning C4018: '<' : incompatibilité signed/unsigned
+     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\genesis.cpp(512): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\genesis.cpp(523): warning C4101: 'p' : variable locale non référencée
+     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\genesis.cpp(521): warning C4101: 'w' : variable locale non référencée
+     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\genesis.cpp(598): warning C4244: 'argument' : conversion de 'time_t' en 'unsigned int', perte possible de données
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Tristan\Documents\GitHub\SPAAAACE\SPAAAACE\Debug\SPAAAACE.exe" /INCREMENTAL /NOLOGO /LIBPATH:..\..\Boost\stage\lib /LIBPATH:..\..\SDL2_ttf\lib\x86 /LIBPATH:"..\..\SDL2_mixer-2.0.1\lib\x86" /LIBPATH:"..\..\SDL2_image-2.0.1\lib\x86" /LIBPATH:"..\..\SDL2-2.0.4\lib\x86" /LIBPATH:..\..\Lua\5.2\lib lua5.2.lib SDL2main.lib SDL2.lib SDL2_image.lib SDL2_mixer.lib SDL2_ttf.lib "boost_filesystem-vc120-mt-gd-1_60.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Tristan\Documents\GitHub\SPAAAACE\SPAAAACE\Debug\SPAAAACE.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Tristan\Documents\GitHub\SPAAAACE\SPAAAACE\Debug\SPAAAACE.lib" /MACHINE:X86 Debug\tinystr.obj
          Debug\tinyxml.obj
@@ -212,4 +89,4 @@
 
 La génération a réussi.
 
-Temps écoulé 00:03:07.42
+Temps écoulé 00:00:34.67

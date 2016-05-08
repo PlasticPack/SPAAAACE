@@ -5,6 +5,7 @@
 
 int main(int argc, char* argv[]){
 
+
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC) != 0){
 		//log("SDL_Init error : " + SDL_GetError());
 		return 1;
@@ -19,9 +20,16 @@ int main(int argc, char* argv[]){
 	Scene savesMenu("scripts/scene_menu", "saves/menu2.xml", "savesMenu");
 	Scene menu("scripts/scene_menu", "saves/menu.xml", "menu");
 	
-	Scene save1("scripts/scene_game", "saves/save1.xml", "game");
-	Scene save2("scripts/scene_game", "saves/save2.xml", "game");
-	Scene save3("scripts/scene_game", "saves/save3.xml", "game");
+	std::string arg;
+	
+	if (sizeof(argv)/sizeof(*argv) > 1){
+		arg = argv[1];
+	}
+	else arg = "";
+
+	Scene save1("scripts/scene_game", "saves/save1.xml", "game",arg);
+	Scene save2("scripts/scene_game", "saves/save2.xml", "game",arg);
+	Scene save3("scripts/scene_game", "saves/save3.xml", "game",arg);
 
 	Message postman;
 

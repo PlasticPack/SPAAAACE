@@ -22,6 +22,10 @@ PositionComponent::PositionComponent(luabridge::LuaRef& componentTable){
 	auto a = componentTable["a"];
 	auto fixed = componentTable["fixed"];
 
+	if (fixed.isBoolean()){
+		m_fixed = fixed;
+	}
+
 	if (fixed.isString() && (fixed == "true" || fixed == "false")){
 		if (fixed == "true"){
 			m_fixed = true;

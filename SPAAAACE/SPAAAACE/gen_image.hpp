@@ -43,8 +43,7 @@
 #define TYPE_ICE_ICE_BABY 8
 #define TYPE_GAS_SATURN 9
 #define TYPE_GAS_NEPTUNE 10
-#define TYPE_GAS_URANUS 11
-#define TYPE_GAS_WHITESHELTER 12
+#define TYPE_GAS_PALESHELTER 11
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -285,13 +284,7 @@ namespace intarray2bmp
 						break;
 					}
 					break;
-				case TYPE_GAS_URANUS:
-					switch (H){
-					case 0:red = 255; blue = green = 0; break;
-					default:red = 194; green = 232; blue = 235; break;
-					}
-					break;
-				case TYPE_GAS_WHITESHELTER:
+				case TYPE_GAS_PALESHELTER:
 					switch (H)
 					{
 					case 0:red = 255; blue = green = 0; break;

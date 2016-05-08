@@ -14,6 +14,6 @@ objective_2 = {
 	},
 	Objective = {
 		name = "Trouver la planete Omega",
-		target = "planet_1"
+		target = "planetOmega"
 	}
 }

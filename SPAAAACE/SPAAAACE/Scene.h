@@ -63,11 +63,11 @@ class Scene
 {
 public:
 
-	Scene(std::string arg, std::string xml, std::string);
+	Scene(std::string arg, std::string xml, std::string, std::string seed=" ");
 	~Scene();
 	
 	void update(Message &postman);
-	void init(std::string arg, std::string xml); // méthode qui prend un script  et initialise le vector de gameObjects
+	void init(std::string arg, std::string xml,std::string seed); // méthode qui prend un script  et initialise le vector de gameObjects
 	void clear();
 	void reset();
 
@@ -155,6 +155,7 @@ protected:
 
 	std::string m_id;
 	std::string m_focusedID;
+	std::string m_xml;
 
 	std::string m_saveTarget;
 	std::string m_scriptSource;

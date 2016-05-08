@@ -2,15 +2,21 @@
 #include "Command.h"
 #include"genesis.hpp"
 
-Scene::Scene(std::string arg, std::string xml, std::string id) : m_id(id), m_missionSystem(std::make_shared<MissionSystem>()), m_saveTarget(xml), m_scriptSource(arg)
+Scene::Scene(std::string arg, std::string xml, std::string id, std::string seed) : m_id(id), m_missionSystem(std::make_shared<MissionSystem>()), m_saveTarget(xml), m_scriptSource(arg)
 {
+	m_xml = xml;
 	GraphicsSystem::init();
 	m_missionSystem->init();
-	init(arg, xml);
+	std::string argm;
+	if (seed.empty()){
+		argm = genesis::generateString();
+	}
+	else argm = seed;
+	init(arg, xml,argm);
 }
 
 
-void Scene::init(std::string arg, std::string xml){
+void Scene::init(std::string arg, std::string xml, std::string seed){
 	//AJOUTEZ VOS OBJETS ICI! **********************************************
 
 	try {
@@ -19,11 +25,10 @@ void Scene::init(std::string arg, std::string xml){
 	catch (std::exception e){
 		std::cout << e.what() << "\n";
 	}
-	
+
 	std::vector<std::shared_ptr<GameObject>> pure;
 	if (!boost::filesystem::exists(xml)){
-		
-		genesis::generateObjects(this, boost::filesystem::path(xml).stem().string());
+		genesis::generateObjects(this, boost::filesystem::path(xml).stem().string(),seed);
 	}
 	XML_u::loadObjects(this, pure, m_gameObjects, xml);
 
@@ -188,7 +193,8 @@ void Scene::clear(){
 
 void Scene::reset(){
 	clear();
-	init("scripts/scene_game", "saves/default.xml");
+	boost::filesystem::remove(boost::filesystem::path(m_xml));
+	init("scripts/scene_game", m_xml,"");
 	XML_u::saveObjects(this, m_gameObjects, m_saveTarget);
 }
 
@@ -321,7 +327,7 @@ void Scene::update(Message &postman)
 			GraphicsSystem::print("Chargement...");
 
 			clear();
-			init(m_scriptSource, m_saveTarget);
+			init(m_scriptSource, m_saveTarget, " ");
 
 			m_loadTimer.stop();
 			m_loadTimer.start();
