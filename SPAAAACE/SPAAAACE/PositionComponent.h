@@ -1,8 +1,6 @@
-#pragma once
-#include "Component.h"
-#include "Vec2.h"
-
-/*Permet de gérer une position spatiale en x, y, et "z"
+/*
+Créé par Charles Murphy
+Permet de gérer une position spatiale en x, y, et "z"
 z : layer (double)
 indique la hauteur absolue
 zIndex 0 : base, loin "à l'infini", ne bouge apparament pas
@@ -10,6 +8,10 @@ zIndex 1 : layer standard, par défaut tout est à ce niveau
 zIndex > 1 : plus "proche" de la caméra
 zIndex < 1 && > 0 : plus loin de la caméra
 */
+#pragma once
+#include "Component.h"
+#include "Vec2.h"
+
 class Component;
 
 class PositionComponent : public Component {

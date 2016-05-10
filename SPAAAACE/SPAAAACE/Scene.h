@@ -1,3 +1,9 @@
+/*************************
+Créé par Charles Murphy
+Représente un niveau ou un menu,
+bref une collection de GameObjects pouvant 
+être mis à jour
+**************************/
 #pragma once
 
 #include "PhysicsSystem.h"

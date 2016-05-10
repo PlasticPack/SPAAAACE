@@ -1,3 +1,9 @@
+/***************************
+Créé par Charles Murphy
+Component servant à détecter des actions et à y répondre
+Reçoit un message particulier et lance une réponse précise
+****************************/
+
 #ifndef ACTIONCOMPONENT_H
 #define ACTIONCOMPONENT_H
 #include "Component.h"
@@ -7,13 +13,6 @@
 #include <iterator>
 
 typedef std::pair<std::pair<std::string, std::string>, std::pair<int, double>> typeSingleMessage;
-
-/***********************************
-
-Check si recu un message, et si recu
-en renvoit un précis
-
-***********************************/
 
 class ActionComponent :
 	public Component

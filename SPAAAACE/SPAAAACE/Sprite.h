@@ -1,3 +1,8 @@
+/*************************
+Créé par Charles Murphy
+Classe représentant une collection de SpriteSheets
+servant à représenter un objet
+**************************/
 #pragma once
 
 #include "SpriteSheet.h"

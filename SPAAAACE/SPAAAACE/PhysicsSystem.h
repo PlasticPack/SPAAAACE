@@ -1,11 +1,19 @@
+/*************************
+Créé par Charles Murphy
+Système gérant les PhysicsComponent
+et leurs interactions
+
+CODE LIBREMENT INSPIRÉ DE
+http://gafferongames.com/game-physics/integration-basics/
+
+**************************/
 #pragma once
 
 #include "PhysicsComponent.h"
 #include "Scene.h"
 
 class PhysicsComponent;
-//CODE LIBREMENT INSPIRÉ DE
-//http://gafferongames.com/game-physics/integration-basics/
+
 struct State { // stocke l'état d'un objet (position/vélocité)
 	Vec2 pos;
 	Vec2 vel;

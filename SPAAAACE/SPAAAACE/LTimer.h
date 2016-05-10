@@ -1,3 +1,9 @@
+/*************************
+Classe de Timer classique
+code tiré de
+
+http://lazyfoo.net/tutorials/SDL/23_advanced_timers/index.php
+**************************/
 #pragma once
 #include <SDL.h>
 

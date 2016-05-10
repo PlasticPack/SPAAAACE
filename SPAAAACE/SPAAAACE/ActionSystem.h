@@ -1,3 +1,7 @@
+/*************************
+Créé par Charles Murphy
+Système gérant les ActionComponent
+**************************/
 #include "ActionComponent.h"
 
 

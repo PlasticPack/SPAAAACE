@@ -1,3 +1,7 @@
+/*************************
+Créé par Charles Murphy
+Système gérant les objectifs du joueur
+**************************/
 #pragma once
 
 #include "GameObject.h"

@@ -1,3 +1,9 @@
+/*****************************
+Créé par Charles Murphy
+Component servant à la gestion de la 
+logique du jeu : les points de vie, le
+carburant, le moteur
+******************************/
 #pragma once
 #include "Component.h"
 #include <vector>

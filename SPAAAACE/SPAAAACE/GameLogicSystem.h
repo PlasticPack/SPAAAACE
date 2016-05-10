@@ -1,3 +1,7 @@
+/*************************
+Créé par Charles Murphy
+Système gérant les GameLogicComponent
+**************************/
 #pragma once
 
 #include "GameLogicComponent.h"

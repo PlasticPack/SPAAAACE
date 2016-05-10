@@ -1,3 +1,7 @@
+/*************************
+Créé par Tristan Roy et Charles Murphy
+Objet contenant des components
+**************************/
 #pragma once
 
 #include "AiComponent.h"

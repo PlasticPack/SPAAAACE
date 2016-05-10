@@ -139,7 +139,6 @@
     <ClInclude Include="GraphicsComponent.h" />
     <ClInclude Include="GraphicsSystem.h" />
     <ClInclude Include="LTimer.h" />
-    <ClInclude Include="InputsComponent.h" />
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="LuaInit.hpp" />
     <ClInclude Include="Message.h" />

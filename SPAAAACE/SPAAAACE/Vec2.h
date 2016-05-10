@@ -1,12 +1,12 @@
-#pragma once
-
-#include <math.h>
-
-/**************************************
+/*************************
+Créé par Charles Murphy
 Classe qui représente un vecteur 2D
 manipulable, sur lequel on peut
 effectuer des opérations de base
-**************************************/
+**************************/
+#pragma once
+
+#include <math.h>
 
 class Vec2{
 public:
