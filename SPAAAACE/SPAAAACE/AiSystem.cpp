@@ -40,10 +40,10 @@ void AiSystem::update(std::shared_ptr <AiComponent> ac, std::shared_ptr <GameLog
 */
 void AiSystem::selectionIntel(std::shared_ptr <AiComponent> ac)
 {
-	if (ac->getType() == 1){
+	if (ac->getType() == 0){
 		playIntel(ac);
 	}
-	else if (ac->getType() == 0){
+	else if (ac->getType() == 1){
 		playDumb(ac);
 	}
 	else{
@@ -82,7 +82,12 @@ void AiSystem::verifObject(std::shared_ptr <AiComponent> ac){
 	}
 }
 
-
+/*
+	Cette fonction a pour but d'éviter les planètes entre l'A.I. et le joueur. L'A.I. prendra donc la normale du vecteur du rayon 
+	de la planète vers elle-même plus ce dit vecteur et appliquera sa force de moteur sur ce nouveau vecteur directeur.
+	Ainsi, l'A.I. ne peut pas empêcher l'écrasement si elle fonce en ligne droite sur la planète, mais elle peut l'évitée si
+	l'angle d'approche est assez grand.
+*/
 void AiSystem::evitement(std::shared_ptr <AiComponent> ac){
 
 	Vec2 vecDirection;
@@ -123,6 +128,11 @@ void AiSystem::evitement(std::shared_ptr <AiComponent> ac){
 	
 }
 
+/*
+	Ce qui fait bouger le joueur. Selon l'angle entre le joueur et elle-même, l'A.I. donnera une "poussée"
+	seulement au paramètre (x ou y) qui est le plus grand. Cette technique a pour but d'agrandir la superficie
+	que l'A.I. parcours pour attaquer le joueur, augmentant ainsi les chances de collisions.
+*/
 void AiSystem::mouvement(std::shared_ptr <AiComponent> ac){
 	Vec2 vecDirection;
 
@@ -138,6 +148,11 @@ void AiSystem::mouvement(std::shared_ptr <AiComponent> ac){
 
 }
 
+/*
+	La conscience de l'A.I. Elle commence par vérifié si un objet autre que le joueur se trouve à proximité.
+	Si oui, elle oubliera le joueur pour un instant et appliquera son évitement. Sinon, elle foncera
+	directement vers le joueur.
+*/
 void AiSystem::playIntel(std::shared_ptr <AiComponent> ac){
 	if (ac->isCloseToDanger()){
 		verifObject(ac);
@@ -147,6 +162,10 @@ void AiSystem::playIntel(std::shared_ptr <AiComponent> ac){
 	}
 }
 
+/*
+	Lors du choix de l'intélligence selon le type, si ce type est 1 (donc pas par défaut), L'A.I. se véra attribué 
+	une conscience sans l'évitement. L'A.I. se crashera donc sur n'importe quel objet à sa proximité.
+*/
 void AiSystem::playDumb(std::shared_ptr <AiComponent> ac){
 	verifVision(ac);
 }
