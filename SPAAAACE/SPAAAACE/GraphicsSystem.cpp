@@ -1,3 +1,4 @@
+//Gabriel : aider à faire la rotation matricielle de la map
 #include "GraphicsSystem.h"
 
 SDL_Window* GraphicsSystem::m_window = NULL;//SDL_CreateWindow("Physics - SPACE SIM", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_W, SCREEN_H, SDL_WINDOW_SHOWN);
@@ -193,7 +194,7 @@ void GraphicsSystem::loadBackground(const std::string filename, int layer, Uint8
 	}
 }
 
-void GraphicsSystem::update(Message &postman, std::string id, GraphicsComponent gComp, double dt) {
+void GraphicsSystem::update(Message &postman, std::string id, GraphicsComponent gComp, double dt) {	
 	if (m_initialized) {
 		if (m_frameStarted){
 

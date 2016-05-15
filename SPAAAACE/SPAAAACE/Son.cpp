@@ -1,3 +1,7 @@
+/*
+Auteur : Gabriel Bouchard
+Buts: classe conteneur des fonctions de SDL pour le son
+*/
 #include "Son.h"
 #include <iostream>
 using namespace std;

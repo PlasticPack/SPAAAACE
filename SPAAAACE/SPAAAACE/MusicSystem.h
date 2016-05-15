@@ -1,3 +1,7 @@
+/*
+Auteur : Gabriel Bouchard
+Buts: Système pour gérer son et musique
+*/
 #pragma once
 
 #include <SDL_mixer.h>

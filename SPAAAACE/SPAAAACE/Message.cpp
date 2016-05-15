@@ -1,3 +1,8 @@
+
+/*
+Auteur : Gabriel Bouchard
+Buts: Gère les messages du jeu
+*/
 #include "Message.h"
 #include <iostream>
 

@@ -1,3 +1,8 @@
+/*
+Auteur : Gabriel Bouchard
+Buts: Contient toutes les variables constantes qui sont utilisé soit pour les messages, les boutons, etc.
+*/
+
 #ifndef FLAGS_H
 #define FLAGS_H
 

@@ -1,3 +1,7 @@
+/*
+Auteur : Gabriel Bouchard
+Buts: Système qui gère les inputs
+*/
 #include "InputSystem.h"
 #include <iostream>
 #include "InputsComponent.h"

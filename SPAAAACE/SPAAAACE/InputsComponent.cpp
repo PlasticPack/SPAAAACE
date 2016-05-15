@@ -1,3 +1,8 @@
+/*
+Auteur : Gabriel Bouchard
+Buts: 
+*/
+
 #include "InputsComponent.h"
 #include "InputSystem.h"
 #include "PhysicsComponent.h"

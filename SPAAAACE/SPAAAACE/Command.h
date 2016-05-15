@@ -1,3 +1,8 @@
+/*
+Auteur : Gabriel Bouchard
+Buts: Contient toutes les commandes utiliser dans les cinématiques et ailleur dans le jeu.
+*/
+
 #pragma once
 #include "GameObject.h"
 #include <math.h>

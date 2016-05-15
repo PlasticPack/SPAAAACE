@@ -1,6 +1,11 @@
 #include "cinematique.h"
 #include "PhysicsComponent.h"
 
+/*
+Auteur : Gabriel Bouchard
+Buts: Avoir plusieurs type de cinématiques
+*/
+
 using namespace std;
 
 

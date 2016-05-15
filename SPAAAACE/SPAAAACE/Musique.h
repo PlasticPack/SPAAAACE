@@ -1,3 +1,7 @@
+/*
+Auteur : Gabriel Bouchard
+Buts: classe conteneur des fonctions de SDL pour la musique
+*/
 #pragma once
 
 #include <SDL_mixer.h>

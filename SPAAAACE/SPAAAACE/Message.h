@@ -1,3 +1,8 @@
+/*
+Auteur : Gabriel Bouchard
+Buts: classe Message qui permet de stocker des messages avec le destinataire correspondant
+*/
+
 #pragma once
 #include <map>
 #include <queue>

@@ -1,3 +1,7 @@
+/*
+Auteur : Gabriel Bouchard
+Buts: Système qui gère les musiques et sons
+*/
 #include "MusicSystem.h"
 #include <iostream>
 

@@ -1,3 +1,7 @@
+/*
+Auteur : Gabriel Bouchard
+Buts: Système qui gère les cinématiques
+*/
 #include "CinemaSystem.h"
 #include "PhysicsComponent.h"
 #include "Command.h"

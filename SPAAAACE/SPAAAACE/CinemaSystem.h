@@ -1,3 +1,8 @@
+/*
+Auteur : Gabriel Bouchard
+Buts: Système qui gère les cinématiques
+*/
+
 #pragma once
 #include "Message.h"
 #include "GameObject.h"

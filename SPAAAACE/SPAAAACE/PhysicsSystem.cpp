@@ -1,3 +1,4 @@
+//Gabriel: Aider à faire les collisions
 #include "PhysicsSystem.h"
 
 double PhysicsSystem::m_gravity = 6.67 * pow(10, 4);

@@ -1,3 +1,7 @@
+/*
+Auteur : Gabriel Bouchard
+Buts: Système qui gère les inputs
+*/
 #pragma once
 #include <SDL.h>
 #include <string>

@@ -1,3 +1,8 @@
+/*
+Auteur : Gabriel Bouchard
+Buts: classe conteneur des fonctions de SDL pour la musique
+*/
+
 #include "Musique.h"
 
 Musique::Musique(std::string filepath) : m_isPlaying(false)

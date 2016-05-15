@@ -1,96 +1,9 @@
-<<<<<<< HEAD
-﻿La génération a démarré 2016-05-08 01:13:41.
-     1>Projet "C:\Users\Tristan\Documents\GitHub\SPAAAACE\SPAAAACE\SPAAAACE\SPAAAACE.vcxproj" sur le nœud 2 (Build cible(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\Boost /I..\..\Lua\5.2\include /I"..\..\LuaBridge-master\Source\LuaBridge" /I..\..\SDL2_ttf\include /I..\..\tinyxml /I"..\..\SDL2_mixer-2.0.1\include" /I"..\..\SDL2_image-2.0.1\include" /I"..\..\SDL2-2.0.4\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt XML_utilityfunctions.cpp
-         XML_utilityfunctions.cpp
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\GraphicsSystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\LuaInit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
-                 c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\PhysicsSystem.h(19) : voir la déclaration de 'Scene'
-     1>c:\users\tristan\documents\github\spaaaace\spaaaace\spaaaace\Command.h(162): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-     1>XML_utilityfunctions.cpp(189): warning C4018: '<' : incompatibilité signed/unsigned
-     1>XML_utilityfunctions.cpp(225): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
-     1>XML_utilityfunctions.cpp(226): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
-     1>XML_utilityfunctions.cpp(316): warning C4067: jetons inattendus après la directive du préprocesseur - saut de ligne attendu
-     1>XML_utilityfunctions.cpp(318): warning C4067: jetons inattendus après la directive du préprocesseur - saut de ligne attendu
-     1>XML_utilityfunctions.cpp(319): warning C4067: jetons inattendus après la directive du préprocesseur - saut de ligne attendu
-     1>XML_utilityfunctions.cpp(320): warning C4067: jetons inattendus après la directive du préprocesseur - saut de ligne attendu
-     1>XML_utilityfunctions.cpp(321): warning C4067: jetons inattendus après la directive du préprocesseur - saut de ligne attendu
-=======
-﻿La génération a démarré 04/05/2016 01:04:51.
+﻿La génération a démarré 14/05/2016 23:28:55.
      1>Projet "C:\Users\PlasticPack\Documents\GitHub\SPAAAACE\SPAAAACE\SPAAAACE\SPAAAACE.vcxproj" sur le nœud 2 (Build cible(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\Boost /I..\..\Lua\5.2\include /I"..\..\LuaBridge-master\Source\LuaBridge" /I..\..\SDL2_ttf\include /I..\..\tinyxml /I"..\..\SDL2_mixer-2.0.1\include" /I"..\..\SDL2_image-2.0.1\include" /I"..\..\SDL2-2.0.4\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Scene.cpp
-         Scene.cpp
-     1>c:\users\plasticpack\documents\github\spaaaace\spaaaace\spaaaace\GraphicsSystem.h(72): warning C4800: 'unsigned int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
-     1>c:\users\plasticpack\documents\github\spaaaace\spaaaace\spaaaace\LuaInit.hpp(20): warning C4099: 'Scene' : nom de type déjà rencontré avec 'class' et utilisant maintenant 'struct'
-                 c:\users\plasticpack\documents\github\spaaaace\spaaaace\spaaaace\PhysicsSystem.h(19) : voir la déclaration de 'Scene'
-     1>c:\users\plasticpack\documents\github\spaaaace\spaaaace\spaaaace\Command.h(162): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
-     1>c:\users\plasticpack\documents\github\spaaaace\spaaaace\spaaaace\genesis.hpp(11): warning C4005: 'M_PI' : redéfinition de macro
-                 c:\users\plasticpack\documents\github\spaaaace\sdl2-2.0.4\include\SDL_stdinc.h(436) : voir la définition précédente de 'M_PI'
-     1>Scene.cpp(36): warning C4018: '<' : incompatibilité signed/unsigned
-     1>Scene.cpp(60): warning C4018: '<' : incompatibilité signed/unsigned
-     1>Scene.cpp(217): warning C4018: '<' : incompatibilité signed/unsigned
-     1>Scene.cpp(226): warning C4018: '<' : incompatibilité signed/unsigned
-     1>Scene.cpp(237): warning C4018: '<' : incompatibilité signed/unsigned
-     1>Scene.cpp(240): warning C4018: '<' : incompatibilité signed/unsigned
-     1>Scene.cpp(250): warning C4018: '<' : incompatibilité signed/unsigned
-     1>Scene.cpp(428): warning C4018: '<' : incompatibilité signed/unsigned
-     1>Scene.cpp(513): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
-     1>Scene.cpp(520): warning C4244: 'argument' : conversion de 'double' en 'unsigned int', perte possible de données
-     1>Scene.cpp(529): warning C4018: '<' : incompatibilité signed/unsigned
-     1>Scene.cpp(693): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
-     1>Scene.cpp(694): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
->>>>>>> master
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\PlasticPack\Documents\GitHub\SPAAAACE\SPAAAACE\Release\SPAAAACE.exe" /NOLOGO /LIBPATH:..\..\Boost\stage\lib /LIBPATH:..\..\SDL2_ttf\lib\x86 /LIBPATH:"..\..\SDL2_mixer-2.0.1\lib\x86" /LIBPATH:"..\..\SDL2_image-2.0.1\lib\x86" /LIBPATH:"..\..\SDL2-2.0.4\lib\x86" /LIBPATH:..\..\Lua\5.2\lib lua5.2.lib SDL2main.lib SDL2.lib SDL2_image.lib SDL2_mixer.lib SDL2_ttf.lib "boost_filesystem-vc120-mt-1_60.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\PlasticPack\Documents\GitHub\SPAAAACE\SPAAAACE\Release\SPAAAACE.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\PlasticPack\Documents\GitHub\SPAAAACE\SPAAAACE\Release\SPAAAACE.lib" /MACHINE:X86 /SAFESEH Release\tinystr.obj
-         Release\tinyxml.obj
-         Release\tinyxmlerror.obj
-         Release\tinyxmlparser.obj
-         Release\ActionComponent.obj
-         Release\ActionSystem.obj
-         Release\AiComponent.obj
-         Release\AiSystem.obj
-         Release\boostExemple.obj
-         Release\CinemaSystem.obj
-         Release\Cinematique.obj
-         Release\Component.obj
-         Release\GameLogicComponent.obj
-         Release\GameLogicSystem.obj
-         Release\GameObject.obj
-         Release\genesis.obj
-         Release\GraphicsComponent.obj
-         Release\GraphicsSystem.obj
-         Release\LTimer.obj
-         Release\InputsComponent.obj
-         Release\InputSystem.obj
-         Release\LuaFunctions.obj
-         Release\main.obj
-         Release\Message.obj
-         Release\MissionSystem.obj
-         Release\MusicSystem.obj
-         Release\Musique.obj
-         Release\PhysicsComponent.obj
-         Release\PhysicsSystem.obj
-         Release\PositionComponent.obj
-         Release\Scene.obj
-         Release\scriptinit_exemple.obj
-         Release\Son.obj
-         Release\Source1.obj
-         Release\Sprite.obj
-         Release\SpriteSheet.obj
-         Release\Vec2.obj
-         Release\XML_utilityfunctions.obj
-         Génération de code en cours
-     1>c:\users\plasticpack\documents\github\spaaaace\spaaaace\spaaaace\graphicssystem.cpp(151): warning C4715: 'GraphicsSystem::loadTexture' : les chemins de contrôle ne retournent pas tous une valeur
-         Fin de la génération du code
+     1>Link:
          SPAAAACE.vcxproj -> C:\Users\PlasticPack\Documents\GitHub\SPAAAACE\SPAAAACE\Release\SPAAAACE.exe
      1>Génération du projet "C:\Users\PlasticPack\Documents\GitHub\SPAAAACE\SPAAAACE\SPAAAACE\SPAAAACE.vcxproj" terminée (Build cible(s)).
 
 La génération a réussi.
 
-<<<<<<< HEAD
-Temps écoulé 00:00:10.12
-=======
-Temps écoulé 00:00:12.72
->>>>>>> master
+Temps écoulé 00:00:00.45
