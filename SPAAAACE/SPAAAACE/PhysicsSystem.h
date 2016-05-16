@@ -1,19 +1,24 @@
+/*************************
+Cr√©√© par Charles Murphy
+Syst√®me g√©rant les PhysicsComponent
+et leurs interactions
+CODE LIBREMENT INSPIR√â DE
+http://gafferongames.com/game-physics/integration-basics/
+**************************/
 #pragma once
 
 #include "PhysicsComponent.h"
 #include "Scene.h"
 
 class PhysicsComponent;
-//CODE LIBREMENT INSPIR… DE
-//http://gafferongames.com/game-physics/integration-basics/
-struct State { // stocke l'Ètat d'un objet (position/vÈlocitÈ)
+struct State { // stocke l'√©tat d'un objet (position/v√©locit√©)
 	Vec2 pos;
 	Vec2 vel;
 };
 
-struct Derivative { // stocke la dÈrivÈe de l'Ètat d'un objet (en fonction du temps)
-	Vec2 dpos; // (dpos/dt = vÈlocitÈ)
-	Vec2 dvel; // (dvel/dt = accÈlÈration)
+struct Derivative { // stocke la d√©riv√©e de l'√©tat d'un objet (en fonction du temps)
+	Vec2 dpos; // (dpos/dt = v√©locit√©)
+	Vec2 dvel; // (dvel/dt = acc√©l√©ration)
 };
 
 class Scene;
@@ -24,7 +29,7 @@ public:
 	PhysicsSystem();
 	~PhysicsSystem();
 
-	static Vec2 gravity(PhysicsComponent &a, PhysicsComponent& b); // retourne la gravitÈ que b exerce sur this
+	static Vec2 gravity(PhysicsComponent &a, PhysicsComponent& b); // retourne la gravit√© que b exerce sur a
 
 	static void update(Message &postman, Scene *s, PhysicsComponent &a, std::vector<std::shared_ptr<PhysicsComponent>> &phyComps, double dt);
 
