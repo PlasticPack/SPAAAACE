@@ -1,3 +1,9 @@
+/*************************
+Créé par Charles Murphy
+Component servant à gérer le déplacement
+d'un objet selon les lois de la physique
+gestion de la gravité et des collisions
+**************************/
 #pragma once
 
 #include "PositionComponent.h"
