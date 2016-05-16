@@ -1,3 +1,8 @@
+/*************************
+Créé par Charles Murphy
+Component servant à afficher un objet
+et à l'animer
+**************************/
 #pragma once
 
 #include "PositionComponent.h"
