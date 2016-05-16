@@ -1,3 +1,7 @@
+/*************************
+Créé par Tristan Roy et Charles Murphy
+Objet contenant des components
+**************************/
 #pragma once
 
 #include "AiComponent.h"
@@ -26,7 +30,7 @@ public:
 		if (it != m_components.end()) {
 			//std::cout << "\nFOUND COMP : " << std::type_index(typeid(T)).name();
 
-			return std::dynamic_pointer_cast<T>(it->second); // on retourne le component si trouv�
+			return std::dynamic_pointer_cast<T>(it->second); // on retourne le component si trouvé
 		}
 		return nullptr;
 	}
