@@ -1,3 +1,9 @@
+/*************************
+Créé par Charles Murphy
+Système gérant les GraphicsComponent
+ainsi que l'affichage des backgrounds,
+du texte et le suivi de la caméra
+**************************/
 #pragma once
 
 #include "GraphicsComponent.h"
