@@ -1,3 +1,8 @@
+/*************************
+Créé par Charles Murphy
+Classe qui gère un ensemble d'images
+constituant une animation
+**************************/
 #pragma once
 #include <SDL.h>
 #include <SDL_image.h>
@@ -6,11 +11,6 @@
 #include "Vec2.h"
 #include <iostream>
 #include <memory>
-
-/***********************************
-Classe qui g�re un ensemble d'images
-constituant une animation
-************************************/
 
 class SpriteSheet
 {
