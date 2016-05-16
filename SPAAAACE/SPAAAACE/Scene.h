@@ -1,3 +1,9 @@
+/*************************
+Cr√©√© par Charles Murphy
+Repr√©sente un niveau ou un menu,
+bref une collection de GameObjects pouvant 
+√™tre mis √† jour
+**************************/
 #pragma once
 
 #include "PhysicsSystem.h"
@@ -18,18 +24,18 @@
 
 COMMENT CA MARCHE, 18 mars 2016
 
-Pour ajouter un objet, vous Èditez le script "nem1.lua"
-(ou vous en crÈez un nouveau et le chargez). Ex :
+Pour ajouter un objet, vous √©ditez le script "nem1.lua"
+(ou vous en cr√©ez un nouveau et le chargez). Ex :
 
 MonObjet = {
 	Component1 = {
-		propriÈtÈ1 = x,
-		propriÈtÈ2 = true,
+		propri√©t√©1 = x,
+		propri√©t√©2 = true,
 		...
 	},
 	Component2 = {
-		propriÈtÈ1 = x,
-		propriÈtÈ2 = true,
+		propri√©t√©1 = x,
+		propri√©t√©2 = true,
 		...
 	},
 	...
@@ -39,19 +45,20 @@ MonObjet2 = {
 }
 
 Notez bien les emplacement des virgules entre 
-chaque propriÈtÈ et chaque Component mais
+chaque propri√©t√© et chaque Component mais
 pas entre les objets.
 N'oubliez pas que pour que les Component
 Graphics et Physics fonctionnent, vous devez
 inclure un PositionComponent.
-Une fois le script terminÈ, dirigez vous dans 
-la mÈthode init() de la classe Scene, et 
+Une fois le script termin√©, dirigez vous dans 
+la m√©thode init() de la classe Scene, et 
 copiez-collez cette ligne :
 m_gameObjects.push_back(luain::loadGameObjects(this, L, "player"));
 et remplacez "player" par, par exemple, "MonObjet"
-Et voil‡!
+Et voil√†!
 ----------------------------------
-
+Ces instructions sont un peu obsol√®tes mais le fonctionnement actuel
+de base est sensiblement le m√™me
 
 **************************************************/
 
@@ -67,13 +74,13 @@ public:
 	~Scene();
 	
 	void update(Message &postman);
-	void init(std::string arg, std::string xml,std::string seed); // mÈthode qui prend un script  et initialise le vector de gameObjects
+	void init(std::string arg, std::string xml,std::string seed); // m√©thode qui prend un script  et initialise le vector de gameObjects
 	void clear();
 	void reset();
 
 	void orderByZIndex();
 
-	//getters des components, utile ‡ luafunctions.cpp
+	//getters des components, utile √† luafunctions.cpp
 	template <typename T> void addComponent(std::shared_ptr<Component> c){
 		 
 		//m_components[t].push_back(c);
