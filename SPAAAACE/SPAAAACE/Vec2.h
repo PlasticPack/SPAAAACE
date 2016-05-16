@@ -1,12 +1,12 @@
+/*************************
+Cr√©√© par Charles Murphy
+Classe qui repr√©sente un vecteur 2D
+manipulable, sur lequel on peut
+effectuer des op√©rations de base
+**************************/
 #pragma once
 
 #include <math.h>
-
-/**************************************
-Classe qui reprÈsente un vecteur 2D
-manipulable, sur lequel on peut
-effectuer des opÈrations de base
-**************************************/
 
 class Vec2{
 public:
@@ -20,7 +20,7 @@ public:
 	Vec2 operator*(const double k); // multiplication par un scalaire
 	double operator*(const Vec2 &vec); // produit scalaire ou dot product
 
-	Vec2 operator/(const double k); // division par un scalaire, plus simple que d'Ècrire * 1 / k
+	Vec2 operator/(const double k); // division par un scalaire, plus simple que d'√©crire * 1 / k
 
 	Vec2& operator=(const Vec2 &vec);
 	void operator+=(const Vec2 &vec);
@@ -62,7 +62,7 @@ public:
 		return sqrt((m_x*m_x) + (m_y*m_y));
 	}
 
-	double getDist(Vec2 vec) { // retourne la distance ‡ un point (reprÈsentÈ par un vecteur)
+	double getDist(Vec2 vec) { // retourne la distance √† un point (repr√©sent√© par un vecteur)
 		return sqrt(((m_x - vec.m_x) * (m_x - vec.m_x)) + ((m_y - vec.m_y) * (m_y - vec.m_y)));
 	};
 
