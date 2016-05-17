@@ -1,3 +1,7 @@
+/*
+Namespace qui permet de générer procéduralement des niveaux de jeux, des images ainsi que des surfaces de planètes.
+*/
+
 #pragma once
 
 #include<iostream>
