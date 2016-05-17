@@ -3,6 +3,9 @@ Créé par Charles Murphy
 Component servant à gérer le déplacement
 d'un objet selon les lois de la physique
 gestion de la gravité et des collisions
+Modifié par Tristan Roy afin d'assurer 
+la correspondance avec les scripts et 
+la sauvegarde
 **************************/
 #pragma once
 
