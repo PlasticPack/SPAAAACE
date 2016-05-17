@@ -1,4 +1,8 @@
-//Edited by Tristan Roy during year 2016 for purpose of flexibility
+/*
+Auteur originel: Michael Thomas Greer
+Modifié par Tristan Roy afin de permettre d'ajouter une plage de couleur au tableaux fournis
+ainsi que de régulariser le Hue et de respecter les valeurs RGB.
+*/
 
 //
 // Convert an array of integer values to a bitmap.
