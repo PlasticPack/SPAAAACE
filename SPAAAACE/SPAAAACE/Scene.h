@@ -3,6 +3,9 @@ Créé par Charles Murphy
 Représente un niveau ou un menu,
 bref une collection de GameObjects pouvant 
 être mis à jour
+Modifié par Tristan Roy afin de permettre
+la charge des sauvegardes ainsi que la génération
+procédurale de niveaux.
 **************************/
 #pragma once
 
