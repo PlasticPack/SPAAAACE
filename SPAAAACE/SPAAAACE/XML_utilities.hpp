@@ -1,3 +1,8 @@
+/*
+Auteur: Tristan Roy
+Namespace qui permet de sauvegarder les informations contenues dans les objets propres au jeu
+sous la forme de fichiers structurés XML. Permet aussi de charger ces informations.
+*/
 #pragma once
 
 #include <vector>
