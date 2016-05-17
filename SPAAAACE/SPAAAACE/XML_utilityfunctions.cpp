@@ -1,5 +1,10 @@
+/*****
+Créé par Tristan Roy.
+Permet l'écriture et la lecture de fichiers XML grâce à TinyXML1.
+****/
 #include "XML_utilities.hpp"
 
+//Permet de charger les objets enregistrés dans dans la sauvegarde XML. Nécéssite qu'on lui passe les objets du script initialisés.
 bool XML_u::loadObjects(Scene *s, std::vector<std::shared_ptr<GameObject> > &pureObjects, std::map<std::string, std::shared_ptr<GameObject>> roughtObjects, const std::string &filepath){
 	//Pure objects are the objects after having been initialised corrrectly, and so
 	//should only be used as so and at the very end of that process. 
@@ -23,17 +28,13 @@ bool XML_u::loadObjects(Scene *s, std::vector<std::shared_ptr<GameObject> > &pur
 
 						//on arrange les components de l'objet pour qu'ils pointent tous sur un seul 
 						//position component
-						if (object->hasComponent(std::type_index(idn(PhysicsComponent)))){
+						if (object->hasComponent(std::type_index(idn(PhysicsComponent))))
 							object->get<PhysicsComponent>()->setPositionComp(object->get<PositionComponent>());
-						}
-
-						if (object->hasComponent(std::type_index(idn(GraphicsComponent)))){
+						if (object->hasComponent(std::type_index(idn(GraphicsComponent))))
 							object->get<GraphicsComponent>()->setPositionComponent(object->get<PositionComponent>());
-						}
 
-						if (object->hasComponent(std::type_index(idn(AiComponent)))){
+						if (object->hasComponent(std::type_index(idn(AiComponent))))
 							object->get<AiComponent>()->setPhysicsComp(object->get<PhysicsComponent>());
-						}
 
 						for (element node = entity->FirstChildElement(); node;
 							node = node->NextSiblingElement()){
@@ -182,36 +183,32 @@ bool XML_u::loadObjects(Scene *s, std::vector<std::shared_ptr<GameObject> > &pur
 	}
 	return true;
 }
-
+/*
+Permet de sauvegarded les objets transmis sous la forme d'un fichier XML du nom spécifié.
+Le nom du script selon lequel a été initialisé sert normalement de balises dans le fichier. 
+Toutes les entités d'objets de type emblables sont sauvegardés dans la même balise.
+*/
 bool XML_u::saveObjects(Scene *s, std::vector<std::shared_ptr<GameObject> > &objects, const std::string &filepath){
 	std::map<std::string, std::vector<std::shared_ptr<GameObject>>> objects_byTypes;
 	//Dont't touch this part, very important for class differ
 	for (int i = 0; i < objects.size(); i++){
-		//std::cout << objects[i]->getID() << std::endl;
-		if (objects_byTypes.find(objects[i]->getType()) != objects_byTypes.end()){
+		if (objects_byTypes.find(objects[i]->getType()) != objects_byTypes.end())
 			objects_byTypes[objects[i]->getType()].push_back(objects[i]);
-		}
 		else objects_byTypes.insert(std::make_pair(objects[i]->getType(), std::vector<std::shared_ptr<GameObject>>(1, objects[i])));
 	}
-
-
 	TiXmlDocument doc;
 	TiXmlDeclaration * declaration = new TiXmlDeclaration("1.0", "", "");
+
 	for (std::map<std::string, std::vector<std::shared_ptr<GameObject>>>::iterator iterator = objects_byTypes.begin(); iterator != objects_byTypes.end(); iterator++){
 		element script = new_element(iterator->first);
 		int cpt = 0;
 		for (std::shared_ptr<GameObject> object : iterator->second){
 
-			element elements = new_element(iterator->first
-				+ std::to_string(cpt)
-				);
-
+			element elements = new_element(iterator->first+ std::to_string(cpt));
 			element id = new_element(STR(id));
 			id->LinkEndChild(new_text(object->getID()));
 			elements->LinkEndChild(id);
-
 			if (object->getID().find("objective") != std::string::npos){
-
 				if (s->getMissionSystem()->getObjective(object->getID()).done){
 					element done = new_element(STR(done));
 					done->LinkEndChild(new_text(""));
@@ -240,11 +237,6 @@ bool XML_u::saveObjects(Scene *s, std::vector<std::shared_ptr<GameObject> > &obj
 				velocity->LinkEndChild(v_y);
 				v_x->LinkEndChild(new_text(std::to_string(phys(object)->getVelocity().x())));
 				v_y->LinkEndChild(new_text(std::to_string(phys(object)->getVelocity().y())));
-
-				//velocity->LinkEndChild((new_element(STR(x)))->LinkEndChild(new_text(std::to_string(object.get<PhysicsComponent>()->getVelocity().x()))));
-				//velocity->LinkEndChild((new_element(STR(y)))->LinkEndChild(new_text(std::to_string(object.get<PhysicsComponent>()->getVelocity().y()))));
-				//velocity->SetAttribute(STR(x), object.get<PhysicsComponent>()->getVelocity().x());
-				//velocity->SetAttribute(STR(Y), object.get<PhysicsComponent>()->getVelocity().y());
 				elements->LinkEndChild(velocity);
 
 				element forces = new_element(STR(forces));
@@ -303,11 +295,15 @@ bool XML_u::saveObjects(Scene *s, std::vector<std::shared_ptr<GameObject> > &obj
 	//declaration->
 }
 
+
+/****
+Convertie la map en un vecteur tel que prévus par la focntion originale et emploi celle-ci sur le 
+vecteur en question créé.
+****/
 bool XML_u::saveObjects(Scene *s,std::map<std::string, std::shared_ptr<GameObject>> &objects, const std::string &filepath){
 	std::vector<std::shared_ptr<GameObject>> pure_objs;
-	for (std::pair<std::string, std::shared_ptr<GameObject>> obj : objects){
+	for (std::pair<std::string, std::shared_ptr<GameObject>> obj : objects)
 		pure_objs.push_back(obj.second);
-	}
 	return XML_u::saveObjects(s, pure_objs, filepath);
 }
 
