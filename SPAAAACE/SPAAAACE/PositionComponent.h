@@ -1,6 +1,8 @@
 /*
 Créé par Charles Murphy
 Permet de gérer une position spatiale en x, y, et "z"
+Modifié par Tristan Roy afin d'assurer la correspondance 
+avec les scripts et la sauvegarde
 z : layer (double)
 indique la hauteur absolue
 zIndex 0 : base, loin "à l'infini", ne bouge apparament pas
