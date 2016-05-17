@@ -1,3 +1,8 @@
+/*
+Auteur: Tristan Roy
+Classe qui permet d'uiliser les cripts LUA dans le code C++ et d'accéder à ces fichiers grâce à la bibliothèque Boost.
+La partie conçue pour les scripts est librement inspirée de tutoriels de Elias Daler sur le site https://eliasdaler.wordpress.com/
+*/
 #pragma once
 #include<vector>
 #include <iostream>
