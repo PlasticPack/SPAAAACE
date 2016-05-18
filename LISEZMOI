@@ -1,0 +1,10 @@
+//attention: certaines parties du programme ne fonctionnent pas correctement. 
+//par exemple, le système de missions n'est pas fonctionnel dans cette version
+//Je (Charles) devait régler le problème mais mon ordinateur est hors d'état
+//d'utilisation depuis mercredi passé et je ne me suis rendu compte du problème
+//que hier. J'ai donc essayé de régler le problème sans succès. Moi et mes
+//coéquipiers avont donc décidé de tout de même remettre cette version car elle 
+//comporte actuellement le plus grand nombre de fonctionalités actives et représentatives
+//du travail de toute l'équipe (physique/visuel/génération/AI/inputs/musique)
+//tandis que la version dans laquelle le systeme de mission fonctionne n'inclut pas
+//la musique, une partie des inputs et la génération
